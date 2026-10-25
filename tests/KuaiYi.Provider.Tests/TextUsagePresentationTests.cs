@@ -23,7 +23,7 @@ namespace KuaiYi.Provider.Tests
             await using var r=await TextUsageRig.Create(protocol,true);var id=r.Start();await r.Requests(1);
             await r.Script.Write(r.StartFrames+r.UsageFrame(r.Counts(7,3))+(body?r.EndFrames("public partial",terminal:false):""));await TextUsageRig.Wait(()=>r.Events.Any(e=>e.Presentation.Kind==OverlayResultEventKind.Usage)&&(!body||r.Events.Any(e=>e.Presentation.Kind==OverlayResultEventKind.Delta)));
             r.Window.StopForTest();await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));var version=r.Version(id);Assert.True(version.Stopped);Assert.False(version.Complete);Assert.Equal(new TranslationUsage(7,3),version.Usage);Assert.False(r.Results.ObserveUsage(id,99,88));Assert.Equal(new TranslationUsage(7,3),r.Version(id).Usage);
-            Assert.Contains("输入 token：7 · 输出 token：3",r.Window.ResultLabel);Assert.EndsWith(" · 已停止",r.Window.ResultLabel);Assert.Equal(body?"public partial":"",r.Results.Text);Assert.False(r.Gate.HasRunningGeneration);Assert.Single(r.Script.Bodies);
+            Assert.Contains("输入 token：7 · 输出 token：3",r.Window.ResultLabel);Assert.StartsWith("本地测试输出 · 已停止 · 选区 · 忠实翻译 · 版本 1 ·",r.Window.ResultLabel);Assert.Equal(body?"public partial":"",r.Results.Text);Assert.False(r.Gate.HasRunningGeneration);Assert.Single(r.Script.Bodies);
         }
         [Theory][InlineData(Protocol.OpenAIChat,false)][InlineData(Protocol.OpenAIChat,true)][InlineData(Protocol.AnthropicMessages,false)][InlineData(Protocol.AnthropicMessages,true)]
         public async Task StreamInterruptionOrTruncationKeepsReportedUsageWithoutClaimingCompletion(Protocol protocol,bool interrupted)

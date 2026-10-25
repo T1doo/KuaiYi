@@ -7,19 +7,20 @@ internal sealed partial class ShellWindow
     private void RefreshResultLabel()
     {
         var selection=SelectedSource;var snapshot=selection.Text;var selected=overlayResults.Versions.FirstOrDefault(v=>v.Identity.VersionId==overlayResults.SelectedVersionId);
-        resultLabel.Text=snapshot==null?"":$"{(snapshot.Transport.IsDevelopmentFixture?"本地测试输出 · ":snapshot.Transport.BaseUrl.Scheme=="http"?"非加密 HTTP · ":"")}{(selected?.Complete==true||selected?.Stopped==true?"版本":"生成版本")} {snapshot.VersionNumber} · {StyleLabel(snapshot)} · {SourceLabel(snapshot)} · {snapshot.Profile.Model}";
+        string state=selected?.Failure!=null?"未完成":selected?.Stopped==true?"已停止":selected?.Complete==true?"已完成":"生成中";
+        resultLabel.Text=snapshot==null?"":$"{(snapshot.Transport.IsDevelopmentFixture?"本地测试输出 · ":snapshot.Transport.BaseUrl.Scheme=="http"?"非加密 HTTP · ":"")}{state} · {SourceLabel(snapshot)} · {StyleLabel(snapshot)} · 版本 {snapshot.VersionNumber} · {snapshot.Profile.Model}";
         resultLabel.ToolTip=snapshot==null?null:$"此版本快照 · {snapshot.FullTemplateVersion} · {new EndpointOrigin(snapshot.Transport.ResolveEndpoint()).Value}";
         if(snapshot?.Source.SourceKind==SelectionSourceKind.OcrOnly)resultLabel.ToolTip+="\n当前模型不支持图像理解，图形关系未分析";
         if(snapshot!=null)
         {
             string counts=UsageLabel(selected?.Usage);
-            resultLabel.Text+=" · "+counts+(selected?.Failure!=null?" · 未完成":selected?.Stopped==true?" · 已停止":"");
+            resultLabel.Text+=" · "+counts;
             resultLabel.ToolTip+="\n此版本服务端报告 · "+counts+"\nUnknown（未知）表示服务端未报告有效数值；这是请求元数据，不是费用或完整计费凭证。";
         }
         if(LocalImagePreview&&selection.Image is {} image){resultLabel.Text=$"{(image.Kind==KuaiYi.Imaging.ImageSourceKind.Browser?"浏览器图片 · 本地接收":image.Kind==KuaiYi.Imaging.ImageSourceKind.Bitmap?"投放位图":image.Kind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"文件图片":"本地图片")}{(image.Notice is {} frame?" · "+frame:"")} · 未翻译 · {image.Width} × {image.Height}"+(SelectedScreenshotPreset is {} preset?$" · 本次风格：{StyleLabel(preset)}":"");resultLabel.ToolTip=image.Kind==KuaiYi.Imaging.ImageSourceKind.Browser?"只保留本次明确接收的归一化PNG；未翻译、未发送，不持有浏览器Cookie或页面。":image.Kind==KuaiYi.Imaging.ImageSourceKind.Bitmap?"仅保留本次投放位图的归一化图片；未发送，无文件路径或桌面坐标证明。":image.Kind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"仅保留所选文件的归一化图片；未翻译、未发送，不保留文件路径。":"仅保留本次裁剪图；本地预览尚未翻译、未发送。";}
         if(selection.Generation is {} generated)
         {
-            resultLabel.Text=$"{(generated.SourceKind==KuaiYi.Imaging.ImageSourceKind.Browser?"浏览器图片":generated.SourceKind==KuaiYi.Imaging.ImageSourceKind.Bitmap?"投放位图":generated.SourceKind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"文件图片":"截图")}{(generated.SourceNotice is {} sourceNotice?" · "+sourceNotice:"")} · 版本 {generated.Number} · {StyleLabel(generated.Plan?.Preset??imageTranslation?.PresetForVersion(selection.VersionId!.Value)??generated.Settings.Data.Translation.Preset)} · {generated.Profile.Model}"+(generated.Plan?.Notice is {Length:>0} note?" · "+note:"")+(selected?.Failure!=null?" · 未完成":selected?.Stopped==true?" · 已停止":"");
+            resultLabel.Text=$"{state} · {(generated.SourceKind==KuaiYi.Imaging.ImageSourceKind.Browser?"浏览器图片":generated.SourceKind==KuaiYi.Imaging.ImageSourceKind.Bitmap?"投放位图":generated.SourceKind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"文件图片":"截图")}{(generated.SourceNotice is {} sourceNotice?" · "+sourceNotice:"")} · 版本 {generated.Number} · {StyleLabel(generated.Plan?.Preset??imageTranslation?.PresetForVersion(selection.VersionId!.Value)??generated.Settings.Data.Translation.Preset)} · {generated.Profile.Model}"+(generated.Plan?.Notice is {Length:>0} note?" · "+note:"");
             resultLabel.Text+=generated.Ocr?.UsedForText==true?" · 已批准 OCR 文字":generated.VisionContinuation!=null?" · 使用视觉继续 · 未使用 OCR 文字":"";
             resultLabel.ToolTip=$"此版本图片快照 · {new EndpointOrigin(generated.Transport.ResolveEndpoint()).Value}\n{ScreenshotUsageLabel(generated)}\n{generated.Plan?.Notice}\n仅显示服务端报告，不相加或估算费用；当前图片复用未启用。";
         }

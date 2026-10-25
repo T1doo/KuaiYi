@@ -8,7 +8,7 @@ internal sealed partial class SettingsWindow
 {
     private static readonly string[] PageTitles=["常规","API 与模型","翻译风格","交互与浮窗","快捷键","图片与集成","隐私与诊断"];
     private static readonly string[] PageDescriptions=["安心开始，把翻译调整为适合你的方式。","连接你选择的服务，始终清楚内容发往哪里。","同一份原文，用适合阅读场景的表达。","让浮窗轻巧、清晰，按你的节奏出现。","为常用操作设置顺手的组合。","从一张图片开始，逐次确认处理与发送。","内容留在当前会话，授权由你决定。"];
-    private TextBlock? pageHeading,pageDescription;
+    private TextBlock? pageHeading,pageDescription,pageIndex;
     private void BuildSettingsChrome(StackPanel[] pages,out ListBox navigation)
     {
         DesktopTheme.Install(this,()=>theme.SelectedItem is ThemePreference selected?selected:draft.Data.Overlay.Theme,forms:true);
@@ -22,7 +22,8 @@ internal sealed partial class SettingsWindow
         navigation=new SettingsNavigationListBox{ItemsSource=PageTitles,BorderThickness=new Thickness(0),Background=System.Windows.Media.Brushes.Transparent,Padding=new Thickness(0),ItemContainerStyle=(Style)Resources[DesktopTheme.NavigationItem],ItemTemplate=DesktopTheme.NavigationTemplate()};AutomationProperties.SetName(navigation,"设置分类");Grid.SetRow(navigation,1);sidebar.Children.Add(navigation);
         var pageContent=new StackPanel();
         var header=new StackPanel();var headingRegion=new Border{Child=header,Padding=new Thickness(0,0,0,22),Margin=new Thickness(0,0,0,22),BorderThickness=new Thickness(0,0,0,1)};DesktopTheme.Bind(headingRegion,Border.BorderBrushProperty,DesktopTheme.Stroke);pageContent.Children.Add(headingRegion);
-        pageHeading=new TextBlock{Text=PageTitles[0],FontSize=27,FontWeight=FontWeights.SemiBold,TextWrapping=TextWrapping.Wrap};header.Children.Add(pageHeading);pageDescription=new TextBlock{Text=PageDescriptions[0],FontSize=13,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,8,0,0)};DesktopTheme.Bind(pageDescription,TextBlock.ForegroundProperty,DesktopTheme.Muted);header.Children.Add(pageDescription);
+        pageIndex=new TextBlock{Text="偏好设置  /  01",FontSize=11,FontWeight=FontWeights.SemiBold,Margin=new Thickness(0,0,0,8)};DesktopTheme.Bind(pageIndex,TextBlock.ForegroundProperty,DesktopTheme.Accent);header.Children.Add(pageIndex);
+        pageHeading=new TextBlock{Text=PageTitles[0],FontSize=28,FontWeight=FontWeights.SemiBold,TextWrapping=TextWrapping.Wrap};header.Children.Add(pageHeading);pageDescription=new TextBlock{Text=PageDescriptions[0],FontSize=13,TextWrapping=TextWrapping.Wrap,LineHeight=21,Margin=new Thickness(0,8,0,0)};DesktopTheme.Bind(pageDescription,TextBlock.ForegroundProperty,DesktopTheme.Muted);header.Children.Add(pageDescription);
         body.Margin=new Thickness(0);body.VerticalAlignment=VerticalAlignment.Top;
         foreach(var page in pages)
         {
@@ -64,5 +65,5 @@ internal sealed partial class SettingsWindow
         var trigger=new DataTrigger{Binding=new Binding(nameof(SettingsChromePanel.IsCompact)){Source=root},Value=true};trigger.Setters.Add(new Setter(property,compact));style.Triggers.Add(trigger);element.Style=style;
     }
     private void ShowSettingsPage(int index)
-    {if(index<0||index>=PageTitles.Length)return;pageHeading!.Text=PageTitles[index];pageDescription!.Text=PageDescriptions[index];}
+    {if(index<0||index>=PageTitles.Length)return;pageIndex!.Text=$"偏好设置  /  {index+1:00}";pageHeading!.Text=PageTitles[index];pageDescription!.Text=PageDescriptions[index];}
 }

@@ -20,9 +20,11 @@ internal sealed partial class ShellWindow
 {
     private readonly Canvas overlayCanvas=new(){ClipToBounds=true,HorizontalAlignment=HorizontalAlignment.Left,VerticalAlignment=VerticalAlignment.Top};
     private readonly Border cardBackground=new(){Background=Brushes.White,IsHitTestVisible=false};
+    private readonly Border growthWash=new(){IsHitTestVisible=false,Visibility=Visibility.Collapsed};
+    private RadialGradientBrush? growthBrush;
     private readonly RichTextBox body=new(){IsReadOnly=true,IsUndoEnabled=false,IsDocumentEnabled=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Visible,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,FontFamily=new("Segoe UI"),Background=Brushes.Transparent};
     private readonly RichTextBox measurement=new(){IsReadOnly=true,IsUndoEnabled=false,IsDocumentEnabled=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Visible,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled};
-    private readonly TextBlock resultLabel=new(){FontSize=11,FontWeight=FontWeights.Medium,TextTrimming=TextTrimming.CharacterEllipsis,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
+    private readonly TextBlock resultLabel=new(){FontSize=11,FontWeight=FontWeights.SemiBold,TextTrimming=TextTrimming.CharacterEllipsis,Visibility=Visibility.Collapsed};
     private readonly Canvas controls=new(){Height=48};private readonly List<Button> tools=[];private readonly List<Action> toolActions=[];
     private readonly Border toolbarSurface=new(){Height=48,IsHitTestVisible=false};
     private readonly Border toolbarDivider=new(){Height=1,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
@@ -52,9 +54,10 @@ internal sealed partial class ShellWindow
     private void SetupPresentation()
     {
         DesktopTheme.Install(this,()=>lifecycle.Settings?.Data.Overlay.Theme??ThemePreference.FollowSystem,forms:false,changedAppearance:RefreshPresentationTheme);
+        resultLabel.SetBinding(System.Windows.Automation.AutomationProperties.NameProperty,new System.Windows.Data.Binding(nameof(TextBlock.Text)){Source=resultLabel});
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
         bodyMarkdown=new(body,ObserveCodeReaderIntent,CaptureBodyReaderGuard,()=>follow,OriginalSourceChanged,CanReadOriginalSourceVersion,ImageSourcePreviewFailed,OpenMarkdownLink);measurementMarkdown=new(measurement,canReadSource:CanReadOriginalSourceVersion,sourceFailed:ImageSourcePreviewFailed);
-        Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(failureNotice);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
+        Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(growthWash);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(failureNotice);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
         body.Visibility=controls.Visibility=Visibility.Collapsed;button.Width=button.Height=48;button.Padding=new Thickness(0);button.Style=(Style)Resources[DesktopTheme.AnchorButton];cardBackground.CornerRadius=new CornerRadius(16);cardBackground.BorderThickness=new Thickness(1);RefreshPresentationTheme();
         DesktopTheme.Bind(toolbarSurface,Border.BackgroundProperty,DesktopTheme.Rail);DesktopTheme.Bind(toolbarDivider,Border.BackgroundProperty,DesktopTheme.Stroke);controls.Children.Add(toolbarSurface);controls.Children.Add(toolbarDivider);
         styleTool=Tool("风格",()=>OpenOverflowMenu(styleTool!));Tool("翻译截图",()=>TranslateScreenshot());Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("查看原文",ShowSelectionSource);Tool("清除当前内容",()=>_=ClearCurrentContent());Tool("设置",()=>_=OpenSettings());
@@ -92,6 +95,8 @@ internal sealed partial class ShellWindow
     {
         DesktopTheme.Apply(this,lifecycle.Settings?.Data.Overlay.Theme??ThemePreference.FollowSystem);
         cardBackground.Background=DesktopTheme.Brush(this,DesktopTheme.Surface);cardBackground.BorderBrush=DesktopTheme.Brush(this,DesktopTheme.Stroke);body.Foreground=DesktopTheme.Brush(this,DesktopTheme.Text);measurement.Foreground=body.Document.Foreground=measurement.Document.Foreground=body.Foreground;connectionStatus.Foreground=resultLabel.Foreground=DesktopTheme.Brush(this,DesktopTheme.Muted);
+        if(DesktopTheme.Brush(this,DesktopTheme.AccentSoft) is SolidColorBrush tint){growthBrush=new RadialGradientBrush(tint.Color,Colors.Transparent){RadiusX=.8,RadiusY=.8};growthWash.Background=growthBrush;}
+        if(SystemParameters.HighContrast||ReduceMotion)growthWash.Visibility=Visibility.Collapsed;
         button.Foreground=SystemParameters.HighContrast?SystemColors.HighlightTextBrush:Brushes.White;bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;button.Background=on?OverlayTokens.On:OverlayTokens.Off;UpdateButtonGlyph(on);
         bodyMarkdown.RefreshCodeAppearance();measurementMarkdown.RefreshCodeAppearance();
     }
@@ -190,6 +195,12 @@ internal sealed partial class ShellWindow
         var corner=new CornerRadius(dpi.Dips(radius));if(cardBackground.CornerRadius!=corner)cardBackground.CornerRadius=corner;
         double width=dpi.Dips(rect.Width),height=dpi.Dips(rect.Height);overlayCanvas.Width=width;overlayCanvas.Height=height;cardBackground.Width=width;cardBackground.Height=height;
         double bx=dpi.Dips(anchor.Left-rect.Left),by=dpi.Dips(anchor.Top-rect.Top);Canvas.SetLeft(button,bx);Canvas.SetTop(button,by);
+        // Paint follows the existing frame. No clock, geometry, input or new frame
+        // subscription is introduced; reduced motion/high contrast suppress it.
+        growthWash.Width=width;growthWash.Height=height;growthWash.CornerRadius=corner;
+        if(growthBrush!=null)growthBrush.Center=growthBrush.GradientOrigin=new Point((bx+24)/Math.Max(1,width),(by+24)/Math.Max(1,height));
+        growthWash.Opacity=.45*(1-overlayFrames.ContentOpacity);
+        growthWash.Visibility=!SystemParameters.HighContrast&&!ReduceMotion&&overlayFrames.Transition==OverlayTransition.Opening?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(progressRing,bx+3);Canvas.SetTop(progressRing,by+3);
         controls.Visibility=expanded&&!externalDropHover?Visibility.Visible:Visibility.Collapsed;controls.Width=toolbarSurface.Width=width;Canvas.SetTop(controls,by);
         double before=bx,after=width-bx-48;bool left=before>after;double available=Math.Max(before,after),start=left?0:bx+48;

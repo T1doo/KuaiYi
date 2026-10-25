@@ -1,0 +1,494 @@
+{
+  "status": "Pass_ManagedUiChecksOnly",
+  "baseHead": "e4d57e77426ab235c7219b375debd76bc072e00b",
+  "sdk": "10.0.402",
+  "hostRuntime": "10.0.13",
+  "productionSourceFiles": 6,
+  "testSourceFiles": 3,
+  "sources": [
+    {
+      "path": "src/KuaiYi.App/DesktopPalette.cs",
+      "bytes": 860,
+      "sha256": "fbc9b5b307022a7c0564127d48f6377926cc972496a89413b59138d6d55a89a6"
+    },
+    {
+      "path": "src/KuaiYi.App/DesktopTheme.cs",
+      "bytes": 20511,
+      "sha256": "e9a1b709acfb186df53e2e096da22fde14cd6816327db2329016623cf655d2d3"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayPresentation.cs",
+      "bytes": 24619,
+      "sha256": "99c2ef821a165b0b70555bf7c200a8ea56d1268557162c6090f98f143687c052"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayResultLabel.cs",
+      "bytes": 8650,
+      "sha256": "0ab3ec13edf5e797e424d8d173c4caf1e6aee15cac6aa5c088aea66af078d2cb"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsChrome.cs",
+      "bytes": 9642,
+      "sha256": "3acb5cf366f1cf9153894605d0d73740fefe0fc5d508b70de767bbb89e257f9a"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsSections.cs",
+      "bytes": 3531,
+      "sha256": "574a95fb8b9fc3ea425274b5cbd31c339ad8dc8f1cc8711a8db2b77b5c0dd097"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/DesktopPaletteTests.cs",
+      "bytes": 2269,
+      "sha256": "aab83eba79fd3d5922910c651cc88bb8d05978ab084e33d86926441e5cb84e49"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs",
+      "bytes": 20405,
+      "sha256": "5de5378009e3219ea979462af6d318c7ca3af6e970d772434c85cb6d9fded81c"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/TextUsagePresentationTests.cs",
+      "bytes": 9534,
+      "sha256": "2622270fbb33d637efc10d069829f217e79ab99f3071d2d3585ad5181f848891"
+    }
+  ],
+  "beforeSourceCopies": [
+    {
+      "path": "artifacts/2026-10-25-ui-polish/before-source/DesktopPalette.cs",
+      "bytes": 803,
+      "sha256": "95f06a3d9eb387464f1513b58b9e4345f92e5e056635da4b6deecf149e97e829"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-polish/before-source/DesktopTheme.cs",
+      "bytes": 19320,
+      "sha256": "333c12617c109569f1b0ec873439bcc55976c11677868330b71ff06b2a53991d"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-polish/before-source/OverlayPresentation.cs",
+      "bytes": 23346,
+      "sha256": "2fcec5a093bbcbb8750183336cf0b0b00d98556f8bf4e26563482d4c5389018b"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-polish/before-source/OverlayResultLabel.cs",
+      "bytes": 8726,
+      "sha256": "f030a4867dcc975378885ad09cb5676b5e0635f918d943c6315021317b2a08e5"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-polish/before-source/SettingsChrome.cs",
+      "bytes": 9325,
+      "sha256": "2be939c58341dbc7cd89279ff4dfbcea37223b70fef69bf88920eaf6da0c7fd2"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-polish/before-source/SettingsSections.cs",
+      "bytes": 3467,
+      "sha256": "1a3f1be280919c33fb8baf3adad95455ab3cebf5a87ccb09c60bac2bb590e756"
+    }
+  ],
+  "compilationInputs": 766,
+  "inputsUnchanged": true,
+  "sourcesBefore": {
+    "path": "artifacts/2026-10-25-ui-polish/checks-r02/sources-before.json",
+    "bytes": 116553,
+    "sha256": "99af0df4f748888f124210f9745c67b0c78602a11c4049d4ab85f97e2861616e"
+  },
+  "sourcesAfter": {
+    "path": "artifacts/2026-10-25-ui-polish/checks-r02/sources-after.json",
+    "bytes": 116553,
+    "sha256": "99af0df4f748888f124210f9745c67b0c78602a11c4049d4ab85f97e2861616e"
+  },
+  "commands": [
+    {
+      "argv": [
+        "$WORKSPACE/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "restore",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "--locked-mode",
+        "--configfile",
+        "$WORKSPACE/NuGet.Config",
+        "--artifacts-path",
+        "$WORKSPACE/artifacts/2026-10-25-ui-polish/checks-r02/build",
+        "--disable-build-servers",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13",
+        "-maxcpucount:1",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "startUnix": 1792906880.1792073,
+      "log": "App-restore.log",
+      "exit": 0,
+      "settlement": "LeaderJoined_GroupEmpty",
+      "endUnix": 1792906881.5826266
+    },
+    {
+      "argv": [
+        "$WORKSPACE/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "--artifacts-path",
+        "$WORKSPACE/artifacts/2026-10-25-ui-polish/checks-r02/build",
+        "--disable-build-servers",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13",
+        "-maxcpucount:1",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "startUnix": 1792906881.5830052,
+      "log": "App-build.log",
+      "exit": 0,
+      "settlement": "LeaderJoined_GroupEmpty",
+      "endUnix": 1792906901.7505507
+    },
+    {
+      "argv": [
+        "$WORKSPACE/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "restore",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "--locked-mode",
+        "--configfile",
+        "$WORKSPACE/NuGet.Config",
+        "--artifacts-path",
+        "$WORKSPACE/artifacts/2026-10-25-ui-polish/checks-r02/build",
+        "--disable-build-servers",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13",
+        "-maxcpucount:1",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "startUnix": 1792906901.7524493,
+      "log": "Provider-restore.log",
+      "exit": 0,
+      "settlement": "LeaderJoined_GroupEmpty",
+      "endUnix": 1792906903.3812134
+    },
+    {
+      "argv": [
+        "$WORKSPACE/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "build",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "--artifacts-path",
+        "$WORKSPACE/artifacts/2026-10-25-ui-polish/checks-r02/build",
+        "--disable-build-servers",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13",
+        "-maxcpucount:1",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "startUnix": 1792906903.3814647,
+      "log": "Provider-build.log",
+      "exit": 0,
+      "settlement": "LeaderJoined_GroupEmpty",
+      "endUnix": 1792906919.3756008
+    },
+    {
+      "argv": [
+        "$WORKSPACE/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "test",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "--no-build",
+        "--no-restore",
+        "-c",
+        "Release",
+        "--filter",
+        "FullyQualifiedName~DesktopPaletteTests|FullyQualifiedName~SettingsLayoutTests|FullyQualifiedName~OverlayPresentationTests|FullyQualifiedName~OverlayStopFlowTests|FullyQualifiedName~OverlayClearContentTests|FullyQualifiedName~TextUsagePresentationTests|FullyQualifiedName~TextVersionUsageTests|FullyQualifiedName~TextTerminalFailureTests|FullyQualifiedName~ProductionScreenshotShellTests|FullyQualifiedName~SettingsSecretCommandTests|FullyQualifiedName~DisplayPreferencesFlowTests|FullyQualifiedName~DisplayPreferencesCommandConcurrencyTests|FullyQualifiedName~DisplayPreferencesCommandLateTests",
+        "--logger",
+        "trx;LogFileName=Provider.trx",
+        "--results-directory",
+        "$WORKSPACE/artifacts/2026-10-25-ui-polish/checks-r02/results",
+        "--artifacts-path",
+        "$WORKSPACE/artifacts/2026-10-25-ui-polish/checks-r02/build",
+        "--disable-build-servers",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13",
+        "-maxcpucount:1",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "startUnix": 1792906919.3761873,
+      "log": "Provider-test.log",
+      "exit": 0,
+      "settlement": "LeaderJoined_GroupEmpty",
+      "endUnix": 1792906926.039757
+    },
+    {
+      "argv": [
+        "$WORKSPACE/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "restore",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--locked-mode",
+        "--configfile",
+        "$WORKSPACE/NuGet.Config",
+        "--artifacts-path",
+        "$WORKSPACE/artifacts/2026-10-25-ui-polish/checks-r02/build",
+        "--disable-build-servers",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13",
+        "-maxcpucount:1",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "startUnix": 1792906926.0402734,
+      "log": "Core-restore.log",
+      "exit": 0,
+      "settlement": "LeaderJoined_GroupEmpty",
+      "endUnix": 1792906927.6992445
+    },
+    {
+      "argv": [
+        "$WORKSPACE/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "build",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "--artifacts-path",
+        "$WORKSPACE/artifacts/2026-10-25-ui-polish/checks-r02/build",
+        "--disable-build-servers",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13",
+        "-maxcpucount:1",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "startUnix": 1792906927.6995473,
+      "log": "Core-build.log",
+      "exit": 0,
+      "settlement": "LeaderJoined_GroupEmpty",
+      "endUnix": 1792906955.5518363
+    },
+    {
+      "argv": [
+        "$WORKSPACE/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--no-build",
+        "--no-restore",
+        "-c",
+        "Release",
+        "--filter",
+        "FullyQualifiedName~OverlayReviewFixTests",
+        "--logger",
+        "trx;LogFileName=Core.trx",
+        "--results-directory",
+        "$WORKSPACE/artifacts/2026-10-25-ui-polish/checks-r02/results",
+        "--artifacts-path",
+        "$WORKSPACE/artifacts/2026-10-25-ui-polish/checks-r02/build",
+        "--disable-build-servers",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13",
+        "-maxcpucount:1",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "startUnix": 1792906955.5544481,
+      "log": "Core-test.log",
+      "exit": 0,
+      "settlement": "LeaderJoined_GroupEmpty",
+      "endUnix": 1792906957.707158
+    }
+  ],
+  "tests": [
+    {
+      "original": {
+        "path": "artifacts/2026-10-25-ui-polish/checks-r02/results/Provider.trx",
+        "bytes": 571358,
+        "sha256": "6d28eb598170662fe4dd52e9e3db824a233c9d1027bec207e37d0c6a744859c7"
+      },
+      "counters": {
+        "total": "368",
+        "executed": "368",
+        "passed": "368",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "classes": {
+        "TextUsagePresentationTests": 24,
+        "TextVersionUsageTests": 95,
+        "TextTerminalFailureTests": 87,
+        "OverlayClearContentTests": 41,
+        "OverlayStopFlowTests": 28,
+        "DisplayPreferencesFlowTests": 17,
+        "ProductionScreenshotShellTests": 17,
+        "SettingsSecretCommandTests": 6,
+        "OverlayPresentationTests": 35,
+        "DisplayPreferencesCommandLateTests": 4,
+        "SettingsLayoutTests": 9,
+        "DisplayPreferencesCommandConcurrencyTests": 1,
+        "DesktopPaletteTests": 4
+      },
+      "uniqueTestIds": 368
+    },
+    {
+      "original": {
+        "path": "artifacts/2026-10-25-ui-polish/checks-r02/results/Core.trx",
+        "bytes": 22165,
+        "sha256": "bf8da226b3bca81c7a9a062a3402f4f9eb51c9a96a4549b82f1e2410192f611b"
+      },
+      "counters": {
+        "total": "14",
+        "executed": "14",
+        "passed": "14",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "classes": {
+        "OverlayReviewFixTests": 14
+      },
+      "uniqueTestIds": 14
+    }
+  ],
+  "dllHashesAfterRun": [
+    {
+      "path": "artifacts/2026-10-25-ui-polish/checks-r02/build/bin/KuaiYi.App/release_win-x64/KuaiYi.App.dll",
+      "bytes": 616960,
+      "sha256": "5aba887490a5bd4a6f95cc002f792001573235c4bd83a793e95dbe4efe0c68a4"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-polish/checks-r02/build/bin/KuaiYi.Core/release/KuaiYi.Core.dll",
+      "bytes": 1292800,
+      "sha256": "3016aa4acdc534ea2a4f6448ecb270436233f291b5efc97916a5559b4887834a"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-polish/checks-r02/build/bin/KuaiYi.Provider.Tests/release/KuaiYi.Provider.Tests.dll",
+      "bytes": 2539520,
+      "sha256": "34902573b956688f1713a0043edcf4b30cb9601231e30b90f540b3a43ab2f168"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-polish/checks-r02/build/bin/KuaiYi.Core.Tests/release/KuaiYi.Core.Tests.dll",
+      "bytes": 3371008,
+      "sha256": "19e7df1a448447fb5105b078490a6bf041c4734ed221984cc18445957eb0b704"
+    }
+  ],
+  "dllComparison": "No pre-test DLL hash snapshot; build then --no-build test used recorded paths. These are post-run hashes, not a claimed before/after equality check.",
+  "firstRun": {
+    "status": "Fail",
+    "provider": {
+      "original": {
+        "path": "artifacts/2026-10-25-ui-polish/checks-r01/results/Provider.trx",
+        "bytes": 550037,
+        "sha256": "4d069197fe8e36d2de5e1fab7ced52d2bd2c0657db21bf227783110c5e552fe2"
+      },
+      "counters": {
+        "total": "346",
+        "executed": "346",
+        "passed": "340",
+        "failed": "6",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "classes": {
+        "TextUsagePresentationTests": 24,
+        "TextVersionUsageTests": 95,
+        "TextTerminalFailureTests": 87,
+        "OverlayClearContentTests": 41,
+        "OverlayStopFlowTests": 28,
+        "ProductionScreenshotShellTests": 17,
+        "SettingsSecretCommandTests": 6,
+        "OverlayPresentationTests": 35,
+        "SettingsLayoutTests": 9,
+        "DesktopPaletteTests": 4
+      },
+      "uniqueTestIds": 346
+    },
+    "reason": "Two light accent contrast failures; four exact prefix expectations omitted mandatory local-fixture warning. Fixed production palette and exact test prefixes; original retained.",
+    "core": "NotRun_FirstRunStoppedAfterProviderFailure"
+  },
+  "preview": {
+    "status": "Blocked",
+    "action": "Sandbox-enabled Chromium launch for source-mapped HTML screenshots",
+    "target": "/usr/bin/chromium",
+    "attempts": 1,
+    "pageLoaded": false,
+    "screenshotsProduced": 0,
+    "result": "TargetClosedError; SIGABRT",
+    "processPid": 17585,
+    "processOutcome": "Playwright observed SIGABRT; cleanup finished",
+    "observedReason": "SUID sandbox helper found but not configured correctly; expected root owner and mode 4755. Crashpad also reported missing database.",
+    "securityChanges": "None; no no-sandbox retry or chmod/chown",
+    "evidence": "Observed original tool stderr at 2026-10-25T05:40:55Z; this JSON is a concise transcription, not a saved full stderr log.",
+    "nativeWpf": "NotRun",
+    "html": "Unrendered source-mapped drafts only; static public samples; not native pixel evidence"
+  },
+  "limits": [
+    "Native WPF pixels, real focus, DPI and animations NotRun",
+    "Browser HTML pixel review Blocked before page load",
+    "Full Core/Provider suites NotRun",
+    "No real Windows/native/registry/delete/CI/model requests",
+    "250/600ms, password/cancel/cleanup gates, model settings and strength unchanged",
+    "Production pins and ordinary Launcher issuer gates remain unchanged"
+  ],
+  "localOriginalsOnly": true
+}
