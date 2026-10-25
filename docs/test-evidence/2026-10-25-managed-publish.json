@@ -1,0 +1,290 @@
+{
+  "status": "Pass_ManagedPublishingAndPackagingOnly",
+  "productSourceHead": "4e2562b57356784ec6a85b5be5f0f88df5bdf592",
+  "finalPublisherSource": {
+    "path": "scripts/publish-windows-managed.py",
+    "bytes": 16431,
+    "sha256": "25f786e7b141315c14c41ee8754d50987d7c79de36c3d39506f0b0673728a583"
+  },
+  "finalTestsSource": {
+    "path": "scripts/test_managed_publish.py",
+    "bytes": 9955,
+    "sha256": "bfe0849133b4a54cee568d76df6ae9781eecdcebec1d4abf6e5ef306c89bf994"
+  },
+  "productSourcesCompared": 449,
+  "productSourcesUnchanged": true,
+  "originalPublishedBytesUnchanged": true,
+  "compiledCoreSha256": "863dee468b5d81695b83284d97036186bc1dca0d3015ab14a17181ea310fff33",
+  "coreCopiesEqual": 8,
+  "buildRun": {
+    "name": "r03",
+    "overallOriginalStatus": "Fail",
+    "originalFailure": "Input must be a regular, non-link local file",
+    "commands": [
+      {
+        "log": "App-restore.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906109.327076,
+        "endUnix": 1792906110.7319877
+      },
+      {
+        "log": "App-publish.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906110.7320256,
+        "endUnix": 1792906131.6040783
+      },
+      {
+        "log": "NativeHost-restore.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906133.0048513,
+        "endUnix": 1792906134.0632544
+      },
+      {
+        "log": "NativeHost-publish.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906134.0632877,
+        "endUnix": 1792906135.3374255
+      },
+      {
+        "log": "CaptureBroker-restore.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906136.3436294,
+        "endUnix": 1792906137.6195378
+      },
+      {
+        "log": "CaptureBroker-publish.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906137.6195717,
+        "endUnix": 1792906141.6310685
+      },
+      {
+        "log": "ClipboardHost-restore.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906143.3652358,
+        "endUnix": 1792906144.6847374
+      },
+      {
+        "log": "ClipboardHost-publish.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906144.6847718,
+        "endUnix": 1792906148.2425652
+      },
+      {
+        "log": "CaptureHost-restore.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906150.2801428,
+        "endUnix": 1792906151.648641
+      },
+      {
+        "log": "CaptureHost-publish.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906151.6486769,
+        "endUnix": 1792906155.980485
+      },
+      {
+        "log": "OleReceiver-restore.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906158.4680054,
+        "endUnix": 1792906159.9147518
+      },
+      {
+        "log": "OleReceiver-publish.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906159.9147892,
+        "endUnix": 1792906163.5648046
+      },
+      {
+        "log": "ImageWorker-restore.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906167.2027862,
+        "endUnix": 1792906168.489797
+      },
+      {
+        "log": "ImageWorker-publish.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906168.4898329,
+        "endUnix": 1792906171.937147
+      },
+      {
+        "log": "Launcher-restore.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906174.3886852,
+        "endUnix": 1792906175.6700623
+      },
+      {
+        "log": "Launcher-publish.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "startUnix": 1792906175.6701002,
+        "endUnix": 1792906178.7161264
+      }
+    ]
+  },
+  "packaging": {
+    "mode": "CopyOriginalPublishedOutputsToFreshDirectory_AddTwoPinnedCoreNotices",
+    "startUnix": 1792906253.286509,
+    "endUnix": 1792906264.2175546,
+    "roles": [
+      {
+        "role": "App",
+        "files": 419,
+        "bytes": 150090857,
+        "runtimePayloadMembers": 395,
+        "pinnedNoticeMembers": 2
+      },
+      {
+        "role": "NativeHost",
+        "files": 200,
+        "bytes": 82858694,
+        "runtimePayloadMembers": 187,
+        "pinnedNoticeMembers": 2
+      },
+      {
+        "role": "CaptureBroker",
+        "files": 412,
+        "bytes": 148678174,
+        "runtimePayloadMembers": 395,
+        "pinnedNoticeMembers": 2
+      },
+      {
+        "role": "ClipboardHost",
+        "files": 412,
+        "bytes": 148665742,
+        "runtimePayloadMembers": 395,
+        "pinnedNoticeMembers": 2
+      },
+      {
+        "role": "CaptureHost",
+        "files": 412,
+        "bytes": 148664273,
+        "runtimePayloadMembers": 395,
+        "pinnedNoticeMembers": 2
+      },
+      {
+        "role": "OleReceiver",
+        "files": 412,
+        "bytes": 148692441,
+        "runtimePayloadMembers": 395,
+        "pinnedNoticeMembers": 2
+      },
+      {
+        "role": "ImageWorker",
+        "files": 202,
+        "bytes": 82818985,
+        "runtimePayloadMembers": 187,
+        "pinnedNoticeMembers": 2
+      },
+      {
+        "role": "Launcher",
+        "files": 196,
+        "bytes": 82218786,
+        "runtimePayloadMembers": 187,
+        "pinnedNoticeMembers": 2
+      }
+    ]
+  },
+  "unit": {
+    "passed": 11,
+    "failed": 0,
+    "exit": 0,
+    "startUnix": 1792906270.5584416,
+    "endUnix": 1792906276.9718943,
+    "testNames": [
+      "test_bootstrap_configuration_compares_the_complete_original_contract",
+      "test_exited_leader_with_live_child_retains_original_receipt_and_refuses_success",
+      "test_explicit_wpf_profile_excludes_unlabelled_members_but_keeps_hash_gate",
+      "test_inflight_size_limit_stops_only_new_child_and_retains_bytes",
+      "test_manifest_retains_zero_length_auxiliary_files_but_refuses_links",
+      "test_packaging_copies_original_notices_and_never_overwrites",
+      "test_real_command_output_and_exit_are_recorded_without_running_product",
+      "test_role_rejects_framework_dependent_output_before_runtime_read",
+      "test_role_selects_actual_framework_set_and_keeps_publish_additional_files",
+      "test_source_snapshot_rejects_untracked_compile_input_and_changed_lock",
+      "test_timeout_preserves_original_output_and_waits_original_child"
+    ]
+  },
+  "originals": [
+    {
+      "path": "artifacts/2026-10-25-managed-publish-packaged/result.json",
+      "bytes": 504704,
+      "sha256": "2e22a48d5b66b0f278012a7018501ca9a36ed48101055ed0d476a869950b725b"
+    },
+    {
+      "path": "artifacts/2026-10-25-managed-publish-packaged/source-published-before.json",
+      "bytes": 445284,
+      "sha256": "49fcae1fe2d6af25cc9579d39db900460f04b7e6df800c9cb86be6026d9189c3"
+    },
+    {
+      "path": "artifacts/2026-10-25-managed-publish-packaged/source-published-after.json",
+      "bytes": 445284,
+      "sha256": "49fcae1fe2d6af25cc9579d39db900460f04b7e6df800c9cb86be6026d9189c3"
+    },
+    {
+      "path": "artifacts/2026-10-25-managed-publish-packaged/sources-after.json",
+      "bytes": 74943,
+      "sha256": "79d81362cb6264731f7b4fa6ddfd3e513d2d89c59cf8fef19639208b5b66713d"
+    },
+    {
+      "path": "artifacts/2026-10-25-managed-publish-checks/r05-unit.log",
+      "bytes": 2167,
+      "sha256": "6252576aa9bba87826b9336837b22bd02de9261eadfed6fb8f46d8f5b2e6c754"
+    },
+    {
+      "path": "artifacts/2026-10-25-managed-publish-checks/r05-unit-result.json",
+      "bytes": 319,
+      "sha256": "93467df3a4fcaaf763ae8fd1165af6af8c9e5a9e6a2b216b8c1448a34ef34b92"
+    },
+    {
+      "path": "artifacts/2026-10-25-managed-publish-r01/result.json",
+      "bytes": 735,
+      "sha256": "133733168cf6a3f960f71ca12facd209761efe79506ddac30594becc6d7a8037"
+    },
+    {
+      "path": "artifacts/2026-10-25-managed-publish-r02/result.json",
+      "bytes": 3568,
+      "sha256": "b045eecb6a021aafa26dadafcef5d29cdc3fb5091d49ae2863720463dcfacfee"
+    },
+    {
+      "path": "artifacts/2026-10-25-managed-publish-r03/result.json",
+      "bytes": 484093,
+      "sha256": "b4c0ebbc162162c12b77d4901a64536f88d8ada38d14b29b3167fdaa8c624d8a"
+    }
+  ],
+  "limits": {
+    "commandDeadlineSeconds": 600,
+    "groupObservationExtraSeconds": 5,
+    "inFlightOutputLimitBytes": 6442450944,
+    "hashTimeOutsideCommandDeadline": true
+  },
+  "notClaimed": [
+    "Final publisher CLI fully rerun after notices fix; existing real outputs were instead packaged and rechecked",
+    "Cross-directory bitwise reproducibility",
+    "Whole G or sealed B",
+    "New runtime signature/revocation verification",
+    "Native DLL rebuilding",
+    "Windows execution",
+    "Positive ordinary-startup issuer",
+    "Full Core suite or CI"
+  ],
+  "productionPins": "Unavailable",
+  "nativeSourceHistoricalBuild": "147ab977b3725b15d35e55b0efb01110edb9d297",
+  "nativeSourceDiffToProductHead": false,
+  "newCITriggered": false,
+  "newPermissionsCredentialsFees": false,
+  "evidenceDelivery": "Text report only; original binaries/manifests/logs retained in this environment"
+}
