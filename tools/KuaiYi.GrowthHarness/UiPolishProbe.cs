@@ -257,13 +257,20 @@ internal static class UiPolishProbe
             }
             else if(window is ShellWindow shell)
             {
+                var originalTray=Field<NativeTray>(shell,"tray");
                 try
                 {
                     try{if(!closed!.Task.IsCompleted)shell.Close();}
                     catch(Exception error){ok=false;Lifetime.Record("ShellCloseRequest",error);}
                     Task original=shell.PresentationCloseOperation??Task.FromException(new InvalidOperationException("Original Shell close task missing; retain original Closed waiter."));
                     bool joined=await Lifetime.JoinClose(original,closed!.Task);ok&=joined;
-                    if(joined){window=null;closed=null;}
+                    if(joined)
+                    {
+                        bool disposed=TrayFlag(originalTray,"disposed"),added=TrayFlag(originalTray,"added");
+                        retirements.Add(new{OwnWindowClosed=true,TrayDisposed=disposed,TrayRemoved=!added});
+                        Require(disposed&&!added,"Original tray removal unconfirmed; owner retained.");
+                        window=null;closed=null;
+                    }
                 }
                 catch(Exception error){ok=false;Lifetime.Record("ShellClose",error);}
             }
@@ -299,6 +306,8 @@ internal static class UiPolishProbe
         private void Write(string name,object value)
         {byte[] bytes=JsonSerializer.SerializeToUtf8Bytes(value,new JsonSerializerOptions{WriteIndented=true});Require(bytes.Length<=512*1024,"JSON evidence exceeds bound.");using var stream=new FileStream(Path.Combine(output,name),FileMode.CreateNew,FileAccess.Write,FileShare.None);stream.Write(bytes);stream.Flush(true);}
     }
+    private static bool TrayFlag(NativeTray tray,string name)
+    {var field=typeof(NativeTray).GetField(name,BindingFlags.Instance|BindingFlags.NonPublic|BindingFlags.DeclaredOnly);Require(field?.FieldType==typeof(bool),"Original tray observation signature differs.");return (bool)field!.GetValue(tray)!;}
     private static FieldInfo ExactField(string name,Type type)
     {var field=typeof(ShellWindow).GetField(name,BindingFlags.Instance|BindingFlags.NonPublic|BindingFlags.DeclaredOnly);Require(field!=null&&field.FieldType==type,"Original field signature differs: "+name);return field!;}
     private static T Field<T>(ShellWindow shell,string name)=>(T)(ExactField(name,typeof(T)).GetValue(shell)??throw new InvalidOperationException("Original field null: "+name));

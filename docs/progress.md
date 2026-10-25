@@ -1890,3 +1890,5 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 - 独立默认关闭的 `--ci-ui-polish` 入口；固定 before e4d57 / after 419082，原 Settings/Shell 控件和原翻译 snapshot 路径。浅/深、真实程序 focus/disabled、Full/Reduce 采集合同，保持原生产门。没有新增 workflow/依赖或运行 Windows。
 - 新探针 16 + 原证据生命周期 20 = 36 pass / 0 fail；输入885、DLL130前后相同。最终 after 与精确 before 各自交叉编译 0W0E；before 原12,315文件构建后逐hash不变。r01/r02/r03编译失败原件全部保留；两位独立只读审查者限定ACK，不等同像素验收。
 - 真实 WPF raster/窗口焦点/动效仍 NotRun。新15分钟Windows窗口及6分钟视觉阶段待确认，未建新workflow、不触发CI。详见 [探针合同与限制](validation/ui-polish-visual-probe-2026-10-25.md) 和 [机器证据](test-evidence/2026-10-25-ui-visual-probe.json)；原TRX/DLL/基线副本仅本云环境保全。
+
+- 2026-10-25 用户明确批准一次云端Windows视觉窗口。准备独立 dev/ui-polish-visual 工作流：15min job/6min visual，仅4原WPF进程，前后精确Git源码绑定，官方锁定SDK/runtime签名audit保持；托盘真实删除只读观测，失败与UNKNOWN保全、不自动重跑。执行前仍NotRun，需完成本次包装独审。见 validation/ui-polish-windows-attempt.md。
