@@ -1898,3 +1898,5 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 - 2026-10-25 Windows失败后的独立工程修复：NUL固定树路径+原Git blob二进制batch读取，保留完整source/hash/size门，不用archive及全局换行配置；旧算法实际2F反例，最终本地24P（原13+新11），中间23P与DOS名独审修正保留。固定两树仅只读metadata通过，不冒称实际导出或Windows/WPF通过。workflow/产品/模型不改，不开新作业、不重跑；见test-evidence/2026-10-25-raw-git-source-fix.json。
 
 - 2026-10-25 第二窗口仅准备：以11f13f5原blob修复为基线，5文件直接子候选绑定独立dev/ui-polish-visual-r02入口，15min job/6min visual及原合成/清理门保持。只做定向静态检查和独立审查，本地准备分支不push，不开启窗口、不重复24测试。第一次失败/原件及NotRun边界保留；见validation/ui-polish-windows-r02-preparation.md。
+
+- 2026-10-26 已明确批准的第二云端Windows窗口实际执行一次：3164/run40217224688 attempt1。原blob来源与两侧Windows build0W0E通过；before设置8张真实PNG并核原exit0/IO，随后before浮窗未观察中间帧exit3，after停止未启。有限原窗口/tray/Flow结算有据，Runner另清3dotnet+1conhost orphan，不能称完整树自主清理。探针opacity80ms/几何220ms条件过窄与before深色ComboBox可读性问题均记录；不冒称after像素通过、不自动重跑。66文件ZIP1619996B已取回逐hash并独审，见test-evidence/2026-10-26-ui-polish-r02.json及validation/ui-polish-windows-r02-preparation.md。
