@@ -1,14 +1,14 @@
-name: Prepared second fixed WPF UI comparison
-run-name: UI polish r02 before-after / ${{ github.sha }}
+name: Prepared third fixed WPF UI comparison via registered entry
+run-name: UI polish r03 before-after / ${{ github.sha }}
 on:
   push:
-    branches: [dev/ui-polish-visual-r02]
+    branches: [dev/ui-polish-visual-r03]
     paths: [.github/workflows/windows-ui-polish.yml]
 permissions:
   contents: read
 jobs:
   visual:
-    if: ${{ github.repository == 'T1doo/KuaiYi' && github.event_name == 'push' && github.ref == 'refs/heads/dev/ui-polish-visual-r02' && github.event.repository.private == false && github.run_attempt == '1' }}
+    if: ${{ github.repository == 'T1doo/KuaiYi' && github.event_name == 'push' && github.ref == 'refs/heads/dev/ui-polish-visual-r03' && github.event.repository.private == false && github.run_attempt == '1' }}
     runs-on: windows-2022
     timeout-minutes: 15
     env:
@@ -24,20 +24,15 @@ jobs:
           fetch-depth: 2
           persist-credentials: false
           set-safe-directory: false
-      - name: Verify fixed source, approved SDK and locked build
-        timeout-minutes: 8
+      - name: One owned validation subtree (prepare 8min / visual 6min)
+        timeout-minutes: 14
         shell: pwsh
         run: |
           $ErrorActionPreference='Stop'
-          & python -I -B ./scripts/verify-ui-polish-windows.py prepare
-          exit $LASTEXITCODE
-      - name: One bounded visual collection
-        timeout-minutes: 6
-        shell: pwsh
-        run: |
-          $ErrorActionPreference='Stop'
-          & python -I -B ./scripts/verify-ui-polish-windows.py run
-          exit $LASTEXITCODE
+          & python -I -B ./scripts/windows_visual_job.py
+          $code=$LASTEXITCODE
+          @{ OriginalForegroundCommandReturned=$true; SupervisorExitCode=$code; Scope='Own validation supervisor only, not runner/checkout/upload' } | ConvertTo-Json | Set-Content -LiteralPath artifacts/ui-polish-windows/parent-exit.json -Encoding utf8
+          exit $code
       - name: Preserve complete success and failure evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
