@@ -127,7 +127,7 @@ if __name__=='__main__':
     import importlib.util
     repo=Path(__file__).resolve().parent.parent
     spec=importlib.util.spec_from_file_location('visual_gate',repo/'scripts/verify-ui-polish-windows.py');gate=importlib.util.module_from_spec(spec);spec.loader.exec_module(gate)
-    event=json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text());gate.context(os.environ,sys.platform,event)
+    event=json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text(encoding='utf-8'));gate.context(os.environ,sys.platform,event)
     try:owner=JobOwner(WindowsJobApi(),os.getpid())
     except Exception as error:
         work=repo/'artifacts/ui-polish-windows'

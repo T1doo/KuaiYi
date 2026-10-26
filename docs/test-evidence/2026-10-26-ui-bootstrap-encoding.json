@@ -1,0 +1,41 @@
+{
+  "status": "Pass_OfflineEncodingFix_ActualCIFailureCauseUnknown",
+  "base": "0a314a6eaa16ea580326a29ab7fc30032f12cada",
+  "originalRun": 40338532720,
+  "nativeJob": 121626530482,
+  "change": "Only explicit UTF-8 for GITHUB_EVENT_PATH before Job creation",
+  "red": {
+    "passed": 3,
+    "failed": 1,
+    "errors": 1,
+    "exit": 1
+  },
+  "green": {
+    "passed": 5,
+    "failed": 0,
+    "exit": 0
+  },
+  "scope": "Original pre-Job AST prefix; injected cp1252 default for synthetic event file only; no process/native/network/system locale change",
+  "actualRunnerEncoding": "Unknown_OriginalLogForbidden",
+  "actualEventPayload": "Unknown_OriginalLogForbidden",
+  "actualFailureCause": "Unknown_NotEstablishedByOfflineCounterexample",
+  "originalLogDownload": "Stopped_NoRetry_NoAlternateRoute",
+  "windows": "NotRunThisFix",
+  "newCI": "NotTriggered",
+  "executionWrapper": "Unchanged_FailClosedForNewLocalCommit_RequiresSeparatelyReviewedBindingAndTriggerApproval",
+  "evidence": [
+    {
+      "file": "red.log",
+      "bytes": 2394,
+      "sha256": "201c5b524740f5c7afca26d4e89bf7d5743b6c98bfdfc576cb4a5bf1326a1e85"
+    },
+    {
+      "file": "green.log",
+      "bytes": 103,
+      "sha256": "ff968f87efc3b09beddedfe406ea1fc646b8dc68e02bac73f3d6e40322a32574"
+    }
+  ],
+  "sourceSha256": "aea924b2aa2c445b4538c4aca10ac72a1381be62becc3af22a181ae92cf42c8f",
+  "testSha256": "3f107f23efc1c5b421360f6e22ddb10c3ad5a93279e5b21d5df03bd82c081b48",
+  "utc": "2026-10-26T14:27:43.628902+00:00"
+}
