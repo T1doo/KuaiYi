@@ -2,15 +2,15 @@
 
 Windows 11 x64 AI 翻译软件，完整产品与验收规格见 [SPEC.md](SPEC.md)。原始中文产品书保留原字节。
 
-当前处于 P0 平台验证与独立核心实现阶段，尚不是可日常使用的完整桌面产品。当前实现包括状态/发送门控、强类型浮窗几何、流式高度跟随、有界 IPC/Native Messaging 帧、图像分片重组、独立 OpenAI Chat / Anthropic Messages HTTP 适配器、版本化提示词及测试专用本机 HTTP 故障服务。另有交叉编译的真实 UIA Broker/CompatibilityProbe 和 HWND GrowthHarness，以及真实 OLE 隔离宿主/同步与异步故障来源；它们的 Windows 实际运行尚未完成。
+当前正在整理可追溯的 Windows x64 **待验预发布候选**，尚不是可日常使用的完整桌面产品。包含实际翻译界面、配置、状态/发送门控、强类型几何、有界 IPC、图像处理及安装/维护源码；离线实现、真实 Windows 局部验证与整体验收状态分别登记，不能互相替代。候选范围和校验方法见[候选包说明](docs/release/README-preview.md)，集中 Windows 计划及未完成的云端来源工程见[交付门槛](docs/release/WINDOWS-TESTS.md)。
 
 已运行的检查、失败修复与平台阻塞见 [开发进度](docs/progress.md)、[验收状态](docs/acceptance-report.md) 和 [需求追踪](docs/traceability.json)。不得将这些离线测试等同于真实 Windows UIA、OLE、焦点、截图、多屏 DPI 或安装验收。
 
-最新离线 .NET 测试 1668 项、扩展 Node 测试 63 项通过；旧错误晚到缺口见 [专项审查](docs/late-event-review.md)，最大分片 JSON 外壳缺口见 [协议边界审查](docs/protocol-boundary-review.md)。OLE 联合实验与未证实的宿主假设见 [OLE 探针说明](docs/ole-probe.md)。清理终结与退出确认修复见 [清理监督审查](docs/ole-cleanup-review.md)。新增独立 ImageWorker、真实原生 OCR/Shell 源码、双 EXE 开发身份清单与安装态验证脚本，见 [图片与身份说明](docs/imageworker-identity.md)。原生编译和 Windows OCR/菜单仍未执行。图片窗口的迟到状态与实际启动线程修复见 [UI 收尾审查](docs/image-ui-review.md)。最新子进程发布/启动终结竞态修复见 [清理竞态审查](docs/image-finalization-review.md)。最小 MV3 扩展、实际 NativeHost 分片/取消与授权边界见 [浏览器协议审查](docs/browser-native-host.md)。真实安装与浏览器取图未运行。GitHub CI 未运行。
+早期离线 .NET 1668 项、扩展 Node 63 项是历史切片结果，不是当前完整验收。旧错误晚到与协议边界见[专项审查](docs/late-event-review.md)和[协议审查](docs/protocol-boundary-review.md)。后续每次实际结果及失败均在开发进度保留。最新整体 WPF 云端运行40472560874实际失败，新图包读取Forbidden后停止，像素、首因与自主清理仍未知，见[本次结果](docs/validation/ui-polish-whole-window-result.md)。真实安装、正常启动来源、OCR/菜单、浏览器取图和完整 P7/P8 不能据此标为通过。
 
 ## 构建与离线测试
 
-要求锁定的 .NET SDK **10.0.401** 和 PowerShell 7。已有环境专用 SDK 时先将其加入 PATH，不需要修改系统安装。
+要求锁定的 .NET SDK **10.0.402** 和 PowerShell 7。已有环境专用 SDK 时先将其加入 PATH，不需要修改系统安装。候选包的只读校验器另兼容 Windows PowerShell 5.1；这不表示其他构建脚本也兼容5.1。
 
 ```powershell
 pwsh -NoProfile -File ./scripts/bootstrap.ps1

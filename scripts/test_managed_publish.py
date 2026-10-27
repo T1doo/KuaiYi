@@ -1,5 +1,6 @@
 """Local non-destructive publisher checks. Synthetic files never qualify product inputs."""
 import importlib.util
+import base64
 import hashlib
 import json
 import os
@@ -18,6 +19,66 @@ spec.loader.exec_module(publisher)
 
 
 class ManagedPublishTests(unittest.TestCase):
+    def skia_fixture(self, root):
+        """Synthetic bytes prove checking logic, never a real runtime qualification."""
+        cache, output = root / "cache", root / "output"
+        output.mkdir()
+        lock, libraries, target, pins = {}, {}, {}, {}
+        for slug, identity, section, members in [
+            ("skiasharp", "SkiaSharp", "runtime", [("lib/net10.0/SkiaSharp.dll", "SkiaSharp.dll")]),
+            ("skiasharp.nativeassets.win32", "SkiaSharp.NativeAssets.Win32", "native", [
+                ("runtimes/win-x64/native/libSkiaSharp.dll", "libSkiaSharp.dll"),
+                ("runtimes/win-x64/native/libSkiaSharp.pdb", "libSkiaSharp.pdb")])]:
+            path = cache / slug / "4.153.1" / (slug + ".4.153.1.nupkg")
+            path.parent.mkdir(parents=True)
+            with zipfile.ZipFile(path, "x") as archive:
+                for member, relative in members:
+                    raw = ("PUBLIC_SYNTHETIC_" + relative).encode()
+                    archive.writestr(member, raw)
+                    (output / relative).write_bytes(raw)
+            pins[slug] = hashlib.sha256(path.read_bytes()).hexdigest()
+            lock[identity] = {"resolved": "4.153.1", "contentHash": base64.b64encode(hashlib.sha512(path.read_bytes()).digest()).decode()}
+            libraries[identity + "/4.153.1"] = {"type": "package"}
+            target[identity + "/4.153.1"] = {section: {member: {} for member, _ in members}}
+        target["SkiaSharp/4.153.1"]["dependencies"] = {"SkiaSharp.NativeAssets.Win32": "4.153.1"}
+        (output / "KuaiYi.ImageWorker.deps.json").write_text(json.dumps({"targets": {".NETCoreApp,Version=v10.0/win-x64": target}, "libraries": libraries}))
+        path = root / "src/KuaiYi.ImageWorker/packages.lock.json"
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps({"dependencies": {"net10.0": lock}}))
+        return cache, output, pins
+
+    def test_skia_publish_requires_actual_pinned_members_and_deps(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            cache, output, pins = self.skia_fixture(root)
+            with patch.object(publisher, "REPO", root), patch.dict(publisher.INPUTS.SKIA, pins):
+                self.assertEqual(3, len(publisher.inspect_skia(output, cache)))
+                (output / "libSkiaSharp.dll").write_bytes(b"REPLACED_PUBLIC_FIXTURE")
+                with self.assertRaisesRegex(RuntimeError, "member differs"):
+                    publisher.inspect_skia(output, cache)
+
+    def test_skia_copied_files_without_original_dependency_record_are_refused(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            cache, output, pins = self.skia_fixture(root)
+            path = output / "KuaiYi.ImageWorker.deps.json"
+            document = json.loads(path.read_text())
+            document["libraries"].pop("SkiaSharp/4.153.1")
+            path.write_text(json.dumps(document))
+            with patch.object(publisher, "REPO", root), patch.dict(publisher.INPUTS.SKIA, pins), self.assertRaisesRegex(RuntimeError, "closure is missing"):
+                publisher.inspect_skia(output, cache)
+
+    def test_skia_locked_archive_sha512_cannot_be_replaced_by_self_declared_sha256(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            cache, output, pins = self.skia_fixture(root)
+            path = root / "src/KuaiYi.ImageWorker/packages.lock.json"
+            doc = json.loads(path.read_text())
+            doc["dependencies"]["net10.0"]["SkiaSharp"]["contentHash"] = "wrong"
+            path.write_text(json.dumps(doc))
+            with patch.object(publisher, "REPO", root), patch.dict(publisher.INPUTS.SKIA, pins), self.assertRaisesRegex(RuntimeError, "locked SHA512"):
+                publisher.inspect_skia(output, cache)
+
     def test_real_command_output_and_exit_are_recorded_without_running_product(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

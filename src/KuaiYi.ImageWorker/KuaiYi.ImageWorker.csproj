@@ -2,8 +2,8 @@
   <PropertyGroup><TargetFramework>net10.0</TargetFramework><OutputType>Exe</OutputType><RuntimeIdentifier>win-x64</RuntimeIdentifier><SelfContained>false</SelfContained><ApplicationManifest>app.manifest</ApplicationManifest></PropertyGroup>
   <ItemGroup><ProjectReference Include="../KuaiYi.Imaging/KuaiYi.Imaging.csproj" /></ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SkiaSharp" PrivateAssets="all" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Win32" PrivateAssets="all" />
+    <PackageReference Include="SkiaSharp" PrivateAssets="all" Publish="true" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Win32" PrivateAssets="all" Publish="true" />
     <PackageReference Include="SkiaSharp.NativeAssets.macOS" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>

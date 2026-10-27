@@ -4,6 +4,7 @@ This produces unsealed build inputs, never installation/source authority. Run wi
 the existing approved SDK and cache; no application, native DLL or CI is executed.
 """
 import argparse
+import base64
 import hashlib
 import importlib.util
 import json
@@ -158,7 +159,42 @@ def inspect_role(role, output, packages):
         if not equal_json(read_json(output / (name + ".deps.json")), contract["dependencies"]):
             raise RuntimeError("Launcher dependencies differ from original bootstrap contract")
         require_bootstrap_config(document)
-    return {"role": role, "runtimeMembers": len(runtime), "files": manifest(output)}
+    skia = inspect_skia(output, packages[0][2].parents[2]) if role == "ImageWorker" else None
+    return {"role": role, "runtimeMembers": len(runtime), "files": manifest(output), **({"skia": skia} if skia is not None else {})}
+
+
+def inspect_skia(output, cache):
+    """Require actual publish/deps and both existing pinned Skia package inputs."""
+    deps = read_json(output / "KuaiYi.ImageWorker.deps.json")
+    target = deps["targets"][".NETCoreApp,Version=v10.0/win-x64"]
+    lock = read_json(REPO / "src/KuaiYi.ImageWorker/packages.lock.json")["dependencies"]["net10.0"]
+    records = []
+    for slug, identity, section, members in [
+        ("skiasharp", "SkiaSharp", "runtime", [("lib/net10.0/SkiaSharp.dll", "SkiaSharp.dll")]),
+        ("skiasharp.nativeassets.win32", "SkiaSharp.NativeAssets.Win32", "native", [
+            ("runtimes/win-x64/native/libSkiaSharp.dll", "libSkiaSharp.dll"),
+            ("runtimes/win-x64/native/libSkiaSharp.pdb", "libSkiaSharp.pdb")])]:
+        key = identity + "/4.153.1"
+        if (key not in deps["libraries"] or deps["libraries"][key].get("type") != "package"
+                or any(member not in target.get(key, {}).get(section, {}) for member, _ in members)
+                or lock[identity]["resolved"] != "4.153.1"):
+            raise RuntimeError("ImageWorker publish dependency closure is missing Skia")
+        if identity == "SkiaSharp" and target[key].get("dependencies", {}).get("SkiaSharp.NativeAssets.Win32") != "4.153.1":
+            raise RuntimeError("Skia managed/native dependency differs")
+        path = cache / slug / "4.153.1" / (slug + ".4.153.1.nupkg")
+        with INPUTS.verified_zip(path, INPUTS.SKIA[slug], "sha256") as archive:
+            # The existing Git SHA256 pin and unchanged NuGet lock's SHA512 both bind the archive.
+            INPUTS.regular(path)
+            if base64.b64encode(hashlib.sha512(path.read_bytes()).digest()).decode() != lock[identity]["contentHash"]:
+                raise RuntimeError("Skia archive differs from original locked SHA512")
+            for member, relative in members:
+                raw = archive.read(member)
+                size, sha = INPUTS.file_hash(output / relative)
+                if size != len(raw) or sha != hashlib.sha256(raw).digest():
+                    raise RuntimeError("Published Skia member differs from pinned original")
+                records.append({"path": relative, "package": identity, "version": "4.153.1", "member": member,
+                                "bytes": size, "sha256": sha.hex()})
+    return records
 
 
 def require_bootstrap_config(document):
