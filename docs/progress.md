@@ -1910,3 +1910,5 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 - 2026-10-26 run40338532720实际Windows作业Fail：checkout成功、supervisor约2秒exit1、artifact0；原日志重定向Forbidden后停止，不换路径，WPF是否启动及清理Unknown。仅独立离线核启动前源码，确定事件read_text默认代码页缺陷；单行显式UTF8，原pre-Job AST合成回归3P1F1E→5P0F0E，未执行Windows/子进程/网络或重跑旧测试。实际runner编码/payload未知，不能认定CI根因。工程候选仅本地保全、不推不触发，原精确wrapper门不放宽；见validation/ui-polish-bootstrap-encoding.md及test-evidence/2026-10-26-ui-bootstrap-encoding.json。
 
 - 2026-10-27 主动推进启动诊断：保全445祖先，原Forbidden日志不重取。确定并修原Job取得后mkdir/clock/首写证越过finally的异常结算缺口，相关红15P4E→绿19P，UTF8回归5P；不称旧403实际根因。准备默认关闭的pre-Job诊断，固定源码hash/受界JSON/异常类脱敏、独立Python与pwsh收据根，原门与原产品/探针不改；诊断离线最终10P，无Windows或CI。新候选仅本地，待单独批准一次免费Windows作业≤3分钟、诊断≤1分钟，不创建Job/WPF/registry/子命令或取得受拒日志。详见validation/ui-prejob-diagnostic-2026-10-27.md及test-evidence/2026-10-27-ui-bootstrap-ownership.json。
+
+- 2026-10-27 新诊断检出补验：固定源hash两脚本在text=auto＋命令级autocrlf=true过滤时均不同；仅追加两路径-text后逐字节均符。保留739本地候选祖先和红绿过滤JSON，不改系统Git配置，不将其认定旧403首因，不触发Windows。

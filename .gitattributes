@@ -9258,3 +9258,7 @@ licenses/SkiaSharp-4.153.1/* -text
 tests/fixtures/images/gif-codewidth.gif -text
 tests/fixtures/images/gif-codewidth.indices -text
 docs/test-evidence/2026-10-20-gif-first-frame-originals.zip -text
+
+# Exact source bytes for the separately approved pre-Job diagnostic hash gate.
+scripts/windows_visual_job.py -text
+scripts/verify-ui-polish-windows.py -text

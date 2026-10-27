@@ -47,6 +47,16 @@
       "File": "diagnostic-tests-r03.log",
       "Bytes": 109,
       "Sha256": "a0baf531dc0c3c9d158beb05140b589d920c77f91e8fd39e9d482005440520c3"
+    },
+    {
+      "File": "checkout-eol-red.json",
+      "Bytes": 613,
+      "Sha256": "5703c48aba43c7be9b9d611f780f65fe25ded47a8c8c4b33ecb9b3bb4e320f19"
+    },
+    {
+      "File": "checkout-eol-green.json",
+      "Bytes": 611,
+      "Sha256": "ef548ae2896f833b3ca4360ecf16826daf905f8c12664f6654abcb472250c6f4"
     }
   ],
   "Utc": "2026-10-27T01:44:25.334085+00:00",
@@ -57,5 +67,6 @@
     "scripts/test_diagnose_visual_prejob.py": "6488ca3c9c2e107b9f916f7534645d9309a6980b8f8d87c46c3a3e83d2529507",
     ".github/workflows/windows-ui-polish.yml": "83cb2b80aab5cc775493c57315c8e8397a2acbb9b4031f1b81665f73f1080743"
   },
-  "WorkflowStatic": "YAML budgets/gates/owned-outputs checked; PowerShell runtime NotRun"
+  "WorkflowStatic": "YAML budgets/gates/owned-outputs checked; PowerShell runtime NotRun",
+  "DiagnosticCheckoutBytes": "Two exact scripts -text; per-command core.autocrlf=true filters originally differed, now both exactly match original blobs. No persistent Git/system setting changed."
 }
