@@ -82,6 +82,29 @@ class OwnerTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d,patch('builtins.print',side_effect=BrokenPipeError('synthetic pipe')):
    result=v.supervise(Path(d),{'GITHUB_SHA':'a'*40},owner,launch=lambda *a,**k:self.fail('no launch'),_hold=lambda:held.append(True))
   self.assertEqual(2,result);self.assertTrue(held);self.assertFalse(api.closed);self.assertEqual('original-handle',owner.handle)
+ def test_existing_evidence_root_is_not_overwritten_and_owner_settles(self):
+  api=FakeApi();owner=v.JobOwner(api,17)
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d)/'artifacts/ui-polish-windows';root.mkdir(parents=True);marker=root/'original.txt';marker.write_bytes(b'original')
+   result=v.supervise(Path(d),{'GITHUB_SHA':'a'*40},owner,launch=lambda *a,**k:self.fail('no launch'),_hold=lambda:self.fail('confirmed owner must settle'))
+   self.assertEqual(2,result);self.assertEqual(b'original',marker.read_bytes());self.assertEqual(['original.txt'],sorted(p.name for p in root.iterdir()))
+  self.assertEqual(['original-handle'],api.closed)
+ def test_initial_evidence_write_failure_still_settles_original(self):
+  api=FakeApi();owner=v.JobOwner(api,17)
+  with tempfile.TemporaryDirectory() as d,patch.object(Path,'write_text',side_effect=OSError('synthetic ENOSPC')):
+   result=v.supervise(Path(d),{'GITHUB_SHA':'a'*40},owner,launch=lambda *a,**k:self.fail('no launch'),_hold=lambda:self.fail('confirmed owner must settle'))
+  self.assertEqual(2,result);self.assertEqual(['original-handle'],api.closed)
+ def test_initial_evidence_write_failure_retains_unconfirmed_owner(self):
+  api=FakeApi((2,[17,88]));owner=v.JobOwner(api,17);held=[]
+  with tempfile.TemporaryDirectory() as d,patch.object(Path,'write_text',side_effect=OSError('synthetic ENOSPC')):
+   result=v.supervise(Path(d),{'GITHUB_SHA':'a'*40},owner,launch=lambda *a,**k:self.fail('no launch'),_hold=lambda:held.append(True))
+  self.assertEqual(2,result);self.assertTrue(held);self.assertFalse(api.closed);self.assertEqual('original-handle',owner.handle)
+ def test_clock_failure_after_acquire_still_settles_original(self):
+  api=FakeApi();owner=v.JobOwner(api,17)
+  def clock():raise OSError('synthetic clock error')
+  with tempfile.TemporaryDirectory() as d:
+   result=v.supervise(Path(d),{'GITHUB_SHA':'a'*40},owner,launch=lambda *a,**k:self.fail('no launch'),clock=clock,_hold=lambda:self.fail('confirmed owner must settle'))
+  self.assertEqual(2,result);self.assertEqual(['original-handle'],api.closed)
  def test_original_wait_timeout_is_failure_not_cleanup_success(self):
   api=FakeApi();owner=v.JobOwner(api,17);calls=[];waits=[]
   class Process:

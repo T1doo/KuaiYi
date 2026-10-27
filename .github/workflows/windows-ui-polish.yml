@@ -1,5 +1,5 @@
-name: Prepared third fixed WPF UI comparison via registered entry
-run-name: UI polish r03 before-after / ${{ github.sha }}
+name: Prepared pre-Job bootstrap diagnostic (not visual acceptance)
+run-name: Pre-Job diagnostic / ${{ github.sha }}
 on:
   push:
     branches: [dev/ui-polish-visual-r03]
@@ -7,15 +7,12 @@ on:
 permissions:
   contents: read
 jobs:
-  visual:
+  diagnostic:
     if: ${{ github.repository == 'T1doo/KuaiYi' && github.event_name == 'push' && github.ref == 'refs/heads/dev/ui-polish-visual-r03' && github.event.repository.private == false && github.run_attempt == '1' }}
     runs-on: windows-2022
-    timeout-minutes: 15
+    timeout-minutes: 3
     env:
       CI: 'true'
-      DOTNET_GENERATE_ASPNET_CERTIFICATE: 'false'
-      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
-      DOTNET_CLI_UI_LANGUAGE: en-US
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
@@ -24,29 +21,119 @@ jobs:
           fetch-depth: 2
           persist-credentials: false
           set-safe-directory: false
-      - name: One owned validation subtree (prepare 8min / visual 6min)
-        timeout-minutes: 14
+      - name: Diagnose pre-Job only; no native owner or product launch
+        id: prejob
+        timeout-minutes: 1
         shell: pwsh
         run: |
           $ErrorActionPreference='Stop'
-          & python -I -B ./scripts/windows_visual_job.py
-          $code=$LASTEXITCODE
-          @{ OriginalForegroundCommandReturned=$true; SupervisorExitCode=$code; Scope='Own validation supervisor only, not runner/checkout/upload' } | ConvertTo-Json | Set-Content -LiteralPath artifacts/ui-polish-windows/parent-exit.json -Encoding utf8
+          $PSNativeCommandUseErrorActionPreference=$false
+          $root=Join-Path $env:GITHUB_WORKSPACE 'artifacts/ui-polish-bootstrap-parent'
+          $parentStream=$null
+          $publishParent=$false
+          $publishChild=$false
+          $code=2
+          $sha=if($env:GITHUB_SHA -cmatch '^[0-9a-f]{40}$'){$env:GITHUB_SHA}else{'Invalid'}
+          $receipt=[ordered]@{ Kind='PreJobDiagnosticParent'; Status='ParentStarted'; DeclaredSourceSha=$sha; GitSourceCommitVerified=$false; PythonLaunchAttempted=$false; OriginalForegroundCommandReturned=$false; NativeExitCode=$null; ErrorType=$null; ChildFailureStage=$null; ChildFailureType=$null; Scope='Original Python foreground return only; no Job or WPF cleanup qualification' }
+          $save={
+            $text=($receipt | ConvertTo-Json -Depth 3 -Compress)+"`n"
+            $bytes=[System.Text.Encoding]::UTF8.GetBytes($text)
+            if($bytes.Length -gt 4096){throw [System.InvalidOperationException]::new('Parent receipt bound')}
+            $parentStream.Position=0
+            $parentStream.Write($bytes,0,$bytes.Length)
+            $parentStream.SetLength($bytes.Length)
+            $parentStream.Flush($true)
+          }
+          try {
+            if(Test-Path -LiteralPath $root){throw [System.InvalidOperationException]::new('Parent root already exists')}
+            $ancestor=Join-Path $env:GITHUB_WORKSPACE 'artifacts'
+            if((Test-Path -LiteralPath $ancestor) -and ((Get-Item -LiteralPath $ancestor -Force).Attributes -band [System.IO.FileAttributes]::ReparsePoint)){throw [System.InvalidOperationException]::new('Linked parent root')}
+            New-Item -ItemType Directory -Path $root -ErrorAction Stop | Out-Null
+            $parentFile=Join-Path $root 'parent.json'
+            $parentStream=[System.IO.File]::Open($parentFile,[System.IO.FileMode]::CreateNew,[System.IO.FileAccess]::ReadWrite,[System.IO.FileShare]::None)
+            & $save
+            $receipt.PythonLaunchAttempted=$true
+            & $save
+            $childOutput=& python -I -B ./scripts/diagnose_visual_prejob.py --diagnose-prejob
+            $code=$LASTEXITCODE
+            $receipt.OriginalForegroundCommandReturned=$true
+            $receipt.NativeExitCode=$code
+            $receipt.Status=if($code -eq 0){'ChildReturned'}else{'ChildFailed'}
+            if($code -eq 0){
+              # Child exit0 is reachable only after its own exclusive root/create-new file.
+              $file=Join-Path $env:GITHUB_WORKSPACE 'artifacts/ui-polish-bootstrap/prejob.json'
+              $info=Get-Item -LiteralPath $file -Force
+              $mask=[System.IO.FileAttributes]::ReparsePoint -bor [System.IO.FileAttributes]::Directory
+              if(($info.Attributes -band $mask) -or $info.Length -gt 4096){throw [System.InvalidOperationException]::new('Diagnostic file kind or bound')}
+              $inputStream=[System.IO.File]::Open($file,[System.IO.FileMode]::Open,[System.IO.FileAccess]::Read,[System.IO.FileShare]::Read)
+              try {
+                $buffer=[byte[]]::new(4097)
+                $read=0
+                while($read -lt $buffer.Length){$n=$inputStream.Read($buffer,$read,$buffer.Length-$read);if($n -eq 0){break};$read+=$n}
+                if($read -gt 4096){throw [System.InvalidOperationException]::new('Diagnostic read bound')}
+                $utf8=[System.Text.UTF8Encoding]::new($false,$true)
+                $body=$utf8.GetString($buffer,0,$read) | ConvertFrom-Json
+                if($body.Kind -cne 'PreJobDiagnosticOnly' -or $body.Status -cne 'Pass_PreJobOnly_NotNativeOrWpfQualification' -or $body.Stage -cne 'StoppedBeforeJobConstruction' -or $body.DeclaredSourceSha -cne $sha -or $body.GitSourceCommitVerified -ne $false -or $body.NativeJobCreated -ne $false -or $body.WpfStarted -ne $false -or $body.ExplicitRegistryCalls -ne $false -or $body.ChildCommandsStarted -ne $false){throw [System.InvalidOperationException]::new('Diagnostic contract differs')}
+              } finally { $inputStream.Dispose() }
+              $publishChild=$true
+            } else {
+              # Never publish a child failure path: it may belong to an earlier root.
+              # Only allowlisted fields from the current foreground stdout enter our owned parent receipt.
+              $text=[string]::Join("`n",@($childOutput))
+              if([System.Text.Encoding]::UTF8.GetByteCount($text) -le 4096){
+                try {
+                  $summary=$text | ConvertFrom-Json
+                  $stages=@('ReceiptAcquire','Runtime','SourceParse','ModuleImport','EventDecode','OriginalContextGate','StoppedBeforeJobConstruction')
+                  $types=@('RuntimeError','OSError','FileExistsError','FileNotFoundError','UnicodeDecodeError','JSONDecodeError','RecursionError','MemoryError','LookupError','KeyError','AssertionError','SyntaxError','ImportError','ModuleNotFoundError','PermissionError')
+                  if($summary.Kind -ceq 'PreJobDiagnosticOnly' -and $summary.Status -ceq 'Fail'){
+                    if($stages -ccontains $summary.Stage){$receipt.ChildFailureStage=$summary.Stage}
+                    $receipt.ChildFailureType=if($types -ccontains $summary.ErrorType){$summary.ErrorType}else{'OtherOrMissing'}
+                  }
+                } catch { $receipt.ChildFailureType='NoStructuredSummary' }
+              }
+            }
+          } catch {
+            $code=2
+            $receipt.Status='ParentError'
+            $receipt.ErrorType=$_.Exception.GetType().Name
+          } finally {
+            if($null -ne $parentStream){
+              $writeConfirmed=$false
+              $closeConfirmed=$false
+              try {
+                & $save
+                if($parentStream.Length -gt 4096){throw [System.InvalidOperationException]::new('Parent final bound')}
+                $writeConfirmed=$true
+              } catch { $code=2; Write-Output '{"Kind":"PreJobDiagnosticParent","Status":"ReceiptWriteUnconfirmed"}' }
+              # Settle the original stream once even if the final write/Flush failed.
+              try { $parentStream.Dispose(); $closeConfirmed=$true; $parentStream=$null }
+              catch { $code=2; Write-Output '{"Kind":"PreJobDiagnosticParent","Status":"ReceiptCloseUnconfirmed"}' }
+              if($writeConfirmed -and $closeConfirmed){
+                try {
+                  $info=Get-Item -LiteralPath $parentFile -Force
+                  $mask=[System.IO.FileAttributes]::ReparsePoint -bor [System.IO.FileAttributes]::Directory
+                  if(($info.Attributes -band $mask) -or $info.Length -gt 4096){throw [System.InvalidOperationException]::new('Parent final file kind or bound')}
+                  $publishParent=$true
+                } catch { $code=2; Write-Output '{"Kind":"PreJobDiagnosticParent","Status":"ReceiptUnconfirmed"}' }
+              }
+            }
+            "parent=$($publishParent.ToString().ToLowerInvariant())" | Out-File -LiteralPath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            "child=$($publishChild.ToString().ToLowerInvariant())" | Out-File -LiteralPath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          }
           exit $code
-      - name: Preserve complete success and failure evidence
-        if: always()
+      - name: Preserve only this attempt's owned parent receipt
+        if: ${{ always() && steps.prejob.outputs.parent == 'true' }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: ui-polish-${{ github.sha }}-attempt1
-          # Direct original paths also survive a cancelled UNKNOWN owner before finally.
-          path: |
-            artifacts/ui-polish-windows/*.json
-            artifacts/ui-polish-windows/*.log
-            artifacts/ui-polish-windows/before-settings/
-            artifacts/ui-polish-windows/before-overlay/
-            artifacts/ui-polish-windows/after-settings/
-            artifacts/ui-polish-windows/after-overlay/
-            artifacts/ui-polish-windows/evidence/*-manifest.json
-          if-no-files-found: warn
+          name: ui-prejob-parent-${{ github.sha }}-attempt1
+          path: artifacts/ui-polish-bootstrap-parent/parent.json
+          if-no-files-found: error
           retention-days: 1
-          include-hidden-files: true
+      - name: Preserve only this attempt's confirmed child receipt
+        if: ${{ always() && steps.prejob.outputs.child == 'true' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ui-prejob-child-${{ github.sha }}-attempt1
+          path: artifacts/ui-polish-bootstrap/prejob.json
+          if-no-files-found: error
+          retention-days: 1

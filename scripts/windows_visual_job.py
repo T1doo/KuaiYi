@@ -80,15 +80,17 @@ class WindowsJobApi:
         if not self.k.CloseHandle(h):raise ctypes.WinError(ctypes.get_last_error())
 
 def supervise(repo,env,owner,launch=subprocess.Popen,clock=time.monotonic,_hold=None):
-    work=repo/'artifacts/ui-polish-windows';work.mkdir(parents=True,exist_ok=False)
+    work=repo/'artifacts/ui-polish-windows';work_acquired=False
     report={'Kind':'OwnedValidationJobTree','Status':'UNKNOWN','SourceHead':env['GITHUB_SHA'],'WrapperPid':os.getpid(),'Phases':[],'NoKillOnClose':True,'NoBreakawayAllowed':True}
-    deadline=clock()+14*60
     def save():
+        if not work_acquired:raise RuntimeError('Original evidence root not acquired; no write')
         report['MembershipSamples']=owner.receipts
         (work/'validation-tree.json').write_text(json.dumps(report,indent=2)+'\n')
-    save()
     result=2
     try:
+        work.mkdir(parents=True,exist_ok=False);work_acquired=True
+        deadline=clock()+14*60
+        save()
         if owner.sample()['Status']!='Pass_OwnValidationDescendantsExited':raise RuntimeError('Initial Job query unconfirmed; no child launch')
         save()
         for phase,budget in [('prepare',8*60),('run',6*60)]:
@@ -111,6 +113,7 @@ def supervise(repo,env,owner,launch=subprocess.Popen,clock=time.monotonic,_hold=
         # One final original query/close decision; never re-close after a failed CloseHandle.
         confirmed=owner.close_if_confirmed()
         report['OriginalJobHandleClosed']=confirmed
+        report['OriginalEvidenceRootAcquired']=work_acquired
         if not confirmed:report['Status']='UNKNOWN';result=2
         try:save()
         except Exception as error:

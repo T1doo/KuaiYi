@@ -1,0 +1,61 @@
+{
+  "Status": "Pass_OfflineOwnershipRepair_AndPreparedDiagnostic",
+  "Base": "445a5d6415e52bb4ced8331540d8bc0a0bec32bb",
+  "ActualFailedRun": 40338532720,
+  "ActualFailureCause": "Unknown_ForbiddenLogNotRetried",
+  "NativeWindowsThisWork": "NotRun",
+  "WorkflowTriggered": "No",
+  "OriginalSupervisorNewRed": "15P4E",
+  "OriginalSupervisorGreen": "19P",
+  "Utf8Regression": "5P",
+  "DiagnosticOffline": "10P",
+  "FutureBudget": {
+    "JobMinutes": 3,
+    "DiagnosticStepMinutes": 1
+  },
+  "FutureOutput": "Only this attempt owned/closed/regular/nonreparse bounded receipts. Child only exit0+schema; failure summarized through allowlisted stdout fields in original parent receipt; no stale-root upload.",
+  "FutureScope": "Parse/import/event-decode/original context only; hard stop before Job, WPF, registry, child command creation",
+  "PwshRuntimeValidation": "NotRun_NoPwshHere",
+  "OriginalExactNativeSourceGate": "Unchanged",
+  "Evidence": [
+    {
+      "File": "red.log",
+      "Bytes": 11682,
+      "Sha256": "4ef2cf193964d73626b94b52e8cbfcd1485b60fe61b8721ecaab892f286b07c5"
+    },
+    {
+      "File": "green.log",
+      "Bytes": 6839,
+      "Sha256": "6a0451f3552c5e1eb7cd2c64c6209e6c9bba17556ef60a19cafa7152256b9b3c"
+    },
+    {
+      "File": "bootstrap-regression.log",
+      "Bytes": 103,
+      "Sha256": "066e59ff53d8680048582c601c09802b778015caee17e68370ff254fb1deba6a"
+    },
+    {
+      "File": "diagnostic-tests-r01.log",
+      "Bytes": 107,
+      "Sha256": "36a68f453b7e1806983fc899ed4fd622ebcd5df1b122e9ce152999b06a929d25"
+    },
+    {
+      "File": "diagnostic-tests-r02.log",
+      "Bytes": 109,
+      "Sha256": "61e92c2d3118c0f092450314e8858fe309059b0bea53550bbc133387ecfdad38"
+    },
+    {
+      "File": "diagnostic-tests-r03.log",
+      "Bytes": 109,
+      "Sha256": "a0baf531dc0c3c9d158beb05140b589d920c77f91e8fd39e9d482005440520c3"
+    }
+  ],
+  "Utc": "2026-10-27T01:44:25.334085+00:00",
+  "Sources": {
+    "scripts/windows_visual_job.py": "2ef2b8730fbeb717730d9d1161e892a315e73761b57840c27df2aaf0550d16ea",
+    "scripts/test_windows_visual_job.py": "23fd98b6c637c23cb4dea8b2d7ff672166e3702d8075856e46aa3f08af448f19",
+    "scripts/diagnose_visual_prejob.py": "430d3c794deed1ee865418a4d4f8b76b97197d56860d729cadc02e82ad9fcacc",
+    "scripts/test_diagnose_visual_prejob.py": "6488ca3c9c2e107b9f916f7534645d9309a6980b8f8d87c46c3a3e83d2529507",
+    ".github/workflows/windows-ui-polish.yml": "83cb2b80aab5cc775493c57315c8e8397a2acbb9b4031f1b81665f73f1080743"
+  },
+  "WorkflowStatic": "YAML budgets/gates/owned-outputs checked; PowerShell runtime NotRun"
+}
