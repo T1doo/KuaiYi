@@ -1,0 +1,101 @@
+{
+  "Status": "Fail_CI_MetadataConfirmed_NativeCauseAndCleanupUnknown",
+  "Candidate": "dab70196cc9c2ae15e070366202facacb0098a82",
+  "ProductBefore": "e4d57e77426ab235c7219b375debd76bc072e00b",
+  "ProductAfter": "e12c1ed8ff351f8300dbdaca18585d7994493317",
+  "RunId": 40472560874,
+  "JobId": 122082914477,
+  "RunAttempt": 1,
+  "RunUrl": "https://github.com/T1doo/KuaiYi/actions/runs/40472560874",
+  "Event": "push",
+  "JobStartUtc": "2026-10-27T08:18:16Z",
+  "JobEndUtc": "2026-10-27T08:21:32Z",
+  "JobSeconds": 196,
+  "MainStepStartUtc": "2026-10-27T08:18:38Z",
+  "MainStepEndUtc": "2026-10-27T08:21:23Z",
+  "MainStepSeconds": 165,
+  "MainStepConclusion": "failure",
+  "ObservedExitCode": 1,
+  "ExitCodeSource": "PublicJobAnnotation_NotRawLog",
+  "FrozenSnapshotQualification": "success_MetadataOnly",
+  "ParentUpload": "success_MetadataOnly",
+  "VisualUpload": "success_MetadataOnly",
+  "Artifacts": [
+    {
+      "Id": 12718519895,
+      "Name": "whole-wpf-evidence-dab70196cc9c2ae15e070366202facacb0098a82-attempt1",
+      "PublishedZipBytes": 6595386,
+      "PublishedDigest": "sha256:b0be71f3a8b3da22ff816b10a6cd223bec4263781320a630e7eb2326b2cd2b1a",
+      "DigestLocallyVerified": false,
+      "ExpiresUtc": "2026-10-28T08:21:25Z"
+    },
+    {
+      "Id": 12718514952,
+      "Name": "whole-wpf-parent-dab70196cc9c2ae15e070366202facacb0098a82-attempt1",
+      "PublishedZipBytes": 709,
+      "PublishedDigest": "sha256:d6da031983135047ade16d4cc48c8103c3b95cba65a831f8a2ae968383092b2b",
+      "DigestLocallyVerified": false,
+      "ExpiresUtc": "2026-10-28T08:21:24Z"
+    }
+  ],
+  "EvidenceDownload": {
+    "ArtifactId": 12718519895,
+    "Exit": 1,
+    "Utc": "2026-10-27T08:21:50.958622+00:00",
+    "LocalBytes": 0,
+    "Forbidden": true,
+    "DigestLocallyVerified": false
+  },
+  "ParentDownload": "NotAttempted_AfterEvidenceForbidden",
+  "ActualPngCount": "Unknown_NotRead",
+  "CompletedScenes": "Unknown_NotRead",
+  "NativeFailureCause": "Unknown_NotRead",
+  "OwnedWindowsTrayTasksAndIoCleanup": "Unknown_NotRead",
+  "OriginalJobMembersAndHandleCleanup": "Unknown_NotRead",
+  "OriginalParentReturnReceipt": "NotRead",
+  "AutoRetry": false,
+  "ExtraWindowStarted": false,
+  "OldDeniedResources": "NotRead_NotRetried",
+  "NewRawLogs": "NotRequested_NoAlternativeDataRoute",
+  "NewLocalTests": "NotRun",
+  "ProductSourceChanged": false,
+  "ProductionPins": "Unavailable_Unchanged",
+  "Evidence": [
+    {
+      "File": "push.json",
+      "Bytes": 373,
+      "Sha256": "e08fe53ec6b51b366d0ea922efd80cdc644a60e64e7f9a3222d32ee2ea2923ae"
+    },
+    {
+      "File": "run-initial.stdout",
+      "Bytes": 11321,
+      "Sha256": "26768262537fe150f64a117fe53027919c6f0e6898e0c36d4aea4db2d07e4a67"
+    },
+    {
+      "File": "jobs-initial.stdout",
+      "Bytes": 2066,
+      "Sha256": "dc657b9aece5ee6cc8d42d3f382cd9a40b5f79b478faba91f641d1efca4698f0"
+    },
+    {
+      "File": "run-terminal.stdout",
+      "Bytes": 11324,
+      "Sha256": "71a5c430806707b03d5ae33685b34af94c26d9d1d63b22424fea60be531a7004"
+    },
+    {
+      "File": "jobs-terminal.stdout",
+      "Bytes": 2477,
+      "Sha256": "6be4dc0ca9d118d9147b653f4a4b641f41444f1343970bc5e2d3aafacd83c994"
+    },
+    {
+      "File": "artifacts-terminal.stdout",
+      "Bytes": 1509,
+      "Sha256": "941827c92ba690dfb3f30e1f854b054b6643b21d7b3d65f29dc94a5b587d155f"
+    },
+    {
+      "File": "evidence-download.json",
+      "Bytes": 164,
+      "Sha256": "bf2f2fabc8c68bf10ad16495731eb0d42f7d41ca87af254b7f8ff40721cb1092"
+    }
+  ],
+  "Utc": "2026-10-27T08:23:04.061955+00:00"
+}
