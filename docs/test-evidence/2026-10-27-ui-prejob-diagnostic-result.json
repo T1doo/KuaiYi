@@ -1,0 +1,101 @@
+{
+  "Status": "Pass_GitHubPreJobDiagnostic_MetadataOnly",
+  "Run": 40446841918,
+  "Job": 122000026629,
+  "SourceHead": "49c0bba0cc9ca172c01e59fc73dfacbba817d17d",
+  "Event": "push",
+  "Attempt": 1,
+  "WorkflowId": 395782622,
+  "WorkflowPath": ".github/workflows/windows-ui-polish.yml",
+  "PushUtc": [
+    "2026-10-27T03:55:12.542975+00:00",
+    "2026-10-27T03:55:14.726397+00:00"
+  ],
+  "JobUtc": [
+    "2026-10-27T03:55:20Z",
+    "2026-10-27T03:55:44Z"
+  ],
+  "JobSeconds": 24,
+  "DiagnosticSeconds": 2,
+  "Budget": {
+    "JobMinutes": 3,
+    "DiagnosticMinutes": 1
+  },
+  "DirectEvidence": [
+    "GitHub run/job/step success",
+    "Two artifact metadata entries and upload step success",
+    "Precise head/event/attempt identity"
+  ],
+  "ReviewedControlFlowInference": [
+    "Current strict UTF8 decode and original context gate completed",
+    "Original Python foreground return and successful own bounded receipt qualification",
+    "Hard stop before native Job construction; no WPF, model or explicit product registry calls"
+  ],
+  "JsonBodies": "NotRead_NewChildDownloadForbidden_ParentNotAttempted",
+  "ActualRuntimeEncoding": "Unknown_NoJsonBody",
+  "ArtifactDigests": "PublishedByGitHub_NotLocallyDownloadedOrVerified",
+  "OldRun40338532720Cause": "Unknown_NoOldLogRead",
+  "NativeJobLifecycle": "NotRun_NotValidated",
+  "WpfPixelsFocusMotion": "NotRun_NotValidated",
+  "WholeMachineCleanup": "NotValidated",
+  "NoAutoRetry": true,
+  "NoAlternateAccessRoute": true,
+  "Artifacts": [
+    {
+      "Id": 12707979525,
+      "Name": "ui-prejob-child-49c0bba0cc9ca172c01e59fc73dfacbba817d17d-attempt1",
+      "PublishedBytes": 623,
+      "PublishedDigest": "sha256:0854a2d0d1e50a45db24933b7982e9facfa4b19596e29f163b610fe12d3d521a",
+      "ExpiresUtc": "2026-10-28T03:55:40Z",
+      "BodyLocallyVerified": false,
+      "GithubPage": "https://github.com/T1doo/KuaiYi/actions/runs/40446841918/artifacts/12707979525"
+    },
+    {
+      "Id": 12707874755,
+      "Name": "ui-prejob-parent-49c0bba0cc9ca172c01e59fc73dfacbba817d17d-attempt1",
+      "PublishedBytes": 400,
+      "PublishedDigest": "sha256:8f133d000f28d09350af266b0cc1b65eb19aeefa17ba8ca2f0b48eda4fbace11",
+      "ExpiresUtc": "2026-10-28T03:55:39Z",
+      "BodyLocallyVerified": false,
+      "GithubPage": "https://github.com/T1doo/KuaiYi/actions/runs/40446841918/artifacts/12707874755"
+    }
+  ],
+  "LocalMetadataEvidence": [
+    {
+      "File": "push.json",
+      "Bytes": 502,
+      "Sha256": "7eefa57b165369a1c4804fee65888218fd8feebac3c83c635c0e74633b9dd103"
+    },
+    {
+      "File": "stdout.txt",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "File": "stderr.txt",
+      "Bytes": 129,
+      "Sha256": "fa27beccf19ba2ba32cb267de768f4b23e56997a6856f1d8685e7fe5dbf67100"
+    },
+    {
+      "File": "run.stdout",
+      "Bytes": 11305,
+      "Sha256": "bf5fb4b390038218b20bc472453607d88d68b6d555b828f1a143895c0eadca4d"
+    },
+    {
+      "File": "jobs.stdout",
+      "Bytes": 2249,
+      "Sha256": "b800b847c5b354804df014d60047b8bb4001c7d7092c362234581ced4893aab5"
+    },
+    {
+      "File": "artifacts.stdout",
+      "Bytes": 1502,
+      "Sha256": "59e7df45d91c99537fb27d416475c3baf5a5813c1f1c0b3ca65b9556ffe75b76"
+    },
+    {
+      "File": "child-download.receipt.json",
+      "Bytes": 360,
+      "Sha256": "d48934079134c1ce33e3c2a851a09816d7ebe63a42b13ee679543c02aadb5728"
+    }
+  ],
+  "RecordedUtc": "2026-10-27T04:00:29.512179+00:00"
+}

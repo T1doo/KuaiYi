@@ -1912,3 +1912,5 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 - 2026-10-27 主动推进启动诊断：保全445祖先，原Forbidden日志不重取。确定并修原Job取得后mkdir/clock/首写证越过finally的异常结算缺口，相关红15P4E→绿19P，UTF8回归5P；不称旧403实际根因。准备默认关闭的pre-Job诊断，固定源码hash/受界JSON/异常类脱敏、独立Python与pwsh收据根，原门与原产品/探针不改；诊断离线最终10P，无Windows或CI。新候选仅本地，待单独批准一次免费Windows作业≤3分钟、诊断≤1分钟，不创建Job/WPF/registry/子命令或取得受拒日志。详见validation/ui-prejob-diagnostic-2026-10-27.md及test-evidence/2026-10-27-ui-bootstrap-ownership.json。
 
 - 2026-10-27 新诊断检出补验：固定源hash两脚本在text=auto＋命令级autocrlf=true过滤时均不同；仅追加两路径-text后逐字节均符。保留739本地候选祖先和红绿过滤JSON，不改系统Git配置，不将其认定旧403首因，不触发Windows。
+
+- 2026-10-27 已批准启动前诊断实际一次执行：49c0bba/run40446841918/job122000026629、push attempt1；GitHub success，job24秒/诊断2秒，在3分钟/1分钟内，父子上传均success并有2artifact。新子zip正常读取Forbidden后停止，父未取、不换路，不读旧403日志；元数据及hash独审ACK，JSON正文未独读、实际编码仍Unknown。已审控制流仅可推论来源/严格解码/context完成并硬停Job前，不等旧CI根因、Job/WPF/像素/完整树清理通过。新事实见validation/ui-prejob-diagnostic-2026-10-27.md和test-evidence/2026-10-27-ui-prejob-diagnostic-result.json，无重跑或新真实窗口。
