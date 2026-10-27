@@ -6,7 +6,7 @@
 
 原4c91固定树新发布r01的16条命令均成功，2665文件/992,692,348B、449产品输入前后一致、8份Core同309439c4464df87d969785c47178d1408473f6aa1edff4f53357f05e496f51eb，已独核目录与逐hash。但原发布检查漏掉ImageWorker的Skia依赖，不能把原报告Pass当完整闭包通过。build/bin实际有SkiaSharp.dll/libSkiaSharp.dll，而publish及deps缺失；原件保留不改写，新强检查对r01明确报缺件，保留skia-publish-red.json。
 
-锁定SDK10.0.402的本地官方Microsoft.NET.Sdk.Shared.targets中 `_ComputePackageReferencePublish` 规定PrivateAssets=All且未指定Publish时默认Publish=false。只在ImageWorker两项Windows所需Skia包显式Publish=true，保留PrivateAssets、版本与全部锁文件；macOS包仍不发布到Windows。新增检查同时要求原deps版本/managed→native依赖、两DLL及deps声明的native PDB、既有Git SHA256包pin与原锁文件SHA512逐成员字节，不手拼DLL补缺deps。此修复需新实际发布验证，旧r01不回填成功。
+锁定SDK10.0.402的本地官方Microsoft.NET.Sdk.Shared.targets中 `_ComputePackageReferencePublish` 规定PrivateAssets=All且未指定Publish时默认Publish=false。只在ImageWorker两项Windows所需Skia包显式Publish=true，保留PrivateAssets、版本与全部锁文件；macOS包仍不发布到Windows。新增检查同时要求原deps版本/managed→native依赖、两DLL及deps声明的native PDB、既有Git SHA256包pin、原锁文件SHA512 content hash和逐成员字节，不手拼DLL补缺deps。此修复需新实际发布验证，旧r01不回填成功。
 
 ## 真实候选包而非安装资格
 
@@ -22,4 +22,8 @@ pins仍Unavailable/null。四个产品native在本环境仅有合成fixture，�
 
 本轮临时监督脚本统计目录时遇已删除文件的stat竞态，原Popen wait未返回；之后只核原精确命令及kernel pidfd寿命，09:48:23UTC确认原进程结束，原group仅僵尸、无live成员。该观察不补造原wait或全机清理，监督结果仍Fail/缺证。原TRX、日志、脚本和观察记录保留在artifacts/2026-10-27-release-regression，完整/tmp原件保留。下一必要回归先修本地监督异常路径，使用已授权workspace自有临时目录并分别监测该文件系统与自有输出，不扩大磁盘或清理未知目录。
 
-局部最终publisher14项、候选包12项合成检查实际通过，旧11/9/12阶段不累加；不是Windows或真实Skia执行。新publish/完整离线/实际ZIP结果将在产生后单独记录，不能提前宣称main/Release完成。
+局部publisher在Skia检查初版14项，content hash校正后16项、候选包12项合成检查实际通过，旧11/9/12/14阶段不累加；不是Windows或真实Skia执行。新publish/完整离线/实际ZIP结果将在产生后单独记录，不能提前宣称main/Release完成。报告的signatureVerification明确仅runtime归档旧资格部分，新增Skia重验单独登记skiaAudits，不提前声称成功。
+
+## 签名包content hash校正
+
+r02已按新元数据生成Skia依赖及实际DLL，但新增检查把原NuGet锁contentHash误当原始签名ZIP SHA512而拒绝；原件保留，不将其写成产品运行失败或改锁规避。NuGet官方PackageArchiveReader.GetContentHash对签名包读取签名内容hash，另有GetArchiveHashAsync读取原始归档hash，二者语义不同（https://github.com/NuGet/NuGet.Client/blob/dev/src/NuGet.Core/NuGet.Packaging/PackageArchiveReader.cs）。修正后保留既有归档SHA256 pin，新增锁定SDK `dotnet nuget verify <固定包> --all` 正常在线验签两包，原命令/退出/组结算分别登记；只有实际Content hash与原锁一致、归档前后pin不变才放行。缓存metadata只作原锁的一致性检查，不作为签名或来源授权。包候选要求这两条原验签收据完整结算，不借成功exit省略content hash。该校正不修改原包、锁文件、系统信任或安全设置。

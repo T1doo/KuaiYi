@@ -1920,3 +1920,5 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 - 2026-10-27 整体WPF窗口获具体批准后单次执行：dab701/run40472560874/job122082914477、push attempt1，job196秒、主步骤165秒exit1，实际Fail。冻结校验和两上传success、2artifact；新视觉ZIP唯一正常下载Forbidden，本地0B后停止，父未取，不换路线或日志，不重跑。PNG/场景/首因/原Job及窗口托盘清理均Unknown，68图非实测；未新测本地、未改产品或生产pins。只归档文本与安全metadata哈希，详情见validation/ui-polish-whole-window-result.md及test-evidence/2026-10-27-ui-whole-window-result.json。
 
 - 2026-10-27 用户授权main/Release后的云端收尾：新八角色publish r01命令16/16成功但独审发现ImageWorker PrivateAssets发布遗漏Skia，原Pass不当完整闭包，原目录及新强检查红件保全；只修两Publish元数据并加双归档hash/实际deps/DLL检查。新增真实七角色开发平铺候选包、精确runtime冲突门和只读校验器，原pins/issuer不授予资格。publisher14P、package12P；首轮完整Core2932=2881P51F均有/tmp8.8GiB ENOSPC，监督stat竞态/原wait缺证不抹，原tmp与TRX保全。新实际发布/完整回归/ZIP/最终main-release尚待，见validation/release-preparation-2026-10-27.md。
+
+- 2026-10-27 签名包哈希语义修正：r02实际已生成Skia DLL/deps，但新增原始ZIP SHA512与锁contentHash混同比较而Fail，原件不回填。按NuGet官方语义保留archive SHA256固定pin，加入原SDK两包在线verify --all和唯一Content hash原锁对照、原组结算门，candidate要求2审计。最终publisher16P/package12P及源码独审限定ACK；实际第三次发布、完整回归和ZIP尚未执行完成，不抬产品资格。

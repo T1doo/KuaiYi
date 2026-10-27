@@ -4,7 +4,6 @@ This produces unsealed build inputs, never installation/source authority. Run wi
 the existing approved SDK and cache; no application, native DLL or CI is executed.
 """
 import argparse
-import base64
 import hashlib
 import importlib.util
 import json
@@ -183,10 +182,11 @@ def inspect_skia(output, cache):
             raise RuntimeError("Skia managed/native dependency differs")
         path = cache / slug / "4.153.1" / (slug + ".4.153.1.nupkg")
         with INPUTS.verified_zip(path, INPUTS.SKIA[slug], "sha256") as archive:
-            # The existing Git SHA256 pin and unchanged NuGet lock's SHA512 both bind the archive.
-            INPUTS.regular(path)
-            if base64.b64encode(hashlib.sha512(path.read_bytes()).digest()).decode() != lock[identity]["contentHash"]:
-                raise RuntimeError("Skia archive differs from original locked SHA512")
+            # Signed NuGet content hash is not raw ZIP SHA512. The original archive
+            # pin binds these bytes; fresh SDK verification below checks its signed hash.
+            metadata = read_json(path.parent / ".nupkg.metadata")
+            if metadata.get("contentHash") != lock[identity]["contentHash"] or metadata.get("source") != INPUTS.RUNTIME.NUGET_SOURCE:
+                raise RuntimeError("Skia metadata differs from original locked SHA512 content hash")
             for member, relative in members:
                 raw = archive.read(member)
                 size, sha = INPUTS.file_hash(output / relative)
@@ -195,6 +195,26 @@ def inspect_skia(output, cache):
                 records.append({"path": relative, "package": identity, "version": "4.153.1", "member": member,
                                 "bytes": size, "sha256": sha.hex()})
     return records
+
+
+def verify_skia_inputs(cache, env, output, deadline, receipts):
+    """Use the locked SDK's NuGet implementation for signed content hash semantics."""
+    sdk, _ = SDK.environment(REPO)
+    lock = read_json(REPO / "src/KuaiYi.ImageWorker/packages.lock.json")["dependencies"]["net10.0"]
+    for slug, identity in [("skiasharp", "SkiaSharp"), ("skiasharp.nativeassets.win32", "SkiaSharp.NativeAssets.Win32")]:
+        package = cache / slug / "4.153.1" / (slug + ".4.153.1.nupkg")
+        with INPUTS.verified_zip(package, INPUTS.SKIA[slug], "sha256"):
+            pass
+        log = output / (slug + "-signature.log")
+        row = {"package": identity, "version": "4.153.1"}
+        receipts.append(row)
+        execute([str(sdk / "dotnet"), "nuget", "verify", str(package), "--all"], env, log, deadline, output, row)
+        matches = re.findall(r"^Content hash: ([A-Za-z0-9+/]+=*)\s*$", log.read_text(encoding="utf-8"), re.MULTILINE)
+        if row["exit"] != 0 or matches != [lock[identity]["contentHash"]]:
+            raise RuntimeError("Original NuGet signature/content hash qualification failed")
+        with INPUTS.verified_zip(package, INPUTS.SKIA[slug], "sha256"):
+            pass
+        row.update(lockedContentHashVerified=True, archiveSha256=INPUTS.SKIA[slug])
 
 
 def require_bootstrap_config(document):
@@ -288,13 +308,14 @@ def publish(output):
     (output / "publisher-source.py").write_bytes(script)
     env.update(NUGET_PACKAGES=str(cache), MSBUILDDISABLENODEREUSE="1", DOTNET_CLI_UI_LANGUAGE="en-US")
     report = {"kind": "UnsealedManagedWindowsPublish", "status": "InProgress", "sourceHead": head,
-              "sdk": "10.0.402", "runtime": "10.0.13", "commands": [], "roles": [],
+              "sdk": "10.0.402", "runtime": "10.0.13", "commands": [], "roles": [], "skiaAudits": [],
               "productionPins": "Unavailable", "issuer": "NotImplemented", "windowsExecution": "NotRun",
               "nativeBuild": "NotRun", "wholeGenerationSha256": None, "bootstrapSourceSha256": None,
-              "signatureVerification": "NotRerun_ArchiveBytesMatchExistingPins", "originals": "RetainedLocally"}
+              "signatureVerification": "RuntimeOnly_NotRerun_ArchiveBytesMatchExistingPins", "originals": "RetainedLocally"}
     report["publisherSha256"] = hashlib.sha256(script).hexdigest()
     deadline = time.monotonic() + SECONDS
     try:
+        verify_skia_inputs(cache, env, output, deadline, report["skiaAudits"])
         props = ["-p:EnableWindowsTargeting=true", "-p:RuntimeFrameworkVersion=10.0.13", "-p:SelfContained=true",
                  "-p:PublishSingleFile=false", "-p:PublishTrimmed=false", "-p:PublishReadyToRun=false",
                  "-p:KuaiYiTextAlpha=false", "-p:KuaiYiIsolatedSessionTest=false", "-p:KuaiYiIncludeWindowsCiProbe=false",

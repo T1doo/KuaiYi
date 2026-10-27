@@ -89,6 +89,10 @@ def validate_publish(root):
     commands = report["commands"]
     if (len(commands) != 16 or any(c.get("exit") != 0 or c.get("settlement") != "LeaderJoined_GroupEmpty" for c in commands)):
         raise ValueError("Original build command settlement is not confirmed")
+    audits = report.get("skiaAudits", [])
+    if ([a.get("package") for a in audits] != ["SkiaSharp", "SkiaSharp.NativeAssets.Win32"]
+            or any(a.get("exit") != 0 or a.get("settlement") != "LeaderJoined_GroupEmpty" or a.get("lockedContentHashVerified") is not True for a in audits)):
+        raise ValueError("Original locked Skia signature/content hash qualification is incomplete")
     roles = report["roles"]
     if [r["role"] for r in roles] != list(publisher.ROLES):
         raise ValueError("Exact eight managed roles required")

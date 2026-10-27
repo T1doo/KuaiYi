@@ -35,6 +35,7 @@ class PreviewTests(unittest.TestCase):
                   "sdk": "10.0.402", "runtime": "10.0.13", "sourceHead": "a" * 40,
                   "publisherSha256": p.digest(out / "publisher-source.py"),
                   "commands": [{"exit": 0, "settlement": "LeaderJoined_GroupEmpty"} for _ in range(16)], "roles": roles}
+        report["skiaAudits"] = [{"package": name, "exit": 0, "settlement": "LeaderJoined_GroupEmpty", "lockedContentHashVerified": True} for name in ["SkiaSharp", "SkiaSharp.NativeAssets.Win32"]]
         (out / "result.json").write_text(json.dumps(report))
         return out, report
 

@@ -38,6 +38,7 @@ class ManagedPublishTests(unittest.TestCase):
                     (output / relative).write_bytes(raw)
             pins[slug] = hashlib.sha256(path.read_bytes()).hexdigest()
             lock[identity] = {"resolved": "4.153.1", "contentHash": base64.b64encode(hashlib.sha512(path.read_bytes()).digest()).decode()}
+            (path.parent / ".nupkg.metadata").write_text(json.dumps({"contentHash": lock[identity]["contentHash"], "source": publisher.INPUTS.RUNTIME.NUGET_SOURCE}))
             libraries[identity + "/4.153.1"] = {"type": "package"}
             target[identity + "/4.153.1"] = {section: {member: {} for member, _ in members}}
         target["SkiaSharp/4.153.1"]["dependencies"] = {"SkiaSharp.NativeAssets.Win32": "4.153.1"}
@@ -78,6 +79,31 @@ class ManagedPublishTests(unittest.TestCase):
             path.write_text(json.dumps(doc))
             with patch.object(publisher, "REPO", root), patch.dict(publisher.INPUTS.SKIA, pins), self.assertRaisesRegex(RuntimeError, "locked SHA512"):
                 publisher.inspect_skia(output, cache)
+
+    def test_sdk_signature_result_must_match_original_locked_content_hash(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            cache, output, pins = self.skia_fixture(root)
+            receipts = []
+            lock = json.loads((root / "src/KuaiYi.ImageWorker/packages.lock.json").read_text())["dependencies"]["net10.0"]
+            def verified(argv, env, log, deadline, work, row):
+                identity = "SkiaSharp.NativeAssets.Win32" if "nativeassets" in argv[3] else "SkiaSharp"
+                log.write_text("Content hash: " + lock[identity]["contentHash"] + "\n")
+                row.update(exit=0, settlement="LeaderJoined_GroupEmpty")
+            with patch.object(publisher, "REPO", root), patch.dict(publisher.INPUTS.SKIA, pins), patch.object(publisher.SDK, "environment", return_value=(root / "sdk", {})), patch.object(publisher, "execute", side_effect=verified):
+                publisher.verify_skia_inputs(cache, {}, output, time.monotonic() + 10, receipts)
+                self.assertEqual(2, len(receipts))
+                self.assertTrue(all(x["lockedContentHashVerified"] for x in receipts))
+
+    def test_success_exit_without_matching_signed_content_hash_is_refused(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            cache, output, pins = self.skia_fixture(root)
+            def wrong(argv, env, log, deadline, work, row):
+                log.write_text("Content hash: AAAAAA==\n")
+                row.update(exit=0, settlement="LeaderJoined_GroupEmpty")
+            with patch.object(publisher, "REPO", root), patch.dict(publisher.INPUTS.SKIA, pins), patch.object(publisher.SDK, "environment", return_value=(root / "sdk", {})), patch.object(publisher, "execute", side_effect=wrong), self.assertRaisesRegex(RuntimeError, "qualification failed"):
+                publisher.verify_skia_inputs(cache, {}, output, time.monotonic() + 10, [])
 
     def test_real_command_output_and_exit_are_recorded_without_running_product(self):
         with tempfile.TemporaryDirectory() as folder:
