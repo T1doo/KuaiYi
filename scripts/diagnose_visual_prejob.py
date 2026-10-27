@@ -10,8 +10,8 @@ import re
 import sys
 
 SOURCES={
-    'scripts/windows_visual_job.py':'2ef2b8730fbeb717730d9d1161e892a315e73761b57840c27df2aaf0550d16ea',
-    'scripts/verify-ui-polish-windows.py':'ad62e0e912b8cdbea39a2bcc4975943a34e3fda60fec3402b4b41312a83aab7b',
+    'scripts/windows_visual_job.py':'f3eb052e86015b668583db724b30c3817c02b1115fad0183c9440072291787e8',
+    'scripts/verify-ui-polish-windows.py':'4c8450f2bfd3cd14cdab2ebc105ec790b463340383fa91650e558430147cff82',
 }
 MAX_SOURCE=256*1024
 MAX_EVENT=4*1024*1024

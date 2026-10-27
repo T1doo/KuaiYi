@@ -13,10 +13,10 @@ import unicodedata
 import time
 import urllib.request
 
-PARENT='f2b7c57acfedf21cd8d684e7b075e345c8da5597'
+PARENT='4c0a1a64a6c70415fbeb97ae2b2ec021777f9e05'
 SIDES={'before':'e4d57e77426ab235c7219b375debd76bc072e00b','after':'e12c1ed8ff351f8300dbdaca18585d7994493317'}
 BRANCH='refs/heads/dev/ui-polish-visual-r03'
-FILES={'.github/workflows/windows-ui-polish.yml','scripts/verify-ui-polish-windows.py','docs/progress.md','docs/validation/ui-polish-r03-trigger-wrapper.md'}
+FILES={'scripts/visual_publication.py', 'docs/validation/ui-polish-whole-window-candidate.md', 'scripts/test_visual_publication.py', 'scripts/diagnose_visual_prejob.py', 'scripts/verify-ui-polish-windows.py', 'scripts/test_windows_visual_job.py', 'docs/progress.md', 'docs/test-evidence/2026-10-27-ui-whole-window-preparation.json', '.github/workflows/windows-ui-polish.yml', 'scripts/windows_visual_job.py'}
 REPO=Path(__file__).resolve().parent.parent
 WORK=REPO/'artifacts/ui-polish-windows'
 
@@ -128,7 +128,7 @@ def main(phase):
  old=load('visual_original_layout_utilities',REPO/'scripts/verify-settings-layout-windows.py')
  policy=helper.load_policy(REPO);policy.require_signature_environment(os.environ)
  report={'Phase':phase,'Status':'Blocked','DeliverySha':os.environ['GITHUB_SHA'],'ProductHeads':SIDES,'Commands':[],'ModelCalls':0,'RegistryWrites':0,'SystemDpiThemeMotionChanges':0}
- deadline=time.monotonic()+(8*60 if phase=='prepare' else 6*60)
+ deadline=time.monotonic()+6*60
  def save(name,value):
   (WORK/name).write_text(json.dumps(value,indent=2)+'\n',encoding='utf-8')
  def run(argv,name,timeout=120,*,binary=False,input_path=None,limit=4*1024*1024):

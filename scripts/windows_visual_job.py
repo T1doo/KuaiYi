@@ -79,7 +79,7 @@ class WindowsJobApi:
     def close(self,h):
         if not self.k.CloseHandle(h):raise ctypes.WinError(ctypes.get_last_error())
 
-def supervise(repo,env,owner,launch=subprocess.Popen,clock=time.monotonic,_hold=None):
+def supervise(repo,env,owner,launch=subprocess.Popen,clock=time.monotonic,_hold=None,_publish=None):
     work=repo/'artifacts/ui-polish-windows';work_acquired=False
     report={'Kind':'OwnedValidationJobTree','Status':'UNKNOWN','SourceHead':env['GITHUB_SHA'],'WrapperPid':os.getpid(),'Phases':[],'NoKillOnClose':True,'NoBreakawayAllowed':True}
     def save():
@@ -89,11 +89,11 @@ def supervise(repo,env,owner,launch=subprocess.Popen,clock=time.monotonic,_hold=
     result=2
     try:
         work.mkdir(parents=True,exist_ok=False);work_acquired=True
-        deadline=clock()+14*60
+        deadline=clock()+12*60
         save()
         if owner.sample()['Status']!='Pass_OwnValidationDescendantsExited':raise RuntimeError('Initial Job query unconfirmed; no child launch')
         save()
-        for phase,budget in [('prepare',8*60),('run',6*60)]:
+        for phase,budget in [('prepare',6*60),('run',6*60)]:
             available=min(budget,deadline-clock())
             if available<=0:raise RuntimeError('Original shared validation budget exhausted')
             row={'Phase':phase,'OriginalExitConfirmed':False,'Exit':None};report['Phases'].append(row)
@@ -108,7 +108,7 @@ def supervise(repo,env,owner,launch=subprocess.Popen,clock=time.monotonic,_hold=
             if row['Exit']!=0 or membership['Status']!='Pass_OwnValidationDescendantsExited':raise RuntimeError('Phase failed or owned descendants remain; no next phase')
         report['Status']='Pass_OwnValidationSubtree_AwaitingParentWrapperExit';result=0
     except Exception as error:
-        report['Error']=type(error).__name__+': '+str(error);report['Status']='Fail';result=2
+        report['Error']=type(error).__name__+': '+str(error);report['ErrorType']=type(error).__name__;report['Status']='Fail';result=2
     finally:
         # One final original query/close decision; never re-close after a failed CloseHandle.
         confirmed=owner.close_if_confirmed()
@@ -118,6 +118,13 @@ def supervise(repo,env,owner,launch=subprocess.Popen,clock=time.monotonic,_hold=
         try:save()
         except Exception as error:
             report['EvidenceWriteError']=type(error).__name__+': '+str(error);result=2
+        if work_acquired and _publish is not None:
+            try:_publish(work,report)
+            except Exception as error:
+                report['EvidencePublicationStatus']='Fail'
+                report['EvidencePublicationErrorType']=type(error).__name__;result=2
+                try:save()
+                except Exception as write_error:report['EvidenceWriteErrorType']=type(write_error).__name__
         if not confirmed:
             try:print('KUAIYI_VALIDATION_TREE_UNKNOWN '+json.dumps(report),flush=True)
             except Exception as error:report['DiagnosticWriteError']=type(error).__name__+': '+str(error)
@@ -131,12 +138,19 @@ if __name__=='__main__':
     repo=Path(__file__).resolve().parent.parent
     spec=importlib.util.spec_from_file_location('visual_gate',repo/'scripts/verify-ui-polish-windows.py');gate=importlib.util.module_from_spec(spec);spec.loader.exec_module(gate)
     event=json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text(encoding='utf-8'));gate.context(os.environ,sys.platform,event)
+    def publication(work,report):
+        spec=importlib.util.spec_from_file_location('owned_visual_publication',repo/'scripts/visual_publication.py')
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        return module.publish_owned(work,report,dict(os.environ))
     try:owner=JobOwner(WindowsJobApi(),os.getpid())
     except Exception as error:
         work=repo/'artifacts/ui-polish-windows'
         if not work.exists():
             work.mkdir(parents=True)
-            (work/'validation-tree.json').write_text(json.dumps({'Status':'UNKNOWN','Stage':'OriginalJobCreateAssign','Error':str(error),'ValidationChildrenLaunched':False,'SourceHead':os.environ['GITHUB_SHA']},indent=2)+'\n')
-        print('KUAIYI_VALIDATION_TREE_BLOCKED '+str(error),flush=True)
+            report={'Status':'UNKNOWN','Stage':'OriginalJobCreateAssign','ErrorType':type(error).__name__,'ValidationChildrenLaunched':False,'SourceHead':os.environ['GITHUB_SHA'],'OriginalEvidenceRootAcquired':True,'OriginalJobHandleClosed':False}
+            (work/'validation-tree.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+            try:publication(work,report)
+            except Exception as publish_error:print('Visual failure evidence unconfirmed: '+type(publish_error).__name__,flush=True)
+        print('KUAIYI_VALIDATION_TREE_BLOCKED '+type(error).__name__,flush=True)
         raise SystemExit(2)
-    raise SystemExit(supervise(repo,dict(os.environ),owner))
+    raise SystemExit(supervise(repo,dict(os.environ),owner,_publish=publication))

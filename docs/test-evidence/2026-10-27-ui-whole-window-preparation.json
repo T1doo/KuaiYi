@@ -1,0 +1,144 @@
+{
+  "Status": "Pass_OfflineWholeWindowPreparation_NotNativeExecuted",
+  "Base": "4c0a1a64a6c70415fbeb97ae2b2ec021777f9e05",
+  "ProductBefore": "e4d57e77426ab235c7219b375debd76bc072e00b",
+  "ProductAfter": "e12c1ed8ff351f8300dbdaca18585d7994493317",
+  "ExecutionBranch": "dev/ui-polish-visual-r03",
+  "PreparationBranch": "dev/ui-polish-visual-r03-preparation",
+  "FutureBudget": {
+    "JobMinutes": 15,
+    "NativeStepMinutes": 13,
+    "SupervisorWaitMinutes": 12,
+    "PrepareMinutes": 6,
+    "VisualMinutes": 6,
+    "SnapshotQualificationMinutes": 1
+  },
+  "PlannedImages": {
+    "SettingsPerSide": 16,
+    "OverlayPerSide": 18,
+    "Total": 68
+  },
+  "OutputBounds": {
+    "Files": 512,
+    "FileBytes": 33554432,
+    "PngBytes": 2097152,
+    "TotalRetainedBytes": 201326592,
+    "ParentReceiptBytes": 4096
+  },
+  "Tests": {
+    "Publication": 15,
+    "OriginalOwnerWithPublicationFailure": 21,
+    "OriginalVisualContract": 28,
+    "BootstrapEncoding": 5,
+    "DormantPrejobSourceGuardPositive": 1,
+    "Csharp": "Unchanged_NotRebuilt_NotRerun"
+  },
+  "NativeWindowsThisWork": "NotRun",
+  "WorkflowTriggered": "No",
+  "OldRun403Cause": "Unknown_ForbiddenNotRetried",
+  "Run404Scope": "PreJobOnly_MetadataSuccess_JsonNotRead",
+  "ProductionPins": "Unavailable_NullGenerationAndBootstrap_Unchanged",
+  "StartupSourceAuthority": "NoNewIssuer_NoReceiptOrPathGrant",
+  "Evidence": [
+    {
+      "File": "publication-r01.log",
+      "Bytes": 110,
+      "Sha256": "a392c33c97194700035d02ddeb9ff914a8ebceb8a847eb6698085fed251712ae"
+    },
+    {
+      "File": "owner-r01.log",
+      "Bytes": 7736,
+      "Sha256": "6c51bd2a4c7114bebf53604cd7d2ae7d04b2c041910270de1e754bc1cec35678"
+    },
+    {
+      "File": "contract-r01.log",
+      "Bytes": 239,
+      "Sha256": "6b1bd666ff9196eb2290202e3b4638794f22e4d53606c4e3ff2a5d0759da7d57"
+    },
+    {
+      "File": "bootstrap-r01.log",
+      "Bytes": 103,
+      "Sha256": "f242b01baa943cade05575bd5e5dca9aa16e976ecf5fa164eb079ae115bda24c"
+    },
+    {
+      "File": "dormant-diagnostic-source-r01.log",
+      "Bytes": 98,
+      "Sha256": "6fb836ff09dd03dfee8cf2e46eaaa899995d6f2bae645563568232c2ec053015"
+    },
+    {
+      "File": "publication-r02.log",
+      "Bytes": 110,
+      "Sha256": "e607e96577e89de6faace24a5b0738ef35ef10461822faf24ab3c9de00b167e2"
+    },
+    {
+      "File": "owner-r02.log",
+      "Bytes": 7736,
+      "Sha256": "01443eba36de418ba135a24f2df7119dfada72609180fbce1e5a7a21c1262bb3"
+    },
+    {
+      "File": "contract-r02.log",
+      "Bytes": 239,
+      "Sha256": "005596cf01d95dcbf24b59fe715d767e3da3addf2aa7e905a0ec961fcef64916"
+    },
+    {
+      "File": "bootstrap-r02.log",
+      "Bytes": 103,
+      "Sha256": "1331eb27b2fa236183659a52b4a93ed9e2f99bebe81e963b5aad7d89ffb0cc01"
+    },
+    {
+      "File": "dormant-diagnostic-source-r02.log",
+      "Bytes": 98,
+      "Sha256": "0c1444824fd71eec878a61b61872df1e891b1aacd98843caec2dfe110aef03c8"
+    },
+    {
+      "File": "publication-r03.log",
+      "Bytes": 111,
+      "Sha256": "8174809594ee6b1e4ae3d0ab050aacf7b9dee52cec449dd064e31c9e87c4c173"
+    },
+    {
+      "File": "owner-r03.log",
+      "Bytes": 7905,
+      "Sha256": "c4cd3d2d34c064d5f7a81efae4debcb969a47116c47671c50898a28252535099"
+    },
+    {
+      "File": "bootstrap-r03.log",
+      "Bytes": 103,
+      "Sha256": "1eaba3423ea9e541257f8617a96f6bf0983ba853701b72cba72d56831fc8f7bf"
+    },
+    {
+      "File": "dormant-diagnostic-source-r03.log",
+      "Bytes": 98,
+      "Sha256": "ca9d3c68d7a820715f7bd093db72ce4122dd5639fa0179c11cba16e4dc60c779"
+    },
+    {
+      "File": "publication-signed-red.log",
+      "Bytes": 3341,
+      "Sha256": "d76eb360feaa6f01d2a2073c13fd10f83676918e978b970af249726f52734c88"
+    },
+    {
+      "File": "publication-signed-green.log",
+      "Bytes": 112,
+      "Sha256": "495d0da76af121b0c3e9d12b63e8ef8914bc398eff53630d34b2f185d67dbc31"
+    },
+    {
+      "File": "publication-lock-red.log",
+      "Bytes": 1205,
+      "Sha256": "b7eb940d8e9792f375cf9aa92c2769e3fffd7ea5c98277a05e5f1224e05edf86"
+    },
+    {
+      "File": "publication-lock-green.log",
+      "Bytes": 114,
+      "Sha256": "d56367c365b33ec4be4d5c310ce3b79edf1c7c5df365a391f290d3f6174d5bad"
+    }
+  ],
+  "Sources": {
+    "scripts/visual_publication.py": "a2bf0f6985089546ef80cf3e487faec826af41e2eabba95d1913ec40bf9bce28",
+    "scripts/test_visual_publication.py": "21de19259aa60c74969e560fa688be237b3887bc37ca11e6d689eac2335dbe3f",
+    "scripts/windows_visual_job.py": "f3eb052e86015b668583db724b30c3817c02b1115fad0183c9440072291787e8",
+    "scripts/test_windows_visual_job.py": "86bdaba5444967cc57284087a19bbc63a4a3a1d45f1dba2c8e01cba3dbd71cff",
+    "scripts/verify-ui-polish-windows.py": "4c8450f2bfd3cd14cdab2ebc105ec790b463340383fa91650e558430147cff82",
+    "scripts/diagnose_visual_prejob.py": "80903ee092b11a632785cb14279eef186d5839400ab79a8ea8cda4fe7e75b4f8",
+    ".github/workflows/windows-ui-polish.yml": "885e5e5bf929bc8b27f82153845a2ec697793b0cc2a0dda482dc903029668bc6"
+  },
+  "Utc": "2026-10-27T04:35:20.894502+00:00"
+}

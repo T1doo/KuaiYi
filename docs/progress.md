@@ -1914,3 +1914,5 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 - 2026-10-27 新诊断检出补验：固定源hash两脚本在text=auto＋命令级autocrlf=true过滤时均不同；仅追加两路径-text后逐字节均符。保留739本地候选祖先和红绿过滤JSON，不改系统Git配置，不将其认定旧403首因，不触发Windows。
 
 - 2026-10-27 已批准启动前诊断实际一次执行：49c0bba/run40446841918/job122000026629、push attempt1；GitHub success，job24秒/诊断2秒，在3分钟/1分钟内，父子上传均success并有2artifact。新子zip正常读取Forbidden后停止，父未取、不换路，不读旧403日志；元数据及hash独审ACK，JSON正文未独读、实际编码仍Unknown。已审控制流仅可推论来源/严格解码/context完成并硬停Job前，不等旧CI根因、Job/WPF/像素/完整树清理通过。新事实见validation/ui-prejob-diagnostic-2026-10-27.md和test-evidence/2026-10-27-ui-prejob-diagnostic-result.json，无重跑或新真实窗口。
+
+- 2026-10-27 整体界面验收候选准备：真实下载即用仍缺原G/B/受审封存输入（pins Unavailable/null、Launcher要求原bootstrap布局），不将微诊断或视觉当成品。复用原Job/两份精确e4d57/e12产品树/四WPF进程68场景/同epoch几何+fade与原清理门，完整注册入口候选15分钟job/视觉≤6，准备≤6、原等待总12以留收证空间；尚未触发。新owned冻结/manifest/Ready/namespace校验均为证据不是授权，失败与UNKNOWN不假通过；离线发布器15P/owner21P/原合同28P/UTF8入口5P/保留诊断源码正例1P，C#/产品未改未重测。旧收据Forbidden不重取，图包若再拒也不换路。详见validation/ui-polish-whole-window-candidate.md及test-evidence/2026-10-27-ui-whole-window-preparation.json。

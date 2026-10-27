@@ -105,6 +105,21 @@ class OwnerTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d:
    result=v.supervise(Path(d),{'GITHUB_SHA':'a'*40},owner,launch=lambda *a,**k:self.fail('no launch'),clock=clock,_hold=lambda:self.fail('confirmed owner must settle'))
   self.assertEqual(2,result);self.assertEqual(['original-handle'],api.closed)
+ def test_publication_failure_after_close_cannot_pass(self):
+  api=FakeApi();owner=v.JobOwner(api,17)
+  class Process:
+   pid=21
+   def wait(self,timeout=None):return 0
+  def failed(*args):raise OSError('synthetic publication error')
+  with tempfile.TemporaryDirectory() as d:
+   result=v.supervise(Path(d),{'GITHUB_SHA':'a'*40},owner,launch=lambda *a,**k:Process(),_publish=failed)
+  self.assertEqual(2,result);self.assertEqual(['original-handle'],api.closed)
+ def test_publication_failure_cannot_drop_unknown_owner(self):
+  api=FakeApi((2,[17,88]));owner=v.JobOwner(api,17);held=[]
+  def failed(*args):raise OSError('synthetic publication error')
+  with tempfile.TemporaryDirectory() as d:
+   result=v.supervise(Path(d),{'GITHUB_SHA':'a'*40},owner,launch=lambda *a,**k:self.fail('no launch'),_publish=failed,_hold=lambda:held.append(True))
+  self.assertEqual(2,result);self.assertTrue(held);self.assertFalse(api.closed)
  def test_original_wait_timeout_is_failure_not_cleanup_success(self):
   api=FakeApi();owner=v.JobOwner(api,17);calls=[];waits=[]
   class Process:
