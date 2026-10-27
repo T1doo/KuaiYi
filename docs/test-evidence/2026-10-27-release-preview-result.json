@@ -1,0 +1,124 @@
+{
+  "Status": "Reviewed_UnsealedPreview_SourceIntegrationOnly_NotProductAccepted",
+  "ProductSourceHead": "eaa79adc94ff76fffb8ff9d08cb8036297a27a99",
+  "Sdk": "10.0.402",
+  "Runtime": "10.0.13",
+  "PublishCommands": 16,
+  "AllPublishCommandsExit0GroupEmpty": true,
+  "SkiaAudits": [
+    {
+      "Package": "SkiaSharp",
+      "Exit": 0,
+      "Settlement": "LeaderJoined_GroupEmpty",
+      "LockedContentHashVerified": true
+    },
+    {
+      "Package": "SkiaSharp.NativeAssets.Win32",
+      "Exit": 0,
+      "Settlement": "LeaderJoined_GroupEmpty",
+      "LockedContentHashVerified": true
+    }
+  ],
+  "RoleFiles": 2668,
+  "RoleBytes": 1102115214,
+  "CoreSha256": "a8d789f92e395297d5d13078ec72f8331ed112c7bd2c6e6957c53a4d952be67c",
+  "ProductInputFiles": 449,
+  "ProductInputsGitBeforeAfterIdentical": true,
+  "Artifact": {
+    "Status": "Pass_PreviewPackagingOnly",
+    "Asset": "KuaiYi-0.1.0-preview.20261027-unsealed-managed-win-x64.zip",
+    "Bytes": 130847087,
+    "Sha256": "fd4b8a0e970233c0854bf864c34d66e7f67a8dbc140d3f366905410985e546cd",
+    "BuildSourceHead": "eaa79adc94ff76fffb8ff9d08cb8036297a27a99",
+    "Files": 656,
+    "WindowsExecution": "NotRun",
+    "Installer": false
+  },
+  "PublisherUnitTests": 16,
+  "PackagerUnitTests": 12,
+  "IndependentPackageReview": "ACK_ByteHashesClosureInventory_NotWindows",
+  "OtherOfflineTests": {
+    "Provider": {
+      "Total": 2694,
+      "Passed": 2694,
+      "Failed": 0,
+      "Skipped": 0,
+      "TrxBytes": 3965052,
+      "TrxSha256": "942ad98c5f1e014e6847c2078255ea22693694838e6589af7e9b0f81e13489da",
+      "DllBeforeEqualsAfter": true
+    },
+    "Codec": {
+      "Total": 545,
+      "Passed": 545,
+      "Failed": 0,
+      "Skipped": 0,
+      "TrxBytes": 787297,
+      "TrxSha256": "8ee359094aed3362c661fe52bbe021757ac59e021f95f5449465b0d4c2b71cf4",
+      "DllBeforeEqualsAfter": true
+    },
+    "Extension": {
+      "Tests": 104,
+      "Exit": 0,
+      "OriginalSettlement": "LeaderJoined_GroupEmpty"
+    }
+  },
+  "OtherOfflineSourceFiles": 775,
+  "OtherOfflineSourcesUnchanged": true,
+  "FullCoreFirst": {
+    "SourceHead": "4c91c3118b9e048df8c128a42682d4fff7a49389",
+    "Total": 2932,
+    "Passed": 2881,
+    "Failed": 51,
+    "All51ErrorsContainEnospc": true,
+    "OriginalPopenWaitReturned": false,
+    "KernelLifetimeEndedObserved": true,
+    "TrxBytes": 4890468,
+    "TrxSha256": "23e1f9f17c4d2f3303d149a78bdf9111c36b8e2ae5da08dc8321c7b6a7930823"
+  },
+  "FullCoreSecond": {
+    "SourceHead": "eaa79adc94ff76fffb8ff9d08cb8036297a27a99",
+    "Status": "Fail_900SecondTimeout_NoTrx",
+    "Exit": -9,
+    "OriginalSettlement": "LeaderJoined_ChildrenExited_UnreapedZombies",
+    "Seconds": 900.332,
+    "OwnTmpPeakBytes": 8498201236
+  },
+  "FullCoreAccepted": false,
+  "WindowsWpf": "Fail_Run40472560874_ArtifactsForbidden_NoRetry_CausePixelCleanupUnknown",
+  "WindowsPowerShellVerifier": "NotRun_StaticReviewOnly",
+  "Installer": false,
+  "ProductionPins": "Unavailable_Null_Unchanged",
+  "MissingEngineering": [
+    "FourRealNativeInputs",
+    "RealExtensionOrigin",
+    "GenerationBootstrapSealingAndEmbeddedPins",
+    "PositiveStartupIssuer",
+    "FormalIdentityAndSignature"
+  ],
+  "Release": "NotExecuted_AutomaticApprovalRejected_PayloadDestinationConfirmationRequired",
+  "NoReleaseApiRequestOrUploadExecuted": true,
+  "MainIntegrationReview": "ACK_PreviewSourceOnly_NotProductReadiness",
+  "Evidence": [
+    {
+      "File": "artifacts/2026-10-27-release-managed-r03/result.json",
+      "Bytes": 530404,
+      "Sha256": "66cfe5948029da556b45c1cb0a2e255b2c6b4689524f925d6bbe7968571cde51"
+    },
+    {
+      "File": "artifacts/2026-10-27-release-regression-rest/result.json",
+      "Bytes": 7050,
+      "Sha256": "f8bc72ca028d0c3a2bb5ce0ec0c2151b345a52d9ffa629e2a1ba58c289587770"
+    },
+    {
+      "File": "artifacts/2026-10-27-release-package-r01/package-result.json",
+      "Bytes": 354,
+      "Sha256": "6aa66a7f0220a1635184eb16133b4fd3bdc73c234409f208388caaaa2c3ae341"
+    },
+    {
+      "File": "artifacts/2026-10-27-release-regression-r02/result.json",
+      "Bytes": 16588,
+      "Sha256": "5e6a8270348775facc524a9e9d598a7adcfd16d5ec1583efe079d216f80f1544"
+    }
+  ],
+  "Utc": "2026-10-27T10:30:03.379736+00:00"
+}

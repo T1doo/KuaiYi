@@ -1,0 +1,13 @@
+# 2026-10-27 待验预发布的实际交付状态
+
+源码eaa79adc94ff76fffb8ff9d08cb8036297a27a99。原16条restore/publish及2条固定Skia验签/content-hash审计均exit0/原group为空；449产品输入与Git、before/after逐hash一致，2668角色文件/1,102,115,214B与原清单吻合，8 Core同a8d789f92e395297d5d13078ec72f8331ed112c7bd2c6e6957c53a4d952be67c。Skia缺件与签名包hash误比两次旧失败原件保留，不回填。publisher16P、packager12P是最终局部结果，不累加历史轮次。
+
+实际ZIP为KuaiYi-0.1.0-preview.20261027-unsealed-managed-win-x64.zip，130,847,087B、656成员，SHA256 fd4b8a0e970233c0854bf864c34d66e7f67a8dbc140d3f366905410985e546cd。独审逐成员与独立平铺对照一致：app436/bootstrap-input194/symbols15，另10个白名单附属+manifest。仅KuaiYi PDB移symbols；libSkiaSharp.pdb留app与deps一致。597DLL/10EXE/16PDB/32文本等库存无日志/TRX/用户settings/私钥类型，32文本高置信凭据模式无命中；这是有界审查，不是无限秘密证明。Windows/PS实际运行与Installer资格均未签。
+
+首轮Core真实2932=2881P51F，51错误含ENOSPC；/tmp独立8.8GiB满，原wait因监控竞态未返回，仅后验pidfd确认原退出。第二轮修监督保原组、改workspace自有TMPDIR及正式xUnit串行collection设置，900秒超时exit-9，无TRX；原wait已回收命令，仅原group僵尸无live，不称GroupEmpty或整机清理。临时峰值8,498,201,236B。两轮完整Core均Fail，不拼成绿；所有失败/UNKNOWN原件及旧/tmp保留。后续独立Provider/Codec/扩展只运行前面尚未执行的套件，准确数量与TRX、DLL及源前后比较见机器报告，不把它们替代Core。
+
+独立审查允许将这些明确未完成preview源码正常快进main，没有认定正式产品ready。原main51d077481cf6303602fcf5d2718213da9cf05178是祖先，384旧提交及72档案的敏感模式/来源与13workflow触发条件已限定核查；新增源码增量另审，不覆盖无关贡献、不强推。源码归档与可安装产品是不同交付状态。
+
+GitHub Release草稿及两附件动作在执行前被自动审批拦下，没有API创建请求、没有草稿/标签创建或附件上传；本地ZIP、SHA256SUMS、RELEASE-NOTES及delivery-result已经准备，不改渠道或重试。公开链接尚无，不能把云端本地路径当用户可下载地址。
+
+仍缺四真实native输入、真实extension origin、原G/B/embedded pins、正向startup issuer和正式身份/签名工程；生产Unavailable/null、完整性/密码/取消/清理/来源及250/600ms原门保持。WPF40472560874实际Fail且原件读取Forbidden，像素/首因/自主清理Unknown，不重跑或绕读。真实Windows集中计划见docs/release/WINDOWS-TESTS.md；不能说其它所有工程均完成。

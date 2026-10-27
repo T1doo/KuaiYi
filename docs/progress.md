@@ -1922,3 +1922,5 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 - 2026-10-27 用户授权main/Release后的云端收尾：新八角色publish r01命令16/16成功但独审发现ImageWorker PrivateAssets发布遗漏Skia，原Pass不当完整闭包，原目录及新强检查红件保全；只修两Publish元数据并加双归档hash/实际deps/DLL检查。新增真实七角色开发平铺候选包、精确runtime冲突门和只读校验器，原pins/issuer不授予资格。publisher14P、package12P；首轮完整Core2932=2881P51F均有/tmp8.8GiB ENOSPC，监督stat竞态/原wait缺证不抹，原tmp与TRX保全。新实际发布/完整回归/ZIP/最终main-release尚待，见validation/release-preparation-2026-10-27.md。
 
 - 2026-10-27 签名包哈希语义修正：r02实际已生成Skia DLL/deps，但新增原始ZIP SHA512与锁contentHash混同比较而Fail，原件不回填。按NuGet官方语义保留archive SHA256固定pin，加入原SDK两包在线verify --all和唯一Content hash原锁对照、原组结算门，candidate要求2审计。最终publisher16P/package12P及源码独审限定ACK；实际第三次发布、完整回归和ZIP尚未执行完成，不抬产品资格。
+
+- 2026-10-27 待验preview实件收口：eaa79adc源码新16publish+2Skia审计全0、2668角色文件/449源与Git前后符；ZIP130847087B/656成员/SHAfd4b8a0e970233c0854bf864c34d66e7f67a8dbc140d3f366905410985e546cd独审ACK。完整Core首轮2881P51F/ENOSPC、次轮900秒-9无TRX均Fail，不拼绿；Provider/Codec/扩展另跑未执行项，机器报告列实际。限定ACK仅允许main归档未完成preview，非正式ready。Release/API上传自动审批执行前拦下无草稿/上传，本地实件与说明备好不换路。native/G/B/origin/issuer等工程和Windows验收仍缺，见validation/release-preview-result-2026-10-27.md和test-evidence/2026-10-27-release-preview-result.json。
