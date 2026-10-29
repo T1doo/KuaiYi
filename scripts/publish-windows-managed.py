@@ -300,6 +300,12 @@ def execute(argv, env, log, deadline, work, receipt=None, *, log_limit_bytes=Non
                 if time.monotonic() >= grace:
                     raise RuntimeError("Original child group remains; settlement unconfirmed")
                 time.sleep(0.1)
+            # A child can close its output pipe, then finish writing TRX or other
+            # files during the settlement wait. Admission polls are not a final
+            # resource receipt; inspect the same original work scope once more.
+            row["settledOutputBytes"] = output_size(work)
+            if row["settledOutputBytes"] > LIMIT:
+                raise RuntimeError("Settled output budget exceeded; original files retained")
         except BaseException:
             # Build servers are disabled. Never target pre-existing processes.
             try:

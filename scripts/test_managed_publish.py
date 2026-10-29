@@ -19,6 +19,21 @@ spec.loader.exec_module(publisher)
 
 
 class ManagedPublishTests(unittest.TestCase):
+    def test_late_child_output_is_checked_after_original_group_settles(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            child = "import pathlib,time; time.sleep(0.3); pathlib.Path('late-payload').write_bytes(b'P'*300)"
+            leader = "import subprocess,sys; subprocess.Popen([sys.executable,'-c'," + repr(child) + "],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)"
+            receipt = {}
+            with patch.object(publisher, "REPO", root), patch.object(publisher, "LIMIT", 100):
+                with self.assertRaisesRegex(RuntimeError, "Settled output budget exceeded"):
+                    publisher.execute([sys.executable, "-c", leader], os.environ.copy(), root / "late.log",
+                                      time.monotonic() + 5, root, receipt)
+            self.assertEqual(300, (root / "late-payload").stat().st_size)
+            self.assertEqual(0, receipt["exit"])
+            self.assertGreater(receipt["settledOutputBytes"], 100)
+            self.assertFalse(any(x["state"] not in ("Z", "X") for x in receipt["groupMembersAfter"]))
+
     def test_pipe_close_error_keeps_primary_failure_and_independent_group_receipt(self):
         class FaultyClose:
             def __init__(self, original):
