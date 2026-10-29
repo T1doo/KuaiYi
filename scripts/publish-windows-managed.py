@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import re
+import selectors
 import signal
 import subprocess
 import sys
@@ -248,21 +249,51 @@ def output_size(root):
     return total
 
 
-def execute(argv, env, log, deadline, work, receipt=None):
+def execute(argv, env, log, deadline, work, receipt=None, *, log_limit_bytes=None):
     """Own only the newly created group; retain logs and fail closed on timeout."""
+    log_limit_bytes = LIMIT if log_limit_bytes is None else log_limit_bytes
+    if type(log_limit_bytes) is not int or not 0 < log_limit_bytes <= LIMIT:
+        raise ValueError("Invalid command log reservation")
     row = receipt if receipt is not None else {}
-    row.update(argv=argv, startUnix=time.time(), log=log.name, exit=None, settlement="NotStarted")
+    row.update(argv=argv, startUnix=time.time(), log=log.name, exit=None, settlement="NotStarted",
+               logLimitBytes=log_limit_bytes, logBytes=0, logTruncated=False,
+               stdoutCloseStatus="NotStarted")
     process = None
-    with log.open("xb") as stream:
-        process = subprocess.Popen(argv, cwd=REPO, env=env, stdout=stream, stderr=subprocess.STDOUT, start_new_session=True)
+    with log.open("xb", buffering=0) as stream, selectors.DefaultSelector() as selector:
+        process = subprocess.Popen(argv, cwd=REPO, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, start_new_session=True)
         row.update(pid=process.pid, group=process.pid, settlement="Running")
         try:
-            while process.poll() is None:
+            os.set_blocking(process.stdout.fileno(), False)
+            selector.register(process.stdout, selectors.EVENT_READ)
+            eof = False
+            leader_exit_at = None
+            while not eof or process.poll() is None:
                 if time.monotonic() >= deadline:
                     raise subprocess.TimeoutExpired(argv, SECONDS)
+                if process.poll() is not None:
+                    leader_exit_at = leader_exit_at or time.monotonic()
+                    if time.monotonic() - leader_exit_at >= 5:
+                        raise RuntimeError("Original child output remains; settlement unconfirmed")
                 if output_size(work) > LIMIT:
                     raise RuntimeError("In-flight output budget exceeded; retained")
-                time.sleep(0.2)
+                for key, _ in selector.select(min(0.2, max(0, deadline - time.monotonic()))):
+                    raw = os.read(key.fd, 65536)
+                    if not raw:
+                        selector.unregister(key.fileobj)
+                        eof = True
+                        continue
+                    available = log_limit_bytes - row["logBytes"]
+                    retained = raw[:available]
+                    offset = 0
+                    while offset < len(retained):
+                        written = stream.write(retained[offset:])
+                        if not written:
+                            raise OSError("Command log write made no progress")
+                        offset += written
+                        row["logBytes"] += written
+                    if len(raw) > available:
+                        row["logTruncated"] = True
+                        raise RuntimeError("Command log budget exceeded; bounded prefix retained")
             row["exit"] = process.wait()
             grace = time.monotonic() + 5
             while any(x["state"] not in ("Z", "X") for x in group_members(process.pid)):
@@ -278,11 +309,31 @@ def execute(argv, env, log, deadline, work, receipt=None):
             process.wait()
             raise
         finally:
-            row["exit"] = process.poll()
-            remaining = group_members(process.pid)
-            row.update(endUnix=time.time(), groupMembersAfter=remaining,
-                       settlement="Unknown" if any(x["state"] not in ("Z", "X") for x in remaining) else
-                       "LeaderJoined_ChildrenExited_UnreapedZombies" if remaining else "LeaderJoined_GroupEmpty")
+            primary = sys.exc_info()[1]
+            errors = []
+            try:
+                process.stdout.close()
+                row["stdoutCloseStatus"] = "Confirmed"
+            except BaseException as error:
+                errors.append(error)
+                row.update(stdoutCloseStatus="Unconfirmed", stdoutCloseErrorType=type(error).__name__)
+            try:
+                row["exit"] = process.poll()
+                remaining = group_members(process.pid)
+                row.update(groupMembersAfter=remaining,
+                           settlement="Unknown" if any(x["state"] not in ("Z", "X") for x in remaining) else
+                           "LeaderJoined_ChildrenExited_UnreapedZombies" if remaining else "LeaderJoined_GroupEmpty")
+            except BaseException as error:
+                errors.append(error)
+                row.update(groupMembersAfter=None, groupObservationErrorType=type(error).__name__)
+            row["endUnix"] = time.time()
+            if errors:
+                row["settlement"] = "Unknown"
+                if primary is not None:
+                    errors.insert(0, primary)
+                if len(errors) == 1:
+                    raise errors[0]
+                raise BaseExceptionGroup("Command and original output settlement failed", errors)
     return row
 
 

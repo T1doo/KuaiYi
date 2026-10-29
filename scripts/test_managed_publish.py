@@ -19,6 +19,78 @@ spec.loader.exec_module(publisher)
 
 
 class ManagedPublishTests(unittest.TestCase):
+    def test_pipe_close_error_keeps_primary_failure_and_independent_group_receipt(self):
+        class FaultyClose:
+            def __init__(self, original):
+                self.original = original
+            def fileno(self):
+                return self.original.fileno()
+            def close(self):
+                self.original.close()
+                raise OSError("PUBLIC_CLOSE_ERROR")
+        real_start = publisher.subprocess.Popen
+        def start(*args, **kwargs):
+            process = real_start(*args, **kwargs)
+            process.stdout = FaultyClose(process.stdout)
+            return process
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            for overflow in (False, True):
+                with self.subTest(overflow=overflow):
+                    receipt = {}
+                    log = root / (str(overflow) + ".log")
+                    code = "import os; os.write(1,b'X'*65536)" if overflow else "pass"
+                    expected = BaseExceptionGroup if overflow else OSError
+                    with patch.object(publisher.subprocess, "Popen", side_effect=start):
+                        with self.assertRaises(expected) as caught:
+                            publisher.execute([sys.executable, "-c", code], os.environ.copy(), log,
+                                              time.monotonic() + 5, root, receipt, log_limit_bytes=1024)
+                    if overflow:
+                        self.assertIsInstance(caught.exception.exceptions[0], RuntimeError)
+                        self.assertIn("Command log budget exceeded", str(caught.exception.exceptions[0]))
+                        self.assertIsInstance(caught.exception.exceptions[1], OSError)
+                    self.assertEqual("Unconfirmed", receipt["stdoutCloseStatus"])
+                    self.assertEqual("Unknown", receipt["settlement"])
+                    self.assertIsNotNone(receipt["exit"])
+                    self.assertIn("endUnix", receipt)
+                    self.assertFalse(any(x["state"] not in ("Z", "X") for x in receipt["groupMembersAfter"]))
+
+    def test_log_limit_applies_even_when_command_exits_before_monitor_poll(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            receipt = {}
+            with self.assertRaisesRegex(RuntimeError, "Command log budget exceeded"):
+                publisher.execute([sys.executable, "-c", "import os; os.write(1,b'X'*65536)"],
+                                  os.environ.copy(), root / "overflow.log", time.monotonic() + 5,
+                                  root, receipt, log_limit_bytes=1024)
+            self.assertEqual(b"X" * 1024, (root / "overflow.log").read_bytes())
+            self.assertEqual(1024, receipt["logBytes"])
+            self.assertTrue(receipt["logTruncated"])
+            self.assertFalse(any(x["state"] not in ("Z", "X") for x in receipt["groupMembersAfter"]))
+
+    def test_log_exact_limit_keeps_binary_stdout_and_stderr_and_real_exit(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            row = publisher.execute([sys.executable, "-c", "import os; os.write(1,b'\\xffA'); os.write(2,b'\\x00B'); raise SystemExit(7)"],
+                                    os.environ.copy(), root / "exact.log", time.monotonic() + 5,
+                                    root, log_limit_bytes=4)
+            self.assertEqual(b"\xffA\x00B", (root / "exact.log").read_bytes())
+            self.assertEqual(7, row["exit"])
+            self.assertEqual(4, row["logBytes"])
+            self.assertFalse(row["logTruncated"])
+            self.assertEqual("LeaderJoined_GroupEmpty", row["settlement"])
+
+    def test_invalid_log_reservation_refuses_before_file_or_process_creation(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            for limit in (0, -1, True, 1.5, publisher.LIMIT + 1):
+                with patch.object(publisher.subprocess, "Popen") as start:
+                    with self.assertRaises(ValueError):
+                        publisher.execute([], {}, root / "invalid.log", time.monotonic() + 5,
+                                          root, log_limit_bytes=limit)
+                    start.assert_not_called()
+                self.assertFalse((root / "invalid.log").exists())
+
     def skia_fixture(self, root):
         """Synthetic bytes prove checking logic, never a real runtime qualification."""
         cache, output = root / "cache", root / "output"
@@ -130,7 +202,30 @@ class ManagedPublishTests(unittest.TestCase):
             with patch.object(publisher, "LIMIT", 100), self.assertRaisesRegex(RuntimeError, "budget exceeded"):
                 publisher.execute([sys.executable, "-c", "import time; print('X'*200,flush=True); time.sleep(30)"],
                                   os.environ.copy(), root / "bounded.log", time.monotonic() + 10, root)
-            self.assertGreater((root / "bounded.log").stat().st_size, 100)
+            self.assertEqual(b"X" * 100, (root / "bounded.log").read_bytes())
+
+    def test_nonlog_output_still_uses_original_work_budget(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            code = "import pathlib,time; pathlib.Path('payload').write_bytes(b'P'*300); print('READY',flush=True); time.sleep(30)"
+            receipt = {}
+            with patch.object(publisher, "REPO", root), patch.object(publisher, "LIMIT", 100):
+                with self.assertRaisesRegex(RuntimeError, "In-flight output budget exceeded"):
+                    publisher.execute([sys.executable, "-c", code], os.environ.copy(), root / "work.log",
+                                      time.monotonic() + 5, root, receipt)
+            self.assertEqual(b"P" * 300, (root / "payload").read_bytes())
+            self.assertFalse(receipt["logTruncated"])
+            self.assertFalse(any(x["state"] not in ("Z", "X") for x in receipt["groupMembersAfter"]))
+
+    def test_empty_command_output_is_joined_without_creating_success_bytes(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            receipt = publisher.execute([sys.executable, "-c", "pass"], os.environ.copy(), root / "empty.log",
+                                        time.monotonic() + 5, root, log_limit_bytes=1)
+            self.assertEqual(b"", (root / "empty.log").read_bytes())
+            self.assertEqual(0, receipt["exit"])
+            self.assertEqual(0, receipt["logBytes"])
+            self.assertEqual("LeaderJoined_GroupEmpty", receipt["settlement"])
 
     def test_exited_leader_with_live_child_retains_original_receipt_and_refuses_success(self):
         with tempfile.TemporaryDirectory() as folder:
