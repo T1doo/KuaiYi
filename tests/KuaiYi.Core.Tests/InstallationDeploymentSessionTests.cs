@@ -95,8 +95,9 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
     private sealed partial class Rig(ITestOutputHelper output)
     {
         private static readonly List<Rig> Retained=[];
-        internal readonly string Root=Path.Combine(Path.GetTempPath(),"kuaiyi-upgrade-tests-"+Guid.NewGuid().ToString("N"));
-        internal readonly string Pipe="ky-deployment-session-"+Guid.NewGuid().ToString("N");
+        private readonly (string Root,string Pipe) paths=BoundedDeploymentFixture.CreatePaths();
+        internal string Root=>paths.Root;
+        internal string Pipe=>paths.Pipe;
         internal string App=>Path.Combine(Root,"application");internal string Data=>Path.Combine(Root,"user-data");
         internal string Owner=>Path.Combine(App,"execution-owner.json");
         internal InstallationStore Store=>new(App,Data,()=>true);

@@ -1,5 +1,7 @@
 # 开发进度
 
+- 2026-10-29 原ordinal29有界入口实装：测试专用显式空0700根/绝对pipe，原断言及保全不改；只读根单写域、真实TRX双流封顶、精确ID/EOF/组结算接线齐备，源码独审修两处收证/未来准入P2。新Python5P+4P、路径10项、实际SDK logger FIFO及修后test-only构建0W/E/GroupEmpty均为局部准备，非Core通过。当前bwrap设置uid-map因只读文件系统失败，未重试或提权，原测试未启动；128MiB候选公式未审且resource-proof明确False。新DLL3477…未跑Core，旧174原件保留，5894保护hash一致，保守准备计60秒后原900余额623.532，详见[完整候选、实际阻塞和最小运行条件](validation/bounded-core-output-candidate-2026-10-29.md)。
+
 - 2026-10-29 剩余23Core资源闭合继续：按9/2/3/3/6形态完成下一普通例60控制路径并集，产品显式文件内容上界27946985B，不混为整例或块分配峰值。另实测修复原组结算后写文件绕总量复查（100B预算接受迟到300B）的确定漏洞，新4项定向0.502秒通过，未重跑22项或Core。VSTest/TMP非fixture及results附件数量合同仍缺，RLIMIT单文件不能代替总量；5894原件复hash不删，原时间/聚合预算不重置，见[精确核算、生命周期与剩余缺口](validation/core-resource-closure-2026-10-29.md)。
 
 - 2026-10-29 恢复原环境：HEAD422eba、远端准备分支同SHA、main51d077未动。修复原命令监管器快退出绕日志限额（1KiB限额实际写64KiB仍成功）的确定缺陷，改二进制管道严格前缀限额并独立结算关闭/进程组错误；独审P2修后22P/0F，非产品/Windows/Core重跑。5894保护文件918676127B逐hash相符；新/tmp挂载为空，旧/tmp原件未复核。23Core未验与原时间/空间预算不抹，详见[实际证据与剩余门](validation/supervisor-log-bound-2026-10-29.md)。
