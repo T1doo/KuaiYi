@@ -29,6 +29,7 @@ AGGREGATE = 1342177280
 PRESERVED = 918676127
 OLD_SECONDS = 216.468
 PREPARATION_CHARGE = 60.0  # includes the preceding FIFO probes and this bounded build
+ACCOUNTING_CHARGE = 1.0  # later synthetic accounting checks; never reset the original budget
 # Not an authorization token: this source-level gate remains false until the
 # whole-case file/count/allocation formula is independently reviewed. A runtime
 # configuration change alone must never enable this proposed reservation.
@@ -76,24 +77,47 @@ def save(path, value):
         raise BaseExceptionGroup("Receipt write and close failed", errors)
 
 
-def size(root):
-    entry = root.lstat()
-    if not stat.S_ISDIR(entry.st_mode) or stat.S_ISLNK(entry.st_mode):
-        raise RuntimeError("Output root is missing, linked or not a directory")
-    total = count = 0
-    for p in root.rglob("*"):
-        try:
-            s = p.lstat()
-        except FileNotFoundError:
-            continue
-        if stat.S_ISLNK(s.st_mode):
+def inventory(root):
+    """Observed pathname accounting, not a proof of peak usage or metadata size.
+
+    Charge every name (including hardlinks) conservatively. Never follow a link.
+    Allocation uses Linux st_blocks units of 512 bytes, not filesystem block size.
+    A vanished/unreadable entry fails accounting rather than returning zero.
+    """
+    result = dict(LogicalBytes=0, AllocatedBytes=0, RegularFiles=0,
+                  Directories=0, Fifos=0, Sockets=0, Entries=0)
+    pending = [root]
+    while pending:
+        path = pending.pop()
+        entry = path.lstat()
+        mode = entry.st_mode
+        if stat.S_ISLNK(mode):
             raise RuntimeError("Unexpected linked fixture/output; retained")
-        if stat.S_ISREG(s.st_mode):
-            total += s.st_size
-            count += 1
-        elif not stat.S_ISDIR(s.st_mode) and not stat.S_ISFIFO(s.st_mode) and not stat.S_ISSOCK(s.st_mode):
+        if path == root and not stat.S_ISDIR(mode):
+            raise RuntimeError("Output root is not a directory")
+        result["Entries"] += 1
+        result["AllocatedBytes"] += entry.st_blocks * 512
+        if stat.S_ISREG(mode):
+            result["LogicalBytes"] += entry.st_size
+            result["RegularFiles"] += 1
+        elif stat.S_ISDIR(mode):
+            result["Directories"] += 1
+            # Runtime sandbox/proof gates remain mandatory: this snapshot is
+            # neither an atomic tree walk nor a quota against concurrent growth.
+            with os.scandir(path) as children:
+                pending.extend(Path(child.path) for child in children)
+        elif stat.S_ISFIFO(mode):
+            result["Fifos"] += 1
+        elif stat.S_ISSOCK(mode):
+            result["Sockets"] += 1
+        else:
             raise RuntimeError("Unexpected special output; retained")
-    return total, count
+    return result
+
+
+def size(root):
+    observed = inventory(root)
+    return observed["LogicalBytes"], observed["RegularFiles"]
 
 
 class TrxCapture:
@@ -159,7 +183,7 @@ class TrxCapture:
 
 def settle_case(receipt, captured, fixture, path, start, primary):
     errors = []
-    receipt.update(ReaderJoined=False, FixtureRetainedBytes=None)
+    receipt.update(ReaderJoined=False, FixtureRetainedBytes=None, FixtureInventory=None)
     try:
         captured.done.set()
         if captured.thread.ident is None:
@@ -171,7 +195,8 @@ def settle_case(receipt, captured, fixture, path, start, primary):
     except BaseException as error:
         errors.append(error)
     try:
-        receipt["FixtureRetainedBytes"] = size(fixture)[0]
+        receipt["FixtureInventory"] = inventory(fixture)
+        receipt["FixtureRetainedBytes"] = receipt["FixtureInventory"]["LogicalBytes"]
     except BaseException as error:
         errors.append(error)
     receipt.update(Seconds=round(time.monotonic() - start, 3), ReaderErrors=captured.errors,
@@ -287,7 +312,7 @@ def execute(pub):
                         "<InProcDataCollectionRunSettings><InProcDataCollectors /></InProcDataCollectionRunSettings></RunSettings>")
     captured = TrxCapture(fifo, run / "original-captured.trx")
     receipt = {"Kind": "OneOriginalCase_NotWholeCore", "Identity": identity, "ReservationBytes": RESERVATION,
-               "OriginalConsumedSeconds": OLD_SECONDS, "PreparationChargedSeconds": PREPARATION_CHARGE,
+               "OriginalConsumedSeconds": OLD_SECONDS, "PreparationChargedSeconds": PREPARATION_CHARGE, "AccountingChargedSeconds": ACCOUNTING_CHARGE,
                "Fixture": str(fixture), "FixtureDevice": initial.st_dev, "FixtureInode": initial.st_ino,
                "TestDllSha256": manifest["TestDllSha256"], "Outcome": "Unknown", "Command": {}}
     scan = pub.output_size
@@ -297,9 +322,12 @@ def execute(pub):
         current = fixture.stat()
         if (current.st_dev, current.st_ino) != (initial.st_dev, initial.st_ino):
             raise RuntimeError("Original fixture directory was replaced")
-        used, files = size(fixture)
-        output, _ = size(run)
-        if files > 416 or used + output > RESERVATION or PRESERVED + used + output > AGGREGATE:
+        fixture_usage, output_usage = inventory(fixture), inventory(run)
+        used, output = fixture_usage["LogicalBytes"], output_usage["LogicalBytes"]
+        allocated = fixture_usage["AllocatedBytes"] + output_usage["AllocatedBytes"]
+        entries = fixture_usage["Entries"] + output_usage["Entries"]
+        receipt["ObservedInventory"] = {"Fixture": fixture_usage, "Output": output_usage}
+        if entries > 416 or allocated > RESERVATION or used + output > RESERVATION or PRESERVED + used + output > AGGREGATE:
             raise RuntimeError("Frozen ordinary-case bound exceeded; retained")
         if shutil.disk_usage(REPO).free < 1024**3 or list(opaque.iterdir()) or list(results.iterdir()) != [fifo]:
             raise RuntimeError("Output shape or free-space gate failed; retained")
@@ -313,7 +341,7 @@ def execute(pub):
                 str(sdk / "sdk/10.0.402/vstest.console.dll"), str(DLL), "/Settings:" + str(settings),
                 "/TestCaseFilter:" + CASE, "/ResultsDirectory:" + str(results),
                 "/Logger:trx;LogFileName=" + str(fifo), "/Logger:console;verbosity=normal"]
-        pub.execute(argv, env, run / "console.log", time.monotonic() + min(120, 900 - OLD_SECONDS - PREPARATION_CHARGE - 5),
+        pub.execute(argv, env, run / "console.log", time.monotonic() + min(120, 900 - OLD_SECONDS - PREPARATION_CHARGE - ACCOUNTING_CHARGE - 5),
                     run, receipt["Command"], log_limit_bytes=STREAM)
         captured.finish()
         monitor(run)
@@ -342,7 +370,7 @@ def main():
                           "ResourceProofComplete": RESOURCE_PROOF_COMPLETE,
                           "NextOriginalCase": CASE, "CoreCasesExecuted": 0, "ProposedCaseReservationBytes": RESERVATION,
                           "AggregateHeadroomBytes": AGGREGATE - PRESERVED,
-                          "RemainingAfterConservativePreparationChargeSeconds": 900 - OLD_SECONDS - PREPARATION_CHARGE}))
+                          "RemainingAfterConservativePreparationChargeSeconds": 900 - OLD_SECONDS - PREPARATION_CHARGE - ACCOUNTING_CHARGE}))
     elif args.action == "prepare":
         prepare(module())
     else:

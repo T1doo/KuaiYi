@@ -2,6 +2,7 @@
 import importlib.util
 import json
 import os
+import socket
 from pathlib import Path
 import tempfile
 import threading
@@ -16,6 +17,41 @@ spec.loader.exec_module(bounded)
 
 
 class BoundedCoreOutputTests(unittest.TestCase):
+    def test_inventory_accounts_directories_fifo_socket_and_allocated_blocks(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / "dir").mkdir()
+            (root / "dir/data").write_bytes(b"X")
+            os.mkfifo(root / "pipe", 0o600)
+            with socket.socket(socket.AF_UNIX) as peer:
+                peer.bind(str(root / "peer"))
+                actual = bounded.inventory(root)
+                paths = [root, root / "dir", root / "dir/data", root / "pipe", root / "peer"]
+                self.assertEqual(1, actual["RegularFiles"])
+                self.assertEqual(2, actual["Directories"])
+                self.assertEqual(1, actual["Fifos"])
+                self.assertEqual(1, actual["Sockets"])
+                self.assertEqual(5, actual["Entries"])
+                self.assertEqual(1, actual["LogicalBytes"])
+                self.assertEqual(sum(p.lstat().st_blocks * 512 for p in paths), actual["AllocatedBytes"])
+
+    def test_sparse_file_is_charged_logically_and_physically_separately(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            with (root / "sparse").open("wb") as stream:
+                stream.truncate(1024 * 1024)
+            actual = bounded.inventory(root)
+            self.assertEqual(1024 * 1024, actual["LogicalBytes"])
+            self.assertEqual(sum(p.lstat().st_blocks * 512 for p in [root, root / "sparse"]),
+                             actual["AllocatedBytes"])
+
+    def test_linked_directory_is_rejected_without_traversal(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / "link").symlink_to("/proc", target_is_directory=True)
+            with self.assertRaisesRegex(RuntimeError, "linked"):
+                bounded.inventory(root)
+
     def settled_reader(self):
         return types.SimpleNamespace(done=Mock(), thread=Mock(ident=1, is_alive=Mock(return_value=False)),
                                      errors=[], eof=True, bytes=6)
