@@ -9,6 +9,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import stat
@@ -29,7 +30,7 @@ AGGREGATE = 1342177280
 PRESERVED = 918676127
 OLD_SECONDS = 216.468
 PREPARATION_CHARGE = 60.0  # includes the preceding FIFO probes and this bounded build
-ACCOUNTING_CHARGE = 1.0  # later synthetic accounting checks; never reset the original budget
+ACCOUNTING_CHARGE = 2.0  # two later one-second synthetic-check charges; never reset the original budget
 # Not an authorization token: this source-level gate remains false until the
 # whole-case file/count/allocation formula is independently reviewed. A runtime
 # configuration change alone must never enable this proposed reservation.
@@ -77,6 +78,36 @@ def save(path, value):
         raise BaseExceptionGroup("Receipt write and close failed", errors)
 
 
+def uid_map_runtime():
+    """Read existing runtime metadata only; never probe namespace creation."""
+    target = Path("/proc/self/uid_map").resolve(strict=True)
+    mount = enclosing_mount(str(target), Path("/proc/self/mountinfo").read_text())
+    return {"UidMapFilesystemReadonly": bool(os.statvfs(target).f_flag & os.ST_RDONLY),
+            "EnclosingMount": mount, "SandboxSetupAttempted": False,
+            "IsolationCapability": "NotEstablishedByMountMetadata",
+            "RecoveryBoundary": "Platform-provided original isolation channel; no host changes or fallback"}
+
+
+def enclosing_mount(target, mountinfo):
+    matches = []
+    for line in mountinfo.splitlines():
+        fields = line.split()
+        try:
+            separator = fields.index("-")
+            if separator < 6 or len(fields) < separator + 4:
+                raise ValueError()
+            point = re.sub(r"\\([0-7]{3})", lambda m: chr(int(m[1], 8)), fields[4])
+            if target == point or target.startswith(point.rstrip("/") + "/"):
+                matches.append({"MountPoint": point, "MountOptions": fields[5].split(","),
+                                "FilesystemType": fields[separator + 1],
+                                "SuperblockOptions": fields[separator + 3].split(",")})
+        except ValueError as error:
+            raise RuntimeError("Malformed mount metadata; runtime prerequisite unknown") from error
+    if not matches:
+        raise RuntimeError("No enclosing mount metadata; runtime prerequisite unknown")
+    return max(matches, key=lambda row: len(row["MountPoint"]))
+
+
 def inventory(root):
     """Observed pathname accounting, not a proof of peak usage or metadata size.
 
@@ -86,14 +117,12 @@ def inventory(root):
     """
     result = dict(LogicalBytes=0, AllocatedBytes=0, RegularFiles=0,
                   Directories=0, Fifos=0, Sockets=0, Entries=0)
-    pending = [root]
-    while pending:
-        path = pending.pop()
-        entry = path.lstat()
+    def visit(name, parent_fd=None):
+        entry = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
         mode = entry.st_mode
         if stat.S_ISLNK(mode):
             raise RuntimeError("Unexpected linked fixture/output; retained")
-        if path == root and not stat.S_ISDIR(mode):
+        if parent_fd is None and not stat.S_ISDIR(mode):
             raise RuntimeError("Output root is not a directory")
         result["Entries"] += 1
         result["AllocatedBytes"] += entry.st_blocks * 512
@@ -102,16 +131,37 @@ def inventory(root):
             result["RegularFiles"] += 1
         elif stat.S_ISDIR(mode):
             result["Directories"] += 1
-            # Runtime sandbox/proof gates remain mandatory: this snapshot is
-            # neither an atomic tree walk nor a quota against concurrent growth.
-            with os.scandir(path) as children:
-                pending.extend(Path(child.path) for child in children)
+            fd = os.open(name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC,
+                         dir_fd=parent_fd)
+            try:
+                opened = os.fstat(fd)
+                if (opened.st_dev, opened.st_ino) != (entry.st_dev, entry.st_ino):
+                    raise RuntimeError("Directory changed before accounting; retained")
+                # Anchor traversal to the opened directory, never its mutable
+                # pathname. This is still a snapshot, not a peak-storage quota.
+                with os.scandir(fd) as children:
+                    for child in children:
+                        visit(child.name, fd)
+                current = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
+                if (current.st_dev, current.st_ino, stat.S_IFMT(current.st_mode)) != (
+                        entry.st_dev, entry.st_ino, stat.S_IFDIR):
+                    raise RuntimeError("Directory changed during accounting; retained")
+            finally:
+                primary = sys.exc_info()[1]
+                try:
+                    os.close(fd)
+                except BaseException as error:
+                    if primary is not None:
+                        raise BaseExceptionGroup("Original accounting and directory close failed", [primary, error])
+                    raise
         elif stat.S_ISFIFO(mode):
             result["Fifos"] += 1
         elif stat.S_ISSOCK(mode):
             result["Sockets"] += 1
         else:
             raise RuntimeError("Unexpected special output; retained")
+
+    visit(root)
     return result
 
 
@@ -367,6 +417,7 @@ def main():
     args = parser.parse_args()
     if args.action == "inspect":
         print(json.dumps({"UidMapFilesystemReadonly": bool(os.statvfs("/proc/self/uid_map").f_flag & os.ST_RDONLY),
+                          "RuntimeDiagnostic": uid_map_runtime(),
                           "ResourceProofComplete": RESOURCE_PROOF_COMPLETE,
                           "NextOriginalCase": CASE, "CoreCasesExecuted": 0, "ProposedCaseReservationBytes": RESERVATION,
                           "AggregateHeadroomBytes": AGGREGATE - PRESERVED,

@@ -52,6 +52,71 @@ class BoundedCoreOutputTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "linked"):
                 bounded.inventory(root)
 
+    def test_directory_swap_during_scan_fails_without_visiting_replacement(self):
+        with tempfile.TemporaryDirectory() as folder:
+            base = Path(folder)
+            root, outside = base / "root", base / "outside"
+            root.mkdir(); outside.mkdir()
+            child = root / "child"
+            child.mkdir()
+            original_inode = child.stat().st_ino
+            (outside / "marker").write_bytes(b"OUTSIDE_SYNTHETIC")
+            scan = os.scandir
+            swapped = False
+
+            def swap_before_scan(target):
+                nonlocal swapped
+                selected = (os.fstat(target).st_ino == original_inode if isinstance(target, int)
+                            else Path(target) == child)
+                if selected and not swapped:
+                    child.rmdir()
+                    child.symlink_to(outside, target_is_directory=True)
+                    swapped = True
+                return scan(target)
+
+            with patch.object(bounded.os, "scandir", side_effect=swap_before_scan):
+                with self.assertRaisesRegex(RuntimeError, "changed|linked"):
+                    bounded.inventory(root)
+            self.assertTrue(swapped)
+            self.assertEqual(b"OUTSIDE_SYNTHETIC", (outside / "marker").read_bytes())
+
+    def test_mount_readonly_is_not_overridden_by_writable_superblock(self):
+        row = bounded.enclosing_mount("/proc/123/uid_map",
+              "1 0 0:1 / / rw - overlay overlay rw\n"
+              "2 1 0:2 / /proc ro,nosuid - proc proc rw\n")
+        self.assertEqual("/proc", row["MountPoint"])
+        self.assertIn("ro", row["MountOptions"])
+        self.assertEqual(["rw"], row["SuperblockOptions"])
+
+    def test_mount_selection_uses_longest_component_prefix_and_unescapes(self):
+        text = ("1 0 0:1 / / rw - overlay overlay rw\n"
+                "2 1 0:2 / /proc ro - proc proc rw\n"
+                "3 1 0:3 / /proc/12 rw - proc proc rw\n"
+                "4 1 0:4 / /with\\040space ro - tmpfs tmpfs rw\n")
+        self.assertEqual("/proc/12", bounded.enclosing_mount("/proc/12/uid_map", text)["MountPoint"])
+        self.assertEqual("/proc", bounded.enclosing_mount("/proc/123/uid_map", text)["MountPoint"])
+        self.assertEqual("/with space", bounded.enclosing_mount("/with space/file", text)["MountPoint"])
+
+    def test_missing_or_malformed_mount_metadata_stays_unknown(self):
+        for text in ("", "malformed"):
+            with self.assertRaisesRegex(RuntimeError, "unknown"):
+                bounded.enclosing_mount("/proc/123/uid_map", text)
+
+    def test_directory_close_error_keeps_original_scan_failure_first(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / "link").symlink_to(root, target_is_directory=True)
+            close = os.close
+            def fail_after_close(fd):
+                close(fd)
+                raise OSError("PUBLIC_DIRECTORY_CLOSE")
+            with patch.object(bounded.os, "close", side_effect=fail_after_close):
+                with self.assertRaises(BaseExceptionGroup) as caught:
+                    bounded.inventory(root)
+            self.assertIsInstance(caught.exception.exceptions[0], RuntimeError)
+            self.assertIn("linked", str(caught.exception.exceptions[0]))
+            self.assertIsInstance(caught.exception.exceptions[1], OSError)
+
     def settled_reader(self):
         return types.SimpleNamespace(done=Mock(), thread=Mock(ident=1, is_alive=Mock(return_value=False)),
                                      errors=[], eof=True, bytes=6)

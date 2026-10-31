@@ -1,5 +1,7 @@
 # 开发进度
 
+- 2026-10-31 环境实因定位：当前原环境spec84已running，但外层/proc挂载ro、superblock rw，ST_RDONLY实核未变；未重试uid-map或提权换路。inspect补只读挂载诊断。另修lstat→scandir目录替换竞态：旧同源码实计外部合成17B，新fd/O_NOFOLLOW/身份核对拒绝且外部扫描0；原反例1F后相关5P、挂载3P、独立close1P，非Core。保护5894hash无差异，预算另计1秒后621.532，23未验；[平台最小恢复条件与实际证据](validation/runtime-mapping-diagnosis-2026-10-31.md)。
+
 - 2026-10-30 接续资源入口：修正只数普通文件漏目录/FIFO/socket及分配块的账目，原Git函数同目录对照1文件/1B，新账目5条目/4096分配B；两输出域合计条目/分配B并独立保全。6项定向基础设施检查通过，非Core；5894保护hash一致。原uid-map仍只读，未重试/提权/换路；128MiB/416候选未审，执行门False。另保守计1秒后预算余额622.532秒，23项仍未验，见[修复、公式未闭合项及原通道必要条件](validation/core-allocation-accounting-2026-10-30.md)。
 
 - 2026-10-29 原ordinal29有界入口实装：测试专用显式空0700根/绝对pipe，原断言及保全不改；只读根单写域、真实TRX双流封顶、精确ID/EOF/组结算接线齐备，源码独审修两处收证/未来准入P2。新Python5P+4P、路径10项、实际SDK logger FIFO及修后test-only构建0W/E/GroupEmpty均为局部准备，非Core通过。当前bwrap设置uid-map因只读文件系统失败，未重试或提权，原测试未启动；128MiB候选公式未审且resource-proof明确False。新DLL3477…未跑Core，旧174原件保留，5894保护hash一致，保守准备计60秒后原900余额623.532，详见[完整候选、实际阻塞和最小运行条件](validation/bounded-core-output-candidate-2026-10-29.md)。
