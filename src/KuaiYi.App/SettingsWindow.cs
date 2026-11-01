@@ -30,7 +30,7 @@ internal sealed partial class SettingsWindow:Window
     private readonly DispatcherTimer revealTimer=new(){Interval=TimeSpan.FromSeconds(5)};
     private string? selectedId;private bool loading,saving,committed,changingRecovery,closeWhenSettled;
     public void RequestCloseWhenSettled(){closeWhenSettled=true;Mask();Close();}
-    public SettingsWindow(SettingsCoordinator coordinator,SettingsDraft initialDraft,string? clipboardApplication=null,ISettingsHotkeyParticipant? hotkeys=null,Func<IReadOnlyList<HotkeyStatus>>? hotkeyStatus=null,KuaiYi.Providers.ApiConnectionTestWorkflow? apiTests=null,Func<Task<bool>>? clearCurrentContent=null,KuaiYi.Core.Diagnostics.DiagnosticLog? diagnostics=null,Func<KuaiYi.Core.Diagnostics.DiagnosticEnvironment>? diagnosticEnvironment=null)
+    public SettingsWindow(SettingsCoordinator coordinator,SettingsDraft initialDraft,string? clipboardApplication=null,ISettingsHotkeyParticipant? hotkeys=null,Func<IReadOnlyList<HotkeyStatus>>? hotkeyStatus=null,KuaiYi.Providers.ApiConnectionTestWorkflow? apiTests=null,Func<Task<bool>>? clearCurrentContent=null,KuaiYi.Core.Diagnostics.DiagnosticLog? diagnostics=null,Func<KuaiYi.Core.Diagnostics.DiagnosticEnvironment>? diagnosticEnvironment=null,bool guideEnable=false)
     {
         this.coordinator=coordinator;this.apiTests=apiTests;this.clipboardApplication=clipboardApplication;this.clearCurrentContent=clearCurrentContent;this.diagnostics=diagnostics;this.diagnosticEnvironment=diagnosticEnvironment;hotkeyParticipant=hotkeys;this.hotkeyStatus=hotkeyStatus;recoveryDraft=new(initialDraft);SetupPlacement();Title="快译设置";ShowInTaskbar=false;WindowStartupLocation=WindowStartupLocation.CenterOwner;
         var work=SystemParameters.WorkArea;Width=Math.Min(940,work.Width);Height=Math.Min(740,work.Height);MinWidth=Math.Min(700,work.Width);MinHeight=Math.Min(520,work.Height);MaxWidth=work.Width;MaxHeight=work.Height;
@@ -47,6 +47,7 @@ internal sealed partial class SettingsWindow:Window
         save.Click+=async(_,_)=>await Save();cancel.Click+=(_,_)=>Close();revealTimer.Tick+=(_,_)=>Mask();Deactivated+=(_,_)=>Mask();password.LostKeyboardFocus+=(_,_)=>Mask();reveal.LostKeyboardFocus+=(_,_)=>Mask();
         Closing+=(_,e)=>{if(saving){e.Cancel=true;status.Text="保存任务尚未完成，请等待实际结果。";}else Mask();};
         Closed+=(_,_)=>{revealTimer.Stop();password.Clear();reveal.Clear();recoveryDraft.Dispose();};
+        if(guideEnable)SetupEnableGuide(nav);
     }
     private static ComboBox Choice<T>()where T:struct,Enum=>new(){ItemsSource=Enum.GetValues<T>(),MinWidth=160,ItemTemplate=DesktopTheme.ChoiceTemplate()};
     private static StackPanel Page()=>new();
@@ -59,7 +60,7 @@ internal sealed partial class SettingsWindow:Window
     private StackPanel General(){var p=Page();Section(p,"配置备份","保存普通偏好，凭据和授权留在本机。");SetupBackupEntry(p);Section(p,"导入配置");SetupImportEntry(p);Section(p,"启动与状态");Note(p,"启动始终未启用翻译。保存设置不恢复 On。主浮钮和托盘使用同一启停状态；隐藏会停用。开机启动注册尚待安装集成验证，本页不进行系统注册。");return p;}
     private StackPanel Api()
     {
-        var p=Page();Section(p,"服务配置","使用你选择的服务地址与模型。");AddProfileEmptyState(p);Field(p,"配置",profiles);var row=new WrapPanel();var add=new Button{Content="新增配置",Margin=new Thickness(4)};var remove=new Button{Content="删除此配置（保存后生效）",Margin=new Thickness(4)};row.Children.Add(add);row.Children.Add(remove);p.Children.Add(row);
+        var p=Page();Section(p,"服务配置","使用你选择的服务地址与模型。");AddProfileEmptyState(p);Field(p,"配置",profiles);var row=new WrapPanel();var add=addProfileAction;var remove=new Button{Content="删除此配置（保存后生效）",Margin=new Thickness(4)};row.Children.Add(add);row.Children.Add(remove);p.Children.Add(row);
         add.Click+=(_,_)=>{if(!TryCaptureProfile())return;var profile=new ApiProfile{Id=Guid.NewGuid().ToString("N")};draft.Update(s=>s with{Profiles=s.Profiles.Add(profile)});selectedId=profile.Id;RefreshProfiles();};
         remove.Click+=(_,_)=>{if(selectedId==null)return;string id=selectedId;draft.Update(s=>s with{Profiles=s.Profiles.Where(p=>p.Id!=id).ToImmutableArray(),ActiveProfileId=s.ActiveProfileId==id?null:s.ActiveProfileId,VisionProfileId=s.VisionProfileId==id?null:s.VisionProfileId});selectedId=null;RefreshProfiles();};
         Section(p,"连接信息");Field(p,"名称",profileName);Field(p,"协议",protocol);Field(p,"地址模式",addressMode);Field(p,"Base URL / 完整端点",url);Field(p,"最终端点预览",endpointPreview);Field(p,"模型 ID（可手动填写）",model);Section(p,"认证与密钥","现有密钥不会读取到表单。");Field(p,"认证方式",authentication);Field(p,"API Key（留空保留现有引用）",password);p.Children.Add(reveal);p.Children.Add(keyStatus);

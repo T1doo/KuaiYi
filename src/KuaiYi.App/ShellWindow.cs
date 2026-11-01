@@ -94,7 +94,7 @@ internal sealed partial class ShellWindow:OleDropWindow
         if(!IsVisible)ShowOverlay();if(!IsVisible)return;
         if(lifecycle.Gate.Snapshot.Activation==Activation.On){lifecycle.Gate.Disable();StopPresentation();Refresh();return;}
         if(lifecycle.Settings is {} current&&translation?.CanUseSettings(current)==false){button.ToolTip="测试模式只允许启动时授权的无密钥本地服务，请恢复测试配置。";return;}
-        if(!lifecycle.TryPrepareEnable(out var intent,out var missing)){button.ToolTip=missing;_=OpenSettings();return;}
+        if(!lifecycle.TryPrepareEnable(out var intent,out var missing)){button.ToolTip=missing;_=OpenSettings(guideEnable:true);return;}
         bool consent=lifecycle.Gate.HasConsentTo(intent!.Origin)||MessageBox.Show(this,intent.ConfirmationText,"快译 · 数据发送说明",MessageBoxButton.OKCancel,MessageBoxImage.Information)==MessageBoxResult.OK;
         lifecycle.ConfirmEnable(intent!,consent);Refresh();
     }
@@ -108,20 +108,21 @@ internal sealed partial class ShellWindow:OleDropWindow
         AutomationProperties.SetName(button,on?"快译：已启用翻译":"快译：未启用翻译");button.ToolTip=on?translationStatus??"已启用翻译 · 单击停用":dropUnavailable??"未启用翻译 · 单击启用，右键设置";
         try{tray?.Update(on);}catch(Exception error){Report("托盘状态更新失败",error);}
     }
-    private async Task OpenSettings()
+    private bool pendingEnableGuide;
+    private async Task OpenSettings(bool guideEnable=false)
     {
-        if(exiting)return;CancelBrowserAcquisition();if(settings!=null){settings.Activate();return;}if(opening)return;opening=true;
+        if(exiting)return;CancelBrowserAcquisition();if(settings!=null){settings.Activate();return;}pendingEnableGuide|=guideEnable;if(opening)return;opening=true;
         try
         {
             await startup;await hotkeySetup;await positionSave;if(exiting)return;lifecycle.Gate.SetSuspension(Suspension.Settings,true);RefreshSelection();
             var draft=await coordinator.OpenDraftAsync(lifetime.Token);
             if(exiting){draft.Dispose();return;}
-            try{settings=new(coordinator,draft,selectionCapture?.LastFailureWindow?.Executable,globalHotkeys,()=>globalHotkeys?.Status??[],apiTests,ClearCurrentContent,diagnostics,ReadDiagnosticEnvironment){Owner=this};}catch{draft.Dispose();throw;}
+            try{settings=new(coordinator,draft,selectionCapture?.LastFailureWindow?.Executable,globalHotkeys,()=>globalHotkeys?.Status??[],apiTests,ClearCurrentContent,diagnostics,ReadDiagnosticEnvironment,guideEnable:pendingEnableGuide){Owner=this};}catch{draft.Dispose();throw;}
             settings.Closed+=(_,_)=>{settings=null;lifecycle.Gate.SetSuspension(Suspension.Settings,false);Refresh();QueuePositionSave();if(exitRequested)Dispatcher.BeginInvoke(Close);};settings.Show();
         }
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Exit awaits this owned opening path. */ }
         catch(Exception error){lifecycle.Gate.SetSuspension(Suspension.Settings,false);Report("设置无法打开，原文件保留",error);}
-        finally{opening=false;if(exitRequested)_=Dispatcher.BeginInvoke(Close);}
+        finally{opening=false;pendingEnableGuide=false;if(exitRequested)_=Dispatcher.BeginInvoke(Close);}
     }
     private void HideOverlay(){CancelPointer();lifecycle.Hide();HidePresentation(false);Hide();Refresh();}
     private void ShowOverlay()
