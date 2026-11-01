@@ -1,5 +1,7 @@
 # 开发进度
 
+- 2026-11-01 P6-05生产执行器实际补齐：原class缺再生成入口红1F；新增同owner/source/session版本复用、默认冻结与显式当前设置、分类原receipt与新生成身份、每次fresh OCR审批、本次编码mapping/proof再核，原确认/逐次send/撤权/三版本回退沿用。最终相关200P0F含21新，曾199P1F为JSON断言编码错误且原件保全，App交叉0W/E、独审ACK。普通Shell拒绝门未动，UI编排仍是源码缺项，不称整个P6完成；保护5894hash一致。自包含7GiB原门当前缺6023958528B未调用，不新下载/删原件；[实现、真实红绿、来源和未验](validation/production-image-regeneration-2026-11-01.md)。
+
 - 2026-11-01 同源整合实产出：58b9bf2固定454输入，八角色完整refs锁定restore/build均0W/E，42程序集版本/资源/依赖及原验签、109成员ZIP逐hash读回通过；本地11553741B候选ac1c361…，非自包含/非可运行发行，旧Release不变。20命令exit0/GroupEmpty、观测增长151666688B，保护5894hash一致；本轮无测试/Windows/CI。实际缺口仍含生产图片复用实现、issuer/native/G-B/安装资格和23Core，不将其写成仅等实机；[原件绑定与真实边界](validation/integrated-managed-review-2026-11-01.md)。
 
 - 2026-11-01 功能修复整合候选准备：建立独立 framework-dependent 八角色完整引用构建与PE资源/版本/依赖/同源ZIP审查入口，明确不替代原自包含7GiB发布门，普通构建256MiB观测预算、1GiB余量、600秒及1MiB命令日志，失败保全。该准备提交时尚未执行本轮构建；[功能路径与真实缺口](release/FUNCTIONAL-GAPS-2026-11-01.md)及[候选限制](release/README-managed-review.md)固定随包，23Core/生产图片/Windows门未改。

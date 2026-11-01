@@ -1,6 +1,6 @@
 # Functional state and remaining gates — 2026-11-01
 
-Source HEAD is recorded in review-manifest.json. Changes through4ce04f6 are integrated; individual test rounds are not added together and are not whole-product acceptance.
+This is the current source inventory. The earlier retained managed-review bundle binds source58b9bf2 in its own review-manifest.json and does not include later source increments. Individual test rounds are not added together and are not whole-product acceptance.
 
 | User path | Implemented source/protocol work | Actual remaining qualification/gap |
 | --- | --- | --- |
@@ -9,7 +9,7 @@ Source HEAD is recorded in review-manifest.json. Changes through4ce04f6 are inte
 | Translation result copy | Selected raw version, full/partial notice, reentrancy/epoch/privacy fencing, explicit retry on unconfirmed copy | Actual Windows clipboard formats, locking/history/focus not run |
 | Text cancel/clear/exit | Retire-before-cancel, clear admission fence, original job settlement, shared disposal outcome | Real native lifecycle/OS termination not qualified; source tests are not whole exit acceptance |
 | Text versions | Three memory versions, old selection/reopen/rollback, no disk history | Real WPF reading/version interactions not qualified |
-| Image regeneration | Offline protocol: unknown classification refuses default reuse; explicit rejudge retains original gates; valid cache reuse retains receipt and source identity | Normal Shell consumed/IMAGE_REUSE_DISABLED gate remains. Retained-image authorization/lifetime, fresh OCR/vision approvals and production replay are not implemented/qualified |
+| Image regeneration | Real production executor now borrows the original retained owner/session, reuses exact classification, creates a new generation/receipt, validates fresh encoding and single-use OCR approval; synthetic linked production200P incl21 new | Normal Shell consumed/IMAGE_REUSE_DISABLED gate remains. UI regeneration/rejudge/mode command integration and fresh approval orchestration are still source work; real Windows lifecycle and qualified enablement unverified. This is not whole P6-05 completion |
 | Actual capture/integration | Existing UIA/OLE/screenshot/browser/Worker implementations and bounded protocols | Windows application matrix, DPAPI, identity, real capture/focus/DPI and install/native source proofs remain |
 | Installation / download-ready | Managed role build inputs and integrity tooling exist | Production issuer/pins unavailable, four product native DLLs and trusted G/B/installer chain incomplete. Candidate is not production-ready |
 | Blocked diagnostic set | Historical28/51 directed passes;23 remain unverified | Original readonly-root UID-mapping channel and complete resource proof required. No bypass/retry or budget reset performed |
