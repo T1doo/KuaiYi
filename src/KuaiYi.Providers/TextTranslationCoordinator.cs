@@ -1,5 +1,6 @@
 using System.Text;
 using System.Security.Cryptography;
+using System.Runtime.ExceptionServices;
 using KuaiYi.Core;
 using KuaiYi.Core.Settings;
 using SettingsProfile=KuaiYi.Core.Settings.ApiProfile;
@@ -38,7 +39,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     private readonly Dictionary<Guid,TextTranslationSnapshot> snapshots=[];
     private readonly HashSet<Task> jobs=[];private readonly object jobsSync=new();
     private Guid? styleSession;private TranslationPreset? sessionStyle;
-    private TextTranslationOffer? offered,submitted;private bool disposed;private Exception? deliveryFailure;
+    private TextTranslationOffer? offered,submitted;private bool disposed;private volatile bool clearing;private Exception? deliveryFailure;
     private sealed record LiveRequest(RequestIdentity Identity,TextTranslationSnapshot Snapshot,SettingsSnapshot CompatibleSettings,bool SettingsRejected=false);
     private LiveRequest? liveRequest;
     private sealed class DestinationFailure(Exception inner):Exception("Translation destination failed.",inner);
@@ -67,11 +68,17 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     public TextGenerationPreview? NextGeneration=>SelectedSnapshot is {} snapshot&&SelectedSession is {} session?new(Results.NextVersionNumber(session),SessionStyle??snapshot.Preset,snapshot.Profile.Model):null;
     public bool SetSessionStyle(TranslationPreset? preset)
     {
-        if(disposed||SelectedSession is not {} session||SelectedSnapshot==null||preset is {} value&&!Enum.IsDefined(value))return false;
+        if(disposed||clearing||SelectedSession is not {} session||SelectedSnapshot==null||preset is {} value&&!Enum.IsDefined(value))return false;
         // A style edit changes the next generation only. A pending confirmation must be discarded;
         // an already launched request retains its immutable prompt/settings/version identity.
-        if(offered is {Launched:false,Identity:{} pending})gate.StopRequest(pending);
-        offered=null;styleSession=session;sessionStyle=preset;return true;
+        var originalOffer=offered;
+        var pending=originalOffer is {Launched:false,Identity:{} id}?id:(RequestIdentity?)null;
+        offered=null;if(pending!=null&&ReferenceEquals(submitted,originalOffer))submitted=null;
+        styleSession=session;sessionStyle=preset;
+        // Cancellation callbacks can install another winning command/style.
+        // Retire this command before invoking them; never overwrite their state.
+        if(pending is {} original)gate.StopRequest(original);
+        return true;
     }
     private static TextTranslationSnapshot RegenerationSnapshot(TextTranslationSnapshot snapshot,TranslationPreset? preset=null)
     {
@@ -79,14 +86,14 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         if(chosen!=snapshot.Preset)frozen=frozen with{Data=frozen.Data with{Translation=frozen.Data.Translation with{Preset=chosen}}};
         var composition=PromptBuilder.Compose(frozen.Data.Translation,snapshot.Source.Text,true);return snapshot with{Settings=frozen,Prompt=composition.System,TemplateVersion=composition.TemplateVersion,IsRegeneration=true};
     }
-    public bool IsOfferCurrent(TextTranslationOffer offer)=>!disposed&&ReferenceEquals(offered,offer);
+    public bool IsOfferCurrent(TextTranslationOffer offer)=>!disposed&&!clearing&&ReferenceEquals(offered,offer);
     public TextTranslationOffer? Prepare(SelectionSourceSnapshot source)=>PrepareCore(source,false);
     public TextTranslationOffer? PrepareOcr(SelectionSourceSnapshot source,TranslationPreset preset)
         =>source.SourceKind==SelectionSourceKind.OcrOnly&&Enum.IsDefined(preset)?PrepareCore(source,false,preset):Reject("OCR_SOURCE_REQUIRED");
     private TextTranslationOffer? PrepareCore(SelectionSourceSnapshot source,bool explicitUse,TranslationPreset? preset=null,bool currentOcrSettings=false)
     {
         LastRejection=null;offered=null;
-        if(disposed||settings() is not {} config||config.ReadOnly||config.RequiresRecovery||config.Version!=source.SettingsVersion&&!(currentOcrSettings&&explicitUse&&source.SourceKind==SelectionSourceKind.OcrOnly))return Reject("SETTINGS_CHANGED");
+        if(disposed||clearing||settings() is not {} config||config.ReadOnly||config.RequiresRecovery||config.Version!=source.SettingsVersion&&!(currentOcrSettings&&explicitUse&&source.SourceKind==SelectionSourceKind.OcrOnly))return Reject("SETTINGS_CHANGED");
         if(!DevelopmentSettingsAllowed(config))return Reject("TEST_BOUNDARY_REJECTED");
         if(!ValidText(source,config.Data.Translation.HardLimitScalars))return Reject("SOURCE_INVALID_OR_TOO_LARGE");
         if(!SourceAllowed(source,config,explicitUse))return Reject("SOURCE_CHANGED_OR_EXCLUDED");
@@ -111,7 +118,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     public TextTranslationOffer? PrepareRegeneration(bool useCurrentSettings=false)
     {
         LastRejection=null;offered=null;
-        if(disposed||SelectedSnapshot is not {} snapshot)return Reject("NO_RETAINED_SOURCE");
+        if(disposed||clearing||SelectedSnapshot is not {} snapshot)return Reject("NO_RETAINED_SOURCE");
         if(useCurrentSettings)
         {
             var current=snapshot.Source.SourceKind==SelectionSourceKind.OcrOnly?PrepareCore(snapshot.Source,true,currentOcrSettings:true):PrepareCore(snapshot.Source with{SettingsVersion=settings()?.Version??""},true);
@@ -124,7 +131,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     }
     public TextSubmission Submit(TextTranslationOffer offer,bool confirmed=false)
     {
-        if(disposed||!ReferenceEquals(offered,offer)||offer.Launched)return TextSubmission.Rejected;
+        if(disposed||clearing||!ReferenceEquals(offered,offer)||offer.Launched)return TextSubmission.Rejected;
         var snapshot=offer.Snapshot;
         bool explicitUse=confirmed||offer.Regenerate;
         if(!Eligible(snapshot,explicitUse)||!offer.Regenerate&&settings()?.Version!=snapshot.Settings.Version)return TextSubmission.Rejected;
@@ -149,7 +156,11 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         Launch(offer,identity,explicitUse);return TextSubmission.Started;
     }
     public void RejectConfirmation(TextTranslationOffer offer)
-    {if(ReferenceEquals(offered,offer)&&!offer.Launched){if(offer.Identity is {} id)gate.StopRequest(id);offered=submitted=null;}}
+    {
+        if(!ReferenceEquals(offered,offer)||offer.Launched)return;
+        offered=null;if(ReferenceEquals(submitted,offer))submitted=null;
+        if(offer.Identity is {} id)gate.StopRequest(id);
+    }
     private void Launch(TextTranslationOffer offer,RequestIdentity identity,bool explicitUse)
     {
         offer.Launched=true;if(styleSession!=identity.SessionId){styleSession=null;sessionStyle=null;}snapshots[identity.VersionId]=offer.Snapshot;
@@ -220,7 +231,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     }
     private bool Eligible(TextTranslationSnapshot snapshot,bool explicitUse)
     {
-        var current=settings();if(disposed||current==null||current.ReadOnly||current.RequiresRecovery||
+        var current=settings();if(disposed||clearing||current==null||current.ReadOnly||current.RequiresRecovery||
             !DevelopmentSettingsAllowed(current)||developmentBoundary!=null&&(!developmentBoundary.Allows(snapshot.Profile)||!developmentBoundary.Allows(snapshot.Transport))||
             !gate.TryGetProfileBinding(snapshot.Profile.Id,out var binding)||binding!=snapshot.Binding||
             !gate.HasConsentTo(new(snapshot.Transport.ResolveEndpoint())))return false;
@@ -284,11 +295,32 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     public bool CanUseSettings(SettingsSnapshot current)=>DevelopmentSettingsAllowed(current);
     private void PruneSnapshots()
     {var retained=Results.RetainedVersionIds;foreach(var id in snapshots.Keys.Where(id=>!retained.Contains(id)).ToArray())snapshots.Remove(id);}
-    public void Clear(){styleSession=null;sessionStyle=null;Volatile.Write(ref liveRequest,null);if(submitted?.Identity is {} id)gate.StopRequest(id);offered=submitted=null;snapshots.Clear();Results.Clear();}
-    public Task ClearAsync()
+    public void Clear()
     {
-        Clear();Task[] pending;lock(jobsSync)pending=jobs.ToArray();
-        return Task.WhenAll(pending); // Only jobs owned at this clear; a later valid generation is independent.
+        if(clearing)return;
+        clearing=true;
+        try
+        {
+            var original=submitted?.Identity;
+            styleSession=null;sessionStyle=null;Volatile.Write(ref liveRequest,null);
+            offered=submitted=null;snapshots.Clear();Results.Clear();
+            // No new command may enter from the original cancellation callback.
+            if(original is {} id)gate.StopRequest(id);
+        }
+        finally{clearing=false;}
+    }
+    public async Task ClearAsync()
+    {
+        Task[] pending;lock(jobsSync)pending=jobs.ToArray();
+        List<Exception> errors=[];
+        try{Clear();}catch(Exception error){errors.Add(error);}
+        // Cancellation failure does not skip original job settlement. Later valid
+        // generations are independent of this captured original task set.
+        var settlement=Task.WhenAll(pending);
+        try{await settlement.ConfigureAwait(false);}
+        catch(Exception error){errors.Add(settlement.Exception is {InnerExceptions.Count:>1} all?all:error);}
+        if(errors.Count==1)ExceptionDispatchInfo.Capture(errors[0]).Throw();
+        if(errors.Count>1)throw new AggregateException("Translation clear and original job settlement failed.",errors);
     }
     public async ValueTask DisposeAsync()
     {
