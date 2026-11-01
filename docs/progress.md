@@ -1,5 +1,7 @@
 # 开发进度
 
+- 2026-11-01 真实维护文件执行增量：public repair/uninstall改入同一原withdrawal owner/admission/IOledger；repair固定来源派生目标catalog，损坏字节保全，真实stage→退役原G/B→替换canonical→严格再核与逆七发布；uninstall七引用撤回后真实当前G/B退役，不伪称永久删除或完整卸载。精确半写Copy红1F→原ledger UNKNOWN修复，最终维护45P0F（31新+14旧），Core/Installer/App/测试0W/E GroupEmpty；旧41/23Core及全G/B正向链/Windows未跑。5894hash不变，16个小故障/红fixture保留；purge、Shell/身份owner/actuator、存量进程关停、可选设置密钥删除仍是真缺，见[实际效果、回执与未闭合项](validation/owned-maintenance-files-2026-11-01.md)。
+
 - 2026-11-01 正式Shell补OLE阻塞期间自身浮钮输入通道：原owner先留存再Start，专用hook消息泵→有界UI队列→原gesture/MoveOverlay/原peer取消，WPF/raw单仲裁；旧up/新capture冲突和独立关闭保UNKNOWN。公开repair/uninstall接固定pins及repair完整G/B来源校验、原existing-only预检，明确NOT_EXECUTED，不伪造真实卸载/修复已实现。最终相关79P0F（33新＋46回归），Core/Windows/App/Installer/测试0W/E GroupEmpty；首次ports编译及76P1F测试初始化失败均保全。5894保护hash不变，23Core/Windows/E06/真实维护执行/7GiB发行门保持未验或缺实现，无CI、main/Release变更，见[实现、实际原件和残余](validation/ole-input-maintenance-entry-2026-11-01.md)。
 
 - 2026-11-01 按原书18项对照找到并补R06/R08/9.9真实缺项：已生成图片会话可本地改下次文字风格，原owner/session绑定；旧版/已启动请求/global不改，默认所示版本与显式当前设置分开，Explain仍强制解释。style revision撤旧offer/OCR意图，门仍false；原预览路由红1F，最终相关291P含14新，App/测试0W/E及GroupEmpty。测试端口Separator编译失败和误跑旧程序集已保全排除，5894hash不变。R18公开卸载修复及可信交付输入仍真缺，R09/E06未闭合；13专用CI无可证转存余额未启动新窗口，详见[18项、实功能、资源与CI条件](validation/spec-r01-r18-image-style-2026-11-01.md)。

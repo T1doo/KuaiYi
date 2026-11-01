@@ -45,7 +45,7 @@ internal sealed class InstallationMaintenanceEntry
             }
             cancellation.ThrowIfCancellationRequested();
             original=factory(pins,intent); // Existing-only admission, owner, pins and original ledger remain authoritative.
-            outcome=await original.StartPreflight().ConfigureAwait(false);
+            outcome=await original.StartMaintenance().ConfigureAwait(false);
         }
         catch(Exception error){cancelled=error is OperationCanceledException&&cancellation.IsCancellationRequested;errors.Add(error);}
         try{sourceIO?.CloseOriginals();}catch(Exception error){errors.Add(error);}
@@ -53,7 +53,7 @@ internal sealed class InstallationMaintenanceEntry
         if(outcome!=null)errors.InsertRange(0,outcome.Errors);
         var status=!confirmed?InstallationMaintenanceStatus.Unconfirmed:outcome?.Status??(cancelled?InstallationMaintenanceStatus.Cancelled:InstallationMaintenanceStatus.Refused);
         if(confirmed)lock(Retained)Retained.Remove(this);
-        return new(outcome?.Operation??operation,intent,status,status==InstallationMaintenanceStatus.ObservedReadOnly?outcome?.Observation:null,confirmed,outcome?.RemainingSteps??Array.Empty<InstallationMaintenanceStep>(),errors.AsReadOnly());
+        return new(outcome?.Operation??operation,intent,status,status is InstallationMaintenanceStatus.ObservedReadOnly or InstallationMaintenanceStatus.FilesRetired or InstallationMaintenanceStatus.PayloadRepaired?outcome?.Observation:null,confirmed,outcome?.RemainingSteps??Array.Empty<InstallationMaintenanceStep>(),errors.AsReadOnly(),outcome?.ExecutedSteps,outcome?.RecoveryOperation,outcome?.Progress);
     }
     internal async Task<IReadOnlyList<Exception>> SettleOriginalsAsync()
     {

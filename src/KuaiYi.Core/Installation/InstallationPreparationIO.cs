@@ -148,13 +148,18 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
     internal void CopyPayload(string from,string to,InstallationFile entry)
     {
         if(metadataOnly)throw new InvalidOperationException("Prepared channel cannot copy payload.");
-        RequireSettled();
-        Writable(to);Directory.CreateDirectory(Path.GetDirectoryName(to)!);InstallationPaths.Check(Path.GetDirectoryName(to)!);
-        _=Execute(operation=>
+        RequireSettled();Writable(to);Directory.CreateDirectory(Path.GetDirectoryName(to)!);InstallationPaths.Check(Path.GetDirectoryName(to)!);
+        bool attempted=false;
+        try
         {
-            cancellation.ThrowIfCancellationRequested();var input=Open(operation,"copy-input",from,FileMode.Open,FileAccess.Read);var output=Open(operation,"copy-output",to,FileMode.CreateNew,FileAccess.Write);
-            Transfer(operation,input,output,to,entry,cancellation);return true;
-        });
+            _=Execute(operation=>
+            {
+                cancellation.ThrowIfCancellationRequested();var input=Open(operation,"copy-input",from,FileMode.Open,FileAccess.Read);
+                attempted=true;var output=Open(operation,"copy-output",to,FileMode.CreateNew,FileAccess.Write);
+                Transfer(operation,input,output,to,entry,cancellation);return true;
+            });
+        }
+        catch{if(attempted)storageUnconfirmed=true;throw;} // Partial output/flush/close errors cannot become a confirmed abort or a replay source.
     }
     internal void WriteMetadata(string path,byte[] bytes,int maximum)
     {
@@ -228,6 +233,21 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
         if(publicationPaths==null)throw new InvalidOperationException("An original publication channel is required.");Writable(from);Writable(to);
         try{if(faults?.Move!=null)faults.Move(from,to);else File.Move(from,to);}catch{storageUnconfirmed=true;throw;}
     }
+    // Lends the same resource ledger; this is an exact path write channel, not independent maintenance ownership.
+    internal InstallationPreparationIO CreateMaintenanceChannel(string originalRoot,string originalSource,IEnumerable<string> paths)
+    {RequireSettled();return new(originalSource,originalRoot,originalRoot,originalRoot,CancellationToken.None,faults){ledger=ledger,publicationPaths=paths.Select(Path.GetFullPath).ToHashSet(StringComparer.Ordinal)};}
+    internal InstallationFile DescribeMaintenanceFile(string path,string relative)=>Execute(operation=>
+    {
+        var input=Open(operation,"maintenance-hash",path,FileMode.Open,FileAccess.Read);long length=input.Length;
+        if(length is <0 or >256L*1024*1024)throw new InvalidDataException("Maintenance file exceeds the original package bound.");
+        var hash=operation.Own("hash",path,()=>IncrementalHash.CreateHash(HashAlgorithmName.SHA256));byte[] buffer=new byte[65536];long total=0;int count;
+        while((count=input.Read(buffer))!=0){total+=count;if(total>length)throw new InvalidDataException("Maintenance input grew.");hash.AppendData(buffer,0,count);}
+        if(total!=length||input.Length!=length)throw new InvalidDataException("Maintenance input changed.");return new InstallationFile(relative,length,Convert.ToHexString(hash.GetHashAndReset()));
+    });
+    internal void CreateMaintenanceDirectory(string path)
+    {RequireSettled();Writable(path);RequireAbsent(path);try{Directory.CreateDirectory(path);InstallationPaths.Check(path);}catch{storageUnconfirmed=true;throw;}}
+    internal void MoveMaintenanceDirectory(string from,string to)
+    {RequireSettled();Writable(from);Writable(to);InstallationPaths.Check(from);RequireAbsent(to);try{if(faults?.Move!=null)faults.Move(from,to);else Directory.Move(from,to);}catch{storageUnconfirmed=true;throw;}}
     internal void RequireHeldLease(string path)
     {
         Readable(path);_=Execute(operation=>

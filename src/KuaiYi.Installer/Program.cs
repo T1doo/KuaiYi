@@ -60,20 +60,17 @@ internal static class Program
         maintenance=new(bytes,intent,(_,requested)=>
         {
             string local=Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            return InstallationRegistrationWithdrawal.ForMaintenancePreflight(bytes,Path.Combine(local,"KuaiYi.Application"),Path.Combine(local,"KuaiYi"),
-                InstallationDeploymentRegistrySnapshot.CreateWindows(),requested,Stop.Token);
+            return InstallationRegistrationWithdrawal.ForMaintenanceExecution(bytes,Path.Combine(local,"KuaiYi.Application"),Path.Combine(local,"KuaiYi"),
+                InstallationDeploymentRegistrySnapshot.CreateWindows(),requested,Path.Combine(AppContext.BaseDirectory,"installer-payload"),Stop.Token);
         },()=>Path.Combine(AppContext.BaseDirectory,"installer-payload"),Stop.Token);
         ConsoleCancelEventHandler cancel=(_,args)=>{args.Cancel=true;_=Stop.Request();};Console.CancelKeyPress+=cancel;
         InstallationMaintenanceOutcome result;IReadOnlyList<Exception> errors;
         try{result=maintenance.Start().GetAwaiter().GetResult();}
         finally{try{errors=Stop.SealAndJoinAsync().GetAwaiter().GetResult();}finally{Console.CancelKeyPress-=cancel;}}
-        Console.WriteLine("MAINTENANCE_OBSERVATION|"+result.Intent+"|"+result.Status);
-        Console.WriteLine("MAINTENANCE_NOT_EXECUTED|PreserveUserData");
-        foreach(var step in result.RemainingSteps)Console.WriteLine("MAINTENANCE_PENDING|"+step.Action+"|"+step.Authorization);
-        Console.WriteLine("MAINTENANCE_SETTLED|"+(result.CleanupConfirmed?"Confirmed":"Unconfirmed"));
+        foreach(var line in InstallationMaintenanceReceiptText.Lines(result))Console.WriteLine(line);
         foreach(var error in result.Errors.Concat(errors))Console.Error.WriteLine("Maintenance refused/pending: "+error.GetType().Name);
         // Qualified read-only observations are useful, but never a successful repair/uninstall receipt.
-        return !result.CleanupConfirmed||errors.Count>0?3:result.Status==InstallationMaintenanceStatus.ObservedReadOnly?4:result.Status==InstallationMaintenanceStatus.Cancelled?7:6;
+        return InstallationMaintenanceReceiptText.ExitCode(result,errors.Count>0);
     }
 
 }

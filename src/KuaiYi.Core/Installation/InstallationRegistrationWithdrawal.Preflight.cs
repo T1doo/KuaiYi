@@ -1,14 +1,15 @@
 namespace KuaiYi.Core.Installation;
 
 internal enum InstallationMaintenanceIntent { Uninstall,Repair }
-internal enum InstallationMaintenanceStatus { ObservedReadOnly,Refused,Cancelled,Unconfirmed }
-internal enum InstallationMaintenanceAction { WithdrawSevenReferences,StopOwnedProcesses,RemovePayloadAndTemporaryFiles,RemoveShellRegistration,RemoveIdentityPackage,RemoveSettingsAndKeys,RestorePayload,PublishRegistrations,RepairShellRegistration,RepairIdentityPackage }
+internal enum InstallationMaintenanceStatus { ObservedReadOnly,Refused,Cancelled,Unconfirmed,FilesRetired,PayloadRepaired,ReferencesWithdrawn }
+internal enum InstallationMaintenanceAction { WithdrawSevenReferences,StopOwnedProcesses,RemovePayloadAndTemporaryFiles,RemoveShellRegistration,RemoveIdentityPackage,RemoveSettingsAndKeys,RestorePayload,PublishRegistrations,RepairShellRegistration,RepairIdentityPackage,RetireCurrentGeneration,RetireCurrentBootstrap,RestoreCurrentGeneration,RestoreCurrentBootstrap,PrepareRepairPayload }
 internal enum InstallationMaintenanceAuthorization { NotAuthorized }
 internal sealed record InstallationMaintenanceStep(InstallationMaintenanceAction Action,InstallationMaintenanceAuthorization Authorization);
 // Historical observations only: neither a receipt nor this result is an executable capability.
 internal sealed record InstallationMaintenanceObservation(InstalledVersion Generation,Guid Bundle,string BootstrapRevision,string GenerationSourceSha256,string BootstrapSourceSha256);
+internal sealed record InstallationMaintenanceProgress(bool TicketAttempted,bool TicketComplete,int ReferencePrefix,int ReferenceAttempt,bool Closing,bool FileMutationAttempted,bool Irrevocable,bool StorageUnconfirmed,bool CandidatePreparationAttempted=false);
 internal sealed record InstallationMaintenanceOutcome(string Operation,InstallationMaintenanceIntent Intent,InstallationMaintenanceStatus Status,
-    InstallationMaintenanceObservation? Observation,bool CleanupConfirmed,IReadOnlyList<InstallationMaintenanceStep> RemainingSteps,IReadOnlyList<Exception> Errors);
+    InstallationMaintenanceObservation? Observation,bool CleanupConfirmed,IReadOnlyList<InstallationMaintenanceStep> RemainingSteps,IReadOnlyList<Exception> Errors,IReadOnlyList<InstallationMaintenanceAction>? ExecutedSteps=null,string? RecoveryOperation=null,InstallationMaintenanceProgress? Progress=null);
 
 internal sealed partial class InstallationRegistrationWithdrawal
 {
@@ -25,7 +26,7 @@ internal sealed partial class InstallationRegistrationWithdrawal
     {
         lock(sync)
         {
-            if(inspection==null)throw new InvalidOperationException("Withdrawal cannot be reinterpreted as a read-only preflight.");
+            if(inspection==null||maintenanceExecution)throw new InvalidOperationException("Withdrawal cannot be reinterpreted as a read-only preflight.");
             StartOriginal();return preflightWork!;
         }
     }
@@ -36,6 +37,11 @@ internal sealed partial class InstallationRegistrationWithdrawal
         {
             InstallationWithdrawalStatus.PreflightObservedReadOnly=>InstallationMaintenanceStatus.ObservedReadOnly,
             InstallationWithdrawalStatus.PreflightCancelled=>InstallationMaintenanceStatus.Cancelled,
+            InstallationWithdrawalStatus.AbortedRestored or InstallationWithdrawalStatus.Refused when maintenanceCancelled=>InstallationMaintenanceStatus.Cancelled,
+            InstallationWithdrawalStatus.MaintenanceFilesRetired=>InstallationMaintenanceStatus.FilesRetired,
+            InstallationWithdrawalStatus.MaintenancePayloadRepaired=>InstallationMaintenanceStatus.PayloadRepaired,
+            InstallationWithdrawalStatus.ReferencesWithdrawn when maintenanceExecution=>InstallationMaintenanceStatus.ReferencesWithdrawn,
+            InstallationWithdrawalStatus.ReferencesWithdrawnReceiptUncertain when maintenanceExecution=>InstallationMaintenanceStatus.Unconfirmed,
             InstallationWithdrawalStatus.Unconfirmed=>InstallationMaintenanceStatus.Unconfirmed,
             _=>InstallationMaintenanceStatus.Refused
         };
@@ -44,8 +50,8 @@ internal sealed partial class InstallationRegistrationWithdrawal
                 InstallationMaintenanceAction.RemoveShellRegistration,InstallationMaintenanceAction.RemoveIdentityPackage,InstallationMaintenanceAction.RemoveSettingsAndKeys]
             :[InstallationMaintenanceAction.StopOwnedProcesses,InstallationMaintenanceAction.RestorePayload,InstallationMaintenanceAction.PublishRegistrations,
                 InstallationMaintenanceAction.RepairShellRegistration,InstallationMaintenanceAction.RepairIdentityPackage];
-        return new(Operation,inspection!.Value,status,status==InstallationMaintenanceStatus.ObservedReadOnly?observation:null,value.CleanupConfirmed,
-            Array.AsReadOnly(steps.Select(action=>new InstallationMaintenanceStep(action,InstallationMaintenanceAuthorization.NotAuthorized)).ToArray()),value.Errors);
+        return new(Operation,inspection!.Value,status,status is InstallationMaintenanceStatus.ObservedReadOnly or InstallationMaintenanceStatus.FilesRetired or InstallationMaintenanceStatus.PayloadRepaired?observation:null,value.CleanupConfirmed,
+            Array.AsReadOnly(steps.Where(action=>!maintenanceCompleted.Contains(action)).Select(action=>new InstallationMaintenanceStep(action,InstallationMaintenanceAuthorization.NotAuthorized)).ToArray()),value.Errors,maintenanceCompleted.ToArray(),maintenanceExecution&&ticketAttempted?Operation:null,maintenanceExecution?new(ticketAttempted,ticketComplete,prefix,attempt,closing,maintenanceMutationBegan,maintenanceCommitLocked||maintenanceReferencesCommitted,io.StorageUnconfirmed,maintenanceCandidateAttempted):null);
     }
     private async Task<InstallationWithdrawalOutcome> RunPreflightAsync()
     {

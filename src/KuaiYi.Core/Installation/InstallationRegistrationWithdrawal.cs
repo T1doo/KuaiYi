@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json;
 namespace KuaiYi.Core.Installation;
 
-internal enum InstallationWithdrawalStatus { Refused,AbortedRestored,ReferencesWithdrawn,ReferencesWithdrawnReceiptUncertain,AlreadyWithdrawnReadOnly,Unconfirmed,PreflightObservedReadOnly,PreflightCancelled }
+internal enum InstallationWithdrawalStatus { Refused,AbortedRestored,ReferencesWithdrawn,ReferencesWithdrawnReceiptUncertain,AlreadyWithdrawnReadOnly,Unconfirmed,PreflightObservedReadOnly,PreflightCancelled,MaintenanceFilesRetired,MaintenancePayloadRepaired }
 internal sealed record InstallationWithdrawalOutcome(InstallationWithdrawalStatus Status,bool CleanupConfirmed,IReadOnlyList<Exception> Errors);
 internal sealed class InstallationWithdrawalFaults
 {
@@ -51,14 +51,14 @@ internal sealed partial class InstallationRegistrationWithdrawal
     internal bool CleanupConfirmed=>OriginalWork.IsCompleted&&ResourcesConfirmed&&(settlement==null||settlement.IsCompleted);
     internal InstallationRegistrationWithdrawal(ReadOnlyMemory<byte> originalEmbeddedPins,string root,string data,IInstallationStartupRegistry registry,CancellationToken cancellation=default,InstallationWithdrawalFaults? faults=null)
         :this(originalEmbeddedPins,root,data,registry,cancellation,faults,null){}
-    private InstallationRegistrationWithdrawal(ReadOnlyMemory<byte> originalEmbeddedPins,string root,string data,IInstallationStartupRegistry registry,CancellationToken cancellation,InstallationWithdrawalFaults? faults,InstallationMaintenanceIntent? inspection)
+    private InstallationRegistrationWithdrawal(ReadOnlyMemory<byte> originalEmbeddedPins,string root,string data,IInstallationStartupRegistry registry,CancellationToken cancellation,InstallationWithdrawalFaults? faults,InstallationMaintenanceIntent? inspection,string? maintenanceSource=null,bool maintenanceExecution=false)
     {
-        this.embedded=originalEmbeddedPins.ToArray();this.root=InstallationPaths.Root(root);this.data=InstallationPaths.Root(data);this.registry=registry;this.cancellation=cancellation;this.faults=faults;this.inspection=inspection;
+        this.embedded=originalEmbeddedPins.ToArray();this.root=InstallationPaths.Root(root);this.data=InstallationPaths.Root(data);this.registry=registry;this.cancellation=cancellation;this.faults=faults;this.inspection=inspection;this.maintenanceExecution=maintenanceExecution;this.maintenanceSource=maintenanceSource;
         store=new(this.root,this.data,()=>true);admission=InstallationAdmission.CreateOwner(this.root,faults?.Admission);io=InstallationPreparationIO.ReadOnly(this.root,faults?.IO);
         pending=store.PendingPath;beforePath=Path.Combine(this.root,"withdrawal-before-"+Operation+".json");planPath=Path.Combine(this.root,"withdrawal-plan-"+Operation+".json");
         terminalPath=Path.Combine(this.root,"withdrawal-terminal-"+Operation+".tmp");backup=Path.Combine(this.root,"withdrawal-ticket-"+Operation+".json");finished=Path.Combine(this.root,"withdrawal-finished-"+Operation+".json");aborted=Path.Combine(this.root,"withdrawal-aborted-"+Operation+".json");
         // The exact owner and task exist before any source read, handle acquisition or platform operation.
-        OriginalWork=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);return inspection==null?await RunAsync().ConfigureAwait(false):await RunPreflightAsync().ConfigureAwait(false);});
+        OriginalWork=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);return inspection==null||maintenanceExecution?await RunAsync().ConfigureAwait(false):await RunPreflightAsync().ConfigureAwait(false);});
         if(inspection!=null)preflightWork=ReportPreflightAsync();
     }
     internal Task<InstallationWithdrawalOutcome> Start()
@@ -70,8 +70,8 @@ internal sealed partial class InstallationRegistrationWithdrawal
         }
     }
     private void StartOriginal(){if(!started){started=true;lock(Retained)Retained.Add(this);begin.SetResult();}}
-    internal void Abort(){lock(sync)if(!closing)abort=true;}
-    private void CheckCancellation(){lock(sync)if(abort||cancellation.IsCancellationRequested)throw new OperationCanceledException("Withdrawal canceled before Closing.",cancellation);}
+    internal void Abort(){lock(sync)if(!closing&&!maintenanceCommitLocked)abort=true;}
+    private void CheckCancellation(){lock(sync)if(!maintenanceCommitLocked&&(abort||cancellation.IsCancellationRequested))throw new OperationCanceledException("Withdrawal canceled before Closing.",cancellation);}
     private static byte[] Encode<T>(T value)=>JsonSerializer.SerializeToUtf8Bytes(value);
     private static string Hash(byte[] bytes)=>Convert.ToHexString(SHA256.HashData(bytes));
     private static byte[]? Decode(string? value)=>value==null?null:Convert.FromBase64String(value);
@@ -97,11 +97,11 @@ internal sealed partial class InstallationRegistrationWithdrawal
     private Frozen Qualify(Bindings b)
     {
         var current=Decode(b.Current)??throw new InstallationRecoveryException("No current generation to qualify.");
-        var selected=InstallationStore.ReadObservedCurrent(root,current,CancellationToken.None,io);
-        var g=InstallationPackage.ReadInstalled(selected.DirectoryPath,CancellationToken.None,expectedDigest:selected.CatalogSha256,io:io);
-        if(g.Schema!=3||!HashEqual(g.SourceCatalogSha256,pins!.Generation))throw new InstallationRecoveryException("Current generation is not this invocation's pinned source.");
+        var selected=RepairingDamagedFiles?InstallationStore.ReadPinnedRepairCurrent(root,current,maintenanceGeneration!):InstallationStore.ReadObservedCurrent(root,current,CancellationToken.None,io);
+        var g=RepairingDamagedFiles?maintenanceGeneration!:InstallationPackage.ReadInstalled(selected.DirectoryPath,CancellationToken.None,expectedDigest:selected.CatalogSha256,io:io);
+        if(RepairingDamagedFiles?g.Schema!=2||!HashEqual(g.CatalogSha256,pins!.Generation):g.Schema!=3||!HashEqual(g.SourceCatalogSha256,pins!.Generation))throw new InstallationRecoveryException("Current generation is not this invocation's pinned source.");
         var owner=InstallationBootstrapDeployment.Decode<InstallationBootstrapDeployment.StoreOwner>(Decode(b.BootstrapOwner)??throw new InstallationRecoveryException("Original bootstrap owner absent."));
-        var active=InstallationBootstrapDeployment.RequireReceipt(root,data,owner,Decode(b.BootstrapActive)??throw new InstallationRecoveryException("Original bootstrap active absent."),CancellationToken.None,io);
+        var active=RepairingDamagedFiles?RequireRepairBootstrap(owner,Decode(b.BootstrapActive)??throw new InstallationRecoveryException("Original bootstrap active absent."),selected):InstallationBootstrapDeployment.RequireReceipt(root,data,owner,Decode(b.BootstrapActive)??throw new InstallationRecoveryException("Original bootstrap active absent."),CancellationToken.None,io);
         if(active.Generation!=selected||active.Mode!=InstallationBootstrapPackage.SelfContainedMode||!HashEqual(active.CatalogSha256,pins.Bootstrap))throw new InstallationRecoveryException("Current self-contained bootstrap is not pinned to this generation.");
         InstallationHostOwnership? h=null;
         if(b.HostReceipt!=null)
@@ -128,6 +128,7 @@ internal sealed partial class InstallationRegistrationWithdrawal
         try
         {
             pins=InstallationInstallerPins.Read(embedded);CheckCancellation();
+            if(maintenanceExecution)ReadMaintenanceSources();
             store.AcquireAdmission(admission,mutation:true,existing:true,requireStopped:true,keepSetup:true);
             io.RequireExactMetadata(Path.Combine(root,"owner.txt"),InstallationStore.InitialOwnerBytes,4096);InstallationPaths.Check(data);if(!Directory.Exists(data))throw new InstallationRecoveryException("Original user data directory absent.");
             var probe=ReadBindings(await ReadSlots(initial:true).ConfigureAwait(false));
@@ -135,9 +136,10 @@ internal sealed partial class InstallationRegistrationWithdrawal
             else
             {
                 frozen=Qualify(probe);CheckCancellation();
-                ticket=Encode(new{schemaVersion=1,kind="KuaiYiRegistrationWithdrawalTicket",operation=Operation,root,data,generationSha256=pins.Generation,bootstrapSha256=pins.Bootstrap});
+                if(maintenanceExecution)PrepareMaintenanceFilePlan();
+                ticket=maintenanceExecution?Encode(new{schemaVersion=1,kind="KuaiYiRegistrationWithdrawalTicket",operation=Operation,root,data,generationSha256=pins.Generation,bootstrapSha256=pins.Bootstrap,maintenanceFilesSha256=Hash(maintenanceFilePlan!)}):Encode(new{schemaVersion=1,kind="KuaiYiRegistrationWithdrawalTicket",operation=Operation,root,data,generationSha256=pins.Generation,bootstrapSha256=pins.Bootstrap});
                 if(ticket.Length>16384)throw new InvalidDataException("Withdrawal ticket exceeds bound.");
-                var intentPaths=new[]{pending,beforePath,planPath,terminalPath,backup,finished,aborted};foreach(var path in intentPaths)io.RequireAbsent(path);
+                var intentPaths=new[]{pending,beforePath,planPath,terminalPath,backup,finished,aborted}.Concat(maintenanceExecution?new[]{MaintenanceFilePlanPath,MaintenanceFinishedPath}:Array.Empty<string>()).ToArray();foreach(var path in intentPaths)io.RequireAbsent(path);
                 intents=io.CreatePublicationChannel(root,intentPaths,faults?.IO);ticketAttempted=true;intents.WritePublicationMetadata(pending,ticket,16384);ticketComplete=true;admission.ReleaseSetup();
                 var before=ReadBindings(await ReadSlots(preparation:true).ConfigureAwait(false));if(before!=probe)throw new InstallationRecoveryException("Original qualification observations changed after ticket.");
                 frozen=Qualify(before);beforeBytes=Encode(before);intents.WritePublicationMetadata(beforePath,beforeBytes,131072);beforeComplete=true;
@@ -147,23 +149,34 @@ internal sealed partial class InstallationRegistrationWithdrawal
                     if(Encode(TerminalFor(plan,planBytes,n,a,status)).Length>16384)throw new InvalidDataException("Withdrawal terminal variant exceeds bound.");
                 intents.WritePublicationMetadata(planPath,planBytes,131072);qualified=new(this,plan,planBytes);planComplete=true;
                 effects=io.CreatePublicationChannel(root,plan.WritePaths,faults?.IO);foreach(string path in Tombstones(Operation))io.RequireAbsent(path);
+                if(maintenanceExecution){intents.WritePublicationMetadata(MaintenanceFilePlanPath,maintenanceFilePlan!,4*1024*1024);PrepareMaintenanceCandidates();}
                 for(int step=1;step<=7;step++)
                 {
                     CheckCancellation();await CheckPrefixAsync(true).ConfigureAwait(false);attempt=step;
                     await OwnStep(step,false).ConfigureAwait(false);await ResolveAttemptAsync(false).ConfigureAwait(false);
                 }
-                await CheckPrefixAsync(true).ConfigureAwait(false);faults?.BeforeClosing?.Invoke();
-                lock(sync){CheckCancellation();closing=true;withdrawn=true;}
+                await CheckPrefixAsync(true).ConfigureAwait(false);
+                if(maintenanceExecution)maintenanceCompleted.Add(InstallationMaintenanceAction.WithdrawSevenReferences);
+                if(maintenanceExecution&&inspection==InstallationMaintenanceIntent.Repair)
+                {
+                    CheckCancellation();RepairMaintenanceFiles();
+                    while(prefix>0){await CheckPrefixAsync(true).ConfigureAwait(false);attempt=prefix;await OwnStep(prefix,true).ConfigureAwait(false);await ResolveAttemptAsync(true).ConfigureAwait(false);}
+                    await CheckPrefixAsync(true).ConfigureAwait(false);maintenanceCompleted.Add(InstallationMaintenanceAction.PublishRegistrations);maintenanceRepaired=true;
+                }
+                faults?.BeforeClosing?.Invoke();
+                lock(sync){if(!maintenanceMutationBegan)CheckCancellation();closing=true;withdrawn=!maintenanceRepaired;maintenanceReferencesCommitted=maintenanceExecution&&inspection==InstallationMaintenanceIntent.Uninstall&&withdrawn;}
+                if(maintenanceExecution&&inspection==InstallationMaintenanceIntent.Uninstall)RetireMaintenanceFiles();
             }
         }
-        catch(Exception error){if(!io.CleanupConfirmed||!RegistryCleanupConfirmed||io.StorageUnconfirmed||(registryStarted&&registry.ConflictObserved))unknown=true;errors.Add(error);}
-        if(!closing&&!already&&qualified!=null&&!unknown&&!io.StorageUnconfirmed&&!registry.ConflictObserved)
+        catch(Exception error){if(maintenanceExecution&&error is OperationCanceledException)maintenanceCancelled=true;if(!io.CleanupConfirmed||!RegistryCleanupConfirmed||io.StorageUnconfirmed||(registryStarted&&registry.ConflictObserved))unknown=true;errors.Add(error);}
+        if(!closing&&!maintenanceMutationBegan&&!already&&qualified!=null&&!unknown&&!io.StorageUnconfirmed&&!registry.ConflictObserved)
         {
             try
             {
                 await ResolveAttemptAsync(false).ConfigureAwait(false);
                 while(prefix>0){await CheckPrefixAsync(true).ConfigureAwait(false);attempt=prefix;await OwnStep(prefix,true).ConfigureAwait(false);await ResolveAttemptAsync(true).ConfigureAwait(false);}
                 await CheckPrefixAsync(true).ConfigureAwait(false);
+                if(maintenanceExecution&&maintenanceCompleted.Contains(InstallationMaintenanceAction.WithdrawSevenReferences))maintenanceCompleted.Add(InstallationMaintenanceAction.PublishRegistrations);
             }
             catch(Exception error){unknown=true;errors.Add(error);}
         }
@@ -174,21 +187,21 @@ internal sealed partial class InstallationRegistrationWithdrawal
         bool canArchive=ticketComplete&&beforeComplete&&planComplete&&qualified!=null&&!unknown&&!io.StorageUnconfirmed&&!registry.ConflictObserved&&ResourcesConfirmed&&attempt==0&&prefix==(withdrawn?7:0);
         if(canArchive)
         {
-            try{await CheckPrefixAsync(false).ConfigureAwait(false);}catch(Exception error){unknown=true;errors.Add(error);canArchive=false;}
+            try{if(maintenanceRetired)await CheckMaintenanceRetiredAsync().ConfigureAwait(false);else await CheckPrefixAsync(false).ConfigureAwait(false);}catch(Exception error){unknown=true;errors.Add(error);canArchive=false;}
             await CloseOriginals(errors).ConfigureAwait(false);canArchive&=!unknown&&ResourcesConfirmed;
         }
         if(canArchive)
         {
-            bool moveAttempted=false;string destination=withdrawn?finished:aborted;byte[]? terminal=null;
+            bool moveAttempted=false;string destination=maintenanceRepaired||maintenanceRetired?MaintenanceFinishedPath:withdrawn?finished:aborted;byte[]? terminal=null;
             try
             {
-                terminal=Encode(TerminalFor(qualified!.Plan,qualified.Bytes,prefix,0,withdrawn?InstallationWithdrawalStatus.ReferencesWithdrawn:InstallationWithdrawalStatus.AbortedRestored));
+                terminal=Encode(TerminalFor(qualified!.Plan,qualified.Bytes,prefix,0,CompletedWithdrawalStatus(withdrawn)));
                 intents!.WritePublicationMetadata(terminalPath,terminal,16384);io.RequireExactMetadata(pending,ticket!,16384);io.RequireExactMetadata(terminalPath,terminal,16384);io.RequireAbsent(backup);io.RequireAbsent(destination);
                 File.Replace(terminalPath,pending,backup,false);io.RequireExactMetadata(pending,terminal,16384);io.RequireExactMetadata(backup,ticket!,16384);
                 if(!ResourcesConfirmed||io.StorageUnconfirmed)throw new InstallationRecoveryException("Terminal resources are unsettled.");
                 moveAttempted=true;if(faults?.Archive!=null)faults.Archive(pending,destination);else File.Move(pending,destination);
                 // No fallible IO, callback or cleanup follows a successful archive Move.
-                lock(Retained)Retained.Remove(this);return new(withdrawn?InstallationWithdrawalStatus.ReferencesWithdrawn:InstallationWithdrawalStatus.AbortedRestored,true,errors.ToArray());
+                lock(Retained)Retained.Remove(this);return new(CompletedWithdrawalStatus(withdrawn),true,errors.ToArray());
             }
             catch(Exception error)
             {
