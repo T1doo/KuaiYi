@@ -430,4 +430,44 @@ public sealed class OfflineScreenshotRoutingTests
         Assert.DoesNotContain(r.Events,e=>e.Identity==b&&e.Kind is ScreenshotGenerationEvent.Generating or ScreenshotGenerationEvent.Classifying or ScreenshotGenerationEvent.Usage);Assert.Equal(startC?3:2,r.Script.Requests);Assert.Same(original.ClassificationUsage,r.Flow.SelectedSnapshot!.ClassificationUsage);Assert.Equal(original.Transform,r.Flow.SelectedSnapshot.Transform);
         if(startC){Assert.Equal(c,r.Flow.Results.Identity);Assert.Equal("C cached final",r.Flow.Results.Text);Assert.Equal(c,r.Flow.SelectedSnapshot.GenerationUsage!.Identity);}else{Assert.True(r.Flow.Results.Versions.Single(v=>v.Identity==b).Stopped);Assert.Null(r.Flow.SelectedSnapshot.GenerationUsage);Assert.False(r.Gate.HasRunningGeneration);}
     }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task UnknownClassificationRegenerationDoesNotReplaceTheRunningClassifier(Protocol protocol)
+    {
+        await using var r=await Rig.Create(protocol);Assert.True(r.Flow.TryStart(true));await r.Requests(1);
+        var original=r.Flow.Running;var identity=r.Flow.Results.Identity;var snapshot=r.Flow.SelectedSnapshot;
+        Assert.Null(snapshot!.Classification);Assert.False(r.Flow.TryStart(true,regenerate:true));
+        Assert.Same(original,r.Flow.Running);Assert.Equal(identity,r.Flow.Results.Identity);Assert.True(r.Gate.CanApply(identity!.Value));
+        Assert.Same(snapshot,r.Flow.SelectedSnapshot);Assert.Equal(1,r.Script.Requests);
+        await r.Reply(ImageClassificationTests.Json());await r.Requests(2);await r.Reply("first");await original.WaitAsync(TimeSpan.FromSeconds(6));
+        var classification=r.Flow.SelectedSnapshot!.Classification;var receipt=r.Flow.SelectedSnapshot.ClassificationUsage;
+        await r.Generate(final:"reuse",regenerate:true);Assert.Equal(3,r.Script.Requests);
+        Assert.Same(classification,r.Flow.SelectedSnapshot!.Classification);Assert.Same(receipt,r.Flow.SelectedSnapshot.ClassificationUsage);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task FailedUnknownClassificationRequiresExplicitRejudgementAndPreservesTheFailedVersion(Protocol protocol)
+    {
+        await using var r=await Rig.Create(protocol);Assert.True(r.Flow.TryStart(true));await r.Requests(1);
+        await r.Reply("{incomplete classification");await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));
+        var failed=Assert.Single(r.Flow.Results.Versions);var snapshot=r.Flow.SelectedSnapshot;var settled=r.Flow.Running;
+        Assert.Null(snapshot!.Classification);Assert.False(r.Flow.TryStart(true,regenerate:true));
+        Assert.Same(settled,r.Flow.Running);Assert.Same(snapshot,r.Flow.SelectedSnapshot);Assert.Equal(failed,Assert.Single(r.Flow.Results.Versions));Assert.Equal(1,r.Script.Requests);
+        await r.Generate(final:"explicit rejudgement",regenerate:true,reclassify:true);Assert.Equal(3,r.Script.Requests);
+        Assert.Equal(failed,r.Flow.Results.Versions.Single(v=>v.Identity==failed.Identity));
+        Assert.Equal(snapshot.SourceVersion,r.Flow.SelectedSnapshot!.SourceVersion);Assert.Equal(snapshot.SourceId,r.Flow.SelectedSnapshot.SourceId);
+        var receipt=r.Flow.SelectedSnapshot.ClassificationUsage;
+        await r.Generate(final:"known reuse",regenerate:true);Assert.Equal(4,r.Script.Requests);Assert.Same(receipt,r.Flow.SelectedSnapshot!.ClassificationUsage);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task KnownClassificationWithUnknownUsageReusesWithoutAnotherClassificationCall(Protocol protocol)
+    {
+        await using var r=await Rig.Create(protocol);Assert.True(r.Flow.TryStart(true));await r.Requests(1);
+        string text=ImageClassificationTests.Json();
+        string response=protocol==Protocol.OpenAIChat?JsonSerializer.Serialize(new{choices=new[]{new{index=0,message=new{content=text},finish_reason="stop"}}})
+            :JsonSerializer.Serialize(new{type="message",content=new[]{new{type="text",text}},stop_reason="end_turn"});
+        await r.Script.Write(response,true);await r.Requests(2);await r.Reply("known");await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));
+        var snapshot=r.Flow.SelectedSnapshot!;Assert.NotNull(snapshot.Classification);Assert.False(snapshot.ClassificationUsage!.Reported);
+        await r.Generate(final:"regenerated",regenerate:true);Assert.Equal(3,r.Script.Requests);Assert.Same(snapshot.Classification,r.Flow.SelectedSnapshot!.Classification);
+        Assert.Same(snapshot.ClassificationUsage,r.Flow.SelectedSnapshot.ClassificationUsage);Assert.True(r.Flow.SelectedSnapshot.ClassificationUsageReused);
+    }
+
 }

@@ -66,7 +66,13 @@ internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
         if(!userAction||disposed||source is not {} selected||selected.Image.IsDisposed||
             gate.Snapshot.Activation!=Activation.On||gate.Snapshot.Suspension!=Suspension.None||gate.Snapshot.Presentation==Presentation.Hidden||
             !sourceCurrent(selected.Version,selected.Image.SourceId)||settings() is not {} current||current.ReadOnly||current.RequiresRecovery)return false;
-        var selectedSnapshot=regenerate?SelectedSnapshot:null;var frozen=regenerate?selectedSnapshot?.Settings:current;if(frozen==null)return false;
+        var selectedSnapshot=regenerate?SelectedSnapshot:null;
+        // Regeneration reuses only this exact source's completed, validated classification.
+        // Missing classification is not permission to silently run another classification:
+        // only an explicit reclassify action may do so, before any old job is cancelled.
+        if(regenerate&&(selectedSnapshot==null||selectedSnapshot.SourceVersion!=selected.Version||
+            selectedSnapshot.SourceId!=selected.Image.SourceId||!reclassify&&selectedSnapshot.Classification==null))return false;
+        var frozen=regenerate?selectedSnapshot!.Settings:current;
         var profile=frozen.Data.Profiles.FirstOrDefault(p=>p.Id==frozen.Data.ActiveProfileId);
         var live=current.Data.Profiles.FirstOrDefault(p=>p.Id==current.Data.ActiveProfileId);
         if(profile==null||live==null||profile.Id!=live.Id||!ApiProfilePolicy.RequestEquivalent(profile,live)||!boundary.Allows(profile)||!boundary.Allows(live)||

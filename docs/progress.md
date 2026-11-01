@@ -1,5 +1,7 @@
 # 开发进度
 
+- 2026-11-01 图片复用独立离线段：发现默认regen在分类pending/失败时隐式重发分类，原6例4F2P保全。现先核selectedSnapshot与原owner的SourceVersion/Id，缺完整分类默认拒绝且不取消/换task或版本；显式reclassify仍原门2调用，已知分类仅1生成且原receipt引用/Unknown用量保留。最终相关218P（163离线含6新＋55分类），App/测试交叉0W/E GroupEmpty、独审字节/TRX核符。普通Production consumed/IMAGE_REUSE_DISABLED与UI未动，不宣称图片复用整体完成；5894保护hash一致，见[真实依赖、红绿及生产未验门](validation/image-regeneration-contract-2026-11-01.md)。
+
 - 2026-11-01 原SPEC3.2首次启用功能补齐：原缺配置仅打开常规页，现失败启用定位新窗口的新增/默认文字配置/active模型/密钥/地址，恢复优先、Loaded一次focus；已开草稿仅激活不重载，保存不启用发送。31P（9新metadata＋13搜索＋9布局），真实App交叉0W/E GroupEmpty，源码设计独审；原生焦点/保存交互未验。固定简中/内存3版本不扩功能，图片复用仍是独立关闭缺口；5894保护hash一致，见[盘点、实际接线与限制](validation/first-enable-guide-2026-11-01.md)。
 
 - 2026-11-01 原功能盘点后修退出结算实缺：DisposeAsync取消回调抛错会跳过原jobs等待/快照清理，重复/复入调用会丢原失败，原2例2F保全。改预装同一完成Task、volatile永久关闭入口，捕获原id/jobs再独立取消/等待/清快照，首错及全部fault保留，重复不重试。最终关联223P0F（9取消合同含2新＋214原恢复/停止/清空），三个构建0W/E GroupEmpty、独审字节/TRX核符；无UI/历史落盘/23Core/原生资格放宽，5894保护hash一致；[具体缺口、红绿与剩余资格](validation/text-disposal-settlement-2026-11-01.md)。
