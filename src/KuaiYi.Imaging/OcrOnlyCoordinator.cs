@@ -53,10 +53,14 @@ public sealed partial class OcrOnlyCoordinator:IAsyncDisposable
     public OcrTextPreview? Preview{get{var value=Volatile.Read(ref preview);if(value!=null&&!IsPreviewCurrent(value)){Interlocked.CompareExchange(ref preview,null,value);return null;}return value;}private set=>Volatile.Write(ref preview,value);}
     public string? Failure{get;private set;}
     public bool CleanupPending{get{lock(sync)return ownedWorker!=null;}}
-    public bool Discover(Guid version,ImageSourceOwner source)=>StartCore(version,source,null);
-    public bool Start(Guid version,ImageSourceOwner source,string language)=>language!=null&&StartCore(version,source,language);
-    public bool Start(OcrCapabilitiesSnapshot snapshot,string language)
+    public bool Discover(Guid version,ImageSourceOwner source)=>Discover(version,source,out _);
+    // Correlation for the actually admitted original task; never source or send authority.
+    public bool Discover(Guid version,ImageSourceOwner source,out RequestIdentity admitted)=>StartCore(version,source,null,out admitted);
+    public bool Start(Guid version,ImageSourceOwner source,string language)=>language!=null&&StartCore(version,source,language,out _);
+    public bool Start(OcrCapabilitiesSnapshot snapshot,string language)=>Start(snapshot,language,out _);
+    public bool Start(OcrCapabilitiesSnapshot snapshot,string language,out RequestIdentity admitted)
     {
+        admitted=default;
         if(snapshot==null||!IsCapabilitiesCurrent(snapshot))return false;ImageSourceOwner? source;
         lock(sync)
         {
@@ -66,10 +70,11 @@ public sealed partial class OcrOnlyCoordinator:IAsyncDisposable
             if(image.Width>ImageTransform.LongEdgeLimit||image.Height>ImageTransform.LongEdgeLimit){Failure="SMALLER_SCREENSHOT_REQUIRED";return false;}
             source=image;
         }
-        return StartCore(snapshot.SourceVersion,source,language,snapshot);
+        return StartCore(snapshot.SourceVersion,source,language,out admitted,snapshot);
     }
-    private bool StartCore(Guid version,ImageSourceOwner source,string? language,OcrCapabilitiesSnapshot? expected=null)
+    private bool StartCore(Guid version,ImageSourceOwner source,string? language,out RequestIdentity admitted,OcrCapabilitiesSnapshot? expected=null)
     {
+        admitted=default;
         // Recognition never silently resizes a screenshot or a prepared file to fit OCR.
         if(language!=null&&(source.Width>ImageTransform.LongEdgeLimit||source.Height>ImageTransform.LongEdgeLimit))
         {Failure="SMALLER_SCREENSHOT_REQUIRED";return false;}
@@ -104,7 +109,7 @@ public sealed partial class OcrOnlyCoordinator:IAsyncDisposable
                     active=operation;Running=RunAsync(operation,language);started=true;
                 }
             });
-            if(!started)gate.StopRequest(identity);return started;
+            if(!started)gate.StopRequest(identity);else admitted=identity;return started;
         }
         catch(Exception original)
         {

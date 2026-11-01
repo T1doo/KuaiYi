@@ -61,7 +61,7 @@ internal sealed partial class ShellWindow
         body.Visibility=controls.Visibility=Visibility.Collapsed;button.Width=button.Height=48;button.Padding=new Thickness(0);button.Style=(Style)Resources[DesktopTheme.AnchorButton];cardBackground.CornerRadius=new CornerRadius(16);cardBackground.BorderThickness=new Thickness(1);RefreshPresentationTheme();
         DesktopTheme.Bind(toolbarSurface,Border.BackgroundProperty,DesktopTheme.Rail);DesktopTheme.Bind(toolbarDivider,Border.BackgroundProperty,DesktopTheme.Stroke);controls.Children.Add(toolbarSurface);controls.Children.Add(toolbarDivider);
         styleTool=Tool("风格",()=>OpenOverflowMenu(styleTool!));Tool("翻译截图",()=>TranslateScreenshot());Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("查看原文",ShowSelectionSource);Tool("清除当前内容",()=>_=ClearCurrentContent());Tool("设置",()=>_=OpenSettings());
-        Button Tool(string label,Action action){var b=new Button{Content=label,Tag=label,MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.ToolTip=label;b.Style=(Style)Resources[DesktopTheme.ToolButton];b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);return b;}
+        Button Tool(string label,Action action){var b=new Button{Content=label,Tag=label,MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.ToolTip=label;if(label=="重新生成")ToolTipService.SetShowOnDisabled(b,true);b.Style=(Style)Resources[DesktopTheme.ToolButton];b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);return b;}
         moreTools.Style=(Style)Resources[DesktopTheme.ToolButton];failureNotice.Style=(Style)Resources[DesktopTheme.ToolButton];failureNotice.HorizontalContentAlignment=HorizontalAlignment.Left;DesktopTheme.Bind(failureNotice,Control.BackgroundProperty,DesktopTheme.AccentSoft);DesktopTheme.Bind(failureNotice,Control.ForegroundProperty,DesktopTheme.SelectionText);newContent.Style=(Style)Resources[DesktopTheme.ToolButton];controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
         System.Windows.Automation.AutomationProperties.SetName(moreTools,"更多操作及版本");overflowMenu.Closed+=(_,_)=>PresentationMenuClosed();
         failureNotice.Click+=(_,_)=>ShowFailureRecovery();
@@ -105,7 +105,7 @@ internal sealed partial class ShellWindow
     {
         peekOut.Stop();overflowMenu.Items.Clear();
         for(int i=0;i<tools.Count;i++){int index=i;var item=new MenuItem{Header=Equals(tools[i].Content,"重新生成")?RegenerationMenuLabel():tools[i].Content,IsEnabled=Equals(tools[i].Tag,"复制")?CopyVersion()!=null:tools[i].IsEnabled};item.Click+=(_,_)=>toolActions[index]();overflowMenu.Items.Add(item);}
-        AddOpenImageCommands(overflowMenu);AddSessionStyleMenu(overflowMenu);AddScreenshotModes(overflowMenu);AddScreenshotRecovery(overflowMenu);
+        AddOpenImageCommands(overflowMenu);AddSessionStyleMenu(overflowMenu);AddScreenshotModes(overflowMenu);AddImageRegenerationCommands(overflowMenu);AddScreenshotRecovery(overflowMenu);
         var versionsItem=new MenuItem{Header="本次会话版本"};
         if(LocalImagePreview){var local=new MenuItem{Header="本地图片 · 未翻译",IsCheckable=true,IsChecked=true};local.Click+=(_,_)=>ReopenResult();versionsItem.Items.Add(local);}
         foreach(var version in LocalImagePreview?Array.Empty<CachedOverlayVersion>():overlayResults.Versions)
@@ -114,7 +114,7 @@ internal sealed partial class ShellWindow
             item.Click+=(_,_)=>SelectResultVersion(id);versionsItem.Items.Add(item);
         }
         versionsItem.IsEnabled=versionsItem.Items.Count>0;overflowMenu.Items.Add(new Separator());overflowMenu.Items.Add(versionsItem);
-        var currentSettings=new MenuItem{Header=RegenerationMenuLabel(true),IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&SelectedSource.Text!=null};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
+        var currentSettings=new MenuItem{Header=RegenerationMenuLabel(true),IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&(SelectedSource.Text!=null||CanRegenerateImage)};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
         overflowMenu.PlacementTarget=target;overflowMenu.IsOpen=true;
     }
     private void WriteResultClipboard(string text)=>Clipboard.SetText(text);

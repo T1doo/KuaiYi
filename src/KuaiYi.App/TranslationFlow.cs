@@ -64,14 +64,16 @@ internal sealed partial class ShellWindow
     private void RegenerateResult(bool currentSettings=false)
     {
         if(lifecycle.Gate.Snapshot.Activation!=Activation.On){button.ToolTip="启用后可重新生成";return;}
-        if(SelectedSource.Image!=null||SelectedSource.Generation!=null){button.ToolTip="当前图片复用与重新生成尚未启用，请重新截图。";return;}
+        if(SelectedSource.Image!=null||SelectedSource.Generation!=null){RegenerateImageResult(currentSettings);return;}
         var offer=translation?.PrepareRegeneration(currentSettings);
         if(offer==null){button.ToolTip="无法重新生成 · "+(translation?.LastRejection??"无保留原文");return;}
         SubmitTranslation(offer);
     }
     private string RegenerationMenuLabel(bool currentSettings=false)
     {
-        string action=currentSettings?"按当前设置重新翻译":"重新生成";var next=SelectedNextGeneration;
+        string action=currentSettings?"按当前设置重新翻译":"重新生成";
+        if(SelectedSource.Generation is {} image)return $"{action} · 此版本图片 {image.Number} · {StyleLabel(currentSettings?lifecycle.Settings?.Data.Translation.Preset:imageTranslation?.PresetForVersion(SelectedSource.VersionId!.Value))}";
+        var next=SelectedNextGeneration;
         return next==null?action:$"{action} · 版本 {next.VersionNumber} · {StyleLabel(currentSettings?lifecycle.Settings?.Data.Translation.Preset:next.Preset)}";
     }
     private void AddSessionStyleMenu(ContextMenu menu)

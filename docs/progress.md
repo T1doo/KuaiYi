@@ -1,5 +1,7 @@
 # 开发进度
 
+- 2026-11-01 P6-05完整UI源码编排接线：原按钮/热键/当前设置/更多模式及重判→不可换源intent→原OCR语言/预览或明确vision→独立发送确认→原offer任务结算/旧版本回退，固定Qualification=false、无test override。独审闭合旧Worker拒绝误成功及同步入场ABA清理错epoch，两种身份分离且3例真实3F后修；最终相关417P0F含26新UI，Imaging/测试/App交叉均0W/E及GroupEmpty。原生窗口/Worker进程和23Core未跑，5894保护hash一致，7GiB打包门未动、无新包/发布；[实际路径、原件和残余资格](validation/image-regeneration-ui-2026-11-01.md)。
+
 - 2026-11-01 P6-05生产执行器实际补齐：原class缺再生成入口红1F；新增同owner/source/session版本复用、默认冻结与显式当前设置、分类原receipt与新生成身份、每次fresh OCR审批、本次编码mapping/proof再核，原确认/逐次send/撤权/三版本回退沿用。最终相关200P0F含21新，曾199P1F为JSON断言编码错误且原件保全，App交叉0W/E、独审ACK。普通Shell拒绝门未动，UI编排仍是源码缺项，不称整个P6完成；保护5894hash一致。自包含7GiB原门当前缺6023958528B未调用，不新下载/删原件；[实现、真实红绿、来源和未验](validation/production-image-regeneration-2026-11-01.md)。
 
 - 2026-11-01 同源整合实产出：58b9bf2固定454输入，八角色完整refs锁定restore/build均0W/E，42程序集版本/资源/依赖及原验签、109成员ZIP逐hash读回通过；本地11553741B候选ac1c361…，非自包含/非可运行发行，旧Release不变。20命令exit0/GroupEmpty、观测增长151666688B，保护5894hash一致；本轮无测试/Windows/CI。实际缺口仍含生产图片复用实现、issuer/native/G-B/安装资格和23Core，不将其写成仅等实机；[原件绑定与真实边界](validation/integrated-managed-review-2026-11-01.md)。
