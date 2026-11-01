@@ -7,9 +7,10 @@ internal static class Program
 {
     // These exact owners remain rooted through process exit if the original lifetime is unconfirmed.
     private static InstallationInstallerEntry? runtime;
+    private static InstallationMaintenanceEntry? maintenance;
     private static readonly InstallationInstallerCancellation Stop=new();
-    internal static bool IsCommand(string[] args)=>args.SequenceEqual(new[]{"--install"});
-    // Internal source-only branch; no public uninstall command. Default pins still refuse before platform ownership.
+    internal static bool IsCommand(string[] args)=>InstallationCommandLine.Parse(args)!=null;
+    // Internal withdrawal remains separate from public maintenance observations; no observation can invoke it.
     internal static InstallationRegistrationWithdrawal PrepareRegistrationWithdrawal()
     {
         if(!OperatingSystem.IsWindows())throw new PlatformNotSupportedException();
@@ -29,6 +30,8 @@ internal static class Program
             if(resource.Length is <1 or >4096)throw new InvalidDataException("Embedded installer trust exceeds bound.");
             byte[] bytes=new byte[(int)resource.Length];resource.ReadExactly(bytes);
             _=InstallationInstallerPins.Read(bytes); // Fail closed before resolving destinations or constructing platform owners.
+            var command=InstallationCommandLine.Parse(args)!.Value;
+            if(command!=InstallationPublicCommand.Install)return RunMaintenance(bytes,command);
             string local=Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string root=Path.Combine(local,"KuaiYi.Application"),data=Path.Combine(local,"KuaiYi"),source=Path.Combine(AppContext.BaseDirectory,"installer-payload");
             runtime=new(bytes,root,data,Path.Combine(source,"generation"),Path.Combine(source,"bootstrap"),InstallationDeploymentRegistrySnapshot.CreateWindows(),
@@ -51,4 +54,26 @@ internal static class Program
         }
         catch(Exception error){Console.Error.WriteLine("Installer entry refused: "+error.GetType().Name);return 3;}
     }
+    private static int RunMaintenance(byte[] bytes,InstallationPublicCommand command)
+    {
+        var intent=command==InstallationPublicCommand.Repair?InstallationMaintenanceIntent.Repair:InstallationMaintenanceIntent.Uninstall;
+        maintenance=new(bytes,intent,(_,requested)=>
+        {
+            string local=Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            return InstallationRegistrationWithdrawal.ForMaintenancePreflight(bytes,Path.Combine(local,"KuaiYi.Application"),Path.Combine(local,"KuaiYi"),
+                InstallationDeploymentRegistrySnapshot.CreateWindows(),requested,Stop.Token);
+        },()=>Path.Combine(AppContext.BaseDirectory,"installer-payload"),Stop.Token);
+        ConsoleCancelEventHandler cancel=(_,args)=>{args.Cancel=true;_=Stop.Request();};Console.CancelKeyPress+=cancel;
+        InstallationMaintenanceOutcome result;IReadOnlyList<Exception> errors;
+        try{result=maintenance.Start().GetAwaiter().GetResult();}
+        finally{try{errors=Stop.SealAndJoinAsync().GetAwaiter().GetResult();}finally{Console.CancelKeyPress-=cancel;}}
+        Console.WriteLine("MAINTENANCE_OBSERVATION|"+result.Intent+"|"+result.Status);
+        Console.WriteLine("MAINTENANCE_NOT_EXECUTED|PreserveUserData");
+        foreach(var step in result.RemainingSteps)Console.WriteLine("MAINTENANCE_PENDING|"+step.Action+"|"+step.Authorization);
+        Console.WriteLine("MAINTENANCE_SETTLED|"+(result.CleanupConfirmed?"Confirmed":"Unconfirmed"));
+        foreach(var error in result.Errors.Concat(errors))Console.Error.WriteLine("Maintenance refused/pending: "+error.GetType().Name);
+        // Qualified read-only observations are useful, but never a successful repair/uninstall receipt.
+        return !result.CleanupConfirmed||errors.Count>0?3:result.Status==InstallationMaintenanceStatus.ObservedReadOnly?4:result.Status==InstallationMaintenanceStatus.Cancelled?7:6;
+    }
+
 }

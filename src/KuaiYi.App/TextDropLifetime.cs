@@ -3,6 +3,7 @@ using KuaiYi.Core;
 namespace KuaiYi.App;
 internal sealed partial class ShellWindow
 {
+    private Func<bool>? overlayInputReady;
     private bool dropStopping;
     private async Task SettleClearedTextDrop()
     {
@@ -15,7 +16,7 @@ internal sealed partial class ShellWindow
     private void RefreshTextDrop()
     {
         if(dropStopping||dropCapture==null)return;if(lifecycle.Gate.Snapshot.Mode!=TriggerMode.Drop)dropUnavailable=null;Volatile.Write(ref dropVisible,IsVisible&&!exiting&&geometryReady);
-        var state=lifecycle.Gate.Snapshot;bool wanted=dropVisible&&(state.Activation==Activation.On||imageBitmapDropEnabled)&&state.Mode==TriggerMode.Drop&&state.Suspension==Suspension.None;
+        var state=lifecycle.Gate.Snapshot;bool wanted=overlayInputReady?.Invoke()!=false&&dropVisible&&(state.Activation==Activation.On||imageBitmapDropEnabled)&&state.Mode==TriggerMode.Drop&&state.Suspension==Suspension.None;
         if(dropPeer is {} current&&(!wanted||dropCapture.Lease!=current.Lease||dropCapture.IsLeaseCurrent(current.Lease)!=true||lifecycle.Settings?.Version!=current.Lease.SettingsVersion))RevokeTextDrop();
         if(!wanted&&externalDropHover)SetDropHover(false);
         if(dropReconcile.IsCompleted&&(dropPeer==null&&wanted||dropPeer is {Stopping:1}))dropReconcile=ReconcileTextDrop();

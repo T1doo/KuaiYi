@@ -43,18 +43,20 @@ internal sealed partial class ShellWindow:OleDropWindow
             NativeDesktop.SetOverlayStyle(hwnd,false);
             try{tray=new(hwnd);}catch(Exception error){Report("托盘不可用",error);throw;} // Never leave an inaccessible hidden application.
             Reposition(null);
-            SetupSelection();SetupTextDrop();
+            SetupSelection();SetupTextDrop();SetupOverlayInput((HwndSource)PresentationSource.FromVisual(this));
         };
         Loaded+=(_,_)=>{startup=LoadStartup();SetupHotkeys();};
         button.PreviewMouseLeftButtonDown+=(_,e)=>Pointer(()=>
         {
-            if(exiting||!geometryReady||!NativeDesktop.GetCursorPos(out var p))return;
+            if(UsesRawOverlayInput||exiting||!geometryReady||!NativeDesktop.GetCursorPos(out var p)){if(UsesRawOverlayInput)e.Handled=true;return;}
+            wpfPointer=true;
             gestureDpi=MonitorTopology.Read().At(anchor).Dpi;
             if(gesture.Down(new(p.X,p.Y),anchor,true)==OverlayPointerAction.Pressed)
             {pointerFinished=false;lifecycle.Gate.SetSuspension(Suspension.Moving,true);RefreshSelection();BeginOverlayMove();if(!button.CaptureMouse())throw new InvalidOperationException("Pointer capture failed.");e.Handled=true;}
         });
         button.PreviewMouseMove+=(_,e)=>Pointer(()=>
         {
+            if(!wpfPointer){if(UsesRawOverlayInput)e.Handled=true;return;}
             if(!gesture.Active||!NativeDesktop.GetCursorPos(out var p))return;
             var action=gesture.Move(new(p.X,p.Y),out var desired,gestureDpi.CeilingPixels(SystemParameters.MinimumHorizontalDragDistance),gestureDpi.CeilingPixels(SystemParameters.MinimumVerticalDragDistance),gestureDpi);
             if(action!=OverlayPointerAction.Moved)return;
@@ -64,11 +66,12 @@ internal sealed partial class ShellWindow:OleDropWindow
         });
         button.PreviewMouseLeftButtonUp+=(_,e)=>Pointer(()=>
         {
-            var action=gesture.Up();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);RefreshSelection();EndOverlayMove();e.Handled=true;
+            if(!wpfPointer){if(UsesRawOverlayInput)e.Handled=true;return;}
+            wpfPointer=false;var action=gesture.Up();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);RefreshSelection();EndOverlayMove();e.Handled=true;
             if(action==OverlayPointerAction.Clicked)Toggle();
             else if(action==OverlayPointerAction.Released){pendingPosition=CurrentPosition();QueuePositionSave();}
         });
-        button.LostMouseCapture+=(_,_)=>{if(!pointerFinished)CancelPointer();pointerFinished=false;};
+        button.LostMouseCapture+=(_,_)=>{if(wpfPointer&&!pointerFinished)CancelPointer();pointerFinished=false;};
         // Keyboard activation uses Button.Click; handled pointer events suppress WPF's duplicate click.
         button.Click+=(_,_)=>Toggle();
         Deactivated+=(_,_)=>{if(hwnd!=0)NativeDesktop.SetOverlayStyle(hwnd,false);};
@@ -170,7 +173,7 @@ internal sealed partial class ShellWindow:OleDropWindow
     {if(anchorMonitor==null)return;if(overlayFrames==null)overlayFrames=new(anchor,anchorMonitor){AnimationStarted=frameClock.Begin};else{overlayFrames.Reanchor(anchor,anchorMonitor,Preferences());if(overlayFrames.IsExpanded&&!peek)OpenBody();}ApplyOverlayFrame(forceNative:true);StartFrames();}
     private void Pointer(Action action)
     {try{action();}catch(Exception error){CancelPointer();lifecycle.Gate.Disable();Refresh();Report("浮钮操作失败",error);}}
-    private void CancelPointer(){bool moving=gesture.Active,changed=gesture.HasMoved;gesture.Cancel();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);RefreshSelection();if(moving)EndOverlayMove();if(changed){pendingPosition=CurrentPosition();QueuePositionSave();}}
+    private void CancelPointer(){overlayMouse?.CancelGesture();wpfPointer=false;bool moving=gesture.Active,changed=gesture.HasMoved;gesture.Cancel();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);RefreshSelection();if(moving)EndOverlayMove();if(changed){pendingPosition=CurrentPosition();QueuePositionSave();}}
     private void QueuePositionSave()
     {
         if(opening||settings!=null||exiting||pendingPosition==null)return;

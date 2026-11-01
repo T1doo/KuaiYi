@@ -33,7 +33,7 @@ internal sealed class OlePresentationWindow:OleDropWindow
         Content=canvas;canvas.Children.Add(button);canvas.Children.Add(hint);Canvas.SetTop(hint,49);
         SourceInitialized+=(_,_)=>
         {
-            try{hwnd=new WindowInteropHelper(this).Handle;NativeDesktop.SetOverlayStyle(hwnd,false);var p=ScreenshotDesktop.Cursor();Move(p.X+70,p.Y);var source=(HwndSource)PresentationSource.FromVisual(this);source.AddHook(GeometryEvent);raw=new(source,Input,code=>{gesture.Cancel();Stop(true);report("浮钮输入不可用 · "+code);});}
+            try{hwnd=new WindowInteropHelper(this).Handle;NativeDesktop.SetOverlayStyle(hwnd,false);var p=ScreenshotDesktop.Cursor();Move(p.X+70,p.Y);var source=(HwndSource)PresentationSource.FromVisual(this);source.AddHook(GeometryEvent);raw=new(source,Input,code=>{gesture.Cancel();Stop(true);report("浮钮输入不可用 · "+code);},Contains);raw.Start();}
             catch(Exception error){Stop(true);report("浮钮初始化失败 · "+error.GetType().Name);}
         };
         Loaded+=(_,_)=>{poll.Tick+=Tick;poll.Start();if(raw?.IsReady==true)StartReceiver();};
@@ -42,7 +42,7 @@ internal sealed class OlePresentationWindow:OleDropWindow
             if(allowClose)return;e.Cancel=true;Stop(true);
             if(client is {} held&&await held.TryFinalizeAsync(true)&&ReferenceEquals(client,held))client=null;
             if(!LifetimeSettled){report("浮钮保留：接收进程/启动/注册撤销尚未确认；主呈现仍可操作。");return;}
-            try{raw?.Dispose();raw=null;}catch(Exception error){report("浮钮输入撤销未确认 · "+error.GetType().Name);return;}
+            try{if(raw is {} heldRaw)await heldRaw.DisposeAsync();raw=null;}catch(Exception error){report("浮钮输入撤销未确认 · "+error.GetType().Name);return;}
             allowClose=true;Close();
         };
         Closed+=(_,_)=>poll.Stop();
@@ -137,6 +137,7 @@ internal sealed class OlePresentationWindow:OleDropWindow
     }
     private void Tick(object? sender,EventArgs args)
     {
+        if(raw?.IsReady==true&&client==null&&run==null)StartReceiver();
         var snapshot=gate.Snapshot;consent.Allows(gate,IsVisible);button.Background=consent.IsGranted?Brushes.ForestGreen:Brushes.Firebrick;
         if(snapshot.Suspension.HasFlag(Suspension.SessionLocked)){if(!locked){locked=true;gesture.Cancel();Stop(true);Hide();}return;}
         if(locked){locked=false;Show();}

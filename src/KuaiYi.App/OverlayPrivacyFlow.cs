@@ -24,12 +24,13 @@ internal sealed partial class ShellWindow
         ScreenshotPreviewCleanup.Attempt(errors,Refresh);
         if(errors.Count>0)Report("会话已更新；部分清理尚未确认",new AggregateException(errors));
     }
+    private Func<Task>? overlayInputCleanup;
     private async Task SettleExitContent(List<Exception>? admissionErrors=null)
     {
         List<Exception> errors=admissionErrors??[];ScreenshotPreviewCleanup.Attempt(errors,lifecycle.Hide);ScreenshotPreviewCleanup.Attempt(errors,CancelPointer);
         ClearPrivatePresentation(errors);ScreenshotPreviewCleanup.Attempt(errors,Refresh);
         async Task Settle(Func<Task> step){try{await step();}catch(Exception error){errors.Add(error);}}
-        await Settle(StopInstalledImageDispatch);await Settle(()=>startup);await Settle(()=>positionSave);await Settle(StopTextDrop);await Settle(StopSelection);
+        await Settle(StopInstalledImageDispatch);await Settle(()=>startup);await Settle(()=>positionSave);await Settle(StopTextDrop);await Settle(StopSelection);if(overlayInputCleanup!=null)await Settle(overlayInputCleanup);
         Task fileCleanup=Task.CompletedTask;ScreenshotPreviewCleanup.Attempt(errors,()=>CollectFileCleanup(ref fileCleanup));await Settle(()=>fileCleanup);
         await Settle(StopHotkeyScreenshot);await Settle(StopHotkeys);await Settle(StopTranslation);
         if(errors.Count>0)throw new AggregateException("Exit cleanup unconfirmed.",errors);
