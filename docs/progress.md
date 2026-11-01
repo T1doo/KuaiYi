@@ -1,5 +1,7 @@
 # 开发进度
 
+- 2026-11-01 原功能盘点后修退出结算实缺：DisposeAsync取消回调抛错会跳过原jobs等待/快照清理，重复/复入调用会丢原失败，原2例2F保全。改预装同一完成Task、volatile永久关闭入口，捕获原id/jobs再独立取消/等待/清快照，首错及全部fault保留，重复不重试。最终关联223P0F（9取消合同含2新＋214原恢复/停止/清空），三个构建0W/E GroupEmpty、独审字节/TRX核符；无UI/历史落盘/23Core/原生资格放宽，5894保护hash一致；[具体缺口、红绿与剩余资格](validation/text-disposal-settlement-2026-11-01.md)。
+
 - 2026-11-01 继续底层翻译取消/清空闭环：真实协调器取消回调复入导致旧拒绝/风格/清空覆盖新winner、抛错跳过结算，原7例6F1P保全。改先撤销原状态再仅Stop原id，清空期间volatile入口/最终发送资格拒入，finally恢复；ClearAsync先捕获原jobs再独立清空/等待并保全首错及全部fault。最终相关221P0F（7新＋214原恢复/停止/清空），Provider/测试/App交叉均0W/E GroupEmpty，独审核字节及原TRX。无UI/磁盘历史/250/600ms改动、无模型/原生或23Core，5894保护hash一致；[红绿原件、任务结算与实际边界](validation/text-cancellation-handoff-2026-11-01.md)。
 
 - 2026-11-01 继续SPEC P4-05核心复制闭环：按当前选中版本原始Markdown/Unicode复制，完整/流式停止失败部分结果明确反馈，原生写抛错保正文可手动重试；沿原隐私/可见/版本门，无自动重试和磁盘历史。设计独审后实现，补epoch/revision/attempt阻ABA，真实复入2F后修outer失效清确认；最终关联90P（21新复制＋41清空＋28停止），Provider与App交叉均0W/E GroupEmpty。原生剪贴板/WPF焦点未验，暖橙/生长/250/600ms不动，5894保护hash一致；[源码接线、红绿证据和限定边界](validation/result-copy-closure-2026-11-01.md)。

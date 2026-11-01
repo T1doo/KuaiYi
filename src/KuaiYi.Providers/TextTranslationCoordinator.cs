@@ -39,9 +39,10 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     private readonly Dictionary<Guid,TextTranslationSnapshot> snapshots=[];
     private readonly HashSet<Task> jobs=[];private readonly object jobsSync=new();
     private Guid? styleSession;private TranslationPreset? sessionStyle;
-    private TextTranslationOffer? offered,submitted;private bool disposed;private volatile bool clearing;private Exception? deliveryFailure;
+    private TextTranslationOffer? offered,submitted;private volatile bool disposed,clearing;private Exception? deliveryFailure;
     private sealed record LiveRequest(RequestIdentity Identity,TextTranslationSnapshot Snapshot,SettingsSnapshot CompatibleSettings,bool SettingsRejected=false);
     private LiveRequest? liveRequest;
+    private readonly object disposalSync=new();private Task? disposalTask;
     private sealed class DestinationFailure(Exception inner):Exception("Translation destination failed.",inner);
     public OverlayResults Results{get;}
     public string? LastRejection{get;private set;}
@@ -322,11 +323,42 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         if(errors.Count==1)ExceptionDispatchInfo.Capture(errors[0]).Throw();
         if(errors.Count>1)throw new AggregateException("Translation clear and original job settlement failed.",errors);
     }
-    public async ValueTask DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        disposed=true;if(submitted?.Identity is {} id)gate.StopRequest(id);offered=submitted=null;
-        Task[] pending;lock(jobsSync)pending=jobs.ToArray();await Task.WhenAll(pending).ConfigureAwait(false);
-        snapshots.Clear();if(deliveryFailure!=null)throw new InvalidOperationException("Translation destination delivery failed.",deliveryFailure);
+        TaskCompletionSource completion;
+        lock(disposalSync)
+        {
+            if(disposalTask is {} original)return new(original);
+            disposed=true; // Permanent before any user cancellation callback can run.
+            completion=new(TaskCreationOptions.RunContinuationsAsynchronously);
+            disposalTask=completion.Task; // Reentrant/repeated calls join this same operation.
+        }
+        _=CompleteDisposal(completion);
+        return new(completion.Task);
+    }
+    private async Task CompleteDisposal(TaskCompletionSource completion)
+    {
+        try
+        {
+            Task[] pending;lock(jobsSync)pending=jobs.ToArray();
+            var original=submitted?.Identity;
+            offered=submitted=null;styleSession=null;sessionStyle=null;Volatile.Write(ref liveRequest,null);
+            List<Exception> errors=[];
+            try{if(original is {} id)gate.StopRequest(id);}catch(Exception error){errors.Add(error);}
+            var settlement=Task.WhenAll(pending);
+            try{await settlement.ConfigureAwait(false);}
+            catch(Exception error){errors.Add(settlement.Exception is {InnerExceptions.Count:>1} all?all:error);}
+            // Field retirement is not task settlement. Clear owned snapshots even
+            // when cancellation or an original job failed, after all jobs settle.
+            try{snapshots.Clear();}catch(Exception error){errors.Add(error);}
+            var delivery=Volatile.Read(ref deliveryFailure);
+            if(delivery!=null&&!errors.Any(error=>ReferenceEquals(error,delivery)||
+                error is AggregateException aggregate&&aggregate.Flatten().InnerExceptions.Any(inner=>ReferenceEquals(inner,delivery))))
+                errors.Add(new InvalidOperationException("Translation destination delivery failed.",delivery));
+            if(errors.Count==0)completion.TrySetResult();
+            else completion.TrySetException(errors.Count==1?errors[0]:new AggregateException("Translation disposal settlement failed.",errors));
+        }
+        catch(Exception error){completion.TrySetException(error);}
     }
     private static bool Same(TextTranslationSnapshot a,TextTranslationSnapshot? b)=>b!=null&&a.Profile with{Headers=b.Profile.Headers}==b.Profile&&a.Profile.Headers.OrderBy(p=>p.Key).SequenceEqual(b.Profile.Headers.OrderBy(p=>p.Key))&&a.Binding==b.Binding&&
         PromptTemplatePolicy.Equivalent(a.Settings.Data.Translation,b.Settings.Data.Translation)&&a.Source.Window==b.Source.Window&&a.Source.Text==b.Source.Text&&a.Source.SourceKind==b.Source.SourceKind&&

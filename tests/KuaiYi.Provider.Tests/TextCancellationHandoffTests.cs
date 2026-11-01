@@ -14,7 +14,7 @@ public sealed class TextCancellationHandoffTests
         internal readonly OverlayResults Results;
         internal readonly TextTranslationCoordinator Flow;
         internal readonly SettingsSnapshot Settings;
-        internal int Dials,SecretReads;internal bool HoldCleanup;
+        internal int Dials,SecretReads;internal bool HoldCleanup;internal Exception? ExpectedDisposeFailure;
         internal readonly TaskCompletionSource SecretEntered=new(TaskCreationOptions.RunContinuationsAsynchronously),
             CleanupEntered=new(TaskCreationOptions.RunContinuationsAsynchronously),ReleaseCleanup=new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal Rig()
@@ -41,7 +41,9 @@ public sealed class TextCancellationHandoffTests
         internal CancellationTokenSource Link(TextTranslationOffer offer)
         {Assert.True(Gate.TryLinkRequestCancellation(offer.Identity!.Value,CancellationToken.None,out var linked));return linked!;}
         public async ValueTask DisposeAsync()
-        {ReleaseCleanup.TrySetResult();Gate.Disable();await Flow.DisposeAsync();Provider.Dispose();Assert.Equal(0,Dials);}
+        {ReleaseCleanup.TrySetResult();Gate.Disable();
+            try{await Flow.DisposeAsync();}catch(Exception error)when(ReferenceEquals(error,ExpectedDisposeFailure)){}
+            finally{Provider.Dispose();}Assert.Equal(0,Dials);}
     }
     [Theory][InlineData(false)][InlineData(true)]
     public async Task CancellingPendingConfirmationCannotEraseAWinningOfferFromItsCallback(bool changeStyle)
@@ -93,4 +95,32 @@ public sealed class TextCancellationHandoffTests
         await Assert.ThrowsAsync<AggregateException>(()=>clear);Assert.False(premature);Assert.True(originalJob.IsCompleted);Assert.Empty(r.Results.Versions);
         var fresh=r.Start("fresh");Assert.True(r.Gate.CanApply(fresh.Identity!.Value));
     }
+    [Theory][InlineData(false)][InlineData(true)]
+    public async Task DisposeWaitsAndSharesItsOriginalCompletionEvenWhenCancellationThrows(bool throwsAfter)
+    {
+        await using var r=new Rig();r.HoldCleanup=true;var active=r.Start("dispose active");var original=r.Flow.Running;
+        await r.SecretEntered.Task.WaitAsync(TimeSpan.FromSeconds(5));var prepared=Assert.IsType<TextTranslationOffer>(r.Flow.Prepare(r.Source("prepared")));
+        var primary=new InvalidOperationException("PUBLIC_DISPOSE_CANCEL_FAILURE");
+        using var linked=r.Link(active);Task? nested=null;using var registration=linked.Token.Register(()=>
+        {
+            Assert.Null(r.Flow.Prepare(r.Source("callback refused")));Assert.Null(r.Flow.PrepareRegeneration());
+            Assert.Equal(TextSubmission.Rejected,r.Flow.Submit(prepared));nested=r.Flow.DisposeAsync().AsTask();
+            if(throwsAfter)throw primary;
+        });
+        var first=r.Flow.DisposeAsync().AsTask();var repeated=r.Flow.DisposeAsync().AsTask();
+        await r.CleanupEntered.Task.WaitAsync(TimeSpan.FromSeconds(5));bool premature=first.IsCompleted||repeated.IsCompleted||nested!.IsCompleted;
+        r.ReleaseCleanup.TrySetResult();
+        if(throwsAfter)
+        {
+            var error=await Assert.ThrowsAsync<AggregateException>(()=>first);r.ExpectedDisposeFailure=error;
+            Assert.Contains(primary,error.Flatten().InnerExceptions);
+            Assert.Same(error,await Assert.ThrowsAsync<AggregateException>(()=>repeated));
+            Assert.Same(error,await Assert.ThrowsAsync<AggregateException>(()=>nested!));
+        }
+        else await first;
+        Assert.False(premature);Assert.Same(first,repeated);Assert.Same(first,nested);
+        Assert.True(original.IsCompleted);Assert.Equal(0,r.Flow.RetainedSnapshotCount);
+        Assert.Null(r.Flow.Prepare(r.Source("still disposed")));Assert.False(r.Results.Append(active.Identity!.Value,"late"));
+    }
+
 }
