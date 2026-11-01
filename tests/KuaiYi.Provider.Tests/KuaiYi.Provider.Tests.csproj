@@ -1,5 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><TargetFramework>net10.0</TargetFramework><IsTestProject>true</IsTestProject><IsPackable>false</IsPackable></PropertyGroup>
+  <PropertyGroup Condition="'$(KuaiYiMaintenanceFullChain)' == 'true'">
+    <OutputPath>bin/MaintenanceFullChain/</OutputPath>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(KuaiYiMaintenanceFullChain)' != 'true'">
+    <Compile Remove="InstallationMaintenanceFullChainTests.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(KuaiYiMaintenanceFullChain)' == 'true'">
+    <Compile Include="../KuaiYi.Core.Tests/MaterializedPayloadSource.cs" Link="Maintenance/MaterializedPayloadSource.cs" />
+    <Compile Include="../KuaiYi.Core.Tests/BootstrapSource.cs" Link="Maintenance/BootstrapSource.cs" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/KuaiYi.Imaging/KuaiYi.Imaging.csproj" Aliases="ImageProduction" />
     <ProjectReference Include="../../src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj" Aliases="WorkerProduction" />
