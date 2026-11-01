@@ -72,13 +72,14 @@ internal sealed partial class ShellWindow
     private string RegenerationMenuLabel(bool currentSettings=false)
     {
         string action=currentSettings?"按当前设置重新翻译":"重新生成";
-        if(SelectedSource.Generation is {} image)return $"{action} · 此版本图片 {image.Number} · {StyleLabel(currentSettings?lifecycle.Settings?.Data.Translation.Preset:imageTranslation?.PresetForVersion(SelectedSource.VersionId!.Value))}";
+        if(SelectedSource.Generation is {} image)return $"{action} · 此版本图片 {image.Number} · {StyleLabel(currentSettings?lifecycle.Settings?.Data.Translation.Preset:SelectedImageRegenerationPreview?.Preset??imageTranslation?.PresetForVersion(SelectedSource.VersionId!.Value))}";
         var next=SelectedNextGeneration;
         return next==null?action:$"{action} · 版本 {next.VersionNumber} · {StyleLabel(currentSettings?lifecycle.Settings?.Data.Translation.Preset:next.Preset)}";
     }
     private void AddSessionStyleMenu(ContextMenu menu)
     {
         if(LocalImagePreview){AddScreenshotStyleMenu(menu);return;}
+        if(SelectedSource.Generation!=null){AddImageSessionStyleMenu(menu);return;}
         var next=SelectedNextGeneration;var styles=new MenuItem{Header=next==null?"本会话下次生成风格":$"下次：版本 {next.VersionNumber} · {StyleLabel(next.Preset)}",IsEnabled=next!=null};
         foreach(var preset in Enum.GetValues<TranslationPreset>())
         {

@@ -1,5 +1,7 @@
 # 开发进度
 
+- 2026-11-01 按原书18项对照找到并补R06/R08/9.9真实缺项：已生成图片会话可本地改下次文字风格，原owner/session绑定；旧版/已启动请求/global不改，默认所示版本与显式当前设置分开，Explain仍强制解释。style revision撤旧offer/OCR意图，门仍false；原预览路由红1F，最终相关291P含14新，App/测试0W/E及GroupEmpty。测试端口Separator编译失败和误跑旧程序集已保全排除，5894hash不变。R18公开卸载修复及可信交付输入仍真缺，R09/E06未闭合；13专用CI无可证转存余额未启动新窗口，详见[18项、实功能、资源与CI条件](validation/spec-r01-r18-image-style-2026-11-01.md)。
+
 - 2026-11-01 P6-05完整UI源码编排接线：原按钮/热键/当前设置/更多模式及重判→不可换源intent→原OCR语言/预览或明确vision→独立发送确认→原offer任务结算/旧版本回退，固定Qualification=false、无test override。独审闭合旧Worker拒绝误成功及同步入场ABA清理错epoch，两种身份分离且3例真实3F后修；最终相关417P0F含26新UI，Imaging/测试/App交叉均0W/E及GroupEmpty。原生窗口/Worker进程和23Core未跑，5894保护hash一致，7GiB打包门未动、无新包/发布；[实际路径、原件和残余资格](validation/image-regeneration-ui-2026-11-01.md)。
 
 - 2026-11-01 P6-05生产执行器实际补齐：原class缺再生成入口红1F；新增同owner/source/session版本复用、默认冻结与显式当前设置、分类原receipt与新生成身份、每次fresh OCR审批、本次编码mapping/proof再核，原确认/逐次send/撤权/三版本回退沿用。最终相关200P0F含21新，曾199P1F为JSON断言编码错误且原件保全，App交叉0W/E、独审ACK。普通Shell拒绝门未动，UI编排仍是源码缺项，不称整个P6完成；保护5894hash一致。自包含7GiB原门当前缺6023958528B未调用，不新下载/删原件；[实现、真实红绿、来源和未验](validation/production-image-regeneration-2026-11-01.md)。

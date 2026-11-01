@@ -8,6 +8,7 @@ using SecretLease=KuaiYi.Providers.SecretLease;
 using SettingsProfile=KuaiYi.Core.Settings.ApiProfile;
 namespace KuaiYi.App;
 
+internal sealed record ImageGenerationPreview(int VersionNumber,TranslationPreset Preset,string Model);
 internal enum ProductionScreenshotEvent { Begin, Prepared, Classifying, Generating, Delta, Usage, Completed, Failed }
 internal sealed record ProductionScreenshotUpdate(RequestIdentity Identity,ProductionScreenshotEvent Kind,ScreenshotGenerationSnapshot Snapshot,string? Text=null,string? Reason=null);
 internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot snapshot,CaptureTicket ticket,ImageSourceOwner image,long revision,TranslationPreset preset,SmartImageApproval? ocr=null,SettingsSnapshot? admissionSettings=null,Guid? sessionId=null,Guid? regeneratedFrom=null)
@@ -45,6 +46,8 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
     private readonly Action<ProductionScreenshotUpdate> changed;
     private readonly Dictionary<Guid,VersionState> snapshots=[];private readonly Dictionary<Guid,string> failures=[];private readonly HashSet<Task> jobs=[];private readonly object jobsSync=new();
     private (Guid Version,Guid Source,TranslationPreset Preset)? sourceStyle;
+    private (Guid Session,TranslationPreset Preset)? regenerationStyle;
+    public long RegenerationStyleRevision {get;private set;}
     private ProductionScreenshotOffer? offered;private Job? active;private long commandRevision;private bool disposed,clearing;private Exception? deliveryFailure;
     private (Guid Version,Guid Source)? consumed;
     public OverlayResults Results {get;}
@@ -67,6 +70,30 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
         if(preset is {} value&&!Enum.IsDefined(value)||PresetForSource(version,sourceId)==null)return false;
         sourceStyle=preset is {} selected?(version,sourceId,selected):null;DiscardOffer();commandRevision++;return true;
     }
+    private VersionState? SelectedRegenerationState()
+    {
+        var state=gate.Snapshot;
+        if(disposed||clearing||state.Suspension.HasFlag(Suspension.SessionLocked)||state.Presentation==Presentation.Hidden||
+            settings() is not {ReadOnly:false,RequiresRecovery:false}||Results.SelectedVersionId is not {} id||!snapshots.TryGetValue(id,out var selected)||
+            selected.Source.Image.IsDisposed||selected.Source.Version!=selected.Snapshot.SourceVersion||selected.Source.Image.SourceId!=selected.Snapshot.SourceId||
+            !sourceCurrent(selected.Snapshot.SourceVersion,selected.Snapshot.SourceId))return null;
+        return selected;
+    }
+    public TranslationPreset? RegenerationStyle=>SelectedRegenerationState() is {} state&&regenerationStyle is {} style&&style.Session==state.SessionId?style.Preset:null;
+    public ImageGenerationPreview? NextRegeneration=>SelectedRegenerationState() is {} state?
+        new(Results.NextVersionNumber(state.SessionId),regenerationStyle is {} style&&style.Session==state.SessionId?style.Preset:state.Preset,state.Snapshot.Profile.Model):null;
+    public bool SetRegenerationStyle(Guid version,TranslationPreset? preset)
+    {
+        if(preset is {} value&&!Enum.IsDefined(value)||Results.SelectedVersionId!=version||SelectedRegenerationState() is not {} state)return false;
+        long revision=checked(RegenerationStyleRevision+1),command=checked(commandRevision+1);
+        var previous=offered;offered=null;
+        regenerationStyle=preset is {} selected?(state.SessionId,selected):null;RegenerationStyleRevision=revision;commandRevision=command;
+        // Publish the local choice and invalidate the old offer BEFORE releasing its original approval.
+        // An already launched Job keeps its immutable preset and is never stopped here.
+        if(previous is {Launched:false})previous.Ocr?.Dispose();
+        return true;
+    }
+    private void ClearRegenerationStyle(){long next=checked(RegenerationStyleRevision+1);regenerationStyle=null;RegenerationStyleRevision=next;}
     public ProductionScreenshotOffer? Prepare(Guid version,ImageSourceOwner image,ImageOutputMode mode=ImageOutputMode.Automatic,SmartImageApproval? ocr=null)
     {
         DiscardOffer();long revision=++commandRevision;LastRejection=null;
@@ -118,7 +145,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
                 Classification:reclassify?null:basis.Classification,ClassificationUsage:reclassify?null:basis.ClassificationUsage,ClassificationUsageReused:!reclassify,
                 Transform:reclassify?null:basis.Transform,NormalizationProof:reclassify?null:basis.NormalizationProof,SourceKind:image.Kind,SourceNotice:image.Notice);
             DiscardOffer();long revision=++commandRevision;
-            var result=new ProductionScreenshotOffer(snapshot,ticket,image,revision,currentSettings?current.Data.Translation.Preset:original.Preset,ocr,current,original.SessionId,id);
+            var result=new ProductionScreenshotOffer(snapshot,ticket,image,revision,currentSettings?current.Data.Translation.Preset:regenerationStyle is {} style&&style.Session==original.SessionId?style.Preset:original.Preset,ocr,current,original.SessionId,id);
             offered=result;
             if(!IsOfferCurrent(result)){this.Reject(result);return Reject("SCREENSHOT_UNAVAILABLE");}
             return result;
@@ -347,17 +374,17 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
     {try{await task.ConfigureAwait(false);}catch(Exception error){deliveryFailure=error;}finally{lock(jobsSync)jobs.Remove(task);}}
     private void Abandon(Job job)
     {if(!ReferenceEquals(active,job)||Results.Identity!=job.Identity)return;if(Results.Abandon(job.Identity)){Finish(job);Publish(job,ProductionScreenshotEvent.Failed,reason:"SOURCE_OR_SETTINGS_CHANGED");}}
-    private void Prune(){var retained=Results.RetainedVersionIds;foreach(var id in snapshots.Keys.Where(id=>!retained.Contains(id)).ToArray())snapshots.Remove(id);foreach(var id in failures.Keys.Where(id=>!retained.Contains(id)).ToArray())failures.Remove(id);}
+    private void Prune(){var retained=Results.RetainedVersionIds;foreach(var id in snapshots.Keys.Where(id=>!retained.Contains(id)).ToArray())snapshots.Remove(id);foreach(var id in failures.Keys.Where(id=>!retained.Contains(id)).ToArray())failures.Remove(id);if(regenerationStyle is {} style&&!snapshots.Values.Any(state=>state.SessionId==style.Session))ClearRegenerationStyle();}
     public void ObserveSettings(SettingsSnapshot current){if(active is {} job)_=SettingsCompatible(job);}
     public void Stop()
     {commandRevision++;DiscardOffer();var job=active;active=null;if(job!=null)try{gate.StopRequest(job.Identity);}finally{if(Results.Identity==job.Identity)Results.MarkStopped();}}
     public void RevokeSource(Guid version,Guid sourceId)
-    {if(sourceStyle is {} style&&style.Version==version&&style.Source==sourceId)sourceStyle=null;if(offered?.Snapshot.SourceVersion==version&&offered.Snapshot.SourceId==sourceId)Reject(offered);if(active?.Snapshot.SourceVersion==version&&active.Snapshot.SourceId==sourceId)Stop();}
+    {if(regenerationStyle is {} generation&&snapshots.Values.Any(state=>state.SessionId==generation.Session&&state.Snapshot.SourceVersion==version&&state.Snapshot.SourceId==sourceId))ClearRegenerationStyle();if(sourceStyle is {} style&&style.Version==version&&style.Source==sourceId)sourceStyle=null;if(offered?.Snapshot.SourceVersion==version&&offered.Snapshot.SourceId==sourceId)Reject(offered);if(active?.Snapshot.SourceVersion==version&&active.Snapshot.SourceId==sourceId)Stop();}
     public void Clear()
     {
         if(clearing)return;clearing=true;
         // Fence Prepare/Submit while cancellation callbacks run; they cannot install C into metadata this Clear owns.
-        try{Stop();}finally{DiscardOffer();sourceStyle=null;snapshots.Clear();failures.Clear();clearing=false;}
+        try{Stop();}finally{DiscardOffer();sourceStyle=null;ClearRegenerationStyle();snapshots.Clear();failures.Clear();clearing=false;}
     }
     public async Task ClearAsync()
     {

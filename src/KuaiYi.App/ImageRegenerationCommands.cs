@@ -9,13 +9,13 @@ internal sealed partial class ShellWindow
     private const string ImageRegenerationQualificationNotice="图片重新生成界面已接线，真实 Windows 生命周期尚未验收，当前保持关闭；原结果保留。";
     private sealed record OriginalOcrScope(OcrOnlyCoordinator Owner,Task Task,RequestIdentity Identity);
     private sealed class ImageRegenerationCommand(ProductionScreenshotCoordinator flow,Guid selected,Guid version,ImageSourceOwner image,
-        string settings,long input,long result,long epoch,bool currentSettings,bool reclassify,ImageOutputMode mode)
+        string settings,long input,long result,long epoch,bool currentSettings,bool reclassify,ImageOutputMode mode,long styleRevision)
     {
         internal readonly ProductionScreenshotCoordinator Flow=flow;
         internal readonly Guid Selected=selected,SourceVersion=version,SourceId=image.SourceId;
         internal readonly ImageSourceOwner Image=image;
         internal readonly string Settings=settings;
-        internal readonly long Input=input,Result=result;
+        internal readonly long Input=input,Result=result,StyleRevision=styleRevision;
         internal long ExpectedEpoch=epoch;
         internal OriginalOcrScope? Ocr;
         internal readonly bool CurrentSettings=currentSettings,Reclassify=reclassify;
@@ -24,7 +24,7 @@ internal sealed partial class ShellWindow
     private bool ImageRegenerationCurrent(ImageRegenerationCommand command,bool requireEpoch=true)
     {
         var selected=SelectedSource;var state=lifecycle.Gate.Snapshot;
-        return !exiting&&ReferenceEquals(imageTranslation,command.Flow)&&selected.VersionId==command.Selected&&
+        return !exiting&&ReferenceEquals(imageTranslation,command.Flow)&&command.Flow.RegenerationStyleRevision==command.StyleRevision&&selected.VersionId==command.Selected&&
             selected.Generation is {} generation&&generation.SourceVersion==command.SourceVersion&&generation.SourceId==command.SourceId&&
             ReferenceEquals(selected.Image,command.Image)&&retainedImage is {} retained&&retained.VersionId==command.SourceVersion&&ReferenceEquals(retained.Image,command.Image)&&
             !command.Image.IsDisposed&&command.Image.SourceId==command.SourceId&&imageInputRevision==command.Input&&resultRevision==command.Result&&
@@ -72,7 +72,7 @@ internal sealed partial class ShellWindow
         if(!reclassify&&(basis.Classification==null||basis.Transform==null||basis.ClassificationUsage==null))
         {button.ToolTip="当前版本没有有效的完整分类；如需再次判断，请明确选择“重新判断图片”。旧请求与结果保留。";return null;}
         var requested=mode??basis.RequestedMode;if(!Enum.IsDefined(requested))return null;
-        var command=new ImageRegenerationCommand(flow,id,retained.VersionId,image,config.Version,imageInputRevision,resultRevision,lifecycle.Gate.Snapshot.Epoch,currentSettings,reclassify,requested);
+        var command=new ImageRegenerationCommand(flow,id,retained.VersionId,image,config.Version,imageInputRevision,resultRevision,lifecycle.Gate.Snapshot.Epoch,currentSettings,reclassify,requested,flow.RegenerationStyleRevision);
         if(ImageRegenerationCurrent(command))return command;
         button.ToolTip="来源、设置或启用状态已改变；没有发送，旧结果保留。";return null;
     }

@@ -13,6 +13,7 @@ namespace System.Windows
 }
 namespace System.Windows.Controls
 {
+    internal sealed class Separator {} // Synthetic WPF type only; never a render/interaction qualification.
     internal sealed class ContextMenu {public bool IsOpen {get;set;}public List<object> Items {get;}=[];}
     internal sealed class MenuItem:FrameworkElement
     {public object? Header {get;set;}public bool IsEnabled {get;set;}=true;public bool IsCheckable {get;set;}public bool IsChecked {get;set;}public List<object> Items {get;}=[];public object? ToolTip {get;set;}public event EventHandler? Click;public void Invoke(){if(IsEnabled)Click?.Invoke(this,EventArgs.Empty);}}

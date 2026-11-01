@@ -56,4 +56,6 @@ internal sealed partial class ShellWindow
     internal bool RegenerationQualifiedForTest=>ImageRegenerationQualified;
     internal Guid? RetainedImageVersionForTest=>retainedImage?.VersionId;
     internal bool RetainedImageCurrentForTest(Guid version,Guid source)=>ScreenshotSourceCurrent(version,source);
+    internal System.Windows.Controls.MenuItem ImageSessionStyleMenuForTest(){var menu=new System.Windows.Controls.ContextMenu();AddImageSessionStyleMenu(menu);return (System.Windows.Controls.MenuItem)menu.Items.Single();}
+    internal ImageGenerationPreview? ImageNextForTest=>SelectedImageRegenerationPreview;
 }
