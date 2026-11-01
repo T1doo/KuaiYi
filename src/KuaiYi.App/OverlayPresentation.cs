@@ -104,7 +104,7 @@ internal sealed partial class ShellWindow
     private void OpenOverflowMenu(UIElement target)
     {
         peekOut.Stop();overflowMenu.Items.Clear();
-        for(int i=0;i<tools.Count;i++){int index=i;var item=new MenuItem{Header=Equals(tools[i].Content,"重新生成")?RegenerationMenuLabel():tools[i].Content,IsEnabled=tools[i].IsEnabled};item.Click+=(_,_)=>toolActions[index]();overflowMenu.Items.Add(item);}
+        for(int i=0;i<tools.Count;i++){int index=i;var item=new MenuItem{Header=Equals(tools[i].Content,"重新生成")?RegenerationMenuLabel():tools[i].Content,IsEnabled=Equals(tools[i].Tag,"复制")?CopyVersion()!=null:tools[i].IsEnabled};item.Click+=(_,_)=>toolActions[index]();overflowMenu.Items.Add(item);}
         AddOpenImageCommands(overflowMenu);AddSessionStyleMenu(overflowMenu);AddScreenshotModes(overflowMenu);AddScreenshotRecovery(overflowMenu);
         var versionsItem=new MenuItem{Header="本次会话版本"};
         if(LocalImagePreview){var local=new MenuItem{Header="本地图片 · 未翻译",IsCheckable=true,IsChecked=true};local.Click+=(_,_)=>ReopenResult();versionsItem.Items.Add(local);}
@@ -117,7 +117,7 @@ internal sealed partial class ShellWindow
         var currentSettings=new MenuItem{Header=RegenerationMenuLabel(true),IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&SelectedSource.Text!=null};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
         overflowMenu.PlacementTarget=target;overflowMenu.IsOpen=true;
     }
-    private void CopyResult(){if(LocalImagePreview||!overlayResults.HasText)return;try{Clipboard.SetText(overlayResults.Text);}catch(Exception error){Report("复制失败",error);}}
+    private void WriteResultClipboard(string text)=>Clipboard.SetText(text);
     private void StopPresentation(){overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;CollapseResult();}
     private void BeginOverlayMove(){StopFrames();peekIn.Stop();peekOut.Stop();overlayFrames?.BeginMove();}
     private void MoveOverlay(PixelPoint desired,MonitorTopology topology)

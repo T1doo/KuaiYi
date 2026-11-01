@@ -1,5 +1,7 @@
 # 开发进度
 
+- 2026-11-01 继续SPEC P4-05核心复制闭环：按当前选中版本原始Markdown/Unicode复制，完整/流式停止失败部分结果明确反馈，原生写抛错保正文可手动重试；沿原隐私/可见/版本门，无自动重试和磁盘历史。设计独审后实现，补epoch/revision/attempt阻ABA，真实复入2F后修outer失效清确认；最终关联90P（21新复制＋41清空＋28停止），Provider与App交叉均0W/E GroupEmpty。原生剪贴板/WPF焦点未验，暖橙/生长/250/600ms不动，5894保护hash一致；[源码接线、红绿证据和限定边界](validation/result-copy-closure-2026-11-01.md)。
+
 - 2026-11-01 按用户要求跳过受阻23项、继续真实产品：WPF设置新增静态分类搜索/结果直达、Ctrl+K与清空反馈，草稿保留、不索引配置/密钥/内容、不保存发送；暖橙与浮窗生长/250/600ms不变。13项定向Provider例一次13P0F，最终App交叉0W/E、GroupEmpty；独审修结果Escape误取消与热键CtrlK被抢两P2后限定ACK。真实Windows键盘/像素未验，旧包未更新；5894保护hash不变，详见[实现、原始测试绑定和边界](validation/settings-category-search-2026-11-01.md)。
 
 - 2026-10-31 环境实因定位：当前原环境spec84已running，但外层/proc挂载ro、superblock rw，ST_RDONLY实核未变；未重试uid-map或提权换路。inspect补只读挂载诊断。另修lstat→scandir目录替换竞态：旧同源码实计外部合成17B，新fd/O_NOFOLLOW/身份核对拒绝且外部扫描0；原反例1F后相关5P、挂载3P、独立close1P，非Core。保护5894hash无差异，预算另计1秒后621.532，23未验；[平台最小恢复条件与实际证据](validation/runtime-mapping-diagnosis-2026-10-31.md)。

@@ -1,0 +1,31 @@
+# Selected translation result copy — functional closure
+
+Baseline `27774aa1e96be77d1d93491fabf243e9646d7d49`. This slice addresses SPEC P4-05/9.9 result copying and retained versions, plus section14 privacy/accessibility. It does not claim a new translation provider, native capture capability or disk history.
+
+## Original gap and implemented behavior
+
+The old CopyResult only checked local-preview/HasText and called Clipboard.SetText, reporting exceptions through the anchor tooltip. There was no success/partial-result feedback or explicit read/privacy check on that command. Users viewing an older version or partial/failed output could not tell what had been copied.
+
+The real Shell command now takes the selected CachedOverlayVersion from the existing OverlayResults and passes that version's exact raw text to the original Clipboard.SetText port. It never copies the newest task merely because it is generating, never takes a rendered/truncated display string, and preserves the raw Markdown/Unicode at the API boundary. Completed, nonfailed/nonstopped versions receive a full-result notice; streaming, stopped and failed text receives a copy-time partial-result notice. Failure leaves every result/version intact and says copying is unconfirmed, with a manual retry available. A write that throws may already have changed the clipboard, so neither the notice nor the code claims it was unchanged.
+
+Copy is still an explicit local action. Off remains readable; exit, SessionLocked, Hidden, Capture, local image preview and empty selected results refuse it. Toolbar eligibility and menu-open eligibility share CopyVersion; invocation rechecks it. No new authority/owner/lease, profile access, capture permission or external request was introduced.
+
+Each click invokes the original native port at most once; there is no application retry loop or background clipboard readback. Windows/WPF's own internal native behavior is not qualified here. Before/after the call, the command checks full request identity, selected text, Complete/Stopped/Failure state, existing gate epoch and resultRevision, and a local increasing copy-attempt marker. This suppresses false confirmation after a privacy roundtrip, version switch-and-return, content change, or nested native-call reentrancy. The marker is UI feedback invalidation, not an authorization source. Overlapping writes with unknown final ordering clear confirmation rather than reporting the inner write as the final clipboard value.
+
+Feedback stores only identity/length/version/completion/epoch/revision and fixed labels, not source text or copied content. It reuses the current result label and expires on replacement, append, selection, clear or changed gate era. The original type-only diagnostic path is reused, without exception messages or result text. The tooltip explicitly warns that system clipboard history may retain copied contents; only the application's disk-history behavior remains off. No palette, geometry, growth/fade, anchor or250/600ms code was changed.
+
+## Actual validation and independent review
+
+The Provider test project links the actual App copy command and label; only its OS clipboard write is replaced by a per-window test port. No global clipboard/test state or simulated trusted issuer is used. The21 new cases cover exact Unicode/Markdown input, old selected complete versus new streaming version, stream/stop/failure partial state, exception retention and explicit retry, absent/private content refusal, content/completion/privacy changes during writing, version ABA, nested writes returning/throwing, toolbar eligibility, expiration and Off reading.
+
+First18 copy tests passed. Independent review then identified a genuine nested-write confirmation defect. Two new regression cases failed (both outer return and outer throw left an inner “copied” label). Their original TRX/logs are preserved. The fix clears feedback when the outer attempt is invalidated. Related r02 tests passed90/0; after clarifying the system-history notice and adding its assertion, the final r03 run passed **90/0/0skip**:21 copy,41 original clear-content,28 original stop-flow cases. Final VSTest duration353ms, exit0, LeaderJoined_GroupEmpty, stdout confirmed closed. Prior rounds are not added to90. No installation Core case was run.
+
+The final Provider build and App Windows-target cross-build both completed0 warnings/0 errors, exit0/GroupEmpty, with SDK10.0.402 from the existing approved cache. Commands used no restore, disabled project-reference rebuilding/shared compilation/node reuse, and limited commands to120s and retained logs to1MiB. App used EnableWindowsTargeting=true; no WPF application or native clipboard was launched. The compiler reported14.12s for Provider and4.50s for App.
+
+Final App DLL SHA256 `7a638ec7de55729e82cce3f650cc31a8602e0da13ccea84bcc14e972acbed99d`; tested Provider DLL SHA256 `97d3ee9f5b91200c6dfca57b860aff3cef81e645644aa32553e3842017d7bdc7`. Local originals are under `artifacts/2026-11-01-result-copy/`: final r03 TRX/command logs, prior rounds and red TRX, exact90 IDs/names, final six source/project and two DLL hashes. Only source and text documentation are committed, not raw logs or binaries. Independent readonly review approved the design, found the reentrancy P2, checked its fix, and read the original2F/final90P plus successful App build. Final byte/document review is recorded separately by the reviewer before push.
+
+## Remaining limits and preservation
+
+Windows clipboard locking/reentrancy, actual clipboard content/Unicode formats and system-history behavior, WPF keyboard/focus and pixels remain NotRun. Unit ports and cross-compilation do not qualify them. Old release ZIP is unchanged and does not contain this feature. No main/Release/CI/Windows/user-PC/model/native-window action, UID-map retry or alternate isolation route occurred.
+
+The original23 installation Core tests and resource-proof gate remain unchanged/unverified; no ordinary product run resets their cumulative budget. All5,894 protected files were rehashed after this work:918,676,127 bytes, zero mismatches, no deletion/compression/movement. Final observed workspace free space was1,661,239,296 bytes. No unknown process/lock was touched. Failed native-write test cases leave content available and do not auto-copy or log that content.
