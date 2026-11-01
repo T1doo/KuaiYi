@@ -1,6 +1,8 @@
 # 开发进度
 
-- 2026-11-01 功能修复整合候选准备：建立独立 framework-dependent 八角色完整引用构建与PE资源/版本/依赖/同源ZIP审查入口，明确不替代原自包含7GiB发布门，普通构建256MiB观测预算、1GiB余量、600秒及1MiB命令日志，失败保全。当前尚未执行本轮构建；[功能路径与真实缺口](release/FUNCTIONAL-GAPS-2026-11-01.md)及[候选限制](release/README-managed-review.md)固定随包，23Core/生产图片/Windows门未改。
+- 2026-11-01 同源整合实产出：58b9bf2固定454输入，八角色完整refs锁定restore/build均0W/E，42程序集版本/资源/依赖及原验签、109成员ZIP逐hash读回通过；本地11553741B候选ac1c361…，非自包含/非可运行发行，旧Release不变。20命令exit0/GroupEmpty、观测增长151666688B，保护5894hash一致；本轮无测试/Windows/CI。实际缺口仍含生产图片复用实现、issuer/native/G-B/安装资格和23Core，不将其写成仅等实机；[原件绑定与真实边界](validation/integrated-managed-review-2026-11-01.md)。
+
+- 2026-11-01 功能修复整合候选准备：建立独立 framework-dependent 八角色完整引用构建与PE资源/版本/依赖/同源ZIP审查入口，明确不替代原自包含7GiB发布门，普通构建256MiB观测预算、1GiB余量、600秒及1MiB命令日志，失败保全。该准备提交时尚未执行本轮构建；[功能路径与真实缺口](release/FUNCTIONAL-GAPS-2026-11-01.md)及[候选限制](release/README-managed-review.md)固定随包，23Core/生产图片/Windows门未改。
 
 - 2026-11-01 图片复用独立离线段：发现默认regen在分类pending/失败时隐式重发分类，原6例4F2P保全。现先核selectedSnapshot与原owner的SourceVersion/Id，缺完整分类默认拒绝且不取消/换task或版本；显式reclassify仍原门2调用，已知分类仅1生成且原receipt引用/Unknown用量保留。最终相关218P（163离线含6新＋55分类），App/测试交叉0W/E GroupEmpty、独审字节/TRX核符。普通Production consumed/IMAGE_REUSE_DISABLED与UI未动，不宣称图片复用整体完成；5894保护hash一致，见[真实依赖、红绿及生产未验门](validation/image-regeneration-contract-2026-11-01.md)。
 
