@@ -1,0 +1,9 @@
+# KuaiYi managed review candidate — local preservation only
+
+This is a **framework-dependent build review bundle**, not an installer, the old self-contained preview, or a production-qualified release. Do not launch/install/register these inputs as a shortcut around source qualification. No product execution is authorized by this package.
+
+`roles/` preserves separate eight-role build closures. It does not flatten the App's adjacent executable layout and cannot be treated as a runnable product directory. The actual runtimeconfig files request .NET10.0.13; WPF roles additionally require Windows Desktop Runtime. Actual Windows runtime selection/roll-forward, native dependencies, capture, clipboard, identity, focus and cleanup have not been qualified. The source SHA, embedded resource hashes, dependencies and role file hashes are in review-manifest.json. Hash matching is integrity only, never source/installation authority.
+
+No runtime is bundled. The four product native DLLs, sealed generations/bootstrap sources, trusted issuer and Installer qualification are missing. Production pins remain Unavailable/null, normal image replay remains disabled, and the old23 Core tests are still unrun. See FUNCTIONAL-GAPS-2026-11-01.md. Packaging accepts only the role-output allowlist, these two tracked documents and the generated manifest; logs, user settings and captures are excluded, and symbols remain only in the local staging. Embedded prompts and the vision-test image are fixed repository resources. A completed audit must still report its actual privacy/content checks.
+
+This candidate is retained locally for independent inspection, not published or substituted for the old Release. A successful build/package audit does not authorize Windows/CI/user-PC execution, model calls, configuration changes or fee/permission expansion.

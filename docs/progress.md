@@ -1,5 +1,7 @@
 # 开发进度
 
+- 2026-11-01 功能修复整合候选准备：建立独立 framework-dependent 八角色完整引用构建与PE资源/版本/依赖/同源ZIP审查入口，明确不替代原自包含7GiB发布门，普通构建256MiB观测预算、1GiB余量、600秒及1MiB命令日志，失败保全。当前尚未执行本轮构建；[功能路径与真实缺口](release/FUNCTIONAL-GAPS-2026-11-01.md)及[候选限制](release/README-managed-review.md)固定随包，23Core/生产图片/Windows门未改。
+
 - 2026-11-01 图片复用独立离线段：发现默认regen在分类pending/失败时隐式重发分类，原6例4F2P保全。现先核selectedSnapshot与原owner的SourceVersion/Id，缺完整分类默认拒绝且不取消/换task或版本；显式reclassify仍原门2调用，已知分类仅1生成且原receipt引用/Unknown用量保留。最终相关218P（163离线含6新＋55分类），App/测试交叉0W/E GroupEmpty、独审字节/TRX核符。普通Production consumed/IMAGE_REUSE_DISABLED与UI未动，不宣称图片复用整体完成；5894保护hash一致，见[真实依赖、红绿及生产未验门](validation/image-regeneration-contract-2026-11-01.md)。
 
 - 2026-11-01 原SPEC3.2首次启用功能补齐：原缺配置仅打开常规页，现失败启用定位新窗口的新增/默认文字配置/active模型/密钥/地址，恢复优先、Loaded一次focus；已开草稿仅激活不重载，保存不启用发送。31P（9新metadata＋13搜索＋9布局），真实App交叉0W/E GroupEmpty，源码设计独审；原生焦点/保存交互未验。固定简中/内存3版本不扩功能，图片复用仍是独立关闭缺口；5894保护hash一致，见[盘点、实际接线与限制](validation/first-enable-guide-2026-11-01.md)。
