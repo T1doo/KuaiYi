@@ -1,5 +1,7 @@
 # SDK401 single-pass failure and source-only CS9191 correction
 
+Historical first-pass report. A separately authorized second pass subsequently validated the corrected source; see [round-2 results and remaining gaps](frontend-day-2026-11-02-sdk401-round2.md). The failure and NotRun states below describe the first pass and correction phase and are retained unchanged as historical evidence.
+
 The one authorized supplemental pass targeted `60bed19e69351ae31c8c3924ea7514db468a0384`. App compilation failed at `NativeTextScale.cs:26` with CS9191: `Marshal.QueryInterface` takes an `in Guid`, while the call supplied `ref iid`. The repository treats warnings as errors. The follow-up changes only that argument modifier to `in iid`; it does not change the interface identifier, ABI, ownership or control flow. Compilation and all tests after the correction are **NotRun**.
 
 ## Actual execution

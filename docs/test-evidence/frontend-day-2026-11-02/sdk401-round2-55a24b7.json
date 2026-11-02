@@ -1,0 +1,378 @@
+{
+  "tested_commit": "55a24b78b49767565c71a5efdd6646f1e6d072e4",
+  "status": "Pass - supplemental SDK401 only",
+  "installed_sdk": "10.0.401",
+  "required_sdk": "10.0.402",
+  "started_utc": "2026-11-02T12:43:36.862958+00:00",
+  "finished_utc": "2026-11-02T12:44:43.711846+00:00",
+  "execution_elapsed_seconds": 66.84892776899869,
+  "stages": [
+    {
+      "name": "app",
+      "command": [
+        "<sdk401>/dotnet",
+        "build",
+        "<repo>/src/KuaiYi.App/KuaiYi.App.csproj",
+        "--no-restore",
+        "-p:EnableWindowsTargeting=true",
+        "-m:1",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:NonExistentFile=<validation>/single-pass-55a24b7-round2/force-compile-never-created"
+      ],
+      "cwd": "<temporary-working-directory>",
+      "limit_seconds": 45,
+      "started_elapsed": 0.33705637299863156,
+      "exit_code": 0,
+      "elapsed_seconds": 39.76308301000245,
+      "stop_reason": null,
+      "remaining_group": []
+    },
+    {
+      "name": "provider",
+      "command": [
+        "<sdk401>/dotnet",
+        "build",
+        "<repo>/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "--no-restore",
+        "-p:EnableWindowsTargeting=true",
+        "-m:1",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:NonExistentFile=<validation>/single-pass-55a24b7-round2/force-compile-never-created",
+        "-p:BuildProjectReferences=false"
+      ],
+      "cwd": "<temporary-working-directory>",
+      "limit_seconds": 45,
+      "started_elapsed": 40.17721361299846,
+      "exit_code": 0,
+      "elapsed_seconds": 23.30351807399711,
+      "stop_reason": null,
+      "remaining_group": []
+    },
+    {
+      "name": "new8",
+      "command": [
+        "<sdk401>/dotnet",
+        "vstest",
+        "<repo>/tests/KuaiYi.Provider.Tests/bin/Debug/net10.0/KuaiYi.Provider.Tests.dll",
+        "--TestCaseFilter:FullyQualifiedName~KuaiYi.Provider.Tests.FrontendControlEdgeTests.IndependentTextScaleKeepsCriticalActionsBoundedAcrossAnchorAndFullRows|FullyQualifiedName~KuaiYi.Provider.Tests.FrontendControlEdgeTests.EnlargedAuxiliaryRowsDoNotCollapseAfterAnimationOrMoveAndReanchor|FullyQualifiedName~KuaiYi.Provider.Tests.MarkdownSourceTests.OriginalCopyDoesNotConfirmAfterEpochRevocationAndRestoration",
+        "--Logger:trx;LogFileName=new8.trx",
+        "--ResultsDirectory:<validation>/single-pass-55a24b7-round2/results"
+      ],
+      "cwd": "<temporary-working-directory>",
+      "limit_seconds": 15,
+      "started_elapsed": 63.55613862199971,
+      "exit_code": 0,
+      "elapsed_seconds": 3.195109737000166,
+      "stop_reason": null,
+      "remaining_group": []
+    }
+  ],
+  "actual_msbuild_seconds": {
+    "app": 39.38,
+    "provider": 22.94
+  },
+  "tests": {
+    "counters": {
+      "total": "8",
+      "executed": "8",
+      "passed": "8",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "results": [
+      {
+        "testName": "KuaiYi.Provider.Tests.FrontendControlEdgeTests.IndependentTextScaleKeepsCriticalActionsBoundedAcrossAnchorAndFullRows(width: 600, side: 552, scale: 2.25)",
+        "duration": "00:00:00.0000167",
+        "startTime": "2026-11-02T12:44:43.3380218+00:00",
+        "endTime": "2026-11-02T12:44:43.3380730+00:00",
+        "outcome": "Passed"
+      },
+      {
+        "testName": "KuaiYi.Provider.Tests.FrontendControlEdgeTests.IndependentTextScaleKeepsCriticalActionsBoundedAcrossAnchorAndFullRows(width: 420, side: 372, scale: 2)",
+        "duration": "00:00:00.0374174",
+        "startTime": "2026-11-02T12:44:43.2893937+00:00",
+        "endTime": "2026-11-02T12:44:43.3316216+00:00",
+        "outcome": "Passed"
+      },
+      {
+        "testName": "KuaiYi.Provider.Tests.MarkdownSourceTests.OriginalCopyDoesNotConfirmAfterEpochRevocationAndRestoration",
+        "duration": "00:00:00.0126354",
+        "startTime": "2026-11-02T12:44:43.2914124+00:00",
+        "endTime": "2026-11-02T12:44:43.3099882+00:00",
+        "outcome": "Passed"
+      },
+      {
+        "testName": "KuaiYi.Provider.Tests.FrontendControlEdgeTests.IndependentTextScaleKeepsCriticalActionsBoundedAcrossAnchorAndFullRows(width: 320, side: 272, scale: 2.25)",
+        "duration": "00:00:00.0049436",
+        "startTime": "2026-11-02T12:44:43.3370796+00:00",
+        "endTime": "2026-11-02T12:44:43.3371518+00:00",
+        "outcome": "Passed"
+      },
+      {
+        "testName": "KuaiYi.Provider.Tests.FrontendControlEdgeTests.IndependentTextScaleKeepsCriticalActionsBoundedAcrossAnchorAndFullRows(width: 420, side: 372, scale: 1.25)",
+        "duration": "00:00:00.0000226",
+        "startTime": "2026-11-02T12:44:43.3372731+00:00",
+        "endTime": "2026-11-02T12:44:43.3373323+00:00",
+        "outcome": "Passed"
+      },
+      {
+        "testName": "KuaiYi.Provider.Tests.FrontendControlEdgeTests.EnlargedAuxiliaryRowsDoNotCollapseAfterAnimationOrMoveAndReanchor",
+        "duration": "00:00:00.0232230",
+        "startTime": "2026-11-02T12:44:43.3384846+00:00",
+        "endTime": "2026-11-02T12:44:43.3649217+00:00",
+        "outcome": "Passed"
+      },
+      {
+        "testName": "KuaiYi.Provider.Tests.FrontendControlEdgeTests.IndependentTextScaleKeepsCriticalActionsBoundedAcrossAnchorAndFullRows(width: 320, side: 136, scale: 2)",
+        "duration": "00:00:00.0000583",
+        "startTime": "2026-11-02T12:44:43.3374319+00:00",
+        "endTime": "2026-11-02T12:44:43.3377632+00:00",
+        "outcome": "Passed"
+      },
+      {
+        "testName": "KuaiYi.Provider.Tests.FrontendControlEdgeTests.IndependentTextScaleKeepsCriticalActionsBoundedAcrossAnchorAndFullRows(width: 320, side: 136, scale: 1.25)",
+        "duration": "00:00:00.0000368",
+        "startTime": "2026-11-02T12:44:43.3378903+00:00",
+        "endTime": "2026-11-02T12:44:43.3379430+00:00",
+        "outcome": "Passed"
+      }
+    ]
+  },
+  "source_input_count": 563,
+  "source_manifest_sha256": "9d85af343d8c0ca27f2b74158da1ed619d4dd6fd24d290ae01c1bdeeb076ebdd",
+  "source_preflight_mismatches": [],
+  "source_postflight_mismatches": [],
+  "unchanged_reference_sources": {
+    "count": 87,
+    "mismatches": []
+  },
+  "reused_output_hashes_before": {
+    "<repo>/src/KuaiYi.ImageWorker/bin/Debug/net10.0/win-x64/KuaiYi.ImageWorker.dll": "1f6f295174b58aac3cc2460e93a408ba071a6de84614f79a50bd7ae5c5524db6",
+    "<repo>/tools/KuaiYi.MockProvider/bin/Debug/net10.0/KuaiYi.MockProvider.dll": "852631c55735975323b6060bce6898b78ccad4093d5a83c186796bc677096b9b"
+  },
+  "reused_output_hashes_after": {
+    "<repo>/src/KuaiYi.ImageWorker/bin/Debug/net10.0/win-x64/KuaiYi.ImageWorker.dll": "1f6f295174b58aac3cc2460e93a408ba071a6de84614f79a50bd7ae5c5524db6",
+    "<repo>/tools/KuaiYi.MockProvider/bin/Debug/net10.0/KuaiYi.MockProvider.dll": "852631c55735975323b6060bce6898b78ccad4093d5a83c186796bc677096b9b"
+  },
+  "production_and_test_reference_hashes": {
+    "Core": {
+      "current_production_sha256": "120355fd691af8545688a8a56a121b9597c7dcb4b6b382911c0b0525a74166e6",
+      "test_output_copy_sha256": "120355fd691af8545688a8a56a121b9597c7dcb4b6b382911c0b0525a74166e6",
+      "equal": true
+    },
+    "Providers": {
+      "current_production_sha256": "48afb0faab9d5c55e78c6ddd98b1fd4e4082d4eb81baf73ec417214c251a842c",
+      "test_output_copy_sha256": "48afb0faab9d5c55e78c6ddd98b1fd4e4082d4eb81baf73ec417214c251a842c",
+      "equal": true
+    },
+    "Imaging": {
+      "current_production_sha256": "057aba60b7254eb459fb467c3a4d9abbd251d932225063e72d59ba201a11622c",
+      "test_output_copy_sha256": "057aba60b7254eb459fb467c3a4d9abbd251d932225063e72d59ba201a11622c",
+      "equal": true
+    },
+    "ImageWorker": {
+      "current_production_sha256": "1f6f295174b58aac3cc2460e93a408ba071a6de84614f79a50bd7ae5c5524db6",
+      "test_output_copy_sha256": "1f6f295174b58aac3cc2460e93a408ba071a6de84614f79a50bd7ae5c5524db6",
+      "equal": true
+    },
+    "MockProvider": {
+      "current_production_sha256": "852631c55735975323b6060bce6898b78ccad4093d5a83c186796bc677096b9b",
+      "test_output_copy_sha256": "852631c55735975323b6060bce6898b78ccad4093d5a83c186796bc677096b9b",
+      "equal": true
+    }
+  },
+  "compile_before": {
+    "<repo>/src/KuaiYi.Core/obj/Debug/net10.0/KuaiYi.Core.dll": {
+      "sha256": "1c6807c46b3959ad192713ea8142b4232454711660e420bcff26eddbc79900e7",
+      "mtime_ns": 1793620246321323030
+    },
+    "<repo>/src/KuaiYi.App/obj/Debug/net10.0-windows/win-x64/KuaiYi.App.dll": {
+      "sha256": "fb53547882da1a07be768127a44a85e5c97551c569cfa2b56e48c1999585d049",
+      "mtime_ns": 1793608335210999356
+    },
+    "<repo>/src/KuaiYi.App/bin/Debug/net10.0-windows/win-x64/KuaiYi.App.dll": {
+      "sha256": "fb53547882da1a07be768127a44a85e5c97551c569cfa2b56e48c1999585d049",
+      "mtime_ns": 1793608335210999356
+    }
+  },
+  "compile_after_app": {
+    "<repo>/src/KuaiYi.Core/obj/Debug/net10.0/KuaiYi.Core.dll": {
+      "sha256": "120355fd691af8545688a8a56a121b9597c7dcb4b6b382911c0b0525a74166e6",
+      "mtime_ns": 1793623428977418085
+    },
+    "<repo>/src/KuaiYi.App/obj/Debug/net10.0-windows/win-x64/KuaiYi.App.dll": {
+      "sha256": "a85d6f5c6a484994613047fa4e97bf1f5ca23d26931921d7e63a58ef4da35552",
+      "mtime_ns": 1793623456813169869
+    },
+    "<repo>/src/KuaiYi.App/bin/Debug/net10.0-windows/win-x64/KuaiYi.App.dll": {
+      "sha256": "a85d6f5c6a484994613047fa4e97bf1f5ca23d26931921d7e63a58ef4da35552",
+      "mtime_ns": 1793623456813169869
+    }
+  },
+  "artifacts": {
+    "src/KuaiYi.App/bin/Debug/net10.0-windows/win-x64/KuaiYi.App.dll": {
+      "bytes": 738304,
+      "sha256": "a85d6f5c6a484994613047fa4e97bf1f5ca23d26931921d7e63a58ef4da35552"
+    },
+    "src/KuaiYi.Windows/bin/Debug/net10.0-windows/KuaiYi.Windows.dll": {
+      "bytes": 106496,
+      "sha256": "4eeaaa27f4ec1be8baa8dcc346437b5b278797517edee0f518f15d89064c41fd"
+    },
+    "src/KuaiYi.Core/bin/Debug/net10.0/KuaiYi.Core.dll": {
+      "bytes": 1455616,
+      "sha256": "120355fd691af8545688a8a56a121b9597c7dcb4b6b382911c0b0525a74166e6"
+    },
+    "tests/KuaiYi.Provider.Tests/bin/Debug/net10.0/KuaiYi.Provider.Tests.dll": {
+      "bytes": 3046400,
+      "sha256": "2ab7c93da6d25f60ef127f9f597fcd47f99275e2bcc2e814f85f998cec210f63"
+    }
+  },
+  "resolved_dependency_file_hashes": {
+    "<validation>/packages/microsoft.codecoverage/18.10.1/lib/net8.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll": "8d4e1668a9f141d80a2615b946e43a2d64fe3528a1f54c79624a6c217019a646",
+    "<validation>/packages/microsoft.codecoverage/18.10.1/build/netstandard2.0/Microsoft.CodeCoverage.props": "584a16eced25aada4bba74d788c31c6cb0b0fba683fe4bbac532e117aba62e17",
+    "<validation>/packages/microsoft.codecoverage/18.10.1/build/netstandard2.0/Microsoft.CodeCoverage.targets": "738c1af7ae9b94e45f5603160063d062125e51ad9cc7ae0ff2f047adcef3c30c",
+    "<validation>/packages/microsoft.net.test.sdk/18.10.1/build/net8.0/Microsoft.NET.Test.Sdk.props": "a52a33ff2b93571aaba9311d42b62b6cbb14eb4f71ab580a40eb7e7ffe1f13ba",
+    "<validation>/packages/microsoft.net.test.sdk/18.10.1/build/net8.0/Microsoft.NET.Test.Sdk.targets": "7fb4a98d6405b1dda12a81d21d7ea530d0e0e9f1a6da8a209149c188aed407d3",
+    "<validation>/packages/microsoft.testplatform.objectmodel/18.10.1/lib/net8.0/Microsoft.TestPlatform.CoreUtilities.dll": "ca8cd4a0c394af3cc03c8e83b0377ecf14e6a8c68e4b0b50f732b1370950d7df",
+    "<validation>/packages/microsoft.testplatform.objectmodel/18.10.1/lib/net8.0/Microsoft.TestPlatform.PlatformAbstractions.dll": "8bc7faec348a71336af3bfbeecad564ad0f97a8216835ed90cd2ceff621a3697",
+    "<validation>/packages/microsoft.testplatform.objectmodel/18.10.1/lib/net8.0/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll": "ff730c68bebe827f74e2bdcfb571400ab328c00be11c7fe3a1fe01143b483bc6",
+    "<validation>/packages/microsoft.testplatform.testhost/18.10.1/lib/net8.0/Microsoft.TestPlatform.CommunicationUtilities.dll": "24c3b9f2710340c328db8bc9c37797d15e2cf32e4fca37f60f6f01bd35b6e0ff",
+    "<validation>/packages/microsoft.testplatform.testhost/18.10.1/lib/net8.0/Microsoft.TestPlatform.CoreUtilities.dll": "ca8cd4a0c394af3cc03c8e83b0377ecf14e6a8c68e4b0b50f732b1370950d7df",
+    "<validation>/packages/microsoft.testplatform.testhost/18.10.1/lib/net8.0/Microsoft.TestPlatform.CrossPlatEngine.dll": "9cde8a3ed9b3d2bc95f6c351af59ac943ee3495d3c1312950eedf6176a489b5a",
+    "<validation>/packages/microsoft.testplatform.testhost/18.10.1/lib/net8.0/Microsoft.TestPlatform.PlatformAbstractions.dll": "8bc7faec348a71336af3bfbeecad564ad0f97a8216835ed90cd2ceff621a3697",
+    "<validation>/packages/microsoft.testplatform.testhost/18.10.1/lib/net8.0/Microsoft.TestPlatform.Utilities.dll": "29d176ae1f87dac87c8064dddf30a5e2439e4f48e28417e8604d71cc9d920ce8",
+    "<validation>/packages/microsoft.testplatform.testhost/18.10.1/lib/net8.0/Microsoft.VisualStudio.TestPlatform.Common.dll": "c38efb5cfcceb4cdf0f1fb04eea0b1d17310c6eda839dd3ae31e658e91cc7de6",
+    "<validation>/packages/microsoft.testplatform.testhost/18.10.1/lib/net8.0/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll": "ff730c68bebe827f74e2bdcfb571400ab328c00be11c7fe3a1fe01143b483bc6",
+    "<validation>/packages/microsoft.testplatform.testhost/18.10.1/lib/net8.0/testhost.dll": "ad339a6279013d6af52dde6bcb8b90a19a395a54c6fcf085ff5a42435c60c4c5",
+    "<validation>/packages/microsoft.testplatform.testhost/18.10.1/build/net8.0/Microsoft.TestPlatform.TestHost.props": "9eded62233df020fbbb75e81337ce455c1de7c55b76a0991f6270b70e21fedb1",
+    "<validation>/packages/microsoft.testplatform.testhost/18.10.1/build/net8.0/Microsoft.TestPlatform.TestHost.targets": "f4deae8fea7fbecd518c9feec8b860861d591eca249f47d13318abe9b75acba8",
+    "<validation>/packages/xunit.abstractions/2.0.3/lib/netstandard2.0/xunit.abstractions.dll": "3166dc70323fb30ccf1cedb0fe86f2ad122c46d254542342d90386efc4c9285c",
+    "<validation>/packages/xunit.assert/2.9.3/lib/net6.0/xunit.assert.dll": "bcd9711b22d227ac8cd4c1568e72433a0f576d2ec8aae64ac508081892015b1d",
+    "<validation>/packages/xunit.core/2.9.3/build/xunit.core.props": "44101736a334afe42c0ccd588cd92690829629f736a9ee90f78cdc0513e6822c",
+    "<validation>/packages/xunit.core/2.9.3/build/xunit.core.targets": "c7d494c8ec3f36adfd52a3e9f412b7f9f2b68faa7d74eec2850d80c62f52627c",
+    "<validation>/packages/xunit.extensibility.core/2.9.3/lib/netstandard1.1/xunit.core.dll": "2f7feeec8c6dec7df684c25fb80aadb292b963d09723460f03d53c5ad2088acc",
+    "<validation>/packages/xunit.extensibility.execution/2.9.3/lib/netstandard1.1/xunit.execution.dotnet.dll": "e70febe547c15f8155db3e2d95c3ba4445a59cbc21a3e7541ab22ed49d3dcf7b",
+    "<validation>/packages/xunit.runner.visualstudio/3.1.5/build/net8.0/xunit.runner.visualstudio.props": "8325f804d7a43e410a165a5d9c80eec4ffb470ae53738406ee6615beffffd294"
+  },
+  "project_assets_hashes": {
+    "<repo>/src/KuaiYi.Core/obj/project.assets.json": "de80844c225d3d52c09708a322e91c5e314d0bbe4246f8a53535f871bd923ecd",
+    "<repo>/src/KuaiYi.Providers/obj/project.assets.json": "7153c869f7edf4473b5b7d76a4af1da95b69da7e0e6c63fbfcd232e228b0eb39",
+    "<repo>/src/KuaiYi.Contracts/obj/project.assets.json": "1dea0d378f1d7e99030734bee45c1fd67848adf931ce8f1da29008d5aa881775",
+    "<repo>/src/KuaiYi.Imaging/obj/project.assets.json": "94454fd1c2ac07594deab9832d2976b097a1a0a5cfb216bce7d4439d721c9e40",
+    "<repo>/src/KuaiYi.NativeHost/obj/project.assets.json": "ad9c9bdf9db900c21121906528f013c33b011da26f80aacf5e35bd461de9dae5",
+    "<repo>/src/KuaiYi.OleTransfer/obj/project.assets.json": "0cf894f6a17fcac701c0f2ced136cb3df32b097cac2f95dd2353752a96c4e002",
+    "<repo>/src/KuaiYi.Windows/obj/project.assets.json": "73f8ff900166d4a8b010b766f03d0a7882f2b89479f2c41ae277a94149638d2b",
+    "<repo>/src/KuaiYi.App/obj/project.assets.json": "ba7f03ffa1b772cfa2bdf824dd5ec6066b4fa450f829e12969388ff9f3f51663",
+    "<repo>/tests/KuaiYi.Provider.Tests/obj/project.assets.json": "d179413e47c5d1a536e08f11b7e97b64f5eb1132b7ca3c1aa13001c5684ad0f7"
+  },
+  "dependency_mismatches": [],
+  "assets_mismatches": [],
+  "authorization": {
+    "incremental_logical_bytes": 134217728,
+    "early_stop_bytes": 100663296,
+    "overall_deadline_seconds": 120,
+    "kill_grace_seconds": 2,
+    "attempts": 1
+  },
+  "resource_observation": {
+    "baseline_logical_bytes": 524887909,
+    "final_logical_bytes": 525276534,
+    "sampled_peak_positive_growth_bytes": 668653,
+    "sampled_peak_net_growth_bytes": 430463,
+    "sampled_peak_net_allocated_growth_bytes": 413696,
+    "positive_path_high_water_bytes": 668653,
+    "sample_count": 260,
+    "maximum_sampling_gap_seconds": 0.5878699799977767,
+    "inventory_errors": [],
+    "old_budget_refund_bytes": 0
+  },
+  "post_accounting": {
+    "tested_commit": "55a24b78b49767565c71a5efdd6646f1e6d072e4",
+    "status": "Pass - supplemental SDK401 only",
+    "execution_elapsed_seconds": 66.84892776899869,
+    "raw_receipt_sha256": "61eda2faca7ea69176f9ee13b6bd1697f730a52eb9991c46e68369e178a0060e",
+    "raw_receipt_and_final_inventory_bytes": 368013,
+    "within_run_sampled_positive_growth_bytes": 668653,
+    "limit": "Observed per-path positive growth, not a hard quota or proof of unsampled peak. No deletion/shrinking refund.",
+    "prior_pass": {
+      "tested_commit": "60bed19e69351ae31c8c3924ea7514db468a0384",
+      "elapsed_seconds": 30.30105317900052,
+      "observed_positive_growth_charge_bytes": 810951,
+      "outcome": "Fail; 0 tests; retained without reset"
+    },
+    "old_account": {
+      "remaining_content_bytes": 0,
+      "known_excess_lower_bound_bytes": 112753763,
+      "core_remaining_seconds_upper_bound": 622.532,
+      "unchanged": true
+    },
+    "unused_cap_is_not_next_pass_authorization": true,
+    "no_cleanup": true,
+    "no_third_pass": true,
+    "excluded_subtree_access_attempted": false,
+    "finished_utc": "2026-11-02T12:45:40.963518+00:00",
+    "self_bytes": 1272,
+    "observed_positive_growth_charge_bytes": 1037938,
+    "two_pass_observed_charge_bytes": 1848889,
+    "two_pass_execution_seconds": 97.14998094799921
+  },
+  "owned_groups_final_empty": true,
+  "prior_pass": {
+    "tested_commit": "60bed19e69351ae31c8c3924ea7514db468a0384",
+    "elapsed_seconds": 30.30105317900052,
+    "observed_positive_growth_charge_bytes": 810951,
+    "outcome": "Fail; 0 tests; retained without reset"
+  },
+  "old_account": {
+    "remaining_content_bytes": 0,
+    "known_excess_lower_bound_bytes": 112753763,
+    "core_remaining_seconds_upper_bound": 622.532,
+    "unchanged": true
+  },
+  "limits": [
+    "Polling is not a hard storage quota; between-sample peaks can be missed.",
+    "Only regular files in listed roots are counted. Unlinked-open files, unsampled transients, other paths, sockets, directory metadata and allocation peaks can be missed.",
+    "Per-path positive growth does not refund deletion or shrinking, but is not cumulative rewritten-byte traffic.",
+    "Original protected tree is not mounted; no new per-file hash verification of its 5894 files.",
+    "SDK401 and Linux test ports do not establish SDK402 or real Windows acceptance.",
+    "Previously denied private temporary subtree excluded lexically before stat/traversal; no access attempt in round2.",
+    "No wire-byte counter. No restore/download command; dependency hashes, assets and package/CLI file inventory unchanged.",
+    "Post-accounting covers raw execution records; repository archival and Git object growth are separate post-run outputs, not a proven peak."
+  ],
+  "raw_evidence_sha256": {
+    "new8.log": "2c0f7d84b2d5ab73aa5140b13b3e8b01cc07a99690f77ad45f04ef884bd77fbc",
+    "baseline.json": "26b9bdbe14760a993db3c98135be20c9ec7897eb4e876d9d52455d9acefe2791",
+    "receipt.json": "61eda2faca7ea69176f9ee13b6bd1697f730a52eb9991c46e68369e178a0060e",
+    "post-accounting.json": "05d8c5702a982fceb6ff92bb03dc61c9484f447272fed0668c3b13d5ab10cb4b",
+    "final-inventory.json": "bd4ab42ed268a3493ab75583bfcee6c272f0a19b051bea7bc633c80bdbe54d88",
+    "provider.log": "9817a4af73cbe39cec06b515dcc529b9d1666a217d1062ee51eb060616761867",
+    "app.log": "c0264db74d204c9e7c830cd16abe2578f3437d52ccba8d8a9278183c218c8853",
+    "results/new8.trx": "afdd8f9fe0a9a9b89fa51d5d9f50791b86f0da754a07afb8b45594e143f3f41e"
+  },
+  "raw_supervisor_sha256": "bf68d3f3312af92528021c3776ad556166b2fe772d2cb4e538849dfee4501bed",
+  "sanitized_trx_sha256": "b0f268c35960bdf660f965b198ae73dca14aa401685a2e8498ce9159b603cd78",
+  "sanitization": "Logs normalize checkout/tool paths; TRX normalizes host/user/deployment metadata. Raw originals retained unchanged; their hashes recorded. Baseline inventories containing private pathnames are not copied.",
+  "attempt_count": 1,
+  "restore_or_download_command_executed": false,
+  "file_cleanup": false,
+  "third_pass": false,
+  "formal_acceptance": {
+    "sdk402": "NotRun",
+    "windows": "NotRun",
+    "core23": "NotRun",
+    "prior340": "NotRun on this source; historical evidence retained separately"
+  }
+}

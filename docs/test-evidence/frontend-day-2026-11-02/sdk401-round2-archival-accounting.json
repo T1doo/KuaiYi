@@ -1,0 +1,78 @@
+{
+  "tested_commit": "55a24b78b49767565c71a5efdd6646f1e6d072e4",
+  "scope": "Post-run safe repository archival; separate from execution monitor and original old overage",
+  "files": [
+    {
+      "path": "docs/progress.md",
+      "baseline_bytes": 455402,
+      "current_bytes": 456297,
+      "positive_growth_bytes": 895,
+      "sha256": "7fc4084c22d5e65204e825f05ed56bb4dc5961cf059e6c0056e9f08a6b5fa30f"
+    },
+    {
+      "path": "docs/test-evidence/frontend-day-2026-11-02/sdk401-round2-55a24b7.json",
+      "baseline_bytes": 0,
+      "current_bytes": 21040,
+      "positive_growth_bytes": 21040,
+      "sha256": "7cfe43424a7898ef4addbe672ba3394522a7d85263e84bd276c269e8329bd3eb"
+    },
+    {
+      "path": "docs/test-evidence/frontend-day-2026-11-02/sdk401-round2-app.log",
+      "baseline_bytes": 0,
+      "current_bytes": 784,
+      "positive_growth_bytes": 784,
+      "sha256": "ba6ba898d9fd92de8bfb5e09f2168935bf34458b37730615e4aa18cacec8158c"
+    },
+    {
+      "path": "docs/test-evidence/frontend-day-2026-11-02/sdk401-round2-new8.log",
+      "baseline_bytes": 0,
+      "current_bytes": 321,
+      "positive_growth_bytes": 321,
+      "sha256": "85708eed315b885ce7810a997b61a3173ec9c79944d49246894cdfdc7392fa8b"
+    },
+    {
+      "path": "docs/test-evidence/frontend-day-2026-11-02/sdk401-round2-new8.trx",
+      "baseline_bytes": 0,
+      "current_bytes": 13215,
+      "positive_growth_bytes": 13215,
+      "sha256": "b0f268c35960bdf660f965b198ae73dca14aa401685a2e8498ce9159b603cd78"
+    },
+    {
+      "path": "docs/test-evidence/frontend-day-2026-11-02/sdk401-round2-provider.log",
+      "baseline_bytes": 0,
+      "current_bytes": 182,
+      "positive_growth_bytes": 182,
+      "sha256": "94b25cda8d8d65fc7d72377ac06fa1ce668eb6df038126bcf855d9cdd1ac0a2a"
+    },
+    {
+      "path": "docs/test-evidence/frontend-day-2026-11-02/tested-source-inputs-round2.json",
+      "baseline_bytes": 0,
+      "current_bytes": 67093,
+      "positive_growth_bytes": 67093,
+      "sha256": "9d85af343d8c0ca27f2b74158da1ed619d4dd6fd24d290ae01c1bdeeb076ebdd"
+    },
+    {
+      "path": "docs/validation/frontend-day-2026-11-02-sdk401-cs9191.md",
+      "baseline_bytes": 6395,
+      "current_bytes": 6723,
+      "positive_growth_bytes": 328,
+      "sha256": "459de73286ac522d207a6aab688deb60f499f98e5beb8c34ebd1765f4e6bef8d"
+    },
+    {
+      "path": "docs/validation/frontend-day-2026-11-02-sdk401-round2.md",
+      "baseline_bytes": 0,
+      "current_bytes": 6708,
+      "positive_growth_bytes": 6708,
+      "sha256": "900d4ef798229a09d818bd26cf7e5de20294680d926dcf4726bb5861f0141d08"
+    }
+  ],
+  "archive_positive_growth_excluding_this_record_bytes": 110566,
+  "execution_record_charge_bytes": 1037938,
+  "prior_pass_charge_bytes": 810951,
+  "git_objects_and_unobserved_paths": "Not included; no claim of complete/global instantaneous maximum",
+  "no_budget_refund": true,
+  "no_third_pass": true,
+  "this_record_bytes": 3055,
+  "archive_positive_growth_including_this_record_bytes": 113621,
+  "round2_known_execution_and_archive_charge_bytes": 1151559
+}
