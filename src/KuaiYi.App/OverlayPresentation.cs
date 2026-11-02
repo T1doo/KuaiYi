@@ -54,7 +54,7 @@ internal sealed partial class ShellWindow
     private void SetupPresentation()
     {
         DesktopTextScale.Ignore(body);DesktopTextScale.Ignore(measurement);DesktopTextScale.Ignore(button);
-        DesktopTheme.Install(this,()=>lifecycle.Settings?.Data.Overlay.Theme??ThemePreference.FollowSystem,forms:false,changedAppearance:RefreshPresentationTheme);
+        DesktopTheme.Install(this,()=>lifecycle.Settings?.Data.Overlay.Theme??ThemePreference.FollowSystem,forms:false,changedAppearance:RefreshPresentationTheme,motionPreference:()=>lifecycle.Settings?.Data.Overlay.ReduceMotion??MotionPreference.FollowSystem);
         resultLabel.SetBinding(System.Windows.Automation.AutomationProperties.NameProperty,new System.Windows.Data.Binding(nameof(TextBlock.Text)){Source=resultLabel});
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
         bodyMarkdown=new(body,ObserveCodeReaderIntent,CaptureBodyReaderGuard,()=>follow,OriginalSourceChanged,CanReadOriginalSourceVersion,ImageSourcePreviewFailed,OpenMarkdownLink,CaptureOriginalSourceCopyGuard);measurementMarkdown=new(measurement,canReadSource:CanReadOriginalSourceVersion,sourceFailed:ImageSourcePreviewFailed);
@@ -99,6 +99,7 @@ internal sealed partial class ShellWindow
     private void RefreshPresentationTheme()
     {
         DesktopTheme.Apply(this,lifecycle.Settings?.Data.Overlay.Theme??ThemePreference.FollowSystem);
+        DesktopControlFeedback.Apply(this,lifecycle.Settings?.Data.Overlay.ReduceMotion??MotionPreference.FollowSystem);
         cardBackground.Background=DesktopTheme.Brush(this,DesktopTheme.Surface);cardBackground.BorderBrush=DesktopTheme.Brush(this,DesktopTheme.Stroke);body.Foreground=DesktopTheme.Brush(this,DesktopTheme.Text);measurement.Foreground=body.Document.Foreground=measurement.Document.Foreground=body.Foreground;connectionStatus.Foreground=resultLabel.Foreground=DesktopTheme.Brush(this,DesktopTheme.Muted);
         button.Foreground=SystemParameters.HighContrast?SystemColors.HighlightTextBrush:Brushes.White;bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;button.Background=on?OverlayTokens.On:OverlayTokens.Off;UpdateButtonGlyph(on);
         bodyMarkdown.RefreshCodeAppearance();measurementMarkdown.RefreshCodeAppearance();RefreshTextScalePresentation();if(overflowMenu.IsOpen)DesktopTheme.ApplyMenu(overflowMenu,this);if(button.ContextMenu?.IsOpen==true)DesktopTheme.ApplyMenu(button.ContextMenu,this);

@@ -1,0 +1,13 @@
+id,explicit_page_index,doc_item,approved_requirement,implementation,baseline_gap_and_disposition,status
+V01,4,§3 图5；§23 图39,单一阅读面、6DIP壳与1DIP边,OverlayPresentation.cs: cardBackground/toolbarSurface；DesktopPalette.cs,实底单面、外缘6、细控制条已有接线；无新源码遗漏,Retained; Windows NotRun
+V02,"12,17,27",§11 图18；§16 图26；§23,正文15、行高1.55、短标题16、用户12–22,MarkdownFlowView.cs；DesktopTextScale.cs；OverlayMarkdown.cs,字号/行高/标题比例已有；系统中文回退和实际字形待Windows,Retained; glyphs NotRun
+V03,"4,28",§3；§23续表,16DIP内距，窄处至少10，不缩字,OverlayPresentation.cs: pad16；MarkdownViewport.cs: width-32,16>=10，测量/显示同宽；极小工作区实际可达仍未验,Retained; Windows NotRun
+V04,"7,28",§6 图10–11；§23续表,小按钮与输入3DIP,DesktopTheme.cs: TextInputTemplate,缺口：按钮/只读下拉有3，TextBox/PasswordBox仅系统模板；现显式3DIP表面与PART_ContentHost,Changed source; build/Windows NotRun
+V05,7,§6 图10–11,正常/悬停/按下/焦点可辨，锚点不位移,DesktopTheme.cs: ButtonTemplate,既有4%/8%局部填色、即时焦点/边色；无整窗Transform,Retained; pixel states NotRun
+V06,"7,32",§6；§27减少动态,局部80–120ms，减弱直接换状态,DesktopControlFeedback.cs；DesktopTheme.cs；SettingsChrome.cs；OverlayPresentation.cs,缺口：原即时Trigger未用拟议时长；补100ms仅Tint不延迟命令，减弱即时清动画，继承系统/用户偏好,Changed source; build/Windows NotRun
+V07,"13,16",§12 图19–20；§15 图25,来源图非背景，默认实底；材质可选,DesktopPalette.cs；OverlayPresentation.cs；DesktopTheme.cs,无壁纸/营销图/品牌资产导入；默认实底符合；不新增强制Mica/Acrylic,Retained; no new asset
+V08,"15,32",§14 图24；§27,220/180几何、80正文、350/250辅助、tau70,OverlayFrames.cs；OverlayFrameClock.cs；OverlayPresentation.cs,现有合同保留，UIA250/600独立；新100仅按钮Tint,Retained; native timing NotRun
+V09,"25,26,34",§22 图37–38；§29,48锚点、触区44、大字重排，停止/收起直达,OverlayReadingToolbar.cs；OverlayTextScale.cs；SettingsAdaptivePanels.cs,已有响应行、固定底栏/字段堆叠、40DIP仅最小高；真实200/225%、触控不重叠待验,Retained; Windows NotRun
+V10,"17,25",§16；§22 图36,同布局浅深/系统高对比,DesktopTheme.cs: Apply；OverlayPresentation.cs: RefreshPresentationTheme,主题资源/系统色接线保留；不要求换主题动画；透明合成/读屏待验,Retained; Windows NotRun
+V11,"10,11",§9 图15；§10 图16,三版短菜单、两层文字与真实状态,OverlayResultLabel.cs: VersionMenuLabel；OverlayPresentation.cs: AddVersionItems,已有两行版本状态/模型风格及选中勾；无历史搜索/多卡片,Retained; menu pixels NotRun
+V12,"18–24,33",§17–21 图28–35；§28,普通偏好行、相邻说明、固定动作底栏,SettingsChrome.cs；SettingsLayoutPlan.cs；SettingsValidationPresentation.cs,已有七类行式布局、分隔、首错显露；本片不重做已认可布局,Retained; native form NotRun

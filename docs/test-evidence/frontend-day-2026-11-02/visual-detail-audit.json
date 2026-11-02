@@ -1,0 +1,30 @@
+{
+  "base_commit": "680c53e6822258bbebaf618b3c24653ce0661258",
+  "docx_sha256": "cfe55dbc74e34b02da650e24e943f375048bfa5e96606d6ca5619288f5645a14",
+  "media_count": 47,
+  "media_hash_mismatches": [],
+  "image_inspection": "Re-viewed all 8 existing contact sheets containing 47 embedded original/proposal media; source images are design/reference evidence, not WPF screenshots.",
+  "pagination": "Page column is explicit DOCX page-break sequence (42 sections), not Word-rendered page certification; section/figure identifies the item. No document render or new assets generated.",
+  "audit_csv_sha256": "5f4ba006a05b81e4b474ef5fbaf365cd3fb4f8ccd842f1b32eb72693bd8494e1",
+  "source_count": 564,
+  "source_manifest_sha256": "6da16217144c1413b63bd48d0d890c8ebb9d3bd25cef44c5f0b9d6bb59e35109",
+  "source_changes": [
+    "src/KuaiYi.App/DesktopTheme.cs",
+    "src/KuaiYi.App/DesktopControlFeedback.cs",
+    "src/KuaiYi.App/OverlayPresentation.cs",
+    "src/KuaiYi.App/SettingsChrome.cs"
+  ],
+  "new_build_test_restore_download_ci_windows_execution": false,
+  "current_candidate_build": "NotRun",
+  "current_candidate_tests": "NotRun",
+  "prior_sdk401_evidence": "App+Provider compile and 8 passing cases only for 55a24b78b49767565c71a5efdd6646f1e6d072e4; not moved to this changed source",
+  "independent_review": {
+    "reviewer": "readonly_frontend_review",
+    "conclusion": "No definite static blocker in final input template and local tint diff",
+    "input_scope": "Original control instances, standard PART_ContentHost, scrolling bindings, no password binding, no fixed Height; existing state brushes preserved",
+    "tint_scope": "100ms from current opacity; base target set before FillBehavior.Stop; SnapshotAndReplace on reversal; inherited Reduce immediately clears clock; no new timers/completion/static event subscription; old Closed unsubscribe preserved",
+    "execution": "Reviewer performed no build/test/restore/download; all current candidate native behavior NotRun"
+  },
+  "resource_history": "Both approved execution rounds consumed. First 30.301053179s/810951B and second 66.848927769s/1037938B execution records retained, plus separately recorded archival. Original known excess lower bound112753763B and Core remaining upper bound622.532s unchanged. No cleanup/refund/third pass.",
+  "assets": "No reference image, wallpaper, external font, new package or icon asset imported into the product; existing original vector/control resources and system font path retained."
+}

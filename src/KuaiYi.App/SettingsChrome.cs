@@ -11,7 +11,7 @@ internal sealed partial class SettingsWindow
     private TextBlock? pageHeading,pageDescription,pageIndex;
     private void BuildSettingsChrome(StackPanel[] pages,out ListBox navigation)
     {
-        DesktopTheme.Install(this,()=>theme.SelectedItem is ThemePreference selected?selected:draft.Data.Overlay.Theme,forms:true);
+        DesktopTheme.Install(this,()=>theme.SelectedItem is ThemePreference selected?selected:draft.Data.Overlay.Theme,forms:true,motionPreference:()=>motion.SelectedItem is MotionPreference selected?selected:draft.Data.Overlay.ReduceMotion);
         var rail=new Border{BorderThickness=new Thickness(0,0,1,0),Padding=new Thickness(16,24,16,20)};DesktopTheme.Bind(rail,Border.BackgroundProperty,DesktopTheme.Rail);DesktopTheme.Bind(rail,Border.BorderBrushProperty,DesktopTheme.Stroke);
         var sidebar=new Grid();sidebar.RowDefinitions.Add(new(){Height=GridLength.Auto});sidebar.RowDefinitions.Add(new(){Height=new GridLength(1,GridUnitType.Star)});sidebar.RowDefinitions.Add(new(){Height=GridLength.Auto});rail.Child=sidebar;
         var brand=new StackPanel{Margin=new Thickness(4,0,0,16)};Grid.SetRow(brand,0);sidebar.Children.Add(brand);
@@ -57,6 +57,7 @@ internal sealed partial class SettingsWindow
         ScrollViewer.SetCanContentScroll(navigation,false);ScrollViewer.SetVerticalScrollBarVisibility(navigation,ScrollBarVisibility.Auto);
         CompactStyle(navigation,root,ScrollViewer.HorizontalScrollBarVisibilityProperty,ScrollBarVisibility.Disabled,ScrollBarVisibility.Auto);
         theme.SelectionChanged+=(_,_)=>DesktopTheme.Apply(this,theme.SelectedItem is ThemePreference selected?selected:draft.Data.Overlay.Theme);
+        motion.SelectionChanged+=(_,_)=>DesktopControlFeedback.Apply(this,motion.SelectedItem is MotionPreference selected?selected:draft.Data.Overlay.ReduceMotion);
     }
     private static void CompactStyle(FrameworkElement element,SettingsChromePanel root,DependencyProperty property,object wide,object compact)
     {

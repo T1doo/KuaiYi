@@ -50,9 +50,9 @@ internal static class DesktopTheme
         Set(Canvas,contrast?SystemColors.WindowBrush:Color(p.Canvas));Set(Surface,contrast?SystemColors.WindowBrush:Color(p.Surface));Set(Rail,contrast?SystemColors.WindowBrush:Color(p.Rail));Set(Input,contrast?SystemColors.WindowBrush:Color(p.Input));Set(Text,contrast?SystemColors.WindowTextBrush:Color(p.Text));Set(Muted,contrast?SystemColors.WindowTextBrush:Color(p.Muted));Set(Stroke,contrast?SystemColors.WindowTextBrush:Color(p.Stroke));Set(InputBorder,contrast?SystemColors.WindowTextBrush:Color(p.InputBorder));Set(Accent,contrast?SystemColors.HighlightBrush:Color(p.Accent));Set(AccentText,contrast?SystemColors.HighlightTextBrush:Color(p.AccentText));Set(AccentSoft,contrast?SystemColors.HighlightBrush:Color(p.AccentSoft));Set(SelectionText,contrast?SystemColors.HighlightTextBrush:Color(p.Accent));Set(Error,contrast?SystemColors.WindowTextBrush:Color(dark?"#FFB4AB":"#B3261E"));window.Resources[Applied]=identity;
         void Set(string key,Brush brush)=>window.Resources[key]=brush;
     }
-    internal static void Install(Window window,Func<ThemePreference> preference,bool forms,Action? changedAppearance=null)
+    internal static void Install(Window window,Func<ThemePreference> preference,bool forms,Action? changedAppearance=null,Func<MotionPreference>? motionPreference=null)
     {
-        Apply(window,preference());if(window.Resources.Contains(Installed))return;window.Resources[Installed]=true;
+        Apply(window,preference());DesktopControlFeedback.Apply(window,motionPreference?.Invoke()??MotionPreference.FollowSystem);if(window.Resources.Contains(Installed))return;window.Resources[Installed]=true;
         window.UseLayoutRounding=true;window.SnapsToDevicePixels=true;
         if(forms)
         {
@@ -68,6 +68,7 @@ internal static class DesktopTheme
                 var focus=new Trigger{Property=UIElement.IsKeyboardFocusWithinProperty,Value=true};focus.Setters.Add(Value(Control.BorderBrushProperty,Accent));field.Triggers.Add(focus);
                 var disabled=new Trigger{Property=UIElement.IsEnabledProperty,Value=false};disabled.Setters.Add(Value(Control.ForegroundProperty,Muted));disabled.Setters.Add(Value(Control.BackgroundProperty,Canvas));field.Triggers.Add(disabled);
                 if(type==typeof(ComboBox)){var readOnly=new Trigger{Property=ComboBox.IsEditableProperty,Value=false};readOnly.Setters.Add(new Setter(Control.TemplateProperty,ReadOnlyChoiceTemplate()));field.Triggers.Add(readOnly);}
+                else field.Setters.Add(new Setter(Control.TemplateProperty,TextInputTemplate(type)));
                 window.Resources[type]=field;
             }
             var check=new Style(typeof(CheckBox));check.Setters.Add(Value(Control.ForegroundProperty,Text));check.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(6,3,0,3)));check.Setters.Add(new Setter(FrameworkElement.MarginProperty,new Thickness(0,5,0,5)));check.Setters.Add(new Setter(FrameworkElement.MinHeightProperty,28d));window.Resources[typeof(CheckBox)]=check;
@@ -84,7 +85,7 @@ internal static class DesktopTheme
         PropertyChangedEventHandler changed=(_,_)=>
         {
             if(closed||window.Dispatcher.HasShutdownStarted)return;
-            window.Dispatcher.BeginInvoke(()=>{if(!closed){Apply(window,preference());changedAppearance?.Invoke();}});
+            window.Dispatcher.BeginInvoke(()=>{if(!closed){Apply(window,preference());DesktopControlFeedback.Apply(window,motionPreference?.Invoke()??MotionPreference.FollowSystem);changedAppearance?.Invoke();}});
         };
         SystemParameters.StaticPropertyChanged+=changed;
         window.Closed+=(_,_)=>{closed=true;SystemParameters.StaticPropertyChanged-=changed;};
@@ -113,6 +114,22 @@ internal static class DesktopTheme
     }
     private static Brush Color(string hex){var brush=new SolidColorBrush((Color)ColorConverter.ConvertFromString(hex));brush.Freeze();return brush;}
     private static Setter Value(DependencyProperty property,string key)=>new(property,new DynamicResourceExtension(key));
+    // Surface only: the existing control still owns editing, selection, IME and password state.
+    private static ControlTemplate TextInputTemplate(Type type)
+    {
+        var template=new ControlTemplate(type);var surface=new FrameworkElementFactory(typeof(Border));
+        surface.SetValue(Border.CornerRadiusProperty,new CornerRadius(SettingsUiMetrics.ControlRadius));
+        surface.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));surface.SetValue(Border.BorderBrushProperty,new TemplateBindingExtension(Control.BorderBrushProperty));surface.SetValue(Border.BorderThicknessProperty,new TemplateBindingExtension(Control.BorderThicknessProperty));surface.SetValue(Border.PaddingProperty,new TemplateBindingExtension(Control.PaddingProperty));
+        var host=new FrameworkElementFactory(typeof(ScrollViewer),"PART_ContentHost");host.SetValue(UIElement.FocusableProperty,false);host.SetValue(Control.IsTabStopProperty,false);
+        if(type==typeof(TextBox))
+        {
+            host.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty,new TemplateBindingExtension(TextBoxBase.HorizontalScrollBarVisibilityProperty));
+            host.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty,new TemplateBindingExtension(TextBoxBase.VerticalScrollBarVisibilityProperty));
+        }
+        else
+        {host.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty,ScrollBarVisibility.Hidden);host.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty,ScrollBarVisibility.Hidden);}
+        surface.AppendChild(host);template.VisualTree=surface;return template;
+    }
     // The native theme can ignore Background and paint a light gradient beneath dark-theme text.
     // Keep the original ComboBox selection, keyboard, ItemTemplate and display-member machinery.
     private static ControlTemplate ReadOnlyChoiceTemplate()
@@ -154,11 +171,11 @@ internal static class DesktopTheme
         content.SetValue(FrameworkElement.HorizontalAlignmentProperty,new TemplateBindingExtension(Control.HorizontalContentAlignmentProperty));content.SetValue(FrameworkElement.VerticalAlignmentProperty,VerticalAlignment.Center);border.AppendChild(content);root.AppendChild(border);
         // A tint above the surface gives primary and secondary buttons the same
         // state vocabulary without replacing their foreground/background pair.
-        var feedback=new FrameworkElementFactory(typeof(Border),"feedback");feedback.SetValue(Border.CornerRadiusProperty,new CornerRadius(radius));feedback.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.ForegroundProperty));feedback.SetValue(UIElement.IsHitTestVisibleProperty,false);feedback.SetValue(UIElement.OpacityProperty,0d);root.AppendChild(feedback);
+        var feedback=new FrameworkElementFactory(typeof(Border),"feedback");feedback.SetValue(DesktopControlFeedback.SurfaceProperty,true);feedback.SetValue(Border.CornerRadiusProperty,new CornerRadius(radius));feedback.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.ForegroundProperty));feedback.SetValue(UIElement.IsHitTestVisibleProperty,false);feedback.SetValue(UIElement.OpacityProperty,0d);root.AppendChild(feedback);
         var focusRing=new FrameworkElementFactory(typeof(Border),"focusRing");focusRing.SetValue(Border.CornerRadiusProperty,new CornerRadius(Math.Max(0,radius-3)));focusRing.SetValue(FrameworkElement.MarginProperty,new Thickness(3));focusRing.SetValue(Border.BorderThicknessProperty,new Thickness(2));focusRing.SetValue(Border.BorderBrushProperty,new TemplateBindingExtension(Control.ForegroundProperty));focusRing.SetValue(UIElement.IsHitTestVisibleProperty,false);focusRing.SetValue(UIElement.OpacityProperty,0d);root.AppendChild(focusRing);template.VisualTree=root;
-        var hover=new MultiTrigger();hover.Conditions.Add(new Condition(UIElement.IsMouseOverProperty,true));hover.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));hover.Setters.Add(new Setter(UIElement.OpacityProperty,SettingsUiMetrics.HoverTint,"feedback"));template.Triggers.Add(hover);
+        var hover=new MultiTrigger();hover.Conditions.Add(new Condition(UIElement.IsMouseOverProperty,true));hover.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));hover.Setters.Add(new Setter(DesktopControlFeedback.TintProperty,SettingsUiMetrics.HoverTint,"feedback"));template.Triggers.Add(hover);
         var focus=new Trigger{Property=UIElement.IsKeyboardFocusedProperty,Value=true};focus.Setters.Add(new Setter(UIElement.OpacityProperty,1d,"focusRing"));template.Triggers.Add(focus);
-        var pressed=new MultiTrigger();pressed.Conditions.Add(new Condition(System.Windows.Controls.Primitives.ButtonBase.IsPressedProperty,true));pressed.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));pressed.Setters.Add(new Setter(UIElement.OpacityProperty,SettingsUiMetrics.PressedTint,"feedback"));pressed.Setters.Add(new Setter(Border.BorderBrushProperty,new DynamicResourceExtension(Accent),"surface"));template.Triggers.Add(pressed);return template;
+        var pressed=new MultiTrigger();pressed.Conditions.Add(new Condition(System.Windows.Controls.Primitives.ButtonBase.IsPressedProperty,true));pressed.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));pressed.Setters.Add(new Setter(DesktopControlFeedback.TintProperty,SettingsUiMetrics.PressedTint,"feedback"));pressed.Setters.Add(new Setter(Border.BorderBrushProperty,new DynamicResourceExtension(Accent),"surface"));template.Triggers.Add(pressed);return template;
     }
     private static Style NavigationStyle()
     {
