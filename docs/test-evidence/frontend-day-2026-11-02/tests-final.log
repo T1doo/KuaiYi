@@ -1,0 +1,37 @@
+VSTest version 18.7.0 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:01.98]     KuaiYi.Provider.Tests.MarkdownTableScrollTests.ActualMeasureBridgeSharesFiniteTableConstraintsForDpiAndLabel(dpi: 1.5, label: True) [FAIL]
+  Failed KuaiYi.Provider.Tests.MarkdownTableScrollTests.ActualMeasureBridgeSharesFiniteTableConstraintsForDpiAndLabel(dpi: 1.5, label: True) [4 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Size { Width = 388, Height = 540 }
+Actual:   Size { Width = 388, Height = 532 }
+  Stack Trace:
+     at KuaiYi.Provider.Tests.MarkdownTableScrollTests.ActualMeasureBridgeSharesFiniteTableConstraintsForDpiAndLabel(Double dpi, Boolean label) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/MarkdownTableScrollTests.cs:line 49
+   at InvokeStub_MarkdownTableScrollTests.ActualMeasureBridgeSharesFiniteTableConstraintsForDpiAndLabel(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:02.12]     KuaiYi.Provider.Tests.MarkdownCodeScrollTests.ActualMeasureBridgeUsesTheSameFinitePlanConstraintsForBothHosts(dpi: 1.5, label: True) [FAIL]
+  Failed KuaiYi.Provider.Tests.MarkdownCodeScrollTests.ActualMeasureBridgeUsesTheSameFinitePlanConstraintsForBothHosts(dpi: 1.5, label: True) [< 1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Size { Width = 388, Height = 540 }
+Actual:   Size { Width = 388, Height = 532 }
+  Stack Trace:
+     at KuaiYi.Provider.Tests.MarkdownCodeScrollTests.ActualMeasureBridgeUsesTheSameFinitePlanConstraintsForBothHosts(Double dpi, Boolean label) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/MarkdownCodeScrollTests.cs:line 43
+   at InvokeStub_MarkdownCodeScrollTests.ActualMeasureBridgeUsesTheSameFinitePlanConstraintsForBothHosts(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:02.70]     KuaiYi.Provider.Tests.MarkdownProductionBridgeTests.ActualViewPreservesStableNativeBlocksAndUpdatesBothFontsWhenPreferenceChanges [FAIL]
+  Failed KuaiYi.Provider.Tests.MarkdownProductionBridgeTests.ActualViewPreservesStableNativeBlocksAndUpdatesBothFontsWhenPreferenceChanges [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 30
+Actual:   21.333333333333332
+  Stack Trace:
+     at KuaiYi.Provider.Tests.MarkdownProductionBridgeTests.ActualViewPreservesStableNativeBlocksAndUpdatesBothFontsWhenPreferenceChanges() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/MarkdownProductionBridgeTests.cs:line 111
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+Results File: /workspace/kuaiyi-validation/results/frontend-final.trx
+
+Failed!  - Failed:     3, Passed:   337, Skipped:     0, Total:   340, Duration: 1 s - KuaiYi.Provider.Tests.dll (net10.0)

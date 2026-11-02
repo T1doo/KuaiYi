@@ -39,7 +39,7 @@ public sealed class MarkdownCodeScrollTests
     public void ActualMeasureBridgeUsesTheSameFinitePlanConstraintsForBothHosts(double dpi,bool label)
     {
         var w=Window();Begin(w,Source);w.RenderMarkdown();w.MarkdownMeasurement.DesiredSize=new(123,42);
-        Assert.Equal(42,w.MeasureMarkdownForTest(Plan(dpi),label));w.RenderMarkdown();double height=560-(label?20:0);
+        Assert.Equal(42,w.MeasureMarkdownForTest(Plan(dpi),label));w.RenderMarkdown();double height=560-(label?28:0);
         Assert.Equal(new Size(388,height),w.MarkdownMeasurement.LastMeasure);
         foreach(var host in new[]{w.MarkdownBody,w.MarkdownMeasurement}){Assert.Equal(388,host.Width);Assert.Equal(height,host.MaxHeight);Assert.Equal(371,Code(host).Width);Assert.Equal(240,Code(host).MaxHeight);}
     }

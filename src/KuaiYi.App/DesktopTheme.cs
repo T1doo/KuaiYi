@@ -14,7 +14,7 @@ namespace KuaiYi.App;
 // Window-local resources. No global implicit styles or changes to business control instances.
 internal static class DesktopTheme
 {
-    internal const string Canvas="KuaiYi.Canvas",Surface="KuaiYi.Surface",Rail="KuaiYi.Rail",Input="KuaiYi.Input",Text="KuaiYi.Text",Muted="KuaiYi.Muted",Stroke="KuaiYi.Stroke",InputBorder="KuaiYi.InputBorder",Accent="KuaiYi.Accent",AccentText="KuaiYi.AccentText",AccentSoft="KuaiYi.AccentSoft",SelectionText="KuaiYi.SelectionText";
+    internal const string Canvas="KuaiYi.Canvas",Surface="KuaiYi.Surface",Rail="KuaiYi.Rail",Input="KuaiYi.Input",Text="KuaiYi.Text",Muted="KuaiYi.Muted",Stroke="KuaiYi.Stroke",InputBorder="KuaiYi.InputBorder",Accent="KuaiYi.Accent",AccentText="KuaiYi.AccentText",AccentSoft="KuaiYi.AccentSoft",SelectionText="KuaiYi.SelectionText",Error="KuaiYi.Error";
     internal const string PrimaryButton="KuaiYi.PrimaryButton",ToolButton="KuaiYi.ToolButton",AnchorButton="KuaiYi.AnchorButton",NavigationItem="KuaiYi.NavigationItem";
     private const string Applied="KuaiYi.AppliedPalette",Installed="KuaiYi.ThemeInstalled";
     internal static DataTemplate ChoiceTemplate()
@@ -47,7 +47,7 @@ internal static class DesktopTheme
         bool dark=IsDark(preference),contrast=SystemParameters.HighContrast;string identity=contrast?"contrast":dark?"dark":"light";
         if(Equals(window.Resources[Applied],identity)&&!contrast)return;
         var p=dark?DesktopPalette.Dark:DesktopPalette.Light;
-        Set(Canvas,contrast?SystemColors.WindowBrush:Color(p.Canvas));Set(Surface,contrast?SystemColors.WindowBrush:Color(p.Surface));Set(Rail,contrast?SystemColors.WindowBrush:Color(p.Rail));Set(Input,contrast?SystemColors.WindowBrush:Color(p.Input));Set(Text,contrast?SystemColors.WindowTextBrush:Color(p.Text));Set(Muted,contrast?SystemColors.WindowTextBrush:Color(p.Muted));Set(Stroke,contrast?SystemColors.WindowTextBrush:Color(p.Stroke));Set(InputBorder,contrast?SystemColors.WindowTextBrush:Color(p.InputBorder));Set(Accent,contrast?SystemColors.HighlightBrush:Color(p.Accent));Set(AccentText,contrast?SystemColors.HighlightTextBrush:Color(p.AccentText));Set(AccentSoft,contrast?SystemColors.HighlightBrush:Color(p.AccentSoft));Set(SelectionText,contrast?SystemColors.HighlightTextBrush:Color(p.Accent));window.Resources[Applied]=identity;
+        Set(Canvas,contrast?SystemColors.WindowBrush:Color(p.Canvas));Set(Surface,contrast?SystemColors.WindowBrush:Color(p.Surface));Set(Rail,contrast?SystemColors.WindowBrush:Color(p.Rail));Set(Input,contrast?SystemColors.WindowBrush:Color(p.Input));Set(Text,contrast?SystemColors.WindowTextBrush:Color(p.Text));Set(Muted,contrast?SystemColors.WindowTextBrush:Color(p.Muted));Set(Stroke,contrast?SystemColors.WindowTextBrush:Color(p.Stroke));Set(InputBorder,contrast?SystemColors.WindowTextBrush:Color(p.InputBorder));Set(Accent,contrast?SystemColors.HighlightBrush:Color(p.Accent));Set(AccentText,contrast?SystemColors.HighlightTextBrush:Color(p.AccentText));Set(AccentSoft,contrast?SystemColors.HighlightBrush:Color(p.AccentSoft));Set(SelectionText,contrast?SystemColors.HighlightTextBrush:Color(p.Accent));Set(Error,contrast?SystemColors.WindowTextBrush:Color(dark?"#FFB4AB":"#B3261E"));window.Resources[Applied]=identity;
         void Set(string key,Brush brush)=>window.Resources[key]=brush;
     }
     internal static void Install(Window window,Func<ThemePreference> preference,bool forms,Action? changedAppearance=null)
@@ -74,10 +74,10 @@ internal static class DesktopTheme
             var comboItem=new Style(typeof(ComboBoxItem));comboItem.Setters.Add(Value(Control.BackgroundProperty,Input));comboItem.Setters.Add(Value(Control.ForegroundProperty,Text));comboItem.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(10,7,10,7)));var highlight=new Trigger{Property=ComboBoxItem.IsHighlightedProperty,Value=true};highlight.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));highlight.Setters.Add(Value(Control.ForegroundProperty,SelectionText));comboItem.Triggers.Add(highlight);window.Resources[typeof(ComboBoxItem)]=comboItem;
             window.Resources[NavigationItem]=NavigationStyle();
         }
-        var tool=ButtonStyle(7,28);tool.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(3)));tool.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(0)));tool.Setters.Add(new Setter(Control.BackgroundProperty,Brushes.Transparent));
+        var tool=ButtonStyle(3,28);tool.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(3)));tool.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(0)));tool.Setters.Add(new Setter(Control.BackgroundProperty,Brushes.Transparent));
         var toolHover=new MultiTrigger();toolHover.Conditions.Add(new Condition(UIElement.IsMouseOverProperty,true));toolHover.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));toolHover.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));toolHover.Setters.Add(Value(Control.ForegroundProperty,SelectionText));tool.Triggers.Add(toolHover);
-        foreach(var icon in Icons)
-        {var trigger=new Trigger{Property=FrameworkElement.TagProperty,Value=icon.Key};trigger.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(7,icon.Value)));tool.Triggers.Add(trigger);}
+        foreach(var icon in Icons.Where(pair=>pair.Key is "设置" or "翻译截图" or "清除当前内容"))
+        {var trigger=new Trigger{Property=FrameworkElement.TagProperty,Value=icon.Key};trigger.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(3,icon.Value)));tool.Triggers.Add(trigger);}
         window.Resources[ToolButton]=tool;var anchor=ButtonStyle(24,48);anchor.Setters.Add(Value(Control.ForegroundProperty,AccentText));window.Resources[AnchorButton]=anchor;
         bool closed=false;
         PropertyChangedEventHandler changed=(_,_)=>
@@ -87,6 +87,14 @@ internal static class DesktopTheme
         };
         SystemParameters.StaticPropertyChanged+=changed;
         window.Closed+=(_,_)=>{closed=true;SystemParameters.StaticPropertyChanged-=changed;};
+    }
+    internal static void ApplyMenu(ContextMenu menu,FrameworkElement owner)
+    {
+        foreach(var key in new[]{Canvas,Surface,Rail,Input,Text,Muted,Stroke,InputBorder,Accent,AccentText,AccentSoft,SelectionText,Error})menu.Resources[key]=owner.FindResource(key);
+        Bind(menu,Control.BackgroundProperty,Surface);Bind(menu,Control.ForegroundProperty,Text);Bind(menu,Control.BorderBrushProperty,Stroke);menu.BorderThickness=new Thickness(1);menu.Padding=new Thickness(2);
+        var item=new Style(typeof(MenuItem));item.Setters.Add(Value(Control.ForegroundProperty,Text));item.Setters.Add(Value(Control.BackgroundProperty,Surface));item.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(8,5,8,5)));item.Setters.Add(new Setter(FrameworkElement.MinHeightProperty,28d));
+        var highlight=new Trigger{Property=MenuItem.IsHighlightedProperty,Value=true};highlight.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));highlight.Setters.Add(Value(Control.ForegroundProperty,SelectionText));item.Triggers.Add(highlight);
+        var disabled=new Trigger{Property=UIElement.IsEnabledProperty,Value=false};disabled.Setters.Add(Value(Control.ForegroundProperty,Muted));item.Triggers.Add(disabled);menu.Resources[typeof(MenuItem)]=item;
     }
     private static Brush Color(string hex){var brush=new SolidColorBrush((Color)ColorConverter.ConvertFromString(hex));brush.Freeze();return brush;}
     private static Setter Value(DependencyProperty property,string key)=>new(property,new DynamicResourceExtension(key));
@@ -105,6 +113,10 @@ internal static class DesktopTheme
         var drop=new FrameworkElementFactory(typeof(Border));drop.SetBinding(FrameworkElement.MinWidthProperty,new Binding(nameof(FrameworkElement.ActualWidth)){RelativeSource=RelativeSource.TemplatedParent});drop.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));drop.SetValue(Border.BorderBrushProperty,new TemplateBindingExtension(Control.BorderBrushProperty));drop.SetValue(Border.BorderThicknessProperty,new Thickness(1));drop.SetValue(Border.PaddingProperty,new Thickness(2));drop.SetValue(System.Windows.Documents.TextElement.ForegroundProperty,new TemplateBindingExtension(Control.ForegroundProperty));
         var scroll=new FrameworkElementFactory(typeof(ScrollViewer));scroll.SetValue(ScrollViewer.CanContentScrollProperty,true);scroll.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty,ScrollBarVisibility.Auto);scroll.SetBinding(FrameworkElement.MaxHeightProperty,new Binding(nameof(ComboBox.MaxDropDownHeight)){RelativeSource=RelativeSource.TemplatedParent});
         var items=new FrameworkElementFactory(typeof(ItemsPresenter));items.SetValue(KeyboardNavigation.DirectionalNavigationProperty,KeyboardNavigationMode.Contained);scroll.AppendChild(items);drop.AppendChild(scroll);popup.AppendChild(drop);root.AppendChild(popup);template.VisualTree=root;return template;
+    }
+    internal static DataTemplate WrappingLabel()
+    {
+        var text=new FrameworkElementFactory(typeof(TextBlock));text.SetBinding(TextBlock.TextProperty,new Binding());text.SetValue(TextBlock.TextWrappingProperty,TextWrapping.Wrap);text.SetValue(TextBlock.LineHeightProperty,18d);return new DataTemplate{VisualTree=text};
     }
     private static Style ButtonStyle(double radius,double height)
     {
@@ -130,7 +142,7 @@ internal static class DesktopTheme
     private static Style NavigationStyle()
     {
         var style=new Style(typeof(ListBoxItem));style.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(10,9,10,9)));style.Setters.Add(new Setter(FrameworkElement.MarginProperty,new Thickness(0,3,0,3)));style.Setters.Add(Value(Control.ForegroundProperty,Muted));style.Setters.Add(new Setter(Control.BackgroundProperty,Brushes.Transparent));style.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty,HorizontalAlignment.Stretch));
-        var template=new ControlTemplate(typeof(ListBoxItem));var border=new FrameworkElementFactory(typeof(Border),"selection");border.SetValue(Border.CornerRadiusProperty,new CornerRadius(10));border.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));border.SetValue(Border.BorderBrushProperty,Brushes.Transparent);border.SetValue(Border.BorderThicknessProperty,new Thickness(2));border.SetValue(Border.PaddingProperty,new TemplateBindingExtension(Control.PaddingProperty));var content=new FrameworkElementFactory(typeof(ContentPresenter));content.SetValue(ContentPresenter.ContentSourceProperty,"Content");border.AppendChild(content);template.VisualTree=border;
+        var template=new ControlTemplate(typeof(ListBoxItem));var border=new FrameworkElementFactory(typeof(Border),"selection");border.SetValue(Border.CornerRadiusProperty,new CornerRadius(3));border.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));border.SetValue(Border.BorderBrushProperty,Brushes.Transparent);border.SetValue(Border.BorderThicknessProperty,new Thickness(2));border.SetValue(Border.PaddingProperty,new TemplateBindingExtension(Control.PaddingProperty));var content=new FrameworkElementFactory(typeof(ContentPresenter));content.SetValue(ContentPresenter.ContentSourceProperty,"Content");border.AppendChild(content);template.VisualTree=border;
         var focus=new Trigger{Property=UIElement.IsKeyboardFocusWithinProperty,Value=true};focus.Setters.Add(new Setter(Border.BorderBrushProperty,new Binding("Foreground"){RelativeSource=RelativeSource.TemplatedParent},"selection"));focus.Setters.Add(new Setter(Border.BorderThicknessProperty,new Thickness(2),"selection"));template.Triggers.Add(focus);style.Setters.Add(new Setter(Control.TemplateProperty,template));
         var hover=new Trigger{Property=UIElement.IsMouseOverProperty,Value=true};hover.Setters.Add(Value(Control.BackgroundProperty,Surface));style.Triggers.Add(hover);
         var selected=new Trigger{Property=ListBoxItem.IsSelectedProperty,Value=true};selected.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));selected.Setters.Add(Value(Control.ForegroundProperty,SelectionText));selected.Setters.Add(new Setter(Control.FontWeightProperty,FontWeights.SemiBold));style.Triggers.Add(selected);return style;

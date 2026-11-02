@@ -7,7 +7,7 @@ using System.Windows.Threading;
 namespace KuaiYi.App;
 
 /// <summary>Exact retained source, displayed only on explicit expansion as inert native text.</summary>
-internal sealed class MarkdownSourceRegion:IDisposable
+internal sealed partial class MarkdownSourceRegion:IDisposable
 {
     private string? source;
     private Action? observeReader,changed;
@@ -26,12 +26,21 @@ internal sealed class MarkdownSourceRegion:IDisposable
     };
     public MarkdownSourceRegion(string source,Action? observeReader,Action? changed,Func<bool>? canRead,Func<Func<bool>>? captureReaderGuard=null)
     {
-        this.source=source;this.observeReader=observeReader;this.changed=changed;this.canRead=canRead;this.captureReaderGuard=captureReaderGuard;View.Content=Text;
+        this.source=source;this.observeReader=observeReader;this.changed=changed;this.canRead=canRead;this.captureReaderGuard=captureReaderGuard;View.Content=Text;SetupNativeCopy();
         System.Windows.Automation.AutomationProperties.SetName(View,"查看所示版本原文");
         System.Windows.Automation.AutomationProperties.SetName(Text,"所示版本原文（未经格式渲染）");
         View.Expanded+=Expanded;View.Collapsed+=Collapsed;
         Text.PreviewMouseWheel+=Wheel;Text.PreviewMouseDown+=MouseDown;Text.PreviewMouseMove+=MouseMove;Text.PreviewKeyDown+=KeyDown;
         Text.PreviewTouchDown+=Touch;Text.PreviewTouchMove+=Touch;scrollHandler=Scroll;Text.AddHandler(ScrollBar.ScrollEvent,scrollHandler,true);
+    }
+    partial void SetupNativeCopy();
+    partial void UpdateNativeDetails(string? details);
+    internal void SetDetails(string? details)=>UpdateNativeDetails(details);
+    internal bool CopyOriginal(Action<string> write)
+    {
+        if(disposed||source is not {} value||canRead?.Invoke()==false)return false;
+        write(value); // One explicit write; failures propagate, and no automatic retry occurs.
+        return !disposed&&source==value&&canRead?.Invoke()!=false;
     }
     public bool Matches(string value)=>source==value;
     public void Constrain(double width,double height,double size,Brush foreground)
@@ -81,7 +90,7 @@ internal sealed class MarkdownSourceRegion:IDisposable
     public void Dispose()
     {
         if(disposed)return;disposed=true;revealRevision++;source=null;observeReader=changed=null;canRead=null;
-        View.Expanded-=Expanded;View.Collapsed-=Collapsed;View.IsExpanded=false;
+        UpdateNativeDetails(null);View.Expanded-=Expanded;View.Collapsed-=Collapsed;View.IsExpanded=false;
         Text.PreviewMouseWheel-=Wheel;Text.PreviewMouseDown-=MouseDown;Text.PreviewMouseMove-=MouseMove;Text.PreviewKeyDown-=KeyDown;
         Text.PreviewTouchDown-=Touch;Text.PreviewTouchMove-=Touch;Text.RemoveHandler(ScrollBar.ScrollEvent,scrollHandler);
         Text.Clear();Text.Select(0,0);Text.ScrollToHorizontalOffset(0);Text.ScrollToVerticalOffset(0);View.Content=null;

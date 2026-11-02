@@ -14,16 +14,15 @@ internal sealed partial class SettingsWindow
         DesktopTheme.Install(this,()=>theme.SelectedItem is ThemePreference selected?selected:draft.Data.Overlay.Theme,forms:true);
         var rail=new Border{BorderThickness=new Thickness(0,0,1,0),Padding=new Thickness(16,24,16,20)};DesktopTheme.Bind(rail,Border.BackgroundProperty,DesktopTheme.Rail);DesktopTheme.Bind(rail,Border.BorderBrushProperty,DesktopTheme.Stroke);
         var sidebar=new Grid();sidebar.RowDefinitions.Add(new(){Height=GridLength.Auto});sidebar.RowDefinitions.Add(new(){Height=new GridLength(1,GridUnitType.Star)});sidebar.RowDefinitions.Add(new(){Height=GridLength.Auto});rail.Child=sidebar;
-        var brand=new StackPanel{Margin=new Thickness(4,0,0,24)};Grid.SetRow(brand,0);sidebar.Children.Add(brand);
-        var brandRow=new StackPanel{Orientation=Orientation.Horizontal};var mark=new Border{Width=32,Height=32,CornerRadius=new CornerRadius(10),Margin=new Thickness(0,0,10,0)};DesktopTheme.Bind(mark,Border.BackgroundProperty,DesktopTheme.Accent);var letter=new TextBlock{Text="译",FontSize=18,FontWeight=FontWeights.SemiBold,HorizontalAlignment=HorizontalAlignment.Center,VerticalAlignment=VerticalAlignment.Center};DesktopTheme.Bind(letter,TextBlock.ForegroundProperty,DesktopTheme.AccentText);mark.Child=letter;brandRow.Children.Add(mark);brandRow.Children.Add(new TextBlock{Text="快译",FontSize=22,FontWeight=FontWeights.SemiBold,VerticalAlignment=VerticalAlignment.Center});brand.Children.Add(brandRow);
-        var brandNote=new TextBlock{Text="让理解自然发生",FontSize=11,Margin=new Thickness(0,10,0,0)};DesktopTheme.Bind(brandNote,TextBlock.ForegroundProperty,DesktopTheme.Muted);brand.Children.Add(brandNote);
+        var brand=new StackPanel{Margin=new Thickness(4,0,0,16)};Grid.SetRow(brand,0);sidebar.Children.Add(brand);
+        brand.Children.Add(new TextBlock{Text="快译设置",FontSize=16,FontWeight=FontWeights.SemiBold});
         var quietCorner=new StackPanel{Margin=new Thickness(4,12,4,0)};Grid.SetRow(quietCorner,2);sidebar.Children.Add(quietCorner);
         var privacy=new TextBlock{Text="默认 Off（未启用）\n启用后可自动发送选区\n保存设置本身不发送内容",FontSize=11,TextWrapping=TextWrapping.Wrap,LineHeight=18,Margin=new Thickness(0,8,0,0)};DesktopTheme.Bind(privacy,TextBlock.ForegroundProperty,DesktopTheme.Muted);quietCorner.Children.Add(privacy);
         navigation=new SettingsNavigationListBox{ItemsSource=PageTitles,BorderThickness=new Thickness(0),Background=System.Windows.Media.Brushes.Transparent,Padding=new Thickness(0),ItemContainerStyle=(Style)Resources[DesktopTheme.NavigationItem],ItemTemplate=DesktopTheme.NavigationTemplate()};AutomationProperties.SetName(navigation,"设置分类");Grid.SetRow(navigation,1);sidebar.Children.Add(navigation);
         var pageContent=new StackPanel();
-        var header=new StackPanel();var headingRegion=new Border{Child=header,Padding=new Thickness(0,0,0,22),Margin=new Thickness(0,0,0,22),BorderThickness=new Thickness(0,0,0,1)};DesktopTheme.Bind(headingRegion,Border.BorderBrushProperty,DesktopTheme.Stroke);pageContent.Children.Add(headingRegion);
-        pageIndex=new TextBlock{Text="偏好设置  /  01",FontSize=11,FontWeight=FontWeights.SemiBold,Margin=new Thickness(0,0,0,8)};DesktopTheme.Bind(pageIndex,TextBlock.ForegroundProperty,DesktopTheme.Accent);header.Children.Add(pageIndex);
-        pageHeading=new TextBlock{Text=PageTitles[0],FontSize=28,FontWeight=FontWeights.SemiBold,TextWrapping=TextWrapping.Wrap};header.Children.Add(pageHeading);pageDescription=new TextBlock{Text=PageDescriptions[0],FontSize=13,TextWrapping=TextWrapping.Wrap,LineHeight=21,Margin=new Thickness(0,8,0,0)};DesktopTheme.Bind(pageDescription,TextBlock.ForegroundProperty,DesktopTheme.Muted);header.Children.Add(pageDescription);
+        var header=new StackPanel();var headingRegion=new Border{Child=header,Padding=new Thickness(0,0,0,16),Margin=new Thickness(0,0,0,16),BorderThickness=new Thickness(0,0,0,1)};DesktopTheme.Bind(headingRegion,Border.BorderBrushProperty,DesktopTheme.Stroke);pageContent.Children.Add(headingRegion);
+        pageIndex=new TextBlock{Visibility=Visibility.Collapsed,Text="偏好设置  /  01",FontSize=11,FontWeight=FontWeights.SemiBold,Margin=new Thickness(0,0,0,8)};DesktopTheme.Bind(pageIndex,TextBlock.ForegroundProperty,DesktopTheme.Accent);header.Children.Add(pageIndex);
+        pageHeading=new TextBlock{Text=PageTitles[0],FontSize=22,FontWeight=FontWeights.SemiBold,TextWrapping=TextWrapping.Wrap};header.Children.Add(pageHeading);pageDescription=new TextBlock{Text=PageDescriptions[0],FontSize=13,TextWrapping=TextWrapping.Wrap,LineHeight=21,Margin=new Thickness(0,8,0,0)};DesktopTheme.Bind(pageDescription,TextBlock.ForegroundProperty,DesktopTheme.Muted);header.Children.Add(pageDescription);
         SetupSettingsSearch(header,navigation);
         body.Margin=new Thickness(0);body.VerticalAlignment=VerticalAlignment.Top;
         foreach(var page in pages)
@@ -32,9 +31,9 @@ internal sealed partial class SettingsWindow
         }
         pageContent.Children.Add(body);
         var main=new ScrollViewer{Content=pageContent,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled};DesktopTheme.Bind(main,Control.BackgroundProperty,DesktopTheme.Surface);
-        var footer=new Border{BorderThickness=new Thickness(0,1,0,0),Padding=new Thickness(16,10,16,14)};DesktopTheme.Bind(footer,Border.BackgroundProperty,DesktopTheme.Surface);DesktopTheme.Bind(footer,Border.BorderBrushProperty,DesktopTheme.Stroke);
+        var footer=new Border{BorderThickness=new Thickness(0,1,0,0),Padding=new Thickness(24,10,24,12)};DesktopTheme.Bind(footer,Border.BackgroundProperty,DesktopTheme.Surface);DesktopTheme.Bind(footer,Border.BorderBrushProperty,DesktopTheme.Stroke);
         var bottom=new StackPanel();footer.Child=bottom;
-        var feedback=new Border{CornerRadius=new CornerRadius(8),Padding=new Thickness(12,9,12,9),Margin=new Thickness(0,0,0,10),Child=status,BorderThickness=new Thickness(1)};DesktopTheme.Bind(feedback,Border.BackgroundProperty,DesktopTheme.Canvas);DesktopTheme.Bind(feedback,Border.BorderBrushProperty,DesktopTheme.Stroke);status.Margin=new Thickness(0);status.FontSize=12;status.LineHeight=19;DesktopTheme.Bind(status,TextBlock.ForegroundProperty,DesktopTheme.Text);AutomationProperties.SetName(status,"设置状态");AutomationProperties.SetLiveSetting(status,AutomationLiveSetting.Polite);bottom.Children.Add(feedback);
+        var feedback=new Border{Padding=new Thickness(0,0,0,8),Margin=new Thickness(0,0,0,10),Child=status,BorderThickness=new Thickness(0)};DesktopTheme.Bind(feedback,Border.BackgroundProperty,DesktopTheme.Canvas);DesktopTheme.Bind(feedback,Border.BorderBrushProperty,DesktopTheme.Stroke);status.Margin=new Thickness(0);status.FontSize=12;status.LineHeight=19;DesktopTheme.Bind(status,TextBlock.ForegroundProperty,DesktopTheme.Text);AutomationProperties.SetName(status,"设置状态");AutomationProperties.SetLiveSetting(status,AutomationLiveSetting.Polite);bottom.Children.Add(feedback);
         var actions=new WrapPanel{HorizontalAlignment=HorizontalAlignment.Right};bottom.Children.Add(actions);SetupDiagnosticEntry(actions);
         actions.Children.Add(recovery);actions.Children.Add(cancel);actions.Children.Add(save);save.Content="保存更改";save.Style=(Style)Resources[DesktopTheme.PrimaryButton];AutomationProperties.SetName(save,"保存设置更改");AutomationProperties.SetName(cancel,"取消设置更改");
         var footerScroll=new ScrollViewer{Content=footer,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled};
@@ -49,7 +48,7 @@ internal sealed partial class SettingsWindow
         Content=viewport;
         CompactStyle(brand,root,VisibilityProperty,Visibility.Visible,Visibility.Collapsed);
         CompactStyle(quietCorner,root,VisibilityProperty,Visibility.Visible,Visibility.Collapsed);
-        CompactStyle(pageContent,root,MarginProperty,new Thickness(32,30,32,24),new Thickness(16,20,16,20));
+        CompactStyle(pageContent,root,MarginProperty,new Thickness(24),new Thickness(16,20,16,20));
         CompactStyle(rail,root,Border.PaddingProperty,new Thickness(16,24,16,20),new Thickness(8,4,8,4));
         // Style setters must own these properties, rather than being shadowed by local values.
         rail.ClearValue(Border.PaddingProperty);

@@ -10,5 +10,9 @@ internal sealed partial class ShellWindow
     internal void SelectCopyVersionForTest(Guid id)=>SelectResultVersion(id);
     internal void ExitCopyForTest()=>exiting=true;
     internal void AddCopyToolForTest()=>tools.Add(new(){Tag="复制",Content="复制"});
+    private void ScheduleCopyFeedbackReset()=>CopyResetSchedules++;
+    internal int CopyResetSchedules {get;private set;}
+    internal void ExpireCopyForTest()=>ExpireCopyFeedback();
+    internal object? CopyToolLabel=>tools.Single(t=>Equals(t.Tag,"复制")).Content;
     internal bool CopyToolEnabled=>tools.Single(tool=>Equals(tool.Tag,"复制")).IsEnabled;
 }

@@ -64,6 +64,7 @@ internal sealed partial class MarkdownFlowView
         // Manual folding wins on a retained version. Explicit expansion does not travel across source switches.
         foreach(var id in textSourceChoices.Keys.Where(id=>!retained.Contains(id)||textSourceChoices[id]&&id!=selectedVersion).ToArray())textSourceChoices.Remove(id);
     }
+    internal void SetSourceDetails(Guid? version,string? details){if(sourceVersion==version)sourceRegion?.SetDetails(details);}
     public void SetSource(Guid? version,string? source,bool? expanded=null,bool initialExpanded=false)
     {
         if(version==null||source==null){ClearSource();return;}
@@ -189,7 +190,7 @@ internal sealed partial class MarkdownFlowView
         for(int i=styleStart;i<elements.Count;i++)
         {
             var data=applied[i];Block element=elements[i];
-            double size=data.Kind==MarkdownBlockKind.Heading?fontSize*(1.6-.1*data.Level):fontSize;
+            double size=data.Kind==MarkdownBlockKind.Heading?fontSize*(16d/15):fontSize;
             element.FontSize=size;element.LineHeight=size*1.55;
             element.FontWeight=data.Kind==MarkdownBlockKind.Heading?FontWeights.SemiBold:FontWeights.Normal;
             element.FontFamily=data.Kind==MarkdownBlockKind.Code?CodeFont:ProseFont;

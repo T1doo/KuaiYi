@@ -1,0 +1,27 @@
+VSTest version 18.7.0 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:02.64]     KuaiYi.Provider.Tests.DesktopPaletteTests.InteractiveTintKeepsPrimarySecondaryAndToolbarTextReadable(dark: False) [FAIL]
+[xUnit.net 00:00:02.65]     KuaiYi.Provider.Tests.DesktopPaletteTests.InteractiveTintKeepsPrimarySecondaryAndToolbarTextReadable(dark: True) [FAIL]
+  Failed KuaiYi.Provider.Tests.DesktopPaletteTests.InteractiveTintKeepsPrimarySecondaryAndToolbarTextReadable(dark: False) [8 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DesktopPaletteTests.InteractiveTintKeepsPrimarySecondaryAndToolbarTextReadable(Boolean dark) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DesktopPaletteTests.cs:line 23
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed KuaiYi.Provider.Tests.DesktopPaletteTests.InteractiveTintKeepsPrimarySecondaryAndToolbarTextReadable(dark: True) [< 1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DesktopPaletteTests.InteractiveTintKeepsPrimarySecondaryAndToolbarTextReadable(Boolean dark) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DesktopPaletteTests.cs:line 23
+   at InvokeStub_DesktopPaletteTests.InteractiveTintKeepsPrimarySecondaryAndToolbarTextReadable(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+Results File: /workspace/kuaiyi-validation/results/frontend-r01.trx
+
+Failed!  - Failed:     2, Passed:   169, Skipped:     0, Total:   171, Duration: 1 s - KuaiYi.Provider.Tests.dll (net10.0)

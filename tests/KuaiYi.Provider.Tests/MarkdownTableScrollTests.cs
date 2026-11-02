@@ -46,7 +46,7 @@ public sealed class MarkdownTableScrollTests
     public void ActualMeasureBridgeSharesFiniteTableConstraintsForDpiAndLabel(double dpi,bool label)
     {
         var w=Window();Begin(w,Source);w.RenderMarkdown();w.MarkdownMeasurement.DesiredSize=new(222,77);Assert.Equal(77,w.MeasureMarkdownForTest(Plan(dpi),label));w.RenderMarkdown();
-        double height=560-(label?20:0);Assert.Equal(new Size(388,height),w.MarkdownMeasurement.LastMeasure);
+        double height=560-(label?28:0);Assert.Equal(new Size(388,height),w.MarkdownMeasurement.LastMeasure);
         foreach(var host in new[]{w.MarkdownBody,w.MarkdownMeasurement}){Assert.Equal(388,host.Width);Assert.Equal(height,host.MaxHeight);Assert.Equal(371,Region(host).Width);Assert.Equal(320,Region(host).MaxHeight);Assert.True(double.IsFinite(Region(host).Document.PageWidth));}
     }
     [Theory][InlineData(1,1)][InlineData(50,80)][InlineData(200,240)]

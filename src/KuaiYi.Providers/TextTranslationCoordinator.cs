@@ -116,7 +116,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         catch(Exception error)when(error is ArgumentException or SettingsValidationException){return Reject("PROFILE_INVALID");}
     }
     private TextTranslationOffer? Reject(string reason){LastRejection=reason;return null;}
-    public TextTranslationOffer? PrepareRegeneration(bool useCurrentSettings=false)
+    public TextTranslationOffer? PrepareRegeneration(bool useCurrentSettings=false,bool useSessionStyle=true)
     {
         LastRejection=null;offered=null;
         if(disposed||clearing||SelectedSnapshot is not {} snapshot)return Reject("NO_RETAINED_SOURCE");
@@ -128,7 +128,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         }
         if(!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket)||!Eligible(snapshot,true))return Reject("REGENERATION_NOT_ELIGIBLE");
         var version=Results.Versions.First(v=>v.Identity.VersionId==Results.SelectedVersionId);
-        return offered=new(RegenerationSnapshot(snapshot,SessionStyle),ticket,true,version.Identity.SessionId,Results.NextVersionNumber(version.Identity.SessionId));
+        return offered=new(RegenerationSnapshot(snapshot,useSessionStyle?SessionStyle:null),ticket,true,version.Identity.SessionId,Results.NextVersionNumber(version.Identity.SessionId));
     }
     public TextSubmission Submit(TextTranslationOffer offer,bool confirmed=false)
     {

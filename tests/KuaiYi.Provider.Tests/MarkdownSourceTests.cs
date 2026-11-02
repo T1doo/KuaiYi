@@ -8,6 +8,16 @@ namespace KuaiYi.Provider.Tests;
 
 public sealed class MarkdownSourceTests
 {
+    [Fact]public void ExplicitOriginalCopyKeepsRawBytesAndRejectsRevokedReadingWithoutRetry()
+    {
+        const string raw="  PUBLIC 原文\r\n<script>inert</script>😀";bool allowed=true;
+        using var source=new MarkdownSourceRegion(raw,null,null,()=>allowed);var writes=new List<string>();
+        Assert.True(source.CopyOriginal(writes.Add));Assert.Equal(raw,Assert.Single(writes));
+        allowed=false;Assert.False(source.CopyOriginal(writes.Add));Assert.Single(writes);
+        allowed=true;Assert.Throws<InvalidOperationException>(()=>source.CopyOriginal(_=>throw new InvalidOperationException("synthetic clipboard failure")));
+        Assert.Single(writes);Assert.True(source.Matches(raw));
+        Assert.False(source.CopyOriginal(_=>allowed=false)); // A completed write cannot advertise stale success.
+    }
     private static Expander Source(RichTextBox host)=>Assert.IsType<Expander>(Assert.IsType<BlockUIContainer>(host.Document.Blocks[^1]).Child);
     private static TextBox Text(Expander source)=>Assert.IsType<TextBox>(source.Content);
     private static void Drain(ShellWindow w){for(int i=0;i<4&&w.FlushPending;i++)w.TickForTest();Assert.False(w.FlushPending);}

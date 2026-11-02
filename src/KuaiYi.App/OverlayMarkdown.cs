@@ -51,6 +51,8 @@ internal sealed partial class ShellWindow
             bool show=bound!=null&&ReferenceEquals(bound,selection.Text)&&bound.Source.SourceKind!=SelectionSourceKind.OcrOnly&&bound.Settings.Data.Overlay.ShowSource;
             bodyMarkdown.SetSource(selection.VersionId,source,initialExpanded:show);
             measurementMarkdown.SetSource(selection.VersionId,source,bodyMarkdown.SourceExpanded);
+            string? details=bound==null?null:$"来源 {SourceLabel(bound)} · {bound.Profile.Model}\n发送域名 {new EndpointOrigin(bound.Transport.ResolveEndpoint()).Value}";
+            bodyMarkdown.SetSourceDetails(selection.VersionId,details);measurementMarkdown.SetSourceDetails(selection.VersionId,details);
         }
         if(current?.Invoke()==false)return;markdown.Update(selection.VersionId,LocalImagePreview?"":overlayResults.Text,LocalImagePreview||selected?.Complete==true||selected?.Stopped==true);
         double size=lifecycle.Settings?.Data.Overlay.FontSizeDip??15;

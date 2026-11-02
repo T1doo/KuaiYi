@@ -101,4 +101,23 @@ public sealed class OverlayCopyTests
         w.MarkdownGate.Disable();w.CopyResultForTest();Assert.Equal(2,w.ClipboardWrites.Count);Assert.Contains("已复制",w.ResultLabel);
         w.MarkdownResults.Clear();w.RefreshLabelForTest();Assert.Empty(w.ResultLabel);
     }
+    [Fact]public async Task ChangingCopyDisplayTextKeepsCommandEligibilityAndResetsWithoutAnotherWrite()
+    {
+        var w=Window();w.AddCopyToolForTest();var id=await Begin(w,"PUBLIC copy result");
+        Assert.True(await w.ReceivePresentationAsync(id,new(OverlayResultEventKind.Complete)));
+        w.CopyResultForTest();Assert.Equal("已复制",w.CopyToolLabel);Assert.Equal(1,w.CopyResetSchedules);
+        w.MarkdownGate.SetSuspension(Suspension.Capture,true);w.RefreshLabelForTest();
+        Assert.False(w.CopyToolEnabled);Assert.Equal("复制",w.CopyToolLabel);
+        w.MarkdownGate.SetSuspension(Suspension.Capture,false);w.RefreshLabelForTest();Assert.True(w.CopyToolEnabled);
+        w.CopyResultForTest();Assert.Equal("已复制",w.CopyToolLabel);
+        w.ExpireCopyForTest();Assert.Equal("复制",w.CopyToolLabel);Assert.DoesNotContain("已复制",w.ResultLabel);
+        Assert.Equal(2,w.ClipboardWrites.Count); // Timer expiry never retries the native write.
+    }
+    [Fact]public async Task AnOlderSuccessTimerCannotEraseANewerUnconfirmedCopy()
+    {
+        var w=Window();w.AddCopyToolForTest();await Begin(w,"PUBLIC content");w.CopyResultForTest();
+        w.ClipboardWriteForTest=_=>throw new InvalidOperationException("synthetic write failure");w.CopyResultForTest();
+        Assert.Equal("未确认",w.CopyToolLabel);w.ExpireCopyForTest();
+        Assert.Equal("未确认",w.CopyToolLabel);Assert.Contains("复制未确认",w.ResultLabel);Assert.Equal(2,w.ClipboardWrites.Count);
+    }
 }

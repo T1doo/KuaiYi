@@ -108,7 +108,7 @@ namespace KuaiYi.Provider.Tests
             var body=First(window.MarkdownBody);var measurement=First(window.MarkdownMeasurement);var span=body.Inlines[0];var tail=window.MarkdownBody.Document.Blocks[^1];
             Assert.True(window.MarkdownResults.Append(identity,"*"));window.RenderMarkdown();
             Assert.Same(body,First(window.MarkdownBody));Assert.Same(measurement,First(window.MarkdownMeasurement));Assert.Same(span,First(window.MarkdownBody).Inlines[0]);Assert.NotSame(tail,window.MarkdownBody.Document.Blocks[^1]);
-            window.MarkdownSize(20);window.RenderMarkdown();Assert.Same(body,First(window.MarkdownBody));Assert.Equal(30,body.FontSize);Assert.Equal(30,measurement.FontSize);Assert.Equal(20,window.MarkdownBody.Document.FontSize);
+            window.MarkdownSize(20);window.RenderMarkdown();Assert.Same(body,First(window.MarkdownBody));Assert.Equal(20d*16/15,body.FontSize,6);Assert.Equal(20d*16/15,measurement.FontSize,6);Assert.Equal(20,window.MarkdownBody.Document.FontSize);
         }
         [Fact]public void ActualMeasureOnlyBridgeDoesNotReplaceVisibleBodyUntilFlush()
         {

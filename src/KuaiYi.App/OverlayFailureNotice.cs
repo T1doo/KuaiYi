@@ -20,12 +20,12 @@ internal sealed partial class ShellWindow
             return inspectedFailureVersion==overlayResults.SelectedVersionId?selected??overlayResults.LastFailure:overlayResults.LastFailure??selected;
         }
     }
-    private double FailureNoticeHeight=>FailureNoticeVersion==null?0:32;
+    private double FailureNoticeHeight=>FailureNoticeVersion==null?0:48;
     private void RefreshFailureNotice()
     {
         var failed=FailureNoticeVersion;if(failed==null)inspectedFailureVersion=null;
         string text=failed==null?"":FailureSummary(failed);
-        failureNotice.Content=failed==null?"":overlayResults.SelectedVersionId==failed.Identity.VersionId?$"未完成 · {ShortFailureLabel(failed.Failure!.Value)} · 状态/恢复":"新尝试未完成 · 正文为旧结果 · 查看";
+        failureNotice.Content=failed==null?"":overlayResults.SelectedVersionId==failed.Identity.VersionId?$"未完成 · {ShortFailureLabel(failed.Failure!.Value)}\n查看原因与恢复选项":"新尝试未完成 · 正文为旧结果\n查看原因与恢复选项";
         failureNotice.ToolTip=text;System.Windows.Automation.AutomationProperties.SetName(failureNotice,text);
     }
     private string FailureSummary(CachedOverlayVersion failed)

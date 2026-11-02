@@ -19,8 +19,10 @@ internal sealed partial class SettingsWindow
     private readonly Button testConnection=new(){Content="测试文字连接（固定公开内容）",Margin=new Thickness(0,8,0,4)},testVision=new(){Content="测试视觉能力（仅本机 fixture）",Margin=new Thickness(0,4,0,4)},stopTest=new(){Content="停止本次测试",IsEnabled=false};
     private readonly TextBox testResult=new(){IsReadOnly=true,TextWrapping=TextWrapping.Wrap,MaxHeight=180,VerticalScrollBarVisibility=ScrollBarVisibility.Auto};
     private Task apiTestTask=Task.CompletedTask;private readonly StringBuilder testText=new();private bool testClosePending;
+    private Expander? apiAdvanced;
     private void SetupApiAdvanced(Panel page)
     {
+        var outer=page;var fields=new StackPanel();apiAdvanced=new Expander{Header="高级请求选项",Content=fields,Margin=new Thickness(0,16,0,0)};outer.Children.Add(apiAdvanced);page=fields;
         Section(page,"高级请求选项");var presets=new WrapPanel();page.Children.Add(presets);
         foreach(var pair in new[]{("OpenAI 官方预设",Protocol.OpenAIChat),("Anthropic 官方预设",Protocol.AnthropicMessages)})
         {var button=new Button{Content=pair.Item1,Margin=new Thickness(4)};presets.Children.Add(button);button.Click+=(_,_)=>ApplyApiPreset(pair.Item2);}
@@ -29,7 +31,7 @@ internal sealed partial class SettingsWindow
         Section(page,"服务能力","未知能力不会视为已支持。");Field(page,"流式能力",streamCapability);Field(page,"图像能力",visionCapability);Field(page,"温度能力",temperatureCapability);Field(page,"结构化 JSON 能力",jsonCapability);Field(page,"流式用量能力",usageCapability);
         Note(page,"Unknown=未知，Supported=已确认支持，Unsupported=不支持。更改协议、模型或地址会重置能力。温度仅在明确支持时发送；图像能力未知不会作为已支持。");
         Section(page,"请求头与传输选项");Field(page,"自定义认证头名（仅 CustomHeader；值使用上面的加密 API Key）",authHeader);Field(page,"非敏感自定义头（每行 Name: value；凭据只能用加密认证字段）",headers);
-        page.Children.Add(localHttp);page.Children.Add(insecureHttp);page.Children.Add(storeFalse);Section(page,"连接测试","只有明确确认后，才发送固定公开样本。");page.Children.Add(testConnection);page.Children.Add(testVision);page.Children.Add(stopTest);page.Children.Add(testResult);
+        page.Children.Add(localHttp);page.Children.Add(insecureHttp);page.Children.Add(storeFalse);Section(outer,"连接测试","只有明确确认后，才发送固定公开样本；服务可能产生费用。");outer.Children.Add(testConnection);outer.Children.Add(testVision);outer.Children.Add(stopTest);outer.Children.Add(testResult);
         foreach(var checkbox in new[]{localHttp,insecureHttp,storeFalse})checkbox.Click+=(_,_)=>{apiTests?.Cancel();PreviewEndpoint();};
         endpointPath.TextChanged+=(_,_)=>ApiIdentityEdited();headers.TextChanged+=(_,_)=>{if(!loading)apiTests?.Cancel();};authentication.SelectionChanged+=(_,_)=>{if(!loading)apiTests?.Cancel();};
         // Every request-affecting edit revokes the test, including keyboard toggles and masked credential edits.

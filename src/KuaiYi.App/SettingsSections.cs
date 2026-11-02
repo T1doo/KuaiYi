@@ -11,23 +11,23 @@ internal sealed partial class SettingsWindow
         var section=new StackPanel();
         section.Children.Add(new TextBlock{Text=title,FontSize=16,FontWeight=FontWeights.SemiBold,TextWrapping=TextWrapping.Wrap});
         if(description!=null){var caption=new TextBlock{Text=description,FontSize=12,TextWrapping=TextWrapping.Wrap,LineHeight=20,Margin=new Thickness(0,6,0,0)};DesktopTheme.Bind(caption,TextBlock.ForegroundProperty,DesktopTheme.Muted);section.Children.Add(caption);}
-        var band=new Border{Child=section,Padding=new Thickness(0,0,0,12),BorderThickness=new Thickness(0,0,0,1),Margin=new Thickness(0,panel.Children.Count==0?0:30,0,4)};
+        var band=new Border{Child=section,Padding=new Thickness(0,0,0,12),BorderThickness=new Thickness(0,0,0,1),Margin=new Thickness(0,panel.Children.Count==0?0:22,0,4)};
         DesktopTheme.Bind(band,Border.BorderBrushProperty,DesktopTheme.Stroke);panel.Children.Add(band);
     }
-    private static void PreferenceRow(Panel panel,string title,string description,FrameworkElement input)
+    private void PreferenceRow(Panel panel,string title,string description,FrameworkElement input)
     {
         var labels=new StackPanel();var label=new TextBlock{Text=title,FontWeight=FontWeights.Medium,TextWrapping=TextWrapping.Wrap};labels.Children.Add(label);
         var detail=new TextBlock{Text=description,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,4,0,0)};DesktopTheme.Bind(detail,TextBlock.ForegroundProperty,DesktopTheme.Muted);labels.Children.Add(detail);
         // The panel supplies a preferred width; a hard MinWidth would defeat stacking.
         input.MinWidth=0;input.VerticalAlignment=VerticalAlignment.Center;AutomationProperties.SetLabeledBy(input,label);AutomationProperties.SetHelpText(input,description);
-        var row=new Border{Child=new PreferencePanel(labels,input),Padding=new Thickness(14,13,14,13),CornerRadius=new CornerRadius(12),Margin=new Thickness(0,10,0,0)};
-        DesktopTheme.Bind(row,Border.BackgroundProperty,DesktopTheme.Canvas);panel.Children.Add(row);
+        var row=new Border{Child=new PreferencePanel(labels,input),Padding=new Thickness(0,10,0,10),BorderThickness=new Thickness(0,0,0,1),Margin=new Thickness(0)};
+        DesktopTheme.Bind(row,Border.BorderBrushProperty,DesktopTheme.Stroke);panel.Children.Add(row);RegisterFieldIssue(panel,input);
     }
     private static Border Information(string title,string description)
     {
-        var content=new StackPanel();var heading=new TextBlock{Text=title,FontSize=14,FontWeight=FontWeights.SemiBold,TextWrapping=TextWrapping.Wrap};DesktopTheme.Bind(heading,TextBlock.ForegroundProperty,DesktopTheme.SelectionText);content.Children.Add(heading);
-        var detail=new TextBlock{Text=description,FontSize=12,LineHeight=20,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,6,0,0)};DesktopTheme.Bind(detail,TextBlock.ForegroundProperty,DesktopTheme.SelectionText);content.Children.Add(detail);
-        var card=new Border{Padding=new Thickness(16),CornerRadius=new CornerRadius(12),Child=content,Margin=new Thickness(0,0,0,8)};DesktopTheme.Bind(card,Border.BackgroundProperty,DesktopTheme.AccentSoft);return card;
+        var content=new StackPanel();var heading=new TextBlock{Text=title,FontSize=14,FontWeight=FontWeights.SemiBold,TextWrapping=TextWrapping.Wrap};DesktopTheme.Bind(heading,TextBlock.ForegroundProperty,DesktopTheme.Text);content.Children.Add(heading);
+        var detail=new TextBlock{Text=description,FontSize=12,LineHeight=20,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,6,0,0)};DesktopTheme.Bind(detail,TextBlock.ForegroundProperty,DesktopTheme.Text);content.Children.Add(detail);
+        var card=new Border{Padding=new Thickness(0,8,0,12),BorderThickness=new Thickness(0,0,0,1),Child=content,Margin=new Thickness(0,0,0,8)};DesktopTheme.Bind(card,Border.BorderBrushProperty,DesktopTheme.Stroke);return card;
     }
     private void AddProfileEmptyState(Panel panel)
     {

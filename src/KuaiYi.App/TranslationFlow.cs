@@ -65,16 +65,22 @@ internal sealed partial class ShellWindow
     {
         if(lifecycle.Gate.Snapshot.Activation!=Activation.On){button.ToolTip="启用后可重新生成";return;}
         if(SelectedSource.Image!=null||SelectedSource.Generation!=null){RegenerateImageResult(currentSettings);return;}
-        var offer=translation?.PrepareRegeneration(currentSettings);
+        var offer=translation?.PrepareRegeneration(currentSettings,useSessionStyle:false);
         if(offer==null){button.ToolTip="无法重新生成 · "+(translation?.LastRejection??"无保留原文");return;}
         SubmitTranslation(offer);
+    }
+    private void RegenerateUsingNextOptions()
+    {
+        if(lifecycle.Gate.Snapshot.Activation!=Activation.On||SelectedSource.Text==null)return;
+        var offer=translation?.PrepareRegeneration(useSessionStyle:true);
+        if(offer!=null)SubmitTranslation(offer);
     }
     private string RegenerationMenuLabel(bool currentSettings=false)
     {
         string action=currentSettings?"按当前设置重新翻译":"重新生成";
         if(SelectedSource.Generation is {} image)return $"{action} · 此版本图片 {image.Number} · {StyleLabel(currentSettings?lifecycle.Settings?.Data.Translation.Preset:SelectedImageRegenerationPreview?.Preset??imageTranslation?.PresetForVersion(SelectedSource.VersionId!.Value))}";
         var next=SelectedNextGeneration;
-        return next==null?action:$"{action} · 版本 {next.VersionNumber} · {StyleLabel(currentSettings?lifecycle.Settings?.Data.Translation.Preset:next.Preset)}";
+        return next==null?action:$"{action} · 版本 {next.VersionNumber} · {StyleLabel(currentSettings?lifecycle.Settings?.Data.Translation.Preset:SelectedSource.Text?.Preset)}";
     }
     private void AddSessionStyleMenu(ContextMenu menu)
     {
@@ -87,6 +93,7 @@ internal sealed partial class ShellWindow
             System.Windows.Automation.AutomationProperties.SetName(item,$"本会话风格：{StyleLabel(preset)}");item.Click+=(_,_)=>{if(translation?.SetSessionStyle(preset)==true){RefreshResultLabel();button.ToolTip=$"下次生成使用{StyleLabel(preset)}；本会话已有版本保留原风格";}};styles.Items.Add(item);
         }
         styles.Items.Add(new Separator());var original=new MenuItem{Header="沿用所示版本风格",IsEnabled=translation?.SessionStyle!=null};original.Click+=(_,_)=>{if(translation?.SetSessionStyle(null)==true)RefreshResultLabel();};styles.Items.Add(original);menu.Items.Add(styles);
+        var generate=new MenuItem{Header="按下次选项生成",IsEnabled=next!=null&&lifecycle.Gate.Snapshot.Activation==Activation.On};generate.Click+=(_,_)=>RegenerateUsingNextOptions();menu.Items.Add(generate);
     }
     private async Task StopTranslation()
     {

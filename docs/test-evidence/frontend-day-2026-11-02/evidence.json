@@ -1,0 +1,132 @@
+{
+  "base": "2a15c0ee7d057a468859f58ee603b5d24a2877da",
+  "branch": "dev/frontend-day-20261102",
+  "main_document_commit": "80a726afc101035ec051dc004445743288ffa613",
+  "installed_sdk": "10.0.401",
+  "required_sdk": "10.0.402",
+  "canonical_build": "NotRun - pinned SDK unavailable; no lock changed or large SDK fetched",
+  "supplementary_app_build": {
+    "log": "build-app-final.log",
+    "exit": 0,
+    "warnings": 0,
+    "errors": 0,
+    "windows_execution": false
+  },
+  "provider_build": {
+    "log": "build-provider-signoff.log",
+    "exit": 0,
+    "warnings": 0,
+    "errors": 0,
+    "project_references": "Previously built; final build uses --no-restore -p:BuildProjectReferences=false"
+  },
+  "final_filter": "FrontendControlEdgeTests | DesktopPaletteTests | OverlayCopyTests | OverlayStopFlowTests | SettingsLayoutTests | MarkdownSourceTests | SessionStyleTests | OverlayPresentationTests | OverlayClearContentTests | OverlayDiagnosticTerminalTests | MarkdownProductionBridgeTests | MarkdownCodeScrollTests | MarkdownTableScrollTests | MarkdownTailFollowTests",
+  "test_command": "TMPDIR=/workspace/kf1102 timeout 90 dotnet vstest <Provider.Tests.dll> --TestCaseFilter:<final_filter> --Logger:trx --ResultsDirectory:<owned results>",
+  "rounds": [
+    {
+      "file": "frontend-r01.trx",
+      "counters": {
+        "total": "171",
+        "executed": "171",
+        "passed": "169",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "failed": [
+        "KuaiYi.Provider.Tests.DesktopPaletteTests.InteractiveTintKeepsPrimarySecondaryAndToolbarTextReadable(dark: False)",
+        "KuaiYi.Provider.Tests.DesktopPaletteTests.InteractiveTintKeepsPrimarySecondaryAndToolbarTextReadable(dark: True)"
+      ],
+      "sha256": "f56dd7e05e9d1d87f55506a496f159c33c0b187627e64227daad0c84c7e5187a"
+    },
+    {
+      "file": "frontend-final.trx",
+      "counters": {
+        "total": "340",
+        "executed": "340",
+        "passed": "337",
+        "failed": "3",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "failed": [
+        "KuaiYi.Provider.Tests.MarkdownCodeScrollTests.ActualMeasureBridgeUsesTheSameFinitePlanConstraintsForBothHosts(dpi: 1.5, label: True)",
+        "KuaiYi.Provider.Tests.MarkdownTableScrollTests.ActualMeasureBridgeSharesFiniteTableConstraintsForDpiAndLabel(dpi: 1.5, label: True)",
+        "KuaiYi.Provider.Tests.MarkdownProductionBridgeTests.ActualViewPreservesStableNativeBlocksAndUpdatesBothFontsWhenPreferenceChanges"
+      ],
+      "sha256": "97a7472057a3e164193f31203ad5b67a21eb1d834c5221c258ffa6216784d471"
+    },
+    {
+      "file": "frontend-r03.trx",
+      "counters": {
+        "total": "340",
+        "executed": "340",
+        "passed": "340",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "failed": [],
+      "sha256": "cfcfa04fc17e2ea57f2c9328903abcf98f23ef545605b5a0e69f52cb4f8720d9"
+    }
+  ],
+  "final_340_names_equal_previous_340_names": true,
+  "input_count": 560,
+  "input_manifest_sha256": "d8a7d21f51fbd467d3897b31da1e8d265b014f1bf5230a57fbd00bcc7adedd9f",
+  "input_mismatches_after_test": [],
+  "artifacts": {
+    "src/KuaiYi.App/bin/Debug/net10.0-windows/win-x64/KuaiYi.App.dll": {
+      "bytes": 727552,
+      "sha256": "fb53547882da1a07be768127a44a85e5c97551c569cfa2b56e48c1999585d049"
+    },
+    "src/KuaiYi.Providers/bin/Debug/net10.0/KuaiYi.Providers.dll": {
+      "bytes": 197632,
+      "sha256": "6aeac5b0c88272c0cac339b25c07c39e6cc5239ab72fbec65f146461a89758c7"
+    },
+    "src/KuaiYi.Core/bin/Debug/net10.0/KuaiYi.Core.dll": {
+      "bytes": 1451520,
+      "sha256": "274f02794f92695c36e4e08368dcb3e65b21c798c201a9be6224b74459e8c487"
+    },
+    "tests/KuaiYi.Provider.Tests/bin/Debug/net10.0/KuaiYi.Provider.Tests.dll": {
+      "bytes": 3040256,
+      "sha256": "1c4db4e2d48049fff972e566e69d24d057d2cfe0925b2eda788fdb48e5fe2438"
+    }
+  },
+  "native_acceptance": "All FE01-FE18 remain Blocked/NotRun; no native screenshots; Linux ports and local Mock are not WPF proof",
+  "unimplemented": [
+    "Independent 200% text scale and control-edge reflow not completed"
+  ],
+  "independent_review": "Pending parent/source review; no independent native sign-off claimed",
+  "core_23": "NotRun; inherited diagnostic balance upper bound 622.532 seconds retained",
+  "ci": "No workflow mutation or matching branch; no CI dispatched; original cumulative budget not reset",
+  "resource_deviation": "Fresh Provider package restore expanded cache to about 611 MiB. Retired only this task-owned Win32 cache (409589222 bytes) after recognizing inherited headroom violation; no protected originals removed. See resource-correction.json. No further downloads or packaging."
+}

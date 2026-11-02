@@ -77,6 +77,24 @@ public sealed class SessionStyleTests(ServerFixture fixture):IClassFixture<Serve
         await rig.Regenerate();Assert.Equal(TranslationPreset.Plain,rig.Flow.SelectedSnapshot!.Preset);Assert.Equal(old.Profile,rig.Flow.SelectedSnapshot.Profile);Assert.Equal("PUBLIC_DOMAIN",rig.Flow.SelectedSnapshot.Settings.Data.Translation.Domain);
         await rig.Regenerate(true);Assert.Equal(TranslationPreset.Explain,rig.Flow.SelectedSnapshot!.Preset);Assert.Equal("PUBLIC_NEW_MODEL",rig.Flow.SelectedSnapshot.Profile.Model);Assert.Equal(456,rig.Flow.SelectedSnapshot.Transport.MaxOutputTokens);Assert.Equal("NEW_DOMAIN",rig.Flow.SelectedSnapshot.Settings.Data.Translation.Domain);Assert.Contains(Constraint,rig.Flow.SelectedSnapshot.Prompt);Assert.Equal(TranslationPreset.Faithful,old.Preset);Assert.Equal(TranslationPreset.Explain,rig.Settings.Data.Translation.Preset);
     }
+    [Fact] public async Task FrontendOrdinaryRegenerationUsesShownSnapshotWhileExplicitNextUsesPendingStyle()
+    {
+        await using var rig=new Rig(fixture.BaseUri);await rig.Start();var original=rig.Flow.SelectedSnapshot!;
+        Assert.True(rig.Flow.SetSessionStyle(TranslationPreset.Plain));
+        rig.Change(s=>s with{Translation=s.Translation with{Preset=TranslationPreset.Explain}});
+        Assert.Single(await Requests(rig)); // Both edits are local and keep the original snapshot.
+        var ordinary=rig.Flow.PrepareRegeneration(useSessionStyle:false)!;
+        Assert.Equal(TranslationPreset.Faithful,ordinary.Snapshot.Preset);Assert.Same(original.Profile,ordinary.Snapshot.Profile);
+        Assert.Equal(TextSubmission.Started,rig.Flow.Submit(ordinary));await rig.Flow.Running;
+        Assert.Equal(TranslationPreset.Plain,rig.Flow.SessionStyle);Assert.Equal(2,(await Requests(rig)).Length);
+        var pending=rig.Flow.PrepareRegeneration(useSessionStyle:true)!;
+        Assert.Equal(TranslationPreset.Plain,pending.Snapshot.Preset);Assert.Equal(original.Transport,pending.Snapshot.Transport);
+        Assert.Equal(TextSubmission.Started,rig.Flow.Submit(pending));await rig.Flow.Running;
+        var current=rig.Flow.PrepareRegeneration(useCurrentSettings:true,useSessionStyle:false)!;
+        Assert.Equal(TranslationPreset.Explain,current.Snapshot.Preset);
+        Assert.Equal(3,(await Requests(rig)).Length); // Preparing global settings does not send it.
+        Assert.Equal(TranslationPreset.Faithful,original.Preset);
+    }
     [Fact] public async Task SwitchingInvalidatesPendingRegenerationConfirmationWithoutSending()
     {
         await using var rig=new Rig(fixture.BaseUri);var original=rig.Flow.Prepare(rig.Source(new string('a',12001)))!;Assert.Equal(TextSubmission.Started,rig.Flow.Submit(original,true));await rig.Flow.Running;var pending=rig.Flow.PrepareRegeneration()!;Assert.Equal(TextSubmission.ConfirmationRequired,rig.Flow.Submit(pending));Assert.True(rig.Flow.SetSessionStyle(TranslationPreset.Professional));Assert.Equal(TextSubmission.Rejected,rig.Flow.Submit(pending,true));Assert.Single(await Requests(rig));Assert.Equal(TranslationPreset.Faithful,rig.Flow.SelectedSnapshot!.Preset);

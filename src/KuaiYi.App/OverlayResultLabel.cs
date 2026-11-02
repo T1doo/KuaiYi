@@ -28,23 +28,28 @@ internal sealed partial class ShellWindow
         var next=SelectedNextGeneration;var screenshotPreset=SelectedScreenshotPreset;var imageNext=SelectedImageRegenerationPreview;
         if(styleTool!=null)
         {
-            var nextStyle=screenshotPreset??imageNext?.Preset??next?.Preset;styleTool.IsEnabled=nextStyle!=null;
-            styleTool.Content=nextStyle switch{TranslationPreset.Faithful=>"忠实",TranslationPreset.Plain=>"通俗",TranslationPreset.Professional=>"专业",TranslationPreset.Explain=>"解释",_=>"风格"};
-            System.Windows.Automation.AutomationProperties.SetName(styleTool,screenshotPreset is {} style?$"本次图片风格：{StyleLabel(style)}":imageNext!=null?$"下次图片文字风格：{StyleLabel(imageNext.Preset)}":next==null?"会话风格":$"下次生成风格：{StyleLabel(next.Preset)}");
+            var actualStyle=selection.Generation is {} actualImage?actualImage.Plan?.Preset??imageTranslation?.PresetForVersion(selection.VersionId!.Value)??actualImage.Settings.Data.Translation.Preset:snapshot?.Preset??screenshotPreset;
+            styleTool.IsEnabled=next!=null||imageNext!=null||screenshotPreset!=null;
+            styleTool.Content=actualStyle switch{TranslationPreset.Faithful=>"忠实 ⌄",TranslationPreset.Plain=>"通俗 ⌄",TranslationPreset.Professional=>"专业 ⌄",TranslationPreset.Explain=>"解释 ⌄",_=>"风格 ⌄"};
+            System.Windows.Automation.AutomationProperties.SetName(styleTool,actualStyle is {} used?$"本版风格：{StyleLabel(used)}；选择下次生成选项":"会话风格");
             styleTool.ToolTip=screenshotPreset is {} imageStyle?$"本次图片文字风格：{StyleLabel(imageStyle)}；按图文解释使用解释风格":imageNext!=null?$"下次图片：版本 {imageNext.VersionNumber} · {StyleLabel(imageNext.Preset)}；仅调整下次文字风格，图文解释仍用解释风格。"+(ImageRegenerationQualified?"":"重新生成尚未开放。"):next==null?"无保留会话":$"下次生成：版本 {next.VersionNumber} · {StyleLabel(next.Preset)}；不改变已有版本";
         }
-        foreach(var tool in tools)if(Equals(tool.Content,"重新生成")){tool.IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&(snapshot!=null||CanRegenerateImage);tool.ToolTip=selection.Generation!=null&&!ImageRegenerationQualified?ImageRegenerationQualificationNotice:next==null?"无保留原文":$"重新生成：版本 {next.VersionNumber} · {StyleLabel(next.Preset)} · {next.Model}";}
-        foreach(var tool in tools)if(Equals(tool.Content,"复制"))tool.IsEnabled=CopyVersion()!=null;
-        foreach(var tool in tools)if(Equals(tool.Tag,"翻译截图")||Equals(tool.Content,"翻译截图")){tool.Content=selection.Image is {Kind:not KuaiYi.Imaging.ImageSourceKind.Screenshot}?"翻译图片":"翻译截图";tool.IsEnabled=CanTranslateScreenshot;System.Windows.Automation.AutomationProperties.SetName(tool,tool.Content.ToString()!);tool.ToolTip=tool.Content.ToString();}
-        foreach(var tool in tools)if(Equals(tool.Content,"查看原文"))tool.IsEnabled=CanReadOriginalSource()&&selection.HasSource;
+        foreach(var tool in tools)if(Equals(tool.Tag,"重新生成")){tool.IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&(snapshot!=null||CanRegenerateImage);tool.ToolTip=selection.Generation!=null&&!ImageRegenerationQualified?ImageRegenerationQualificationNotice:next==null?"无保留原文":$"重新生成：版本 {next.VersionNumber} · {StyleLabel(snapshot?.Preset)} · {next.Model}；沿本版快照；会话待选项仅影响“按下次选项生成”";}
+        foreach(var tool in tools)if(Equals(tool.Tag,"复制"))tool.IsEnabled=CopyVersion()!=null;
+        foreach(var tool in tools)if(Equals(tool.Tag,"翻译截图")){tool.Content=selection.Image is {Kind:not KuaiYi.Imaging.ImageSourceKind.Screenshot}?"翻译图片":"翻译截图";tool.IsEnabled=CanTranslateScreenshot;System.Windows.Automation.AutomationProperties.SetName(tool,tool.Content.ToString()!);tool.ToolTip=tool.Content.ToString();}
+        foreach(var tool in tools)if(Equals(tool.Tag,"查看原文"))tool.IsEnabled=CanReadOriginalSource()&&selection.HasSource;
+        // Compact footer retains the complete provenance and reported usage in its disclosure.
+        if(resultLabel.Text.Length>0)resultLabel.ToolTip=resultLabel.Text+"\n"+resultLabel.ToolTip;
+        if(!LocalImagePreview&&selected!=null)resultLabel.Text=$"{state} · {(snapshot==null?"图片":SourceLabel(snapshot))} · 仅内存"+(snapshot?.Source.SourceKind==SelectionSourceKind.OcrOnly?" · 图形关系未分析":"");
+        versionsTool.Content=selected==null?"本地图片":$"版本 {selected.Number} / {overlayResults.Versions.Count} ⌄";
+        versionsTool.IsEnabled=overlayResults.Versions.Count>0||LocalImagePreview;
         RefreshCopyFeedback();
     }
     private string VersionMenuLabel(CachedOverlayVersion version)
     {
         var image=imageTranslation?.SnapshotForVersion(version.Identity.VersionId);
-        var ocr=translation?.SnapshotForVersion(version.Identity.VersionId)?.Source.Ocr;
-        string counts=image==null?UsageLabel(version.Usage):ScreenshotUsageLabel(image);
-        return $"{OcrSourcePrefix(ocr)}{(image?.SourceKind==KuaiYi.Imaging.ImageSourceKind.Browser?"浏览器图片 · ":"")}{(ocr?.UsedFirstFrame==true?"使用首帧 · ":"")}{(image?.SourceKind==KuaiYi.Imaging.ImageSourceKind.Bitmap?"投放位图 · ":image?.SourceKind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"文件图片 · ":"")}{(image?.SourceNotice is {} frameNote?frameNote+" · ":"")}{(overlayResults.Identity is {} current&&current.SessionId!=version.Identity.SessionId?"另一来源 · ":"")}版本 {version.Number} · {StyleLabel(image?.Plan?.Preset??imageTranslation?.PresetForVersion(version.Identity.VersionId)??translation?.SnapshotForVersion(version.Identity.VersionId)?.Preset)} · {(version.Failure is {} reason?"未完成 · "+FailureLabel(reason):version.Complete?"完成":version.Stopped?"已停止":"生成中")}\n服务端报告 · {counts}"+(image?.Plan?.Notice is {Length:>0} note?"\n"+note:"")+(version.Failure!=null?"\n"+FailureSummary(version):"");
+        string? model=translation?.SnapshotForVersion(version.Identity.VersionId)?.Profile.Model??image?.Profile.Model;
+        return $"版本 {version.Number} · {(version.Failure!=null?"失败":version.Complete?"已完成":version.Stopped?"已停止":"生成中")}\n{StyleLabel(image?.Plan?.Preset??imageTranslation?.PresetForVersion(version.Identity.VersionId)??translation?.SnapshotForVersion(version.Identity.VersionId)?.Preset)} · {model??"模型未知"}";
     }
     private static string ScreenshotUsageLabel(ScreenshotGenerationSnapshot value)=>$"分类：输入 {UsageCount(value.ClassificationUsage?.Tokens.InputTokens)} / 输出 {UsageCount(value.ClassificationUsage?.Tokens.OutputTokens)} token\n生成：输入 {UsageCount(value.GenerationUsage?.Tokens.InputTokens)} / 输出 {UsageCount(value.GenerationUsage?.Tokens.OutputTokens)} token";
     private static string UsageLabel(TranslationUsage? value)=>$"输入 token：{UsageCount(value?.InputTokens)} · 输出 token：{UsageCount(value?.OutputTokens)}";
