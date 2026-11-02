@@ -23,7 +23,7 @@ public static class NativeTextScale
             hr=WindowsCreateString(runtimeClass,(uint)runtimeClass.Length,out name);if(hr<0)return new(1,false,hr);
             hr=RoActivateInstance(name,out instance);if(hr<0||instance==0)return new(1,false,hr);
             var iid=new Guid("bad82401-2721-44f9-bb91-2bb228be442f");
-            hr=Marshal.QueryInterface(instance,ref iid,out settings);if(hr<0||settings==0)return new(1,false,hr);
+            hr=Marshal.QueryInterface(instance,in iid,out settings);if(hr<0||settings==0)return new(1,false,hr);
             // IInspectable = IUnknown's 3 entries + GetIids/GetRuntimeClassName/GetTrustLevel.
             nint getter=Marshal.ReadIntPtr(Marshal.ReadIntPtr(settings),6*IntPtr.Size);
             hr=Marshal.GetDelegateForFunctionPointer<ReadScale>(getter)(settings,out double factor);

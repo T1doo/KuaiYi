@@ -1,0 +1,297 @@
+{
+  "tested_commit": "60bed19e69351ae31c8c3924ea7514db468a0384",
+  "status": "Fail",
+  "installed_sdk": "10.0.401",
+  "required_sdk": "10.0.402",
+  "attempts": 1,
+  "retry": false,
+  "restore_executed": false,
+  "download_command_executed": false,
+  "source_input_count": 563,
+  "source_preflight_mismatches": [],
+  "source_postflight_mismatches": [],
+  "unchanged_reference_source_count": 87,
+  "unchanged_reference_source_mismatches": [],
+  "dependency_hash_mismatches": [],
+  "assets_hash_mismatches": [],
+  "app_build": {
+    "exit_code": 1,
+    "error": "CS9191",
+    "file": "src/KuaiYi.Windows/NativeTextScale.cs",
+    "line": 26,
+    "elapsed_msbuild_seconds": 29.61,
+    "elapsed_owned_stage_seconds": 30.001493879999543,
+    "stop_reason": "Compiler failure; serial fail-stop applied"
+  },
+  "provider_build": "NotRun",
+  "tests": {
+    "executed": 0,
+    "new_cases": "8 NotRun",
+    "prior_340": "Historical for 80dcecd only"
+  },
+  "execution_elapsed_seconds": 30.30105317900052,
+  "started_utc": "2026-11-02T11:50:34.186881+00:00",
+  "finished_utc": "2026-11-02T11:51:04.487860+00:00",
+  "core_recompiled_before_failure": {
+    "sha256": "1c6807c46b3959ad192713ea8142b4232454711660e420bcff26eddbc79900e7",
+    "previous_sha256": "274f02794f92695c36e4e08368dcb3e65b21c798c201a9be6224b74459e8c487",
+    "mtime_ns": 1793620246321323030
+  },
+  "budget": {
+    "incremental_logical_bytes": 134217728,
+    "early_stop_bytes": 100663296,
+    "overall_deadline_seconds": 120,
+    "kill_grace_seconds": 2,
+    "attempts": 1
+  },
+  "accounting": {
+    "baseline_logical_bytes": 524252920,
+    "final_logical_bytes": 524581639,
+    "sampled_peak_positive_growth_bytes": 520716,
+    "sampled_peak_net_growth_bytes": 371577,
+    "sampled_peak_net_allocated_growth_bytes": 356352,
+    "positive_path_high_water_bytes": 520716,
+    "sample_count": 116,
+    "maximum_sampling_gap_seconds": 0.9856844409987389,
+    "old_budget_refund_bytes": 0
+  },
+  "post_accounting": {
+    "within_run_sampled_peak_positive_path_growth_bytes": 520716,
+    "within_run_sampled_peak_net_growth_bytes": 371577,
+    "final_receipt_and_inventory_bytes": 288321,
+    "post_accounting_self_bytes": 1914,
+    "conservative_observed_growth_charge_bytes": 810951,
+    "unused_single_pass_cap_bytes_no_reuse_authorized": 133406777
+  },
+  "baseline_scopes": [
+    {
+      "scope": "validation-output-and-packages",
+      "baseline_file_count": 798,
+      "baseline_logical_bytes": 228625490,
+      "final_sample_file_count": 800,
+      "final_sample_logical_bytes": 228919793
+    },
+    {
+      "scope": "cli-home-and-http-cache",
+      "baseline_file_count": 48,
+      "baseline_logical_bytes": 140682776,
+      "final_sample_file_count": 48,
+      "final_sample_logical_bytes": 140682776
+    },
+    {
+      "scope": "platform-temp-readable-regular-files",
+      "baseline_file_count": 114,
+      "baseline_logical_bytes": 66478,
+      "final_sample_file_count": 114,
+      "final_sample_logical_bytes": 66478
+    },
+    {
+      "scope": "owned-test-temp",
+      "baseline_file_count": 0,
+      "baseline_logical_bytes": 0,
+      "final_sample_file_count": 0,
+      "final_sample_logical_bytes": 0
+    },
+    {
+      "scope": "repo/src/KuaiYi.Core/bin",
+      "baseline_file_count": 3,
+      "baseline_logical_bytes": 1792485,
+      "final_sample_file_count": 3,
+      "final_sample_logical_bytes": 1797709
+    },
+    {
+      "scope": "repo/src/KuaiYi.Core/obj",
+      "baseline_file_count": 18,
+      "baseline_logical_bytes": 2491671,
+      "final_sample_file_count": 18,
+      "final_sample_logical_bytes": 2499967
+    },
+    {
+      "scope": "repo/src/KuaiYi.Providers/bin",
+      "baseline_file_count": 5,
+      "baseline_logical_bytes": 2042847,
+      "final_sample_file_count": 5,
+      "final_sample_logical_bytes": 2048071
+    },
+    {
+      "scope": "repo/src/KuaiYi.Providers/obj",
+      "baseline_file_count": 20,
+      "baseline_logical_bytes": 428006,
+      "final_sample_file_count": 20,
+      "final_sample_logical_bytes": 428006
+    },
+    {
+      "scope": "repo/src/KuaiYi.Contracts/bin",
+      "baseline_file_count": 3,
+      "baseline_logical_bytes": 90192,
+      "final_sample_file_count": 3,
+      "final_sample_logical_bytes": 90192
+    },
+    {
+      "scope": "repo/src/KuaiYi.Contracts/obj",
+      "baseline_file_count": 18,
+      "baseline_logical_bytes": 188510,
+      "final_sample_file_count": 18,
+      "final_sample_logical_bytes": 188510
+    },
+    {
+      "scope": "repo/src/KuaiYi.Imaging/bin",
+      "baseline_file_count": 7,
+      "baseline_logical_bytes": 2224612,
+      "final_sample_file_count": 7,
+      "final_sample_logical_bytes": 2229836
+    },
+    {
+      "scope": "repo/src/KuaiYi.Imaging/obj",
+      "baseline_file_count": 20,
+      "baseline_logical_bytes": 601094,
+      "final_sample_file_count": 20,
+      "final_sample_logical_bytes": 601094
+    },
+    {
+      "scope": "repo/src/KuaiYi.NativeHost/bin",
+      "baseline_file_count": 11,
+      "baseline_logical_bytes": 2682500,
+      "final_sample_file_count": 11,
+      "final_sample_logical_bytes": 2687724
+    },
+    {
+      "scope": "repo/src/KuaiYi.NativeHost/obj",
+      "baseline_file_count": 22,
+      "baseline_logical_bytes": 687744,
+      "final_sample_file_count": 22,
+      "final_sample_logical_bytes": 687744
+    },
+    {
+      "scope": "repo/src/KuaiYi.OleTransfer/bin",
+      "baseline_file_count": 7,
+      "baseline_logical_bytes": 1997000,
+      "final_sample_file_count": 7,
+      "final_sample_logical_bytes": 2002224
+    },
+    {
+      "scope": "repo/src/KuaiYi.OleTransfer/obj",
+      "baseline_file_count": 20,
+      "baseline_logical_bytes": 265142,
+      "final_sample_file_count": 20,
+      "final_sample_logical_bytes": 265142
+    },
+    {
+      "scope": "repo/src/KuaiYi.Windows/bin",
+      "baseline_file_count": 11,
+      "baseline_logical_bytes": 2486609,
+      "final_sample_file_count": 11,
+      "final_sample_logical_bytes": 2486609
+    },
+    {
+      "scope": "repo/src/KuaiYi.Windows/obj",
+      "baseline_file_count": 20,
+      "baseline_logical_bytes": 360096,
+      "final_sample_file_count": 20,
+      "final_sample_logical_bytes": 360096
+    },
+    {
+      "scope": "repo/src/KuaiYi.App/bin",
+      "baseline_file_count": 22,
+      "baseline_logical_bytes": 4298580,
+      "final_sample_file_count": 22,
+      "final_sample_logical_bytes": 4298580
+    },
+    {
+      "scope": "repo/src/KuaiYi.App/obj",
+      "baseline_file_count": 22,
+      "baseline_logical_bytes": 1582665,
+      "final_sample_file_count": 22,
+      "final_sample_logical_bytes": 1582665
+    },
+    {
+      "scope": "repo/tests/KuaiYi.Provider.Tests/bin",
+      "baseline_file_count": 106,
+      "baseline_logical_bytes": 12197128,
+      "final_sample_file_count": 106,
+      "final_sample_logical_bytes": 12197128
+    },
+    {
+      "scope": "repo/tests/KuaiYi.Provider.Tests/obj",
+      "baseline_file_count": 21,
+      "baseline_logical_bytes": 5614375,
+      "final_sample_file_count": 21,
+      "final_sample_logical_bytes": 5614375
+    },
+    {
+      "scope": "repo/src/KuaiYi.ImageWorker/bin",
+      "baseline_file_count": 16,
+      "baseline_logical_bytes": 112043037,
+      "final_sample_file_count": 16,
+      "final_sample_logical_bytes": 112043037
+    },
+    {
+      "scope": "repo/src/KuaiYi.ImageWorker/obj",
+      "baseline_file_count": 22,
+      "baseline_logical_bytes": 423925,
+      "final_sample_file_count": 22,
+      "final_sample_logical_bytes": 423925
+    },
+    {
+      "scope": "repo/tools/KuaiYi.MockProvider/bin",
+      "baseline_file_count": 6,
+      "baseline_logical_bytes": 144953,
+      "final_sample_file_count": 6,
+      "final_sample_logical_bytes": 144953
+    },
+    {
+      "scope": "repo/tools/KuaiYi.MockProvider/obj",
+      "baseline_file_count": 27,
+      "baseline_logical_bytes": 235005,
+      "final_sample_file_count": 27,
+      "final_sample_logical_bytes": 235005
+    }
+  ],
+  "owned_process_groups_remaining": {
+    "8367": []
+  },
+  "cleanup": "No files deleted; owned process group empty. Pre-existing zombie processes not touched.",
+  "old_account": {
+    "remaining_content_bytes": 0,
+    "known_excess_lower_bound_bytes": 112753763,
+    "core_remaining_seconds_upper_bound": 622.532,
+    "unchanged": true
+  },
+  "limits": [
+    "Polling is not a hard storage quota; between-sample peaks can be missed.",
+    "Only regular files in listed roots are counted. Unlinked-open files, unsampled transients, other paths, sockets, directory metadata and allocation peaks can be missed.",
+    "Per-path positive growth does not refund deletion or shrinking, but is not cumulative rewritten-byte traffic.",
+    "Original protected tree is not mounted; no new per-file hash verification of its 5894 files.",
+    "SDK401 and Linux test ports do not establish SDK402 or real Windows acceptance.",
+    "A platform-private temp directory denied OS enumeration; omitted without retry or alternate route. Private pathname not copied into this repository.",
+    "Final inventory/receipt writes were after the last in-run sample; post-accounting explicitly adds their bytes.",
+    "No wire-byte counter: unchanged cached files are not a measured network-traffic total."
+  ],
+  "raw_original_sha256": {
+    "receipt.json": "aad47e9842e7d987744729379149e91f457b23744bf7d7d4291dbcff7432c662",
+    "baseline.json": "1358043332d4b89f0299d57b96ea4de2a13f26bea8aa62b8a86ece2f3d8752f4",
+    "final-inventory.json": "a6c781e065cce9f2c30e9ed9bfd412558f1af9d0c72ad0ae4480404e543c1653",
+    "app.log": "799e84b9ad3f7168658ad9674f57f61d707b5e2f156c67ffa8b18c5b0688532d",
+    "post-accounting.json": "c89a482c6c0c9a1104e2a84899b74739da81c04259f7f072e6ca0098cf2ba316"
+  },
+  "raw_supervisor_sha256": "f9a78d870db71f40b7117c58b95717b520f509e61369b71f0b3160971b5d50d6",
+  "sanitized_app_log_sha256": "1e32ff7f4e332c50d97d5aaeb29480c0aa64789621d7daf6fadd8072121416b2",
+  "after_failure_source_fix": {
+    "scope": "Only NativeTextScale QueryInterface argument modifier ref -> in",
+    "verification": "NotRun after fix; no remaining-time reuse or second pass",
+    "fixed_file_sha256": "937d93d2c8038fe671c6a9cfff14bcc2ff1cc013bba08ef2f9990bf66245f05a"
+  },
+  "formal_acceptance": {
+    "sdk402": "NotRun",
+    "windows": "NotRun",
+    "core23": "NotRun"
+  },
+  "independent_static_review": {
+    "reviewer": "readonly_frontend_review",
+    "conclusion": "Acceptable in limited static scope; compilation and Windows remain NotRun",
+    "product_diff": "One line: ref iid -> in iid",
+    "signature_scope": "IID, vtable slot 6 and out double unchanged",
+    "ownership_scope": "RoInitialize success including S_FALSE balanced; activation and QI references separately released; HSTRING released in finally. No normal-HRESULT-path imbalance found.",
+    "reviewer_executed_build_test_restore_download_or_denied_path_retry": false
+  }
+}
