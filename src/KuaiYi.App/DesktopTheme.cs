@@ -56,7 +56,7 @@ internal static class DesktopTheme
         window.UseLayoutRounding=true;window.SnapsToDevicePixels=true;
         if(forms)
         {
-            window.FontFamily=new FontFamily("Segoe UI");window.FontSize=Math.Max(13,SystemFonts.MessageFontSize);
+            window.FontFamily=new FontFamily("Segoe UI");window.FontSize=13;
             Bind(window,Control.BackgroundProperty,Canvas);Bind(window,Control.ForegroundProperty,Text);
             var wrappingText=new Style(typeof(AccessText));wrappingText.Setters.Add(new Setter(AccessText.TextWrappingProperty,TextWrapping.Wrap));window.Resources[typeof(AccessText)]=wrappingText;
             window.Resources[typeof(Button)]=ButtonStyle(SettingsUiMetrics.ControlRadius,SettingsUiMetrics.ControlHeight);
@@ -79,6 +79,7 @@ internal static class DesktopTheme
         foreach(var icon in Icons.Where(pair=>pair.Key is "设置" or "翻译截图" or "清除当前内容"))
         {var trigger=new Trigger{Property=FrameworkElement.TagProperty,Value=icon.Key};trigger.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(3,icon.Value)));tool.Triggers.Add(trigger);}
         window.Resources[ToolButton]=tool;var anchor=ButtonStyle(24,48);anchor.Setters.Add(Value(Control.ForegroundProperty,AccentText));window.Resources[AnchorButton]=anchor;
+        DesktopTextScale.Install(window,changedAppearance);
         bool closed=false;
         PropertyChangedEventHandler changed=(_,_)=>
         {
@@ -90,9 +91,23 @@ internal static class DesktopTheme
     }
     internal static void ApplyMenu(ContextMenu menu,FrameworkElement owner)
     {
+        menu.SetBinding(DesktopTextScale.FactorProperty,new Binding{Source=owner,Path=new PropertyPath(DesktopTextScale.FactorProperty)});DesktopTextScale.Font(menu,13);
+        var work=SystemParameters.WorkArea;
+        var window=Window.GetWindow(owner)??owner as Window;
+        nint handle=window==null?0:new System.Windows.Interop.WindowInteropHelper(window).Handle;
+        try
+        {
+            if(handle!=0&&KuaiYi.Windows.NativeDesktop.GetWindowRect(handle,out var bounds))
+            {var monitor=KuaiYi.Windows.NativeDesktop.MonitorAt(bounds.ToPixels().Center);work=new Rect(0,0,monitor.Dpi.Dips(monitor.WorkArea.Width),monitor.Dpi.Dips(monitor.WorkArea.Height));}
+        }
+        catch(Exception error)when(error is System.ComponentModel.Win32Exception or ArgumentException)
+        {System.Diagnostics.Trace.TraceWarning("KuaiYi menu monitor unavailable: "+error.GetType().Name);work=new Rect(0,0,Math.Min(320,work.Width),Math.Min(480,work.Height));}
+        menu.MaxWidth=Math.Max(48,Math.Min(520,work.Width-24));menu.MaxHeight=Math.Max(48,Math.Min(640,work.Height-24));
+        var header=new FrameworkElementFactory(typeof(TextBlock));header.SetBinding(TextBlock.TextProperty,new Binding());header.SetValue(TextBlock.TextWrappingProperty,TextWrapping.Wrap);header.SetValue(FrameworkElement.MaxWidthProperty,Math.Max(1,menu.MaxWidth-88));
+        var headerTemplate=new DataTemplate{VisualTree=header};
         foreach(var key in new[]{Canvas,Surface,Rail,Input,Text,Muted,Stroke,InputBorder,Accent,AccentText,AccentSoft,SelectionText,Error})menu.Resources[key]=owner.FindResource(key);
         Bind(menu,Control.BackgroundProperty,Surface);Bind(menu,Control.ForegroundProperty,Text);Bind(menu,Control.BorderBrushProperty,Stroke);menu.BorderThickness=new Thickness(1);menu.Padding=new Thickness(2);
-        var item=new Style(typeof(MenuItem));item.Setters.Add(Value(Control.ForegroundProperty,Text));item.Setters.Add(Value(Control.BackgroundProperty,Surface));item.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(8,5,8,5)));item.Setters.Add(new Setter(FrameworkElement.MinHeightProperty,28d));
+        var item=new Style(typeof(MenuItem));item.Setters.Add(new Setter(HeaderedItemsControl.HeaderTemplateProperty,headerTemplate));item.Setters.Add(Value(Control.ForegroundProperty,Text));item.Setters.Add(Value(Control.BackgroundProperty,Surface));item.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(8,5,8,5)));item.Setters.Add(new Setter(FrameworkElement.MinHeightProperty,28d));
         var highlight=new Trigger{Property=MenuItem.IsHighlightedProperty,Value=true};highlight.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));highlight.Setters.Add(Value(Control.ForegroundProperty,SelectionText));item.Triggers.Add(highlight);
         var disabled=new Trigger{Property=UIElement.IsEnabledProperty,Value=false};disabled.Setters.Add(Value(Control.ForegroundProperty,Muted));item.Triggers.Add(disabled);menu.Resources[typeof(MenuItem)]=item;
     }
@@ -114,9 +129,15 @@ internal static class DesktopTheme
         var scroll=new FrameworkElementFactory(typeof(ScrollViewer));scroll.SetValue(ScrollViewer.CanContentScrollProperty,true);scroll.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty,ScrollBarVisibility.Auto);scroll.SetBinding(FrameworkElement.MaxHeightProperty,new Binding(nameof(ComboBox.MaxDropDownHeight)){RelativeSource=RelativeSource.TemplatedParent});
         var items=new FrameworkElementFactory(typeof(ItemsPresenter));items.SetValue(KeyboardNavigation.DirectionalNavigationProperty,KeyboardNavigationMode.Contained);scroll.AppendChild(items);drop.AppendChild(scroll);popup.AppendChild(drop);root.AppendChild(popup);template.VisualTree=root;return template;
     }
+    internal static DataTemplate ChoiceWithChevron()
+    {
+        var row=new FrameworkElementFactory(typeof(DockPanel));
+        var arrow=new FrameworkElementFactory(typeof(Path));arrow.SetValue(DockPanel.DockProperty,Dock.Right);arrow.SetValue(FrameworkElement.WidthProperty,8d);arrow.SetValue(FrameworkElement.HeightProperty,4d);arrow.SetValue(FrameworkElement.MarginProperty,new Thickness(8,0,0,0));arrow.SetValue(FrameworkElement.VerticalAlignmentProperty,VerticalAlignment.Center);arrow.SetValue(Path.DataProperty,Geometry.Parse("M0 0 L4 4 L8 0"));arrow.SetValue(Path.StrokeThicknessProperty,1.5);arrow.SetBinding(Path.StrokeProperty,new Binding("Foreground"){RelativeSource=new RelativeSource(RelativeSourceMode.FindAncestor,typeof(Button),1)});row.AppendChild(arrow);
+        var label=new FrameworkElementFactory(typeof(TextBlock));label.SetBinding(TextBlock.TextProperty,new Binding());label.SetValue(FrameworkElement.VerticalAlignmentProperty,VerticalAlignment.Center);row.AppendChild(label);return new DataTemplate{VisualTree=row};
+    }
     internal static DataTemplate WrappingLabel()
     {
-        var text=new FrameworkElementFactory(typeof(TextBlock));text.SetBinding(TextBlock.TextProperty,new Binding());text.SetValue(TextBlock.TextWrappingProperty,TextWrapping.Wrap);text.SetValue(TextBlock.LineHeightProperty,18d);return new DataTemplate{VisualTree=text};
+        var text=new FrameworkElementFactory(typeof(TextBlock));text.SetBinding(TextBlock.TextProperty,new Binding());text.SetValue(TextBlock.TextWrappingProperty,TextWrapping.Wrap);text.SetBinding(TextBlock.LineHeightProperty,DesktopTextScale.Metric(18));return new DataTemplate{VisualTree=text};
     }
     private static Style ButtonStyle(double radius,double height)
     {

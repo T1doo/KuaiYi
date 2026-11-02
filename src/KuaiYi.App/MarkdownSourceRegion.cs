@@ -12,7 +12,8 @@ internal sealed partial class MarkdownSourceRegion:IDisposable
     private string? source;
     private Action? observeReader,changed;
     private Func<bool>? canRead;
-    private readonly Func<Func<bool>>? captureReaderGuard;
+    private readonly Func<Func<bool>>? captureReaderGuard,captureCopyGuard;
+    private long copyAttempt;
     private long revealRevision;
     private bool updating,disposed;
     private readonly ScrollEventHandler scrollHandler;
@@ -24,9 +25,9 @@ internal sealed partial class MarkdownSourceRegion:IDisposable
         BorderThickness=new Thickness(0),Padding=new Thickness(0),Background=Brushes.Transparent,ClipToBounds=true,
         FontFamily=new FontFamily("Segoe UI"),FontWeight=FontWeights.Normal,FontStyle=FontStyles.Normal
     };
-    public MarkdownSourceRegion(string source,Action? observeReader,Action? changed,Func<bool>? canRead,Func<Func<bool>>? captureReaderGuard=null)
+    public MarkdownSourceRegion(string source,Action? observeReader,Action? changed,Func<bool>? canRead,Func<Func<bool>>? captureReaderGuard=null,Func<Func<bool>>? captureCopyGuard=null)
     {
-        this.source=source;this.observeReader=observeReader;this.changed=changed;this.canRead=canRead;this.captureReaderGuard=captureReaderGuard;View.Content=Text;SetupNativeCopy();
+        this.source=source;this.observeReader=observeReader;this.changed=changed;this.canRead=canRead;this.captureReaderGuard=captureReaderGuard;this.captureCopyGuard=captureCopyGuard;View.Content=Text;SetupNativeCopy();
         System.Windows.Automation.AutomationProperties.SetName(View,"查看所示版本原文");
         System.Windows.Automation.AutomationProperties.SetName(Text,"所示版本原文（未经格式渲染）");
         View.Expanded+=Expanded;View.Collapsed+=Collapsed;
@@ -38,9 +39,10 @@ internal sealed partial class MarkdownSourceRegion:IDisposable
     internal void SetDetails(string? details)=>UpdateNativeDetails(details);
     internal bool CopyOriginal(Action<string> write)
     {
-        if(disposed||source is not {} value||canRead?.Invoke()==false)return false;
+        long attempt=++copyAttempt;var current=captureCopyGuard?.Invoke();
+        if(disposed||source is not {} value||canRead?.Invoke()==false||current?.Invoke()==false)return false;
         write(value); // One explicit write; failures propagate, and no automatic retry occurs.
-        return !disposed&&source==value&&canRead?.Invoke()!=false;
+        return attempt==copyAttempt&&!disposed&&source==value&&canRead?.Invoke()!=false&&current?.Invoke()!=false;
     }
     public bool Matches(string value)=>source==value;
     public void Constrain(double width,double height,double size,Brush foreground)

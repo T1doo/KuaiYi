@@ -8,6 +8,14 @@ namespace KuaiYi.Provider.Tests;
 
 public sealed class MarkdownSourceTests
 {
+    [Fact]public void OriginalCopyDoesNotConfirmAfterEpochRevocationAndRestoration()
+    {
+        long epoch=0;using var source=new MarkdownSourceRegion("PUBLIC original",null,null,()=>true,captureCopyGuard:()=>
+        {long captured=epoch;return ()=>captured==epoch;});
+        Assert.False(source.CopyOriginal(_=>{epoch++;epoch++;}));
+        Assert.True(source.CopyOriginal(_=>{}));
+        Assert.False(source.CopyOriginal(_=>Assert.True(source.CopyOriginal(_=>{}))));
+    }
     [Fact]public void ExplicitOriginalCopyKeepsRawBytesAndRejectsRevokedReadingWithoutRetry()
     {
         const string raw="  PUBLIC 原文\r\n<script>inert</script>😀";bool allowed=true;

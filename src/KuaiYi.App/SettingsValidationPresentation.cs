@@ -7,7 +7,15 @@ namespace KuaiYi.App;
 
 internal sealed partial class SettingsWindow
 {
-    private ListBox? settingsNavigation;
+    private ListBox? settingsNavigation;private string? validationProfileId;
+    private void ValidateProfileRows()
+    {
+        foreach(var profile in draft.Data.Profiles)
+        {
+            try{KuaiYi.Core.Settings.SettingsJson.Validate(new KuaiYi.Core.Settings.AppSettings{Profiles=[profile],ActiveProfileId=profile.Id});}
+            catch(KuaiYi.Core.Settings.SettingsValidationException){validationProfileId=profile.Id;throw;}
+        }
+    }
     private readonly Dictionary<FrameworkElement,TextBlock> fieldIssues=[];
     private void RegisterFieldIssue(Panel panel,FrameworkElement field)
     {
@@ -19,6 +27,11 @@ internal sealed partial class SettingsWindow
     {foreach(var issue in fieldIssues.Values){issue.Text="";issue.Visibility=Visibility.Collapsed;}}
     private void ShowValidationIssue(string field)
     {
+        if(validationProfileId is {} profileId&&draft.Data.Profiles.Any(p=>p.Id==profileId)&&selectedId!=profileId&&
+            (field.StartsWith("profile.",StringComparison.Ordinal)||field.StartsWith("settings.Profiles",StringComparison.Ordinal)))
+        {
+            bool wasLoading=loading;loading=true;try{selectedId=profileId;profiles.SelectedValue=profileId;}finally{loading=wasLoading;}LoadProfile();
+        }
         if(field.StartsWith("hotkeys:",StringComparison.Ordinal)&&hotkeyFields.TryGetValue(field.Split(':')[1],out var hotkey))
         {
             if(settingsNavigation!=null)settingsNavigation.SelectedIndex=4;
@@ -44,7 +57,7 @@ internal sealed partial class SettingsWindow
             "profile.imageByteLimit"=>(imageBytes,1,true),"profile.authenticationHeader" or "profile.duplicateAuthenticationHeader" or "profile.unusedAuthenticationHeader"=>(authHeader,1,true),
             "profile.headers" or "profile.duplicateHeader" or "profile.anthropicVersion"=>(headers,1,true),
             "profile.outputLimitParameter" or "profile.anthropicRequiresMaxTokens"=>(outputParameter,1,true),
-            "profile.httpConsent"=>(insecureHttp,1,true),
+            "profile.httpConsent"=>(Uri.TryCreate(url.Text,UriKind.Absolute,out var endpoint)&&endpoint.IsLoopback?localHttp:insecureHttp,1,true),
             "domain"=>(domain,2,false),"readerBackground"=>(background,2,false),"blockedApplications"=>(blocked,6,false),
             _ when field.StartsWith("translation.",StringComparison.Ordinal)=>(templateEditor,2,false),
             _=>(profiles,1,false)

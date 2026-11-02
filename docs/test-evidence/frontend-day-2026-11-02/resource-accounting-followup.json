@@ -1,0 +1,533 @@
+{
+  "as_of_utc": "2026-11-02T08:45:09.448437+00:00",
+  "head_commit": "80dcecd84f88cb245de662c26c5208f107482381",
+  "inflight_owned_commands": "No own build/test/restore/Windows commands in flight at resumption; one read-only reviewer only",
+  "frozen": {
+    "dependency_downloads": true,
+    "cache_downloads": true,
+    "sdk_downloads": true,
+    "test_build_or_restore_execution": true
+  },
+  "original_budget": {
+    "aggregate_content_allowance_bytes": 1342177280,
+    "protected_bytes": 918676127,
+    "inherited_content_headroom_bytes": 423501153,
+    "core_diagnostic_limit_seconds": 900,
+    "core_diagnostic_remaining_upper_bound_seconds": 622.532,
+    "selfcontained_packaging_gate_bytes": 7516192768
+  },
+  "completed_dependency_payloads": {
+    "distinct_archives": 17,
+    "archive_body_bytes_exact": 139440484,
+    "retained_metadata_body_bytes_exact": 814945,
+    "retained_http_body_bytes_exact": 140255429,
+    "library_docx_body_bytes": 4624153,
+    "wire_transfer_bytes": "Unknown: no pre-transfer proxy counter or complete HTTP attempt log was captured. Cache size proves completed distinct bodies, not transfer attempts, headers, TLS, compression or retries. Git fetch transfer bytes also unknown.",
+    "download_cap": "No separate numeric network-download cap was recorded; the inherited numeric cap is content/storage, not a network-byte allowance. Do not subtract archive transfer bytes from the content budget.",
+    "attribution_limit": "No pre-restore HTTP-cache file inventory was captured. Retained complete response bodies and mtimes do not prove that every byte crossed the network in this task; restore/cache reuse and retries cannot be separated retrospectively. These are exact retained-body sizes, not a claimed exact newly downloaded byte total."
+  },
+  "archives_and_metadata": [
+    {
+      "name": "list_microsoft.codecoverage.dat",
+      "bytes": 3609,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:09:42.650947+00:00",
+      "sha256": "f15970ef3fbbd4dc4895fb6e490299dca0999556eb910b7702d0ec00b63643a8",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_microsoft.net.test.sdk.dat",
+      "bytes": 4933,
+      "allocated_bytes": 8192,
+      "mtime_utc": "2026-11-02T08:09:42.406949+00:00",
+      "sha256": "79223636d8395de759e9ea2b820ca282b2f7245c37e52ffc5d1ae8606fdf7c1b",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_microsoft.netcore.app.host.win-x64.dat",
+      "bytes": 5094,
+      "allocated_bytes": 8192,
+      "mtime_utc": "2026-11-02T08:07:08.464324+00:00",
+      "sha256": "6fbb4f18bf9cee78d04b270de53e3edd3e7a736092ca5dbc3867c26f37b2776c",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_microsoft.testplatform.objectmodel.dat",
+      "bytes": 5188,
+      "allocated_bytes": 8192,
+      "mtime_utc": "2026-11-02T08:09:43.350940+00:00",
+      "sha256": "812478b10b91c0fcac43a7e5c8848e6023397694b842cd110a67d017c3f9d7c2",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_microsoft.testplatform.testhost.dat",
+      "bytes": 5208,
+      "allocated_bytes": 8192,
+      "mtime_utc": "2026-11-02T08:09:42.738946+00:00",
+      "sha256": "85d1d083db0ee7f4030e40a758b8204747f07c2ee78c332d7355d922296954ef",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_microsoft.windowsdesktop.app.ref.dat",
+      "bytes": 4296,
+      "allocated_bytes": 8192,
+      "mtime_utc": "2026-11-02T08:07:06.668340+00:00",
+      "sha256": "6d433bb25976dd2b9737c9ed07f707f30d5728b8112719ead06ef32b2d4d7fb3",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_skiasharp.dat",
+      "bytes": 4323,
+      "allocated_bytes": 8192,
+      "mtime_utc": "2026-11-02T08:09:37.702991+00:00",
+      "sha256": "f193a77b921c954feba901520a4ffb9991a2732bfe7b036472c5881bde93d21c",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_skiasharp.nativeassets.macos.dat",
+      "bytes": 2641,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:09:37.634992+00:00",
+      "sha256": "2a62025653e2d10470c087abdf7877d11df4b596b83d00d2d13f632c2860ec2c",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_skiasharp.nativeassets.win32.dat",
+      "bytes": 2641,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:09:37.522993+00:00",
+      "sha256": "2a62025653e2d10470c087abdf7877d11df4b596b83d00d2d13f632c2860ec2c",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_xunit.abstractions.dat",
+      "bytes": 905,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:09:43.578938+00:00",
+      "sha256": "0d59d0eed538a4cf08e8001daec828cf1fa61a0ce7e0677096ccfd7e2a6f20e6",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_xunit.analyzers.dat",
+      "bytes": 1022,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:09:42.674946+00:00",
+      "sha256": "82a5fb0905a7dee1a666abb71ffb721a115c1f8250b7b3ee767aa613bb639173",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_xunit.assert.dat",
+      "bytes": 2070,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:09:42.770946+00:00",
+      "sha256": "afe6ad5b8feed65ddb3b91116cc2c38d552d2b3cb04fcffc0511f8762dca830c",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_xunit.core.dat",
+      "bytes": 2070,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:09:42.702946+00:00",
+      "sha256": "afe6ad5b8feed65ddb3b91116cc2c38d552d2b3cb04fcffc0511f8762dca830c",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_xunit.dat",
+      "bytes": 2564,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:09:42.346949+00:00",
+      "sha256": "e2b8daf501fa3a63588dea78c24d980df47c5883038dfa8678d46a4d13b03a25",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_xunit.extensibility.core.dat",
+      "bytes": 1713,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:09:43.374940+00:00",
+      "sha256": "86c7b01d2ceec0a58728144b2f59f1ef27c99d34ed8395b4c126e1c59c16e63f",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_xunit.extensibility.execution.dat",
+      "bytes": 1713,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:09:43.402940+00:00",
+      "sha256": "86c7b01d2ceec0a58728144b2f59f1ef27c99d34ed8395b4c126e1c59c16e63f",
+      "kind": "metadata"
+    },
+    {
+      "name": "list_xunit.runner.visualstudio.dat",
+      "bytes": 2246,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:09:42.458948+00:00",
+      "sha256": "7b7f85d14dee823c75defff0be8013be46b65ec37e56cfcfec0fec954b91cb5b",
+      "kind": "metadata"
+    },
+    {
+      "name": "nupkg_microsoft.codecoverage.18.10.1.dat",
+      "bytes": 11263911,
+      "allocated_bytes": 11264000,
+      "mtime_utc": "2026-11-02T08:09:42.998944+00:00",
+      "sha256": "8fa90b4ab9f6b0903ab147feb5c0c07f023d99a0d38d4e7ec5997ba9dfb9a440",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_microsoft.net.test.sdk.18.10.1.dat",
+      "bytes": 40385,
+      "allocated_bytes": 40960,
+      "mtime_utc": "2026-11-02T08:09:42.518948+00:00",
+      "sha256": "d76acee5b5a7484ef176b660e33811c6ef3f338bd4751e3aa2fd318b3db2fcfe",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_microsoft.netcore.app.host.win-x64.10.0.12.dat",
+      "bytes": 5790931,
+      "allocated_bytes": 5791744,
+      "mtime_utc": "2026-11-02T08:07:08.604323+00:00",
+      "sha256": "1fbc2fcae33182f41955db3391ecf8a1b4aa047429852651d419b6b16eb4a523",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_microsoft.testplatform.objectmodel.18.10.1.dat",
+      "bytes": 1814769,
+      "allocated_bytes": 1818624,
+      "mtime_utc": "2026-11-02T08:09:43.466939+00:00",
+      "sha256": "aed12c34f98e8e32f55428ba09108b44e32c6c889aeacbfaac661c88a5246d6f",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_microsoft.testplatform.testhost.18.10.1.dat",
+      "bytes": 5696587,
+      "allocated_bytes": 5697536,
+      "mtime_utc": "2026-11-02T08:09:43.278941+00:00",
+      "sha256": "d652e39070ea4823068e8a468342b068d9f3b50ae1fda3fb57b13ec9db64822c",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_microsoft.windowsdesktop.app.ref.10.0.12.dat",
+      "bytes": 7716539,
+      "allocated_bytes": 7716864,
+      "mtime_utc": "2026-11-02T08:07:07.016337+00:00",
+      "sha256": "a26aee1fd30fa8e3454f8dc21a2dff643bb0f1492a229d246614dfabf08caf89",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_skiasharp.4.153.1.dat",
+      "bytes": 9860648,
+      "allocated_bytes": 9863168,
+      "mtime_utc": "2026-11-02T08:09:39.590974+00:00",
+      "sha256": "9cf0fa681223d4956bfbd37995c9eaa8d259935ae3d195fac681ff9a4e9c4816",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_skiasharp.nativeassets.macos.4.153.1.dat",
+      "bytes": 7679269,
+      "allocated_bytes": 7680000,
+      "mtime_utc": "2026-11-02T08:09:39.342976+00:00",
+      "sha256": "da8967494eb11d881494d0fd2562893174e92056d41c22c907b2a36caf1032c9",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_skiasharp.nativeassets.win32.4.153.1.dat",
+      "bytes": 86914944,
+      "allocated_bytes": 86917120,
+      "mtime_utc": "2026-11-02T08:09:39.166978+00:00",
+      "sha256": "c27b04338d1e4d400c20de534356310b9971e123e081c732af97e56f5572e1ae",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_xunit.2.9.3.dat",
+      "bytes": 31659,
+      "allocated_bytes": 32768,
+      "mtime_utc": "2026-11-02T08:09:42.490948+00:00",
+      "sha256": "04fae949b8e5201ecfa07fa8702baca8c0eb3198114194b3793789cc72bf23d7",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_xunit.abstractions.2.0.3.dat",
+      "bytes": 75155,
+      "allocated_bytes": 77824,
+      "mtime_utc": "2026-11-02T08:09:43.606938+00:00",
+      "sha256": "d03d72fc2df8880448f7a81bddb00e1bcb5c18f323c7e7cc69b4cfa727469403",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_xunit.analyzers.1.18.0.dat",
+      "bytes": 269902,
+      "allocated_bytes": 270336,
+      "mtime_utc": "2026-11-02T08:09:43.102942+00:00",
+      "sha256": "0ce81a98b9df8bd51ae480e6dc9566f4c68e15b4926e6ab997c8f634f3b7a9dd",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_xunit.assert.2.9.3.dat",
+      "bytes": 246078,
+      "allocated_bytes": 249856,
+      "mtime_utc": "2026-11-02T08:09:43.310941+00:00",
+      "sha256": "bc760e75ef1b775d293a6afb89301836d3e5a87cec265e31dedd430ee61d0c20",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_xunit.core.2.9.3.dat",
+      "bytes": 33553,
+      "allocated_bytes": 36864,
+      "mtime_utc": "2026-11-02T08:09:43.150942+00:00",
+      "sha256": "aa4550f09c3f2d95a6c62ae43cec22af2edbbd99f722e691ceefeca761fc6a7c",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_xunit.extensibility.core.2.9.3.dat",
+      "bytes": 298787,
+      "allocated_bytes": 299008,
+      "mtime_utc": "2026-11-02T08:09:43.498939+00:00",
+      "sha256": "99ca555fe9b447b1747aff426819db6a2f60b6ee0655caa28c4b91a9ef3d0f48",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_xunit.extensibility.execution.2.9.3.dat",
+      "bytes": 379849,
+      "allocated_bytes": 380928,
+      "mtime_utc": "2026-11-02T08:09:43.534939+00:00",
+      "sha256": "dabc4cb360ede1c01c98e14cc0fe587774693f40679a22fc71794acac5d8d23c",
+      "kind": "package_archive"
+    },
+    {
+      "name": "nupkg_xunit.runner.visualstudio.3.1.5.dat",
+      "bytes": 1327518,
+      "allocated_bytes": 1331200,
+      "mtime_utc": "2026-11-02T08:09:42.574947+00:00",
+      "sha256": "3b9eb9efcf3840695db33b045901420d14d7562141999e06182fb8894faeb124",
+      "kind": "package_archive"
+    },
+    {
+      "name": "repository_signatures_5.0.0.dat",
+      "bytes": 2007,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:07:06.348343+00:00",
+      "sha256": "5f45cbf2d7f8a4b57fea6e43bb603d29a0682058a71eb61d900db74860d210b0",
+      "kind": "metadata"
+    },
+    {
+      "name": "service_index.dat",
+      "bytes": 9272,
+      "allocated_bytes": 12288,
+      "mtime_utc": "2026-11-02T08:07:06.248344+00:00",
+      "sha256": "cea4d74624be767e0569c891597c0e6f5329f19f6c9b7fcf8b8c9e9f4933a4bb",
+      "kind": "metadata"
+    },
+    {
+      "name": "vuln_data_base.dat",
+      "bytes": 750809,
+      "allocated_bytes": 753664,
+      "mtime_utc": "2026-11-02T08:07:08.200326+00:00",
+      "sha256": "dfdf7ac6dd1a557298b0b2a8d93dce95f63be9ec62c8f0b8f7a923e56d5869af",
+      "kind": "metadata"
+    },
+    {
+      "name": "vuln_data_update.dat",
+      "bytes": 116,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:07:08.292325+00:00",
+      "sha256": "17beaf56ff579e68c00c5caf909adeb78147a8adcaeb7ac1bf67bb66edde1fa7",
+      "kind": "metadata"
+    },
+    {
+      "name": "vuln_index.dat",
+      "bytes": 505,
+      "allocated_bytes": 4096,
+      "mtime_utc": "2026-11-02T08:07:08.108327+00:00",
+      "sha256": "bea3bd84def9bb1f069f56d433e64e885a7363adb4a804919fdb3399dbf697bf",
+      "kind": "metadata"
+    }
+  ],
+  "current_known_outputs": [
+    {
+      "root": "/workspace/kuaiyi-validation",
+      "files": 797,
+      "logical_bytes": 228611437,
+      "allocated_bytes": 230387712
+    },
+    {
+      "root": "/workspace/kuaiyi-input",
+      "files": 76,
+      "logical_bytes": 12457447,
+      "allocated_bytes": 12632064
+    },
+    {
+      "root": "/workspace/kf1102",
+      "files": 0,
+      "logical_bytes": 0,
+      "allocated_bytes": 0
+    },
+    {
+      "root": "/tmp/kuaiyi-library-transfer",
+      "files": 3,
+      "logical_bytes": 52427,
+      "allocated_bytes": 53248
+    },
+    {
+      "root": "/workspace/.kuaiyi-setup/cli-home/.local/share/NuGet/http-cache",
+      "files": 39,
+      "logical_bytes": 140255429,
+      "allocated_bytes": 140341248
+    },
+    {
+      "root": "/workspace/KuaiYi/tools/KuaiYi.MockProvider/bin",
+      "files": 6,
+      "logical_bytes": 144953,
+      "allocated_bytes": 163840
+    },
+    {
+      "root": "/workspace/KuaiYi/tools/KuaiYi.MockProvider/obj",
+      "files": 27,
+      "logical_bytes": 235005,
+      "allocated_bytes": 315392
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.ImageWorker/bin",
+      "files": 16,
+      "logical_bytes": 112043037,
+      "allocated_bytes": 112074752
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.ImageWorker/obj",
+      "files": 22,
+      "logical_bytes": 423925,
+      "allocated_bytes": 479232
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.Imaging/bin",
+      "files": 7,
+      "logical_bytes": 2224612,
+      "allocated_bytes": 2240512
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.Imaging/obj",
+      "files": 20,
+      "logical_bytes": 601094,
+      "allocated_bytes": 655360
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.Contracts/bin",
+      "files": 3,
+      "logical_bytes": 90192,
+      "allocated_bytes": 98304
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.Contracts/obj",
+      "files": 18,
+      "logical_bytes": 188510,
+      "allocated_bytes": 249856
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.App/bin",
+      "files": 22,
+      "logical_bytes": 4298580,
+      "allocated_bytes": 4345856
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.App/obj",
+      "files": 22,
+      "logical_bytes": 1582665,
+      "allocated_bytes": 1638400
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.Windows/bin",
+      "files": 11,
+      "logical_bytes": 2486609,
+      "allocated_bytes": 2510848
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.Windows/obj",
+      "files": 20,
+      "logical_bytes": 360096,
+      "allocated_bytes": 417792
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.OleTransfer/bin",
+      "files": 7,
+      "logical_bytes": 1997000,
+      "allocated_bytes": 2015232
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.OleTransfer/obj",
+      "files": 20,
+      "logical_bytes": 265142,
+      "allocated_bytes": 323584
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.Providers/bin",
+      "files": 5,
+      "logical_bytes": 2042847,
+      "allocated_bytes": 2056192
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.Providers/obj",
+      "files": 20,
+      "logical_bytes": 428006,
+      "allocated_bytes": 483328
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.Core/bin",
+      "files": 3,
+      "logical_bytes": 1792485,
+      "allocated_bytes": 1802240
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.Core/obj",
+      "files": 18,
+      "logical_bytes": 2491671,
+      "allocated_bytes": 2551808
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.NativeHost/bin",
+      "files": 11,
+      "logical_bytes": 2682500,
+      "allocated_bytes": 2707456
+    },
+    {
+      "root": "/workspace/KuaiYi/src/KuaiYi.NativeHost/obj",
+      "files": 22,
+      "logical_bytes": 687744,
+      "allocated_bytes": 745472
+    },
+    {
+      "root": "/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin",
+      "files": 106,
+      "logical_bytes": 12197128,
+      "allocated_bytes": 12460032
+    },
+    {
+      "root": "/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/obj",
+      "files": 21,
+      "logical_bytes": 5614375,
+      "allocated_bytes": 5668864
+    }
+  ],
+  "current_known_logical_bytes": 536254916,
+  "current_known_allocated_bytes": 539418624,
+  "current_remaining_content_allowance_bytes": 0,
+  "known_content_excess_bytes": 112753763,
+  "coverage_limit": "Lower bound only; excludes Git pack/checkout, new tracked evidence and other unknown output roots. Previous observation omitted NuGet HTTP cache. No peak or complete storage bound established. No test/build is admitted.",
+  "cleanup": {
+    "scope": "/workspace/kuaiyi-validation/packages/skiasharp.nativeassets.win32",
+    "recorded_logical_bytes_removed": 409589222,
+    "recorded_files_removed": 28,
+    "scope_absent_now": true,
+    "provenance": "The parent validation directory was newly mkdir-created by this task; package restore log names the exact version, all retained HTTP cache files were written Nov 2 08:07-08:09, removed scope was under the task-specific package root, not the inherited protection tree. Original deletion record retained.",
+    "archive_body_bytes": 86914944,
+    "archive_sha256": "c27b04338d1e4d400c20de534356310b9971e123e081c732af97e56f5572e1ae",
+    "archive_entry_count": 28,
+    "archive_entry_uncompressed_bytes": 322676122,
+    "allocated_blocks_reclaimed": "Unknown; no exact pre-deletion st_blocks inventory was captured. Directory absence and recorded logical bytes are the only exact deletion facts.",
+    "no_further_cleanup": true
+  },
+  "protected_files": {
+    "count": 5894,
+    "logical_bytes": 918676127,
+    "this_task_action": "Not modified or removed in this task. Original protection directory not mounted; no new per-file verification.",
+    "rehash_in_this_task": false,
+    "latest_parent_reported_rehash": "2026-11-01 21:47; inherited report only, not independently reproduced here"
+  },
+  "remaining_policy": "Cumulative byte history is not reset by cleanup or resumption. No downloads, SDK, large packages, new tests, packaging, disk expansion or old Windows/UID-map actions. Continue small authorized source/docs edits only."
+}

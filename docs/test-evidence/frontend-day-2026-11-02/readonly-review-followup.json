@@ -1,0 +1,90 @@
+{
+  "reviewer": "/root/readonly_frontend_review",
+  "mode": "Independent read-only; no file edits, build, test or package/cache downloads",
+  "baseline_reviewed": "2a15c0ee7d057a468859f58ee603b5d24a2877da -> 80dcecd84f88cb245de662c26c5208f107482381",
+  "followup_review": "Incremental working-tree source review and targeted rereads",
+  "baseline_findings": [
+    {
+      "id": "R1",
+      "severity": "P2",
+      "issue": "Original-source copy lacked original epoch/attempt confirmation",
+      "source_resolution": "CaptureOriginalSourceCopyGuard and per-region copyAttempt; post-write checks original epoch, result revision and selected version",
+      "status": "Source reread closed; execution NotRun"
+    },
+    {
+      "id": "R2",
+      "severity": "P2",
+      "issue": "First invalid nonselected API profile could focus the current profile instead",
+      "source_resolution": "Isolated per-profile validation preserves validationProfileId; select that profile before focusing",
+      "status": "Source reread closed; execution NotRun"
+    },
+    {
+      "id": "R3",
+      "severity": "P2",
+      "issue": "Save/cancel scrolled with status feedback and footer minima were clipped by finite pre-measure",
+      "source_resolution": "Dock.Bottom fixed actions, feedback-only scroll; finite-width/infinite-height action premeasure then final footer remeasure",
+      "status": "Final targeted source reread closed; execution NotRun"
+    },
+    {
+      "id": "R4",
+      "severity": "P2",
+      "issue": "Long model menu items had no width/height/wrapping policy",
+      "source_resolution": "Owner monitor work area mapped to DIP; menu MaxWidth/MaxHeight and wrapping HeaderTemplate; owner Factor binding",
+      "status": "Source reread closed; popup/runtime NotRun"
+    },
+    {
+      "id": "R5",
+      "severity": "P2",
+      "issue": "Creation ordinal divided by retained count could display version 4/3",
+      "source_resolution": "Show original creation ordinal; retained count explained separately",
+      "status": "Source reread closed; execution NotRun"
+    },
+    {
+      "id": "R6",
+      "severity": "P2",
+      "issue": "Loopback HTTP error focused the remote-insecure toggle",
+      "source_resolution": "Resolve loopback vs remote from selected endpoint, focus corresponding checkbox",
+      "status": "Source reread closed; execution NotRun"
+    }
+  ],
+  "followup_findings": [
+    {
+      "id": "R7",
+      "severity": "P1",
+      "issue": "Tall toolbar target shrank back to 48 DIP after opening",
+      "source_resolution": "Store measured toolbar height and retain width/height across reanchor/endmove",
+      "status": "Source reread closed; execution NotRun"
+    },
+    {
+      "id": "R8",
+      "severity": "P1",
+      "issue": "First body measure used previous frame Plan and omitted new row chrome",
+      "source_resolution": "MeasureBody and MeasureMarkdown derive toolbar extra from their passed LayoutPlan",
+      "status": "Source reread closed; execution NotRun"
+    },
+    {
+      "id": "R9",
+      "severity": "P2",
+      "issue": "125% could use legacy fixed-width slots; horizontal Auto gave preference rows infinite width",
+      "source_resolution": "Responsive widths for every factor>1; settings main remains finite-width; only local content scrolls horizontally",
+      "status": "Source reread closed; execution NotRun"
+    },
+    {
+      "id": "R10",
+      "severity": "P3",
+      "issue": "Preference bursts could queue repeated full refreshes",
+      "source_resolution": "Interlocked admission before dispatch; closed/disposed guards and unsubscribe",
+      "status": "Source reread closed; execution NotRun"
+    }
+  ],
+  "abi_static_review": {
+    "interface": "IUISettings2 bad82401-2721-44f9-bb91-2bb228be442f",
+    "getter": "IInspectable slot 6, HRESULT(self,double*)",
+    "balance": "RoInitialize/S_FALSE balanced with RoUninitialize; QI/Release and HSTRING ownership reread",
+    "reference": "https://raw.githubusercontent.com/microsoft/windows-rs/master/crates/libs/windows/src/Windows/UI/ViewManagement/mod.rs",
+    "status": "ABI declaration static check only; Windows activation and notification coverage NotRun"
+  },
+  "final_targeted_review": "No remaining blocker within the final specified source-review scope. No build/run/pixel/full-notification sign-off.",
+  "historical_tests": "340/340 belongs to 80dcecd only; not inherited by this followup",
+  "last_targeted_reread": "Latest peek/wait scale replan retains Moving guards; bounded model/origin disclosure; expected monitor failure fallback; disabled initial reopen/copy/regenerate and cache/privacy eligibility. No clear blocking issue in this specified static scope. All execution/notification/pixels NotRun."
+}

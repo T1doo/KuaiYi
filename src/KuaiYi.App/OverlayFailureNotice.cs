@@ -20,7 +20,7 @@ internal sealed partial class ShellWindow
             return inspectedFailureVersion==overlayResults.SelectedVersionId?selected??overlayResults.LastFailure:overlayResults.LastFailure??selected;
         }
     }
-    private double FailureNoticeHeight=>FailureNoticeVersion==null?0:48;
+    private double FailureNoticeHeight=>FailureNoticeVersion==null?0:Math.Max(48,Math.Ceiling(36*PresentationTextScale+8));
     private void RefreshFailureNotice()
     {
         var failed=FailureNoticeVersion;if(failed==null)inspectedFailureVersion=null;

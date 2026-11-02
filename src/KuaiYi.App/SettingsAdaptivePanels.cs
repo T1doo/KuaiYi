@@ -16,7 +16,7 @@ internal sealed class PreferencePanel:Panel
     {this.labels=labels;this.input=input;Children.Add(labels);Children.Add(input);}
     protected override Size MeasureOverride(Size availableSize)
     {
-        double font=input is Control control?control.FontSize:13;
+        double font=System.Windows.Documents.TextElement.GetFontSize(input);
         double width=SettingsLayoutPlan.Finite(availableSize.Width,640*SettingsLayoutPlan.Scale(font));
         bool hasLabels=labels.Visibility!=Visibility.Collapsed,hasInput=input.Visibility!=Visibility.Collapsed;
         // Bounded probe uses the actual template/font, including an enlarged system font.
@@ -47,18 +47,20 @@ internal sealed class SettingsChromePanel:Panel
     public double UiFontSize{get=>(double)GetValue(UiFontSizeProperty);set=>SetValue(UiFontSizeProperty,value);}
     public static readonly DependencyProperty ScrollBarWidthProperty=DependencyProperty.Register(nameof(ScrollBarWidth),typeof(double),typeof(SettingsChromePanel),new FrameworkPropertyMetadata(17d,FrameworkPropertyMetadataOptions.AffectsMeasure));
     public double ScrollBarWidth{get=>(double)GetValue(ScrollBarWidthProperty);set=>SetValue(ScrollBarWidthProperty,value);}
-    private readonly UIElement rail,main,footer;
+    private readonly UIElement rail,main,footer;private readonly Func<double,double>? footerMinimum;
     private SettingsChromeLayout plan;
-    internal SettingsChromePanel(UIElement rail,UIElement main,UIElement footer)
-    {this.rail=rail;this.main=main;this.footer=footer;Children.Add(rail);Children.Add(main);Children.Add(footer);}
+    internal SettingsChromePanel(UIElement rail,UIElement main,UIElement footer,Func<double,double>? footerMinimum=null)
+    {this.rail=rail;this.main=main;this.footer=footer;this.footerMinimum=footerMinimum;Children.Add(rail);Children.Add(main);Children.Add(footer);}
     protected override Size MeasureOverride(Size availableSize)
     {
         var bounds=SettingsLayoutPlan.Chrome(availableSize.Width,availableSize.Height,UiFontSize,0);
         if(IsCompact!=bounds.Compact)SetValue(CompactKey,bounds.Compact);
-        footer.Measure(new Size(bounds.Width,bounds.Height*.35));
+        double minimum=footerMinimum?.Invoke(bounds.Width)??0;
+        footer.Measure(new Size(bounds.Width,Math.Min(bounds.Height,Math.Max(bounds.Height*.35,minimum))));
         if(bounds.Compact)rail.Measure(new Size(bounds.Width,bounds.Height*.24));
         plan=SettingsLayoutPlan.Chrome(bounds.Width,bounds.Height,UiFontSize,footer.DesiredSize.Height,
-            bounds.Compact?rail.DesiredSize.Height:0);
+            bounds.Compact?rail.DesiredSize.Height:0,minimum);
+        footer.Measure(new Size(plan.Width,plan.FooterHeight));
         rail.Measure(new Size(plan.Compact?plan.Width:plan.RailWidth,plan.Compact?plan.NavigationHeight:plan.MainHeight));
         main.Measure(new Size(plan.MainWidth,plan.MainHeight));
         return new Size(plan.Width,plan.Height);

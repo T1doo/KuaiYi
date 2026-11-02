@@ -17,7 +17,7 @@ internal sealed partial class ShellWindow
     {if(current?.Invoke()==false)return;viewport.Validate();markdownViewport=viewport;bodyMarkdown.SetViewport(viewport,current);if(current?.Invoke()==false)return;measurementMarkdown.SetViewport(viewport,current);}
     private double MeasureMarkdown(LayoutPlan plan,bool hasLabel,Func<bool>? current=null,Action<MarkdownMeasureObservation>? observe=null)
     {
-        if(current?.Invoke()==false)return 0;SetMarkdownViewport(MarkdownViewport.FromPlan(plan,hasLabel,FailureNoticeHeight),current);if(current?.Invoke()==false)return 0;RefreshMarkdown(renderBody:false,current);if(current?.Invoke()==false)return 0;
+        if(current?.Invoke()==false)return 0;SetMarkdownViewport(MarkdownViewport.FromPlan(plan,hasLabel,FailureNoticeHeight,ToolbarExtraFor(plan),PresentationFooterHeightDip),current);if(current?.Invoke()==false)return 0;RefreshMarkdown(renderBody:false,current);if(current?.Invoke()==false)return 0;
         var before=observe==null?null:MeasureState();var version=observe==null?null:SelectedSource.VersionId;
         int length=observe==null?0:overlayResults.Text.Length;var constraint=markdownViewport;
         measurement.Measure(new System.Windows.Size(markdownViewport.WidthDip,markdownViewport.MaximumHeightDip));
@@ -34,7 +34,7 @@ internal sealed partial class ShellWindow
         bodyMarkdown.RetainTextSourceChoices(overlayResults.RetainedVersionIds,selection.VersionId);
         if(current!=null&&selection.Image is {} local&&selection.VersionId is {} version&&LocalImagePreview)
         {
-            double localSize=lifecycle.Settings?.Data.Overlay.FontSizeDip??15;
+            double localSize=(lifecycle.Settings?.Data.Overlay.FontSizeDip??15)*PresentationTextScale;
             measurementMarkdown.ShowLocalImage(version,local,localSize,markdownViewport,current);if(!current())return;
             if(renderBody)bodyMarkdown.ShowLocalImage(version,local,localSize,markdownViewport,current);return;
         }
@@ -55,7 +55,7 @@ internal sealed partial class ShellWindow
             bodyMarkdown.SetSourceDetails(selection.VersionId,details);measurementMarkdown.SetSourceDetails(selection.VersionId,details);
         }
         if(current?.Invoke()==false)return;markdown.Update(selection.VersionId,LocalImagePreview?"":overlayResults.Text,LocalImagePreview||selected?.Complete==true||selected?.Stopped==true);
-        double size=lifecycle.Settings?.Data.Overlay.FontSizeDip??15;
+        double size=(lifecycle.Settings?.Data.Overlay.FontSizeDip??15)*PresentationTextScale;
         measurementMarkdown.Apply(markdown.Blocks,size,markdownViewport,selection.VersionId);
         if(current?.Invoke()==false)return;bodyMarkdown.SetViewport(markdownViewport);if(current?.Invoke()==false)return;
         if(renderBody)bodyMarkdown.Apply(markdown.Blocks,size,markdownViewport,selection.VersionId);

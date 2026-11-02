@@ -29,7 +29,7 @@ internal sealed partial class ShellWindow
     {
         if(overlayFrames==null)return 48;
         bool hasLabel=resultLabel.Text.Length>0;
-        double chrome=48+32+(hasLabel?28:0)+FailureNoticeHeight;
+        double chrome=48+32+ToolbarExtraFor(plan)+(hasLabel?PresentationFooterHeightDip:0)+FailureNoticeHeight;
         var observer=PresentationMeasureObservedForTest;MarkdownMeasureObservation? observation=null;
         int pixels=plan.Dpi.CeilingPixels(chrome+MeasureMarkdown(plan,hasLabel,current,observer==null?null:value=>observation=value));
         if(observer!=null&&observation!=null)observer(new(System.Diagnostics.Stopwatch.GetTimestamp(),observation,chrome,pixels,

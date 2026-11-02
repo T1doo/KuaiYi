@@ -32,15 +32,14 @@ internal sealed partial class SettingsWindow
         pageContent.Children.Add(body);
         var main=new ScrollViewer{Content=pageContent,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled};DesktopTheme.Bind(main,Control.BackgroundProperty,DesktopTheme.Surface);
         var footer=new Border{BorderThickness=new Thickness(0,1,0,0),Padding=new Thickness(24,10,24,12)};DesktopTheme.Bind(footer,Border.BackgroundProperty,DesktopTheme.Surface);DesktopTheme.Bind(footer,Border.BorderBrushProperty,DesktopTheme.Stroke);
-        var bottom=new StackPanel();footer.Child=bottom;
-        var feedback=new Border{Padding=new Thickness(0,0,0,8),Margin=new Thickness(0,0,0,10),Child=status,BorderThickness=new Thickness(0)};DesktopTheme.Bind(feedback,Border.BackgroundProperty,DesktopTheme.Canvas);DesktopTheme.Bind(feedback,Border.BorderBrushProperty,DesktopTheme.Stroke);status.Margin=new Thickness(0);status.FontSize=12;status.LineHeight=19;DesktopTheme.Bind(status,TextBlock.ForegroundProperty,DesktopTheme.Text);AutomationProperties.SetName(status,"设置状态");AutomationProperties.SetLiveSetting(status,AutomationLiveSetting.Polite);bottom.Children.Add(feedback);
-        var actions=new WrapPanel{HorizontalAlignment=HorizontalAlignment.Right};bottom.Children.Add(actions);SetupDiagnosticEntry(actions);
-        actions.Children.Add(recovery);actions.Children.Add(cancel);actions.Children.Add(save);save.Content="保存更改";save.Style=(Style)Resources[DesktopTheme.PrimaryButton];AutomationProperties.SetName(save,"保存设置更改");AutomationProperties.SetName(cancel,"取消设置更改");
-        var footerScroll=new ScrollViewer{Content=footer,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled};
-        var root=new SettingsChromePanel(rail,main,footerScroll);
+        var bottom=new DockPanel{LastChildFill=true};footer.Child=bottom;
+        var feedback=new Border{Padding=new Thickness(0,0,0,8),Margin=new Thickness(0,0,0,10),Child=status,BorderThickness=new Thickness(0)};DesktopTheme.Bind(feedback,Border.BackgroundProperty,DesktopTheme.Canvas);DesktopTheme.Bind(feedback,Border.BorderBrushProperty,DesktopTheme.Stroke);status.Margin=new Thickness(0);status.FontSize=12;status.LineHeight=19;DesktopTheme.Bind(status,TextBlock.ForegroundProperty,DesktopTheme.Text);AutomationProperties.SetName(status,"设置状态");AutomationProperties.SetLiveSetting(status,AutomationLiveSetting.Polite);
+        var actions=new WrapPanel{HorizontalAlignment=HorizontalAlignment.Right};DockPanel.SetDock(actions,Dock.Bottom);bottom.Children.Add(actions);SetupDiagnosticEntry(pages[6]);pages[0].Children.Insert(0,recovery);
+        actions.Children.Add(cancel);actions.Children.Add(save);save.Content="保存更改";save.Style=(Style)Resources[DesktopTheme.PrimaryButton];AutomationProperties.SetName(save,"保存设置更改");AutomationProperties.SetName(cancel,"取消设置更改");
+        var feedbackScroll=new ScrollViewer{Content=feedback,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled};bottom.Children.Add(feedbackScroll);
+        var root=new SettingsChromePanel(rail,main,footer,width=>{actions.Measure(new Size(Math.Max(0,width-48),double.PositiveInfinity));return actions.DesiredSize.Height+22;});
         root.SetBinding(SettingsChromePanel.UiFontSizeProperty,new Binding(nameof(FontSize)){Source=this});
         root.SetResourceReference(SettingsChromePanel.ScrollBarWidthProperty,SystemParameters.VerticalScrollBarWidthKey);
-        var minimum=new MultiBinding{Converter=new SettingsMinimumWidth(),Mode=BindingMode.OneWay};minimum.Bindings.Add(new Binding(nameof(FontSize)){Source=this});minimum.Bindings.Add(new Binding(nameof(SettingsChromePanel.ScrollBarWidth)){Source=root});root.SetBinding(MinWidthProperty,minimum);
         // The outer viewport scrolls only when even the compact form cannot fit its real minima.
         // Vertical space stays finite; each of the three regions owns its own scrolling.
         var viewport=new ScrollViewer{Content=root,CanContentScroll=false,VerticalScrollBarVisibility=ScrollBarVisibility.Disabled,HorizontalScrollBarVisibility=ScrollBarVisibility.Auto};

@@ -31,6 +31,9 @@ namespace KuaiYi.App
         private readonly BadgePort progressRing=new();
         private readonly Button button=new();
         private readonly TextBlock resultLabel=new();
+        private double PresentationTextScale=>1;
+        private double PresentationFooterHeightDip=>28;
+        private double ToolbarExtraFor(LayoutPlan plan)=>0;
         private readonly Button? styleTool=new(){Tag="风格",Content="风格"};
         private readonly Button versionsTool=new();
         private readonly List<Button> tools=[new(){Tag="重新生成",Content="重新生成"},new(){Tag="查看原文",Content="查看原文"}];

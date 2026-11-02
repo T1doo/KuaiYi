@@ -18,7 +18,7 @@ internal sealed partial class MarkdownFlowView
     private readonly Dictionary<Block,List<Paragraph>> elementParagraphs=[];
     private readonly Action<Guid,MarkdownHttpTarget,Func<bool>>? openLink;
     private readonly Action? observeReader;
-    private readonly Func<Func<bool>>? captureReaderGuard;
+    private readonly Func<Func<bool>>? captureReaderGuard,captureSourceCopyGuard;
     private readonly Func<bool>? shouldFollow;
     private readonly Action? sourceChanged;
     private readonly Func<Guid,bool>? canReadSource;
@@ -34,9 +34,9 @@ internal sealed partial class MarkdownFlowView
     private MarkdownViewport viewport=new(388,560);
     private double appliedFontSize=double.NaN;
     private static readonly FontFamily ProseFont=new("Segoe UI"),CodeFont=new("Consolas");
-    public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null,Func<bool>? shouldFollow=null,Action? sourceChanged=null,Func<Guid,bool>? canReadSource=null,Action<Exception>? sourceFailed=null,Action<Guid,MarkdownHttpTarget,Func<bool>>? openLink=null)
+    public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null,Func<bool>? shouldFollow=null,Action? sourceChanged=null,Func<Guid,bool>? canReadSource=null,Action<Exception>? sourceFailed=null,Action<Guid,MarkdownHttpTarget,Func<bool>>? openLink=null,Func<Func<bool>>? captureSourceCopyGuard=null)
     {
-        this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;this.shouldFollow=shouldFollow;this.sourceChanged=sourceChanged;this.canReadSource=canReadSource;this.sourceFailed=sourceFailed;this.openLink=openLink;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};
+        this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;this.captureSourceCopyGuard=captureSourceCopyGuard;this.shouldFollow=shouldFollow;this.sourceChanged=sourceChanged;this.canReadSource=canReadSource;this.sourceFailed=sourceFailed;this.openLink=openLink;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};
         host.IsReadOnly=true;host.IsUndoEnabled=false;host.IsDocumentEnabled=true;host.HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled;host.VerticalScrollBarVisibility=ScrollBarVisibility.Visible;host.ClipToBounds=true;
         SetViewport(viewport);
     }
@@ -80,7 +80,7 @@ internal sealed partial class MarkdownFlowView
                 if(!ReferenceEquals(sourceRegion,installed)||sourceVersion!=version)return;
                 if(retainedTextSourceVersions.Contains(version.Value))textSourceChoices[version.Value]=installed!.View.IsExpanded;
                 sourceChanged?.Invoke();
-            },()=>ReferenceEquals(sourceRegion,installed)&&sourceVersion==version&&canReadSource?.Invoke(version.Value)!=false,captureReaderGuard);sourceRegion=installed;
+            },()=>ReferenceEquals(sourceRegion,installed)&&sourceVersion==version&&canReadSource?.Invoke(version.Value)!=false,captureReaderGuard,captureSourceCopyGuard);sourceRegion=installed;
             sourceBlock=new(sourceRegion.View){Margin=new Thickness(0,8,0,0)};host.Document.Blocks.Add(sourceBlock);
             if(!ReferenceEquals(sourceRegion,installed)||sourceVersion!=version)return;
             if(!expanded.HasValue)installed.SetExpanded(initial);

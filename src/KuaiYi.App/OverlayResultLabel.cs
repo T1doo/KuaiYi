@@ -30,18 +30,20 @@ internal sealed partial class ShellWindow
         {
             var actualStyle=selection.Generation is {} actualImage?actualImage.Plan?.Preset??imageTranslation?.PresetForVersion(selection.VersionId!.Value)??actualImage.Settings.Data.Translation.Preset:snapshot?.Preset??screenshotPreset;
             styleTool.IsEnabled=next!=null||imageNext!=null||screenshotPreset!=null;
-            styleTool.Content=actualStyle switch{TranslationPreset.Faithful=>"忠实 ⌄",TranslationPreset.Plain=>"通俗 ⌄",TranslationPreset.Professional=>"专业 ⌄",TranslationPreset.Explain=>"解释 ⌄",_=>"风格 ⌄"};
+            styleTool.Content=actualStyle switch{TranslationPreset.Faithful=>"忠实",TranslationPreset.Plain=>"通俗",TranslationPreset.Professional=>"专业",TranslationPreset.Explain=>"解释",_=>"风格"};
             System.Windows.Automation.AutomationProperties.SetName(styleTool,actualStyle is {} used?$"本版风格：{StyleLabel(used)}；选择下次生成选项":"会话风格");
             styleTool.ToolTip=screenshotPreset is {} imageStyle?$"本次图片文字风格：{StyleLabel(imageStyle)}；按图文解释使用解释风格":imageNext!=null?$"下次图片：版本 {imageNext.VersionNumber} · {StyleLabel(imageNext.Preset)}；仅调整下次文字风格，图文解释仍用解释风格。"+(ImageRegenerationQualified?"":"重新生成尚未开放。"):next==null?"无保留会话":$"下次生成：版本 {next.VersionNumber} · {StyleLabel(next.Preset)}；不改变已有版本";
         }
         foreach(var tool in tools)if(Equals(tool.Tag,"重新生成")){tool.IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&(snapshot!=null||CanRegenerateImage);tool.ToolTip=selection.Generation!=null&&!ImageRegenerationQualified?ImageRegenerationQualificationNotice:next==null?"无保留原文":$"重新生成：版本 {next.VersionNumber} · {StyleLabel(snapshot?.Preset)} · {next.Model}；沿本版快照；会话待选项仅影响“按下次选项生成”";}
+        foreach(var tool in tools)if(Equals(tool.Tag,"回看")){tool.IsEnabled=CanReadOriginalSource()&&!lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.Capture)&&lifecycle.Gate.Snapshot.Presentation!=Presentation.Hidden&&(LocalImagePreview||overlayResults.HasText||selected?.Failure!=null);tool.ToolTip=tool.IsEnabled?"回看当前缓存；不读取选区或剪贴板，不发送请求":"尚无可回看的当前内容";}
         foreach(var tool in tools)if(Equals(tool.Tag,"复制"))tool.IsEnabled=CopyVersion()!=null;
         foreach(var tool in tools)if(Equals(tool.Tag,"翻译截图")){tool.Content=selection.Image is {Kind:not KuaiYi.Imaging.ImageSourceKind.Screenshot}?"翻译图片":"翻译截图";tool.IsEnabled=CanTranslateScreenshot;System.Windows.Automation.AutomationProperties.SetName(tool,tool.Content.ToString()!);tool.ToolTip=tool.Content.ToString();}
         foreach(var tool in tools)if(Equals(tool.Tag,"查看原文"))tool.IsEnabled=CanReadOriginalSource()&&selection.HasSource;
         // Compact footer retains the complete provenance and reported usage in its disclosure.
         if(resultLabel.Text.Length>0)resultLabel.ToolTip=resultLabel.Text+"\n"+resultLabel.ToolTip;
         if(!LocalImagePreview&&selected!=null)resultLabel.Text=$"{state} · {(snapshot==null?"图片":SourceLabel(snapshot))} · 仅内存"+(snapshot?.Source.SourceKind==SelectionSourceKind.OcrOnly?" · 图形关系未分析":"");
-        versionsTool.Content=selected==null?"本地图片":$"版本 {selected.Number} / {overlayResults.Versions.Count} ⌄";
+        versionsTool.Content=selected==null?"本地图片":$"版本 {selected.Number} ⌄";
+        versionsTool.ToolTip=$"当前来源保留 {overlayResults.Versions.Count} 个内存版本；版本号为创建序号。切换不发送请求。";
         versionsTool.IsEnabled=overlayResults.Versions.Count>0||LocalImagePreview;
         RefreshCopyFeedback();
     }

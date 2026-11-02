@@ -97,7 +97,7 @@ internal sealed partial class SettingsWindow:Window
     private bool TryCaptureProfile(){try{CaptureProfile();return true;}catch(SettingsValidationException error){status.Text="请先检查当前配置项："+error.Field;ShowValidationIssue(error.Field);return false;}}
     private void CaptureProfile()
     {
-        if(selectedId==null||draft.Basis.ReadOnly)return;Mask();string id=selectedId;
+        if(selectedId==null||draft.Basis.ReadOnly)return;Mask();string id=selectedId;validationProfileId=id;
         if(password.Password.Length>0){byte[] bytes=Encoding.UTF8.GetBytes(password.Password);try{draft.SetKey(id,bytes);}finally{CryptographicOperations.ZeroMemory(bytes);password.Clear();}}
         draft.Update(s=>s with{Profiles=s.Profiles.Select(p=>p.Id==id?CaptureApiAdvanced(p with{Name=profileName.Text,BaseUrl=url.Text,Model=model.Text,Protocol=(ApiProtocol)(protocol.SelectedItem??ApiProtocol.OpenAIChat),AddressMode=(ApiAddressMode)(addressMode.SelectedItem??ApiAddressMode.BasePrefix),Authentication=(ApiAuthentication)(authentication.SelectedItem??ApiAuthentication.Bearer),MaxOutputTokens=Integer(tokens.Text,"maxOutputTokens"),TimeoutSeconds=Integer(timeout.Text,"timeoutSeconds"),Streaming=stream.IsChecked==true}):p).ToImmutableArray()});
     }
@@ -133,12 +133,12 @@ internal sealed partial class SettingsWindow:Window
     private async Task Save()
     {
         if(saving||draft.Basis.ReadOnly)return;
-        ClearFieldIssues();
+        ClearFieldIssues();validationProfileId=null;
         if(importWindow!=null){status.Text="请先完成或取消配置导入预览。";return;}
         CancelDisplayPreferences();
         try
         {
-            CaptureProfile();CapturePreferences();
+            CaptureProfile();validationProfileId=null;ValidateProfileRows();CapturePreferences();
             saving=true;save.Content="正在保存…";save.IsEnabled=cancel.IsEnabled=body.IsEnabled=recovery.IsEnabled=false;status.Text="正在保存草稿…";
             await recoveryDraft.SaveAsync(coordinator,hotkeys:hotkeyParticipant);committed=true;
         }

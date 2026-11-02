@@ -2,6 +2,11 @@ using KuaiYi.Core;
 namespace KuaiYi.App;
 internal sealed partial class ShellWindow
 {
+    private Func<bool> CaptureOriginalSourceCopyGuard()
+    {
+        long epoch=lifecycle.Gate.Snapshot.Epoch,revision=resultRevision;var selected=SelectedSource.VersionId;
+        return ()=>selected is {} version&&epoch==lifecycle.Gate.Snapshot.Epoch&&revision==resultRevision&&selected==SelectedSource.VersionId&&CanReadOriginalSourceVersion(version);
+    }
     private bool CanReadOriginalSource()=>!exiting&&!lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked);
     private bool CanReadOriginalSourceVersion(Guid version)=>CanReadOriginalSource()&&SelectedSource.VersionId==version&&SelectedSource.HasSource&&lifecycle.Gate.Snapshot.Presentation!=Presentation.Hidden&&!lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.Capture);
     private void ValidateOriginalSourceBinding()
