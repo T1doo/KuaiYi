@@ -1,0 +1,37 @@
+{
+  "base_commit": "e1d93d1cba05cd4fa10299c9dfcf5bccbc1ff651",
+  "last_compiled_product_source": "525cf483e54a4486edcbbecc016e426035281076",
+  "docx_library_version": 1,
+  "docx_sha256": "cfe55dbc74e34b02da650e24e943f375048bfa5e96606d6ca5619288f5645a14",
+  "contract": "DOCX sections22/29, boundary B60: Escape exits a local menu and returns to entry",
+  "finding": "With no overflow menu open, window PreviewKeyDown called SetOverlayStyle(false) and CollapseResult, collapsing the result and clearing expanded source presentation.",
+  "source_change": "Only unmodified Escape and an already-open overflow/anchor context menu are handled. No menu/modifier: return without handling. No activation-style or CollapseResult call.",
+  "source_count": 564,
+  "source_snapshot_sha256": "53965d694b3f006c4eddd094ccc4847a2d50dac3f18afd83347283676a33d442",
+  "changed_source_inputs": [
+    "src/KuaiYi.App/OverlayPresentation.cs"
+  ],
+  "independent_readonly_review": {
+    "reviewer": "readonly_frontend_review",
+    "actual_diff_reviewed": true,
+    "conclusion": "No definite static blocker; proven no-menu-collapse branch removed",
+    "scope_limit": "B60 remains Partial. WPF menu event routing, submenu-level cancellation, return focus and actual Tab behavior are not established."
+  },
+  "candidate_build": "NotRun",
+  "candidate_tests": "NotRun",
+  "new_download_restore_ci_windows_or_permissions": false,
+  "execution_windows_consumed": 3,
+  "prior_execution_seconds": 122.03245713899923,
+  "prior_observed_execution_record_bytes": 2601300,
+  "old_known_excess_lower_bound_bytes": 112753763,
+  "original_core_remaining_upper_bound_seconds": 622.532,
+  "account_reset_or_refund": false,
+  "denied_path_retried": false,
+  "protected_file_deletion": false,
+  "other_inspected_items": [
+    "Canvas order/no explicit TabIndex is not proof of a native Tab failure",
+    "Closed handler without custom focus code is not proof that WPF fails to return focus",
+    "No proven duplicate custom Enter/Space Click path in this scope"
+  ],
+  "stop_point": "No separately authorized interactive Windows/WPF session or new compile/test window; stop after the evidenced source correction. No image/preview substitutes."
+}

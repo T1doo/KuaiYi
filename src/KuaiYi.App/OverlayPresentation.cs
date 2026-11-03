@@ -77,7 +77,13 @@ internal sealed partial class ShellWindow
         body.AddHandler(UIElement.PreviewTouchDownEvent,new EventHandler<TouchEventArgs>((_,_)=>ObserveBodyReaderIntent()),true);
         body.AddHandler(UIElement.PreviewTouchMoveEvent,new EventHandler<TouchEventArgs>((_,_)=>ObserveBodyReaderIntent()),true);
         body.PreviewMouseLeftButtonDown+=(_,_)=>{NativeDesktop.SetOverlayStyle(hwnd,true);Activate();};
-        PreviewKeyDown+=(_,e)=>{if(e.Key==Key.Escape){if(overflowMenu.IsOpen){overflowMenu.IsOpen=false;e.Handled=true;return;}NativeDesktop.SetOverlayStyle(hwnd,false);CollapseResult();e.Handled=true;}};
+        PreviewKeyDown+=(_,e)=>
+        {
+            if(e.Key!=Key.Escape||Keyboard.Modifiers!=ModifierKeys.None)return;
+            ContextMenu? menu=overflowMenu.IsOpen?overflowMenu:button.ContextMenu;
+            if(menu?.IsOpen!=true)return;
+            menu.IsOpen=false;e.Handled=true;
+        };
         PreviewTouchDown+=(_,_)=>{if(!touchToolbar){touchToolbar=true;ApplyOverlayFrame();}};
         PreviewMouseDown+=(_,e)=>{if(e.StylusDevice==null&&touchToolbar){touchToolbar=false;ApplyOverlayFrame();}};
         MouseEnter+=(_,_)=>{peekOut.Stop();if(overlayFrames?.IsExpanded!=true)peekIn.Start();};
