@@ -1,0 +1,50 @@
+{
+  "tested_commit": "525cf483e54a4486edcbbecc016e426035281076",
+  "scope": "Post-execution safe repository archival; separate from monitored compiler window",
+  "files": [
+    {
+      "path": "docs/progress.md",
+      "baseline_bytes": 457415,
+      "current_bytes": 458398,
+      "positive_growth_bytes": 983,
+      "sha256": "b495ec5ca82312f91b236cc55aaf1904849e46f6034c344cb92bceaf7835ff08"
+    },
+    {
+      "path": "docs/validation/frontend-day-2026-11-02-visual-details.md",
+      "baseline_bytes": 6049,
+      "current_bytes": 6358,
+      "positive_growth_bytes": 309,
+      "sha256": "d2cf686595f28da6ca5eeb220c7a0c1cb623d044efb8fba6b7464e16ff52b1e8"
+    },
+    {
+      "path": "docs/validation/frontend-day-app-525cf48-2026-11-03.md",
+      "baseline_bytes": 0,
+      "current_bytes": 5138,
+      "positive_growth_bytes": 5138,
+      "sha256": "379b3cfb6d8846b2789ada25b3f56c7f1839a1df7ea86fc0aee50c9a966e1e83"
+    },
+    {
+      "path": "docs/test-evidence/frontend-day-2026-11-03/app-525cf48-once.json",
+      "baseline_bytes": 0,
+      "current_bytes": 11506,
+      "positive_growth_bytes": 11506,
+      "sha256": "2e4fccc2a96d5dfefd73d4e0b8a0b00ded569401eab16196095d968cc1ae9507"
+    },
+    {
+      "path": "docs/test-evidence/frontend-day-2026-11-03/app-525cf48-once.log",
+      "baseline_bytes": 0,
+      "current_bytes": 163,
+      "positive_growth_bytes": 163,
+      "sha256": "a877926efab9b4c64fe2783cabc4a46cefe4f78a704a6dd0ccc0fed2838a6951"
+    }
+  ],
+  "archive_growth_excluding_this_record_bytes": 18099,
+  "this_window_execution_record_charge_bytes": 752411,
+  "prior_two_windows_execution_record_bytes": 1848889,
+  "original_known_excess_lower_bound_bytes": 112753763,
+  "no_refund_or_reuse": true,
+  "unobserved": "Git object growth, unsampled transients and other unmonitored outputs not included; no complete global peak claim",
+  "this_record_bytes": 2002,
+  "archive_growth_including_this_record_bytes": 20101,
+  "this_window_known_execution_and_archive_bytes": 772512
+}

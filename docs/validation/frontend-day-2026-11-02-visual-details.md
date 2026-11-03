@@ -1,5 +1,7 @@
 # Approved visual detail audit — source candidate only
 
+Subsequent evidence: the separately approved [2026-11-03 App-only SDK401 compile](frontend-day-app-525cf48-2026-11-03.md) passed for source `525cf483e54a4486edcbbecc016e426035281076`. The original static-review slice below remains historical; template loading and all Windows acceptance still remain NotRun.
+
 Baseline: `680c53e6822258bbebaf618b3c24653ce0661258`, clean before this slice. The unchanged approved DOCX has SHA256 `cfe55dbc74e34b02da650e24e943f375048bfa5e96606d6ca5619288f5645a14`. All 47 extracted media hashes matched, and all eight existing contact sheets were re-viewed, including the original reference fragments and proposal figures. They are design evidence, not screenshots of KuaiYi running.
 
 The [12-item audit](../test-evidence/frontend-day-2026-11-02/visual-detail-audit.csv) maps typography, spacing, controls, backgrounds, motion and adaptive layout to the actual implementation. Page numbers there are the DOCX's explicit page-break sequence, not a Word-rendered pagination claim; use the section and figure numbers as the exact locator. No document rendering or new image/asset download was performed.
