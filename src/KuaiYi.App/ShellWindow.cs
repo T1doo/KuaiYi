@@ -28,7 +28,7 @@ internal sealed partial class ShellWindow:OleDropWindow
         diagnostics.Record(KuaiYi.Core.Diagnostics.DiagnosticEvent.Started);
         coordinator=suppliedCoordinator??DefaultSettings();
         lifecycle=new(coordinator);showMessage=NativeTray.ShowMessage(instanceScope);
-        Title="快译";Width=Height=48;WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;ShowInTaskbar=false;ShowActivated=false;Topmost=true;
+        Title="快译";Width=Height=48;WindowStyle=WindowStyle.None;AllowsTransparency=true;ResizeMode=ResizeMode.NoResize;ShowInTaskbar=false;ShowActivated=false;Topmost=true;
         SetupPresentation();SetupTranslation(developmentBoundary);SetupBrowserImages(enableSelectionPlatform&&developmentBoundary==null);AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
         var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("清除当前内容",()=>_=ClearCurrentContent());Add("设置",()=>_=OpenSettings());Add("更多操作及版本",()=>OpenOverflowMenu(button));Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
 #if KUAIYI_ISOLATED_SESSION_TEST
@@ -42,6 +42,7 @@ internal sealed partial class ShellWindow:OleDropWindow
         {
             hwnd=new WindowInteropHelper(this).Handle;((HwndSource)PresentationSource.FromVisual(this)).AddHook(Hook);
             NativeDesktop.SetOverlayStyle(hwnd,false);
+            RefreshGlassAppearance();
             try{tray=new(hwnd);}catch(Exception error){Report("托盘不可用",error);throw;} // Never leave an inaccessible hidden application.
             Reposition(null);
             SetupSelection();SetupTextDrop();SetupOverlayInput((HwndSource)PresentationSource.FromVisual(this));
@@ -73,6 +74,7 @@ internal sealed partial class ShellWindow:OleDropWindow
             else if(action==OverlayPointerAction.Released){pendingPosition=CurrentPosition();QueuePositionSave();}
         });
         button.LostMouseCapture+=(_,_)=>{if(wpfPointer&&!pointerFinished)CancelPointer();pointerFinished=false;};
+        SetupHeaderDrag();
         // Keyboard activation uses Button.Click; handled pointer events suppress WPF's duplicate click.
         button.Click+=(_,_)=>Toggle();
         Deactivated+=(_,_)=>{if(hwnd!=0)NativeDesktop.SetOverlayStyle(hwnd,false);};

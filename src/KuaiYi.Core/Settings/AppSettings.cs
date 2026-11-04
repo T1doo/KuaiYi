@@ -11,6 +11,10 @@ public enum OutputTokenParameter{ProtocolDefault,MaxCompletionTokens,MaxTokens,O
 public enum Capability{Unknown,Supported,Unsupported}
 public enum MotionPreference{FollowSystem,Reduce,Full}
 public enum ThemePreference{FollowSystem,Light,Dark}
+public enum OverlayColorStyle{Aurora,Prism,Ocean,Sakura,Sunset,Graphite,Custom}
+public enum OverlayBackgroundMotion{Still,Flow}
+public enum OverlayOutline{Glass,Cloud,Fluid,Bubble}
+public enum OverlayTypeface{Modern,System}
 public enum TranslationPreset{Faithful,Plain,Professional,Explain}
 public sealed record ModelCapabilities
 {
@@ -70,7 +74,12 @@ public sealed record OverlaySettings
     [SettingsRange(12,22)]public double FontSizeDip{get;init;}=15;
     [SettingsRange(240,960)]public double PreferredWidthDip{get;init;}=420;
     public MotionPreference ReduceMotion{get;init;}
-    public ThemePreference Theme{get;init;}
+    public ThemePreference Theme{get;init;}=ThemePreference.Light;
+    public OverlayColorStyle ColorStyle{get;init;}=OverlayColorStyle.Aurora;
+    public OverlayBackgroundMotion BackgroundMotion{get;init;}=OverlayBackgroundMotion.Flow;
+    public OverlayOutline Outline{get;init;}=OverlayOutline.Glass;
+    public OverlayTypeface Typeface{get;init;}=OverlayTypeface.Modern;
+    public string CustomColor{get;init;}="#8B5CF6";
     public bool RememberPosition{get;init;}=true;
     public OverlayPosition? LastPosition{get;init;}
     public bool ShowSource{get;init;}

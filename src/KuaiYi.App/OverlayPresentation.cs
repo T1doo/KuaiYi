@@ -38,11 +38,14 @@ internal sealed partial class ShellWindow
     private readonly Button newContent=new(){Content="有新内容",Visibility=Visibility.Collapsed,MinHeight=28};
     private readonly Ellipse progressRing=new(){Width=42,Height=42,Stroke=Brushes.White,StrokeThickness=2,StrokeDashArray=new DoubleCollection{18,48},StrokeDashCap=PenLineCap.Round,Opacity=.85,IsHitTestVisible=false,Visibility=Visibility.Collapsed,RenderTransformOrigin=new Point(.5,.5)};
     private readonly TextBlock connectionStatus=new(){Text="正在连接…",VerticalAlignment=VerticalAlignment.Center,Visibility=Visibility.Collapsed,IsHitTestVisible=false};
-    private readonly DispatcherTimer flush=new(){Interval=TimeSpan.FromMilliseconds(50)},peekIn=new(){Interval=TimeSpan.FromMilliseconds(350)},peekOut=new(){Interval=TimeSpan.FromMilliseconds(250)},waiting=new(){Interval=TimeSpan.FromMilliseconds(400)};
+    private readonly DispatcherTimer flush=new(){Interval=TimeSpan.FromMilliseconds(33)},peekIn=new(){Interval=TimeSpan.FromMilliseconds(350)},peekOut=new(){Interval=TimeSpan.FromMilliseconds(250)},waiting=new(){Interval=TimeSpan.FromMilliseconds(400)};
     private OverlayResults overlayResults=null!;private IdentityEventReceiver<OverlayResultEvent> presentationReceiver=null!;
     private OverlayFrames? overlayFrames;private bool rendering,peek,dirty,follow=true,awaitingText,pendingReveal;private long resultRevision;
     private readonly OverlayFrameClock frameClock=new();
     private PixelRect? appliedRect;private int appliedRadius;private bool appliedVisible,applyingOverlayFrame;
+    private (PixelRect Rect,PixelRect Anchor,int Radius,OverlayOutline Style,double Progress)? outlineKey;
+    private NativeDesktop.Point[][]? outlinePixels;
+    private readonly Path outlineStroke=new(){IsHitTestVisible=false,StrokeThickness=1};
     internal RuntimeGate PresentationGate=>lifecycle.Gate;
     internal OverlayFrames? PresentationGeometry=>overlayFrames;
     internal PixelRect? PresentationButtonScreenBounds
@@ -63,7 +66,7 @@ internal sealed partial class ShellWindow
         resultLabel.SetBinding(System.Windows.Automation.AutomationProperties.NameProperty,new System.Windows.Data.Binding(nameof(TextBlock.Text)){Source=resultLabel});
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
         bodyMarkdown=new(body,ObserveCodeReaderIntent,CaptureBodyReaderGuard,()=>follow,OriginalSourceChanged,CanReadOriginalSourceVersion,ImageSourcePreviewFailed,OpenMarkdownLink,CaptureOriginalSourceCopyGuard);measurementMarkdown=new(measurement,canReadSource:CanReadOriginalSourceVersion,sourceFailed:ImageSourcePreviewFailed);
-        Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(versionsTool);overlayCanvas.Children.Add(failureNotice);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
+        Content=overlayCanvas;overlayCanvas.Children.Add(glassSurface);overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(versionsTool);overlayCanvas.Children.Add(failureNotice);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
         KeyboardNavigation.SetTabNavigation(overlayCanvas,KeyboardNavigationMode.Local);
         KeyboardNavigation.SetTabNavigation(controls,KeyboardNavigationMode.Local);
         KeyboardNavigation.SetTabNavigation(body,KeyboardNavigationMode.Local);body.IsReadOnlyCaretVisible=true;
@@ -74,7 +77,7 @@ internal sealed partial class ShellWindow
         toolbarDivider.Opacity=.7;controls.Children.Add(toolbarSeam);
         styleTool=Tool("风格",OpenStyleMenu);Tool("翻译截图",()=>TranslateScreenshot());Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("查看原文",ShowSelectionSource);Tool("清除当前内容",()=>_=ClearCurrentContent());Tool("设置",()=>_=OpenSettings());
         Button Tool(string label,Action action){var b=new Button{Content=label,Tag=label,IsEnabled=label is not ("回看" or "复制" or "重新生成"),MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.ToolTip=label;if(label is "重新生成" or "回看" or "复制")ToolTipService.SetShowOnDisabled(b,true);b.Style=(Style)Resources[DesktopTheme.ToolButton];if(label=="风格")b.ContentTemplate=DesktopTheme.ChoiceWithChevron();b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);return b;}
-        versionsTool.Style=(Style)Resources[DesktopTheme.ToolButton];versionsTool.ContentTemplate=DesktopTheme.ChoiceWithChevron();versionsTool.Click+=(_,_)=>OpenVersionMenu();
+        versionsTool.Style=DesktopTheme.ReadingActionStyle();versionsTool.Padding=new Thickness(8,2,8,2);versionsTool.ContentTemplate=DesktopTheme.ChoiceWithChevron();versionsTool.Click+=(_,_)=>OpenVersionMenu();
         moreTools.Style=(Style)Resources[DesktopTheme.ToolButton];moreTools.ContentTemplate=MoreGlyph;failureNotice.Style=(Style)Resources[DesktopTheme.ToolButton];failureNotice.HorizontalContentAlignment=HorizontalAlignment.Left;failureNotice.ContentTemplate=DesktopTheme.WrappingLabel();DesktopTheme.Bind(failureNotice,Control.ForegroundProperty,DesktopTheme.Error);newContent.Style=(Style)Resources[DesktopTheme.ToolButton];controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
         System.Windows.Automation.AutomationProperties.SetName(moreTools,"更多操作及版本");overflowMenu.Closed+=(_,_)=>PresentationMenuClosed();overflowMenu.Opened+=(_,_)=>DesktopTheme.ApplyMenu(overflowMenu,this);
         failureNotice.Click+=(_,_)=>ShowFailureRecovery();
@@ -107,19 +110,32 @@ internal sealed partial class ShellWindow
     }
     private void UpdateButtonGlyph(bool on)
     {
-        // Linear monochrome vector; both shape and accessible name identify state.
-        var glyph=new Path{Width=20,Height=20,Stretch=Stretch.Uniform,Fill=SystemParameters.HighContrast?SystemColors.HighlightTextBrush:Brushes.White,
-            Data=Geometry.Parse(on?"M 2,1 L 8,1 L 8,19 L 2,19 Z M 12,1 L 18,1 L 18,19 L 12,19 Z":"M 4,1 L 18,10 L 4,19 Z")};button.Content=glyph;
-        if(SystemParameters.HighContrast)button.Background=SystemColors.HighlightBrush;
+        bool contrast=SystemParameters.HighContrast;
+        bool dark=DesktopTheme.IsDark(lifecycle.Settings?.Data.Overlay.Theme??ThemePreference.Light);
+        var foreground=contrast?SystemColors.HighlightTextBrush:new SolidColorBrush(dark?Color.FromRgb(198,233,255):Color.FromRgb(39,91,148));
+        var glass=new LinearGradientBrush{StartPoint=new(0,0),EndPoint=new(1,1)};
+        glass.GradientStops.Add(new(dark?Color.FromRgb(40,64,101):Color.FromRgb(240,252,255),0));
+        glass.GradientStops.Add(new(dark?Color.FromRgb(49,72,115):Color.FromRgb(181,222,252),.55));
+        glass.GradientStops.Add(new(dark?Color.FromRgb(68,61,109):Color.FromRgb(228,218,250),1));glass.Freeze();
+        var orb=new Grid{Width=36,Height=36,IsHitTestVisible=false,Opacity=on?1:.72};
+        orb.Children.Add(new Border{CornerRadius=new CornerRadius(18),Background=contrast?SystemColors.HighlightBrush:glass,
+            BorderBrush=contrast?SystemColors.HighlightTextBrush:new SolidColorBrush(Color.FromArgb(220,255,255,255)),BorderThickness=new Thickness(1)});
+        orb.Children.Add(new Border{CornerRadius=new CornerRadius(15),Margin=new Thickness(3),BorderBrush=contrast?Brushes.Transparent:new SolidColorBrush(Color.FromArgb(65,76,141,205)),BorderThickness=new Thickness(.7)});
+        orb.Children.Add(new Path{Width=12,Height=14,Stretch=Stretch.Uniform,Stroke=foreground,StrokeThickness=2,StrokeStartLineCap=PenLineCap.Round,StrokeEndLineCap=PenLineCap.Round,StrokeLineJoin=PenLineJoin.Round,
+            HorizontalAlignment=HorizontalAlignment.Center,VerticalAlignment=VerticalAlignment.Center,
+            Data=Geometry.Parse(on?"M 4,3 L 4,17 M 12,3 L 12,17":"M 4,2 L 15,10 L 4,18 Z")});
+        button.Background=Brushes.Transparent;button.Foreground=foreground;button.Content=orb;
     }
     private bool ReduceMotion=>lifecycle.Settings?.Data.Overlay.ReduceMotion==MotionPreference.Reduce||lifecycle.Settings?.Data.Overlay.ReduceMotion!=MotionPreference.Full&&!SystemParameters.ClientAreaAnimation;
     private void RefreshPresentationTheme()
     {
         DesktopTheme.Apply(this,lifecycle.Settings?.Data.Overlay.Theme??ThemePreference.FollowSystem);
+        FontFamily=body.FontFamily=measurement.FontFamily=DesktopTypography.Resolve(lifecycle.Settings?.Data.Overlay.Typeface??OverlayTypeface.Modern);
         DesktopControlFeedback.Apply(this,lifecycle.Settings?.Data.Overlay.ReduceMotion??MotionPreference.FollowSystem);
         cardBackground.Background=DesktopTheme.Brush(this,DesktopTheme.Surface);cardBackground.BorderBrush=DesktopTheme.Brush(this,DesktopTheme.Stroke);body.Foreground=DesktopTheme.Brush(this,DesktopTheme.Text);measurement.Foreground=body.Document.Foreground=measurement.Document.Foreground=body.Foreground;connectionStatus.Foreground=resultLabel.Foreground=DesktopTheme.Brush(this,DesktopTheme.Muted);
-        button.Foreground=SystemParameters.HighContrast?SystemColors.HighlightTextBrush:Brushes.White;bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;button.Background=on?OverlayTokens.On:OverlayTokens.Off;UpdateButtonGlyph(on);
+        bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;UpdateButtonGlyph(on);
         progressRing.Stroke=button.Foreground;
+        RefreshGlassAppearance();
         bodyMarkdown.RefreshCodeAppearance();measurementMarkdown.RefreshCodeAppearance();RefreshTextScalePresentation();if(overflowMenu.IsOpen)DesktopTheme.ApplyMenu(overflowMenu,this);if(button.ContextMenu?.IsOpen==true)DesktopTheme.ApplyMenu(button.ContextMenu,this);
     }
     private void PresentationMenuClosed(){if(peek&&!IsMouseOver&&!exiting)peekOut.Start();}
@@ -219,14 +235,17 @@ internal sealed partial class ShellWindow
         anchor=overlayFrames.Anchor;anchorMonitor=overlayFrames.Monitor;var rect=overlayFrames.Current;var dpi=anchorMonitor.Dpi;
         bool expanded=rect!=anchor;
         double expansion=overlayFrames.CornerProgress;
-        int radius=dpi.CeilingPixels(24-18*expansion);
+        int radius=dpi.CeilingPixels(24-6*expansion);
+        var style=lifecycle.Settings?.Data.Overlay.Outline??OverlayOutline.Glass;
+        var nextOutlineKey=(rect,anchor,radius,style,expansion);
+        bool outlineChanged=outlineKey!=nextOutlineKey;
         applyingOverlayFrame=true;
         try
         {
             PrepareVisuals();
             CommitLayout();
             // Resize may render before ApplyBounds returns: the visual tree must already describe this rectangle.
-            if(forceNative||appliedRect!=rect||appliedRadius!=radius||appliedVisible!=IsVisible){NativeDesktop.ApplyBounds(hwnd,rect,radius,show:IsVisible);appliedRect=rect;appliedRadius=radius;appliedVisible=IsVisible;}
+            if(forceNative||outlineChanged||appliedRect!=rect||appliedRadius!=radius||appliedVisible!=IsVisible){NativeDesktop.ApplyBounds(hwnd,rect,radius,show:IsVisible,outline:outlinePixels);appliedRect=rect;appliedRadius=radius;appliedVisible=IsVisible;}
             CommitLayout();
         }
         finally{applyingOverlayFrame=false;}
@@ -240,8 +259,18 @@ internal sealed partial class ShellWindow
         // Match the already-quantized native clip before a resize can synchronously render.
         var corner=new CornerRadius(dpi.Dips(radius));if(cardBackground.CornerRadius!=corner)cardBackground.CornerRadius=corner;
         double width=dpi.Dips(rect.Width),height=dpi.Dips(rect.Height);overlayCanvas.Width=width;overlayCanvas.Height=height;cardBackground.Width=width;cardBackground.Height=height;
-        if(overlayCanvas.Clip is not RectangleGeometry clip||clip.Rect.Width!=width||clip.Rect.Height!=height||clip.RadiusX!=corner.TopLeft)
-            overlayCanvas.Clip=new RectangleGeometry(new Rect(0,0,width,height),corner.TopLeft,corner.TopLeft);
+        glassSurface.Width=width;glassSurface.Height=height;
+        if(outlineChanged)
+        {
+            var anchorLocal=new Rect(dpi.Dips(anchor.Left-rect.Left),dpi.Dips(anchor.Top-rect.Top),48,48);
+            var geometry=OverlayOutlineGeometry.Create(width,height,corner.TopLeft,anchorLocal,style,expansion);
+            overlayCanvas.Clip=geometry;outlineStroke.Data=geometry;
+            outlinePixels=style==OverlayOutline.Glass?null:OverlayOutlineGeometry.Pixels(geometry,dpi.Factor);
+            outlineKey=nextOutlineKey;
+        }
+        if(!overlayCanvas.Children.Contains(outlineStroke)){overlayCanvas.Children.Add(outlineStroke);Panel.SetZIndex(outlineStroke,100);}
+        outlineStroke.Stroke=cardBackground.BorderBrush;outlineStroke.Visibility=style==OverlayOutline.Glass?Visibility.Collapsed:Visibility.Visible;
+        cardBackground.BorderThickness=style==OverlayOutline.Glass?new Thickness(1):new Thickness(0);
         double bx=dpi.Dips(anchor.Left-rect.Left),by=dpi.Dips(anchor.Top-rect.Top);Canvas.SetLeft(button,bx);Canvas.SetTop(button,by);
         Canvas.SetLeft(progressRing,bx+3);Canvas.SetTop(progressRing,by+3);
         controls.Visibility=expanded&&!externalDropHover?Visibility.Visible:Visibility.Collapsed;controls.Width=toolbarSurface.Width=toolbarSeam.Width=width;
@@ -250,7 +279,7 @@ internal sealed partial class ShellWindow
         double targetOrigin=overlayFrames.Plan is {} placement?dpi.Dips(placement.Target.Left-rect.Left):0;
         bool left=targetAnchorX>targetCardWidth-targetAnchorX-48;
         double available=Math.Max(targetAnchorX,targetCardWidth-targetAnchorX-48),start=targetOrigin+(left?0:targetAnchorX+48);
-        var toolbarLayout=OverlayReadingToolbar.Responsive(Math.Max(targetAnchorX,targetCardWidth-targetAnchorX-48),targetCardWidth,!peek||awaitingText,lifecycle.Gate.HasRunningGeneration,touchToolbar,PresentationTextScale);
+        var toolbarLayout=OverlayReadingToolbar.Focused(Math.Max(targetAnchorX,targetCardWidth-targetAnchorX-48),targetCardWidth,!peek||awaitingText,lifecycle.Gate.HasRunningGeneration,touchToolbar,PresentationTextScale);
         var toolbar=toolbarLayout.Slots;
         double rowUsed=toolbar.Where(slot=>slot.Row==0).Select(slot=>slot.OffsetDip+slot.WidthDip).DefaultIfEmpty(0).Max();
         double actionGap=!peek&&!awaitingText&&toolbar.Any(slot=>slot.Row==0&&slot.Command=="风格")?Math.Max(0,available-rowUsed):0;
@@ -285,7 +314,7 @@ internal sealed partial class ShellWindow
         double labelHeight=resultLabel.Text.Length>0?PresentationFooterHeightDip:0,noticeHeight=FailureNoticeHeight;
         SetMarkdownViewport(plan is not null?MarkdownViewport.FromPlan(plan,labelHeight>0,noticeHeight,edge,PresentationFooterHeightDip):MarkdownViewport.FromCard(targetWidth,height,labelHeight>0,noticeHeight,edge,PresentationFooterHeightDip));
         Canvas.SetLeft(resultLabel,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(resultLabel,dpi.Dips(bottom-rect.Top)-labelHeight);
-        Canvas.SetLeft(versionsTool,dpi.Dips(targetLeft-rect.Left)+targetWidth-16-Math.Min(targetWidth/2,76*PresentationTextScale));Canvas.SetTop(versionsTool,dpi.Dips(bottom-rect.Top)-labelHeight);versionsTool.Width=Math.Min(targetWidth/2,76*PresentationTextScale);versionsTool.Height=labelHeight;versionsTool.Visibility=labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;versionsTool.Opacity=overlayFrames.ContentOpacity;resultLabel.Width=Math.Max(1,targetWidth-48-versionsTool.Width);resultLabel.Height=labelHeight;resultLabel.Opacity=overlayFrames.ContentOpacity;resultLabel.Visibility=labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;
+        Canvas.SetLeft(versionsTool,dpi.Dips(targetLeft-rect.Left)+targetWidth-16-Math.Min(targetWidth/2,76*PresentationTextScale));Canvas.SetTop(versionsTool,dpi.Dips(bottom-rect.Top)-labelHeight);versionsTool.Width=Math.Min(targetWidth/2,76*PresentationTextScale);versionsTool.Height=labelHeight;versionsTool.Visibility=overlayResults.Versions.Count>1&&labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;versionsTool.Opacity=overlayFrames.ContentOpacity;resultLabel.Width=Math.Max(1,targetWidth-32-(versionsTool.Visibility==Visibility.Visible?versionsTool.Width+16:0));resultLabel.Height=labelHeight;resultLabel.Opacity=overlayFrames.ContentOpacity;resultLabel.Visibility=labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(failureNotice,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(failureNotice,dpi.Dips(top-rect.Top));failureNotice.Height=Math.Max(28,noticeHeight-4);failureNotice.Width=Math.Max(1,targetWidth-32);failureNotice.Opacity=overlayFrames.ContentOpacity;failureNotice.Visibility=noticeHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight+noticeHeight)?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(body,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(body,dpi.Dips(top-rect.Top)+noticeHeight);body.Width=Math.Max(1,targetWidth-32);body.Height=Math.Max(0,dpi.Dips(bottom-top)-labelHeight-noticeHeight);body.Opacity=overlayFrames.ContentOpacity;body.Visibility=body.Height>0?Visibility.Visible:Visibility.Collapsed;
         newContent.Content=UnreadNoticeLabel;newContent.Width=Math.Min(Math.Max(0,width-32),Math.Ceiling(100*PresentationTextScale));

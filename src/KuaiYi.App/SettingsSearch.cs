@@ -9,7 +9,8 @@ internal sealed partial class SettingsWindow
     private void SetupSettingsSearch(Panel header,ListBox navigation)
     {
         var region=new StackPanel{Margin=new Thickness(0,18,0,0)};
-        header.Children.Add(region);
+        var searchDisclosure=new Expander{Header="查找设置 · Ctrl+K",Content=region,IsExpanded=false,Margin=new Thickness(0,12,0,0)};
+        header.Children.Add(searchDisclosure);
         var label=new TextBlock{Text="查找设置",FontWeight=FontWeights.SemiBold,FontSize=12};
         region.Children.Add(label);
         var row=new DockPanel{Margin=new Thickness(0,6,0,0)};
@@ -37,7 +38,7 @@ internal sealed partial class SettingsWindow
             {
                 var jump=new Button{Content=hit.Title,Margin=new Thickness(4),ToolTip="前往"+hit.Title};
                 AutomationProperties.SetName(jump,"前往设置分类："+hit.Title);
-                jump.Click+=(_,_)=>{navigation.SelectedIndex=hit.PageIndex;navigation.Focus();};
+                jump.Click+=(_,_)=>{navigation.SelectedIndex=hit.PageIndex;pageHeading?.Focus();};
                 matches.Children.Add(jump);
             }
         }
@@ -54,7 +55,7 @@ internal sealed partial class SettingsWindow
         PreviewKeyDown+=(_,e)=>
         {if(!e.Handled&&e.Key==Key.K&&Keyboard.Modifiers==ModifierKeys.Control&&
             !hotkeyFields.Values.Any(field=>field.IsKeyboardFocusWithin))
-            {search.Focus();search.SelectAll();e.Handled=true;}};
+            {searchDisclosure.IsExpanded=true;search.Focus();search.SelectAll();e.Handled=true;}};
         Closed+=(_,_)=>{search.Clear();matches.Children.Clear();hint.Text="";};
         Refresh();
     }

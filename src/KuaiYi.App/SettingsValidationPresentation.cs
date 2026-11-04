@@ -43,6 +43,7 @@ internal sealed partial class SettingsWindow
         (FrameworkElement Target,int Page,bool Advanced) destination=field switch
         {
             "fontSizeDip"=>(font,3,false),"preferredWidthDip"=>(width,3,false),
+            "overlay.customColor"=>(customColor,3,false),"overlay.appearance"=>(colorStyle,3,false),
             "selectionDebounceMs"=>(delay,3,false),"autoSoftLimitScalars"=>(softLimit,3,false),
             "activeProfileId"=>(textProfile,1,false),"visionProfileId"=>(visionProfile,1,false),
             "maxOutputTokens" or "profile.maxOutputTokens"=>(tokens,1,false),
@@ -63,10 +64,12 @@ internal sealed partial class SettingsWindow
             _=>(profiles,1,false)
         };
         var (Target,Page,Advanced)=destination;
+        for(DependencyObject? parent=Target;parent!=null;parent=LogicalTreeHelper.GetParent(parent))
+            if(parent is Expander detail)detail.IsExpanded=true;
         if(Advanced&&apiAdvanced!=null)apiAdvanced.IsExpanded=true;
         if(settingsNavigation!=null)settingsNavigation.SelectedIndex=Page;
         if(fieldIssues.TryGetValue(Target,out var issue))
-        {issue.Text="此项未通过验证，请检查后再保存。草稿已保留。";issue.Visibility=Visibility.Visible;}
+        {issue.Text=field=="overlay.customColor"?"请输入 # 加六位十六进制颜色，例如 #8B5CF6。草稿已保留。":"此项未通过验证，请检查后再保存。草稿已保留。";issue.Visibility=Visibility.Visible;}
         // Save reenables the form in finally; focus only after that settlement and layout.
         Dispatcher.BeginInvoke(DispatcherPriority.Loaded,()=>
         {if(IsVisible&&!saving&&!draft.IsClosed&&Target.IsEnabled){Target.BringIntoView();Target.Focus();}});

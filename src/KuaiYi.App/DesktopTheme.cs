@@ -15,7 +15,7 @@ namespace KuaiYi.App;
 internal static class DesktopTheme
 {
     // Explicit Windows Chinese UI fallback avoids serif fallback on CJK-only text.
-    internal static readonly FontFamily ProseFont=new("Microsoft YaHei UI, Segoe UI");
+    internal static readonly FontFamily ProseFont=DesktopTypography.Modern;
     internal const string Canvas="KuaiYi.Canvas",Surface="KuaiYi.Surface",Rail="KuaiYi.Rail",Input="KuaiYi.Input",Text="KuaiYi.Text",Muted="KuaiYi.Muted",Stroke="KuaiYi.Stroke",InputBorder="KuaiYi.InputBorder",Accent="KuaiYi.Accent",AccentText="KuaiYi.AccentText",AccentSoft="KuaiYi.AccentSoft",SelectionText="KuaiYi.SelectionText",Error="KuaiYi.Error";
     internal const string PrimaryButton="KuaiYi.PrimaryButton",ToolButton="KuaiYi.ToolButton",AnchorButton="KuaiYi.AnchorButton",NavigationItem="KuaiYi.NavigationItem";
     private const string Applied="KuaiYi.AppliedPalette",Installed="KuaiYi.ThemeInstalled";
@@ -33,6 +33,10 @@ internal static class DesktopTheme
             ApiAddressMode.BasePrefix=>"基础地址",ApiAddressMode.ExactEndpoint=>"完整请求端点",
             ApiAuthentication.None=>"无需认证",ApiAuthentication.Bearer=>"Bearer Token",ApiAuthentication.ApiKey=>"API Key",ApiAuthentication.CustomHeader=>"自定义认证头",
             ApiProfile profile=>profile.Name,
+            OverlayColorStyle.Aurora=>"晴空蓝",OverlayColorStyle.Prism=>"暮光紫",OverlayColorStyle.Ocean=>"薄荷海岸",OverlayColorStyle.Sakura=>"樱花云",OverlayColorStyle.Sunset=>"蜜桃日落",OverlayColorStyle.Graphite=>"夜色石墨",OverlayColorStyle.Custom=>"自定义",
+            OverlayBackgroundMotion.Still=>"静态",OverlayBackgroundMotion.Flow=>"缓慢流动",
+            OverlayOutline.Glass=>"圆角玻璃",OverlayOutline.Cloud=>"云朵",OverlayOutline.Fluid=>"流体轮廓",OverlayOutline.Bubble=>"圆润气泡",
+            OverlayTypeface.Modern=>"等线中文 + Segoe 英文",OverlayTypeface.System=>"Windows 系统字体",
             _=>value?.ToString()??""
         };
         public object ConvertBack(object value,Type targetType,object parameter,CultureInfo culture)=>Binding.DoNothing;
@@ -58,6 +62,7 @@ internal static class DesktopTheme
         Apply(window,preference());DesktopControlFeedback.Apply(window,motionPreference?.Invoke()??MotionPreference.FollowSystem);if(window.Resources.Contains(Installed))return;window.Resources[Installed]=true;
         window.UseLayoutRounding=true;window.SnapsToDevicePixels=true;
         TextOptions.SetTextFormattingMode(window,TextFormattingMode.Display);
+        TextOptions.SetTextRenderingMode(window,TextRenderingMode.Grayscale);
         window.FontFamily=ProseFont;window.FontSize=13;
         InstallToolTips(window);
         if(forms)
@@ -83,10 +88,10 @@ internal static class DesktopTheme
             comboItem.Setters.Add(new Setter(System.Windows.Automation.AutomationProperties.NameProperty,new Binding{Converter=new ChoiceLabel()}));
             window.Resources[NavigationItem]=NavigationStyle();
         }
-        var tool=ButtonStyle(3,28);tool.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(3)));tool.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(0)));tool.Setters.Add(new Setter(Control.BackgroundProperty,Brushes.Transparent));
-        var toolHover=new MultiTrigger();toolHover.Conditions.Add(new Condition(UIElement.IsMouseOverProperty,true));toolHover.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));toolHover.Setters.Add(Value(Control.BackgroundProperty,Surface));toolHover.Setters.Add(Value(Control.ForegroundProperty,Text));tool.Triggers.Add(toolHover);
+        var tool=ButtonStyle(8,28);tool.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(3)));tool.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(0)));tool.Setters.Add(new Setter(Control.BackgroundProperty,Brushes.Transparent));
+        var toolHover=new MultiTrigger();toolHover.Conditions.Add(new Condition(UIElement.IsMouseOverProperty,true));toolHover.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));toolHover.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));toolHover.Setters.Add(Value(Control.ForegroundProperty,Accent));tool.Triggers.Add(toolHover);
         foreach(var icon in Icons.Where(pair=>pair.Key is "设置" or "翻译截图" or "清除当前内容" or "回看" or "停止" or "重新生成"))
-        {var trigger=new Trigger{Property=FrameworkElement.TagProperty,Value=icon.Key};trigger.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(3,icon.Value)));tool.Triggers.Add(trigger);}
+        {var trigger=new Trigger{Property=FrameworkElement.TagProperty,Value=icon.Key};trigger.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(8,icon.Value)));tool.Triggers.Add(trigger);}
         window.Resources[ToolButton]=tool;var anchor=ButtonStyle(24,48);anchor.Setters.Add(Value(Control.ForegroundProperty,AccentText));window.Resources[AnchorButton]=anchor;
         DesktopTextScale.Install(window,changedAppearance);
         bool closed=false;
@@ -197,7 +202,8 @@ internal static class DesktopTheme
         style.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty,HorizontalAlignment.Center));
         var disabled=new Trigger{Property=UIElement.IsEnabledProperty,Value=false};disabled.Setters.Add(Value(Control.ForegroundProperty,Muted));disabled.Setters.Add(Value(Control.BackgroundProperty,Canvas));style.Triggers.Add(disabled);return style;
     }
-    internal static ControlTemplate SourceToggleTemplate()=>ButtonTemplate(3,targetType:typeof(ToggleButton));
+    internal static ControlTemplate SourceToggleTemplate()=>ButtonTemplate(8,targetType:typeof(ToggleButton));
+    internal static Style ReadingActionStyle()=>ButtonStyle(8,28);
     private static ControlTemplate ButtonTemplate(double radius,string? icon=null,bool filled=false,Type? targetType=null)
     {
         var template=new ControlTemplate(targetType??typeof(Button));var root=new FrameworkElementFactory(typeof(Grid));var border=new FrameworkElementFactory(typeof(Border),"surface");border.SetValue(Border.CornerRadiusProperty,new CornerRadius(radius));border.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));border.SetValue(Border.BorderBrushProperty,new TemplateBindingExtension(Control.BorderBrushProperty));border.SetValue(Border.BorderThicknessProperty,new TemplateBindingExtension(Control.BorderThicknessProperty));border.SetValue(Border.PaddingProperty,new TemplateBindingExtension(Control.PaddingProperty));

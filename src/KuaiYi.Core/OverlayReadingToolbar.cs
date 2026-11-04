@@ -5,6 +5,22 @@ public sealed record ReadingToolbarLayout(IReadOnlyList<ReadingToolSlot> Slots,d
 /// <summary>Frequency-based control edge. Commands keep identity when their labels change.</summary>
 public static class OverlayReadingToolbar
 {
+    /// <summary>Reader-first rail: secondary commands remain in the existing overflow menu.</summary>
+    public static ReadingToolbarLayout Focused(double sideWidthDip,double cardWidthDip,bool reading,bool generating,bool touch,double textScale)
+    {
+        if(!double.IsFinite(sideWidthDip)||sideWidthDip<0||!double.IsFinite(cardWidthDip)||cardWidthDip<48||!double.IsFinite(textScale)||textScale<1||textScale>2.25)throw new ArgumentOutOfRangeException();
+        var slots=new List<ReadingToolSlot>();double hit=touch?44:32,gap=8,offset=8;
+        double primary=Math.Max(hit,36*textScale+20),style=Math.Max(hit,24*textScale+28);
+        string action=reading?(generating?"停止":"复制"):"回看";
+        if(primary+hit+gap*3<=sideWidthDip)
+        {
+            if(reading&&style+primary+hit+gap*4<=sideWidthDip){slots.Add(new("风格",offset,style));offset+=style+gap;}
+            slots.Add(new(action,offset,primary));offset+=primary+gap;slots.Add(new("更多",offset,hit));return new(slots,0);
+        }
+        if(hit+16<=sideWidthDip){slots.Add(new("更多",8,hit));return new(slots,0);}
+        // Balanced growth can leave neither side wide enough. Keep overflow reachable below.
+        slots.Add(new("更多",8,Math.Min(hit,cardWidthDip-16),1));return new(slots,48);
+    }
     public static ReadingToolbarLayout Responsive(double sideWidthDip,double cardWidthDip,bool reading,bool generating,bool touch,double textScale)
     {
         if(!double.IsFinite(cardWidthDip)||cardWidthDip<48||!double.IsFinite(textScale)||textScale<1||textScale>2.25)throw new ArgumentOutOfRangeException();

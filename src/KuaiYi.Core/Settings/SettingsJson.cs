@@ -52,6 +52,8 @@ public static class SettingsJson
         {if(context.PropertyInfo?.AttributeProvider?.GetCustomAttributes(typeof(SettingsRangeAttribute),true).OfType<SettingsRangeAttribute>().FirstOrDefault() is {} range&&node is JsonObject o){o["minimum"]=range.Minimum;o["maximum"]=range.Maximum;}return node;}});
         var templates=schema["properties"]!["translation"]!["properties"]!["customTemplates"]!;
         templates["maxProperties"]=4;templates["propertyNames"]=new JsonObject{["enum"]=new JsonArray(Enum.GetNames<TranslationPreset>().Select(name=>(JsonNode?)JsonValue.Create(name)).ToArray())};templates["additionalProperties"]=new JsonObject{["type"]="string",["minLength"]=1,["maxLength"]=PromptTemplatePolicy.MaximumTemplateCharacters};
+        var customColor=schema["properties"]!["overlay"]!["properties"]!["customColor"]!;
+        customColor["pattern"]="^#[0-9a-fA-F]{6}$";customColor["minLength"]=7;customColor["maxLength"]=7;
         schema["required"]=new JsonArray(JsonValue.Create("schemaVersion"));schema["$schema"]="https://json-schema.org/draft/2020-12/schema";schema["default"]=JsonSerializer.SerializeToNode(new AppSettings(),Options);return schema;
     }
     public static void Validate(AppSettings s)
@@ -72,6 +74,8 @@ public static class SettingsJson
         Check(s.ActiveProfileId==null||ids.Contains(s.ActiveProfileId),"activeProfileId");Check(s.VisionProfileId==null||ids.Contains(s.VisionProfileId),"visionProfileId");
         Check(s.Translation!=null&&Enum.IsDefined(s.Translation.Preset),"translation");Text(s.Translation!.TargetLanguage,32,"targetLanguage");Text(s.Translation.Domain,512,"domain");Text(s.Translation.ReaderBackground,2048,"readerBackground");PromptTemplatePolicy.Validate(s.Translation);
         Check(s.Overlay!=null&&Enum.IsDefined(s.Overlay.ReduceMotion)&&Enum.IsDefined(s.Overlay.Theme),"overlay");if(s.Overlay!.LastPosition is {} position){Text(position.MonitorId,256,"monitorId");Check(position.MonitorId.Length>0,"monitorId");}
+        Check(Enum.IsDefined(s.Overlay.ColorStyle)&&Enum.IsDefined(s.Overlay.BackgroundMotion)&&Enum.IsDefined(s.Overlay.Outline)&&Enum.IsDefined(s.Overlay.Typeface),"overlay.appearance");
+        Text(s.Overlay.CustomColor,7,"overlay.customColor");Check(System.Text.RegularExpressions.Regex.IsMatch(s.Overlay.CustomColor,"^#[0-9a-fA-F]{6}$",System.Text.RegularExpressions.RegexOptions.CultureInvariant),"overlay.customColor");
         Check(s.Images!=null&&s.Privacy!=null,"images/privacy");Check(!s.Privacy!.PersistHistory&&!s.Privacy.TelemetryEnabled&&!s.Privacy.ClipboardFallbackDefault,"privacy.fixedDefaults");
         Strings(s.Privacy.BlockedApplications,128,260,"blockedApplications");Strings(s.Privacy.ClipboardAllowedApplications,128,260,"clipboardAllowedApplications");Strings(s.Privacy.ConsentedEndpointOrigins,128,2048,"consentedEndpointOrigins");
         foreach(var origin in s.Privacy.ConsentedEndpointOrigins){Check(Uri.TryCreate(origin,UriKind.Absolute,out var endpoint),"origin");Check(new EndpointOrigin(endpoint!).Value==origin,"origin");}

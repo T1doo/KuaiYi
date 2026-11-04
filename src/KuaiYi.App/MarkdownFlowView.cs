@@ -33,6 +33,7 @@ internal sealed partial class MarkdownFlowView
     private Guid? appliedVersion;
     private MarkdownViewport viewport=new(388,560);
     private double appliedFontSize=double.NaN;
+    private FontFamily? appliedProseFont;
     private static readonly FontFamily ProseFont=new("Microsoft YaHei UI, Segoe UI"),CodeFont=new("Consolas");
     public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null,Func<bool>? shouldFollow=null,Action? sourceChanged=null,Func<Guid,bool>? canReadSource=null,Action<Exception>? sourceFailed=null,Action<Guid,MarkdownHttpTarget,Func<bool>>? openLink=null,Func<Func<bool>>? captureSourceCopyGuard=null)
     {
@@ -124,7 +125,7 @@ internal sealed partial class MarkdownFlowView
         appliedFontSize=size;ConstrainSource();
     }
     private void ConstrainSource()
-    {sourceRegion?.Constrain(host.Document.PageWidth,viewport.MaximumHeightDip,host.FontSize,host.Foreground);imageSourceRegion?.Constrain(host.Document.PageWidth,viewport.MaximumHeightDip,host.FontSize,host.Foreground);}
+    {sourceRegion?.Constrain(host.Document.PageWidth,viewport.MaximumHeightDip,host.FontSize,host.Foreground,host.FontFamily);imageSourceRegion?.Constrain(host.Document.PageWidth,viewport.MaximumHeightDip,host.FontSize,host.Foreground);}
     public void SetViewport(MarkdownViewport value,Func<bool>? current=null)
     {
         if(current?.Invoke()==false)return;value.Validate();viewport=value;
@@ -138,7 +139,7 @@ internal sealed partial class MarkdownFlowView
     public void RefreshCodeAppearance()
     {
         foreach(var region in codeRegions.Values){region.View.FontSize=host.FontSize;region.View.Foreground=host.Foreground;}
-        foreach(var region in tableRegions.Values)region.RefreshAppearance(host.FontSize,host.Foreground);
+        foreach(var region in tableRegions.Values)region.RefreshAppearance(host.FontSize,host.Foreground,host.FontFamily);
         ConstrainSource();
     }
     public void FollowTailEnd()
@@ -184,16 +185,21 @@ internal sealed partial class MarkdownFlowView
             }
             elementParagraphs.Add(element,paragraphs);applied.Add(data);elements.Add(element);if(sourceBlock!=null)host.Document.Blocks.InsertBefore(sourceBlock,element);else host.Document.Blocks.Add(element);
         }
-        int styleStart=fontSize==appliedFontSize?keep:0;
+        var proseFont=host.FontFamily??ProseFont;
+        int styleStart=fontSize==appliedFontSize&&Equals(proseFont,appliedProseFont)?keep:0;
         if(fontSize!=appliedFontSize)host.FontSize=host.Document.FontSize=fontSize;
         appliedFontSize=fontSize;
+        appliedProseFont=proseFont;
         for(int i=styleStart;i<elements.Count;i++)
         {
             var data=applied[i];Block element=elements[i];
             double size=data.Kind==MarkdownBlockKind.Heading?fontSize*(16d/15):fontSize;
+            bool paragraphGap=data.Kind==MarkdownBlockKind.Paragraph&&data.Text.Length==0;
+            if(paragraphGap)size=fontSize*.75;
             element.FontSize=size;element.LineHeight=size*1.55;
+            if(paragraphGap)element.LineHeight=size;
             element.FontWeight=data.Kind==MarkdownBlockKind.Heading?FontWeights.SemiBold:FontWeights.Normal;
-            element.FontFamily=data.Kind==MarkdownBlockKind.Code?CodeFont:ProseFont;
+            element.FontFamily=data.Kind==MarkdownBlockKind.Code?CodeFont:proseFont;
         }
         RefreshCodeAppearance();
     }

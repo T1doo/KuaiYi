@@ -45,8 +45,8 @@ internal sealed partial class MarkdownSourceRegion:IDisposable
         return attempt==copyAttempt&&!disposed&&source==value&&canRead?.Invoke()!=false&&current?.Invoke()!=false;
     }
     public bool Matches(string value)=>source==value;
-    public void Constrain(double width,double height,double size,Brush foreground)
-    {View.Width=View.MaxWidth=width;Text.Width=Text.MaxWidth=width;Text.MaxHeight=Math.Min(180,Math.Max(1,height/2));Text.FontSize=size;Text.Foreground=foreground;View.Foreground=foreground;View.FontSize=size;}
+    public void Constrain(double width,double height,double size,Brush foreground,FontFamily? family=null)
+    {View.Width=View.MaxWidth=width;Text.Width=Text.MaxWidth=width;Text.MaxHeight=Math.Min(180,Math.Max(1,height/2));Text.FontSize=size;Text.Foreground=foreground;if(family!=null)Text.FontFamily=family;View.Foreground=foreground;View.FontSize=size;}
     public void SetExpanded(bool expanded)
     {
         if(disposed)return;

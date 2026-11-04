@@ -131,6 +131,7 @@ namespace System.Windows.Controls
     internal sealed partial class RichTextBox:FrameworkElement
     {
         public Documents.FlowDocument Document {get;set;}=new();
+        public Media.FontFamily? FontFamily {get;set;}
         public double FontSize {get;set;}
         public Media.Brush Foreground {get;set;}=Media.Brushes.Black;
         public bool IsDocumentEnabled {get;set;}

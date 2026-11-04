@@ -27,6 +27,7 @@ public static class NativeDesktop
     [DllImport("user32.dll", SetLastError = true)] private static extern nint GetWindowLongPtrW(nint hwnd, int index);
     [DllImport("user32.dll", SetLastError = true)] private static extern nint SetWindowLongPtrW(nint hwnd, int index, nint value);
     [DllImport("gdi32.dll", SetLastError = true)] private static extern nint CreateRoundRectRgn(int left, int top, int right, int bottom, int ellipseWidth, int ellipseHeight);
+    [DllImport("gdi32.dll", SetLastError = true)] private static extern nint CreatePolyPolygonRgn([In] Point[] points,[In] int[] counts,int polygonCount,int fillMode);
     [DllImport("user32.dll", SetLastError = true)] private static extern int SetWindowRgn(nint hwnd, nint region, [MarshalAs(UnmanagedType.Bool)] bool redraw);
     [DllImport("gdi32.dll")] [return: MarshalAs(UnmanagedType.Bool)] private static extern bool DeleteObject(nint handle);
     [DllImport("kernel32.dll", SetLastError = true)] private static extern SafeProcessHandle OpenProcess(uint access, [MarshalAs(UnmanagedType.Bool)] bool inherit, uint processId);
@@ -66,11 +67,13 @@ public static class NativeDesktop
         int x = Math.Clamp(anchor.Left, work.Left, work.Right - size), y = Math.Clamp(anchor.Top, work.Top, work.Bottom - size);
         return new(x, y, x + size, y + size);
     }
-    public static void ApplyBounds(nint hwnd, PixelRect rectangle, int radiusPixels,bool show=true)
+    public static void ApplyBounds(nint hwnd, PixelRect rectangle, int radiusPixels,bool show=true,Point[][]? outline=null)
     {
         if (!SetWindowPos(hwnd, new nint(-1), rectangle.Left, rectangle.Top, rectangle.Width, rectangle.Height, 0x0010u | (show?0x0040u:0u)))
             throw new Win32Exception(Marshal.GetLastWin32Error());
-        nint region = CreateRoundRectRgn(0, 0, rectangle.Width + 1, rectangle.Height + 1, radiusPixels * 2, radiusPixels * 2);
+        nint region = outline is {Length:>0}
+            ?CreatePolyPolygonRgn(outline.SelectMany(p=>p).ToArray(),outline.Select(p=>p.Length).ToArray(),outline.Length,2)
+            :CreateRoundRectRgn(0, 0, rectangle.Width + 1, rectangle.Height + 1, radiusPixels * 2, radiusPixels * 2);
         if (region == 0) throw new Win32Exception(Marshal.GetLastWin32Error());
         // On success Windows owns the region; on failure ownership stays here.
         if (SetWindowRgn(hwnd, region, true) == 0) { int error = Marshal.GetLastWin32Error(); DeleteObject(region); throw new Win32Exception(error); }

@@ -32,11 +32,12 @@ internal sealed class OpeningMotionCapture
         double now=clock.Elapsed.TotalMilliseconds;
         body??=(RichTextBox)typeof(ShellWindow).GetField("body",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(window)!;
         tools??=(List<Button>)typeof(ShellWindow).GetField("tools",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(window)!;
-        bool controlsSettled=tools.Single(tool=>Equals(tool.Tag,"重新生成")).IsVisible&&!tools.Single(tool=>Equals(tool.Tag,"停止")).IsVisible;
-        bool terminal=hasText&&controlsSettled&&!window.PresentationGate.HasRunningGeneration&&body.IsVisible&&body.Opacity>=.999&&geometry.Transition==OverlayTransition.Expanded&&!geometry.NeedsFrame;
-        if(!terminal&&now-last<33)return;
+        bool controlsSettled=!tools.Single(tool=>Equals(tool.Tag,"停止")).IsVisible;
+        bool terminal=hasText&&controlsSettled&&!window.PresentationGate.HasRunningGeneration&&!window.PresentationTextRevealPending&&body.IsVisible&&body.Opacity>=.999&&geometry.Transition==OverlayTransition.Expanded&&!geometry.NeedsFrame;
+        double interval=geometry.Transition==OverlayTransition.Opening?33:120;
+        if(!terminal&&now-last<interval)return;
         var card=geometry.Current;long area=(long)card.Width*card.Height;
-        if(frames.Count>=36||area<=0||area>1_000_000||pixels+area>8_000_000)return;
+        if(frames.Count>=64||area<=0||area>1_000_000||pixels+area>16_000_000)return;
         capturing=true;
         try
         {
@@ -57,7 +58,7 @@ internal sealed class OpeningMotionCapture
             records.Add(new{File=name,Milliseconds=frame.Ms,Card=frame.Card,Anchor=frame.Anchor,CornerProgress=frame.Corner,ContentOpacity=frame.Opacity});
         }
         using(var file=new FileStream(Path.Combine(directory,"frames.json"),FileMode.CreateNew,FileAccess.Write,FileShare.None))
-            JsonSerializer.Serialize(file,new{Kind="ActualWpfContentFrameSamples_NotDwmVideo",TerminalCaptured=done,PixelBudget=8_000_000,Pixels=pixels,Frames=records},new JsonSerializerOptions{WriteIndented=true});
+            JsonSerializer.Serialize(file,new{Kind="ActualWpfContentFrameSamples_NotDwmVideo",TerminalCaptured=done,PixelBudget=16_000_000,Pixels=pixels,Frames=records},new JsonSerializerOptions{WriteIndented=true});
         frames.Clear();
     }
 }

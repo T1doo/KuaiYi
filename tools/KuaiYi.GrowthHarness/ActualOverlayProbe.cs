@@ -14,7 +14,7 @@ internal static class ActualOverlayProbe
 {
     private const string PublicText="快译公开浮窗验证。没有读取其他应用，没有请求模型。\n\n同一个按钮是整张卡片的锚点；文字按最终宽度排版，窗口从按钮生长，跨DPI拖动后松手保存。\n\n";
     public static int Run(string output,string rate,bool boundedCi=false,bool markdownReview=false,bool interactiveInspection=false,
-        ThemePreference inspectionTheme=ThemePreference.Light,MotionPreference inspectionMotion=MotionPreference.Full,double inspectionTextScale=1,bool captureOpening=false)
+        ThemePreference inspectionTheme=ThemePreference.Light,MotionPreference inspectionMotion=MotionPreference.Full,double inspectionTextScale=1,bool captureOpening=false,OverlayOutline inspectionOutline=OverlayOutline.Glass)
     {
         bool burst=rate=="burst";double perSecond=0;
         if(!burst&&(!double.TryParse(rate,System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out perSecond)||!double.IsFinite(perSecond)||perSecond is <1 or >10000))return 2;
@@ -38,7 +38,7 @@ internal static class ActualOverlayProbe
         {
             Phase("DraftOpened");
             var visual=UiPolishTextFixture.Configuration(inspectionTheme,inspectionMotion);
-            draft.Update(s=>interactiveInspection?visual with{Overlay=visual.Overlay with{FontSizeDip=15,PreferredWidthDip=420,RememberPosition=false}}:s with{ActiveProfileId="public",Profiles=[new(){Id="public",Model="public-fixture",BaseUrl="https://public.invalid",Authentication=ApiAuthentication.None}]});
+            draft.Update(s=>interactiveInspection?visual with{Overlay=visual.Overlay with{FontSizeDip=16,PreferredWidthDip=460,RememberPosition=false,Outline=inspectionOutline}}:s with{ActiveProfileId="public",Profiles=[new(){Id="public",Model="public-fixture",BaseUrl="https://public.invalid",Authentication=ApiAuthentication.None}]});
             inspectionSettings=coordinator.SaveAsync(draft).GetAwaiter().GetResult();
         }
         Phase("PublicSettingsSaved");
@@ -62,7 +62,7 @@ internal static class ActualOverlayProbe
         window.SourceInitialized+=(_,_)=>Phase("SourceInitialized");window.Closing+=(_,_)=>Phase("Closing");window.Closed+=(_,_)=>Phase("Closed");
         app.DispatcherUnhandledException+=(_,e)=>Phase("DispatcherUnhandled:"+e.Exception.GetType().Name);
         var timer=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(interactiveInspection?650:50)};RequestIdentity? current=null;int offset=0;bool busy=false;double budget=0;long feedTime=Stopwatch.GetTimestamp();
-        string stream=interactiveInspection?"公开预览 · 零模型请求\n\n雨已经停了，河边的小路很安静。\n我慢慢走向车站。\n空气里飘着刚出炉面包的香味。":markdownReview?MarkdownReviewText.Text:string.Concat(Enumerable.Repeat(PublicText,24));var errors=new List<string>();
+        string stream=interactiveInspection?"雨已经停了，河边的小路很安静。我慢慢走向车站，空气里飘着刚出炉面包的香味。\n\n远处的城市亮起了灯。蓝紫色的晚霞映在水面上，随着微风轻轻晃动。\n\n走到桥边时，我停了一会儿。风吹过树梢，也吹散了一天的疲惫。":markdownReview?MarkdownReviewText.Text:string.Concat(Enumerable.Repeat(PublicText,24));var errors=new List<string>();
         bool completed=false,timedOut=false;long completedAt=0;
         var deadline=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(100)};long startedAt=Stopwatch.GetTimestamp();
         var checks=new Dictionary<string,bool>{{"AnchorContained",true},{"WorkContained",true},{"NativeMatches",true},{"ActualAnchorContained",true},{"ActualWorkContained",true},{"ForegroundUnchanged",true},{"ActualButtonMatchesAnchor",true},{"AnchorStable",true},{"Grew",false}};
@@ -145,19 +145,28 @@ internal static class ActualOverlayProbe
             if(frames.Count>100000){frames.Dequeue();discarded++;}
         };
         System.Windows.Media.CompositionTarget.Rendering+=observe;
-        int result;
+        int result=3;
         try{result=app.Run(window);Phase("RunReturned");}
-        catch(Exception error)when(boundedCi){errors.Add(error.GetType().Name);throw;}
+        catch(Exception error)
+        {
+            errors.Add("ApplicationRun:"+error.GetType().Name);
+            Console.Error.WriteLine("Public overlay probe failed: "+error);
+        }
         finally
         {
             System.Windows.Media.CompositionTarget.Rendering-=observe;timer.Stop();deadline.Stop();
-            if(inspectionFixture!=null)inspectionFixture.DisposeAsync().AsTask().GetAwaiter().GetResult();
-            motion?.Save();
+            if(inspectionFixture!=null)Cleanup("FixtureDispose",()=>inspectionFixture.DisposeAsync().AsTask().GetAwaiter().GetResult());
+            Cleanup("MotionEvidence",()=>motion?.Save());
+            Cleanup("TemporaryConfiguration",()=>{if(Directory.Exists(root))Directory.Delete(root,true);});
             File.WriteAllLines(output,new[]{"ms,stage,dpi,left,top,right,bottom,anchorContained,workContained,nativeMatches,actualAnchorContained,actualWorkContained,foregroundUnchanged,actualButtonMatchesAnchor,buttonLeft,buttonTop,buttonRight,buttonBottom,anchorLeft,anchorTop,anchorRight,anchorBottom"}.Concat(frames));
-            File.WriteAllText(output+".summary.json",System.Text.Json.JsonSerializer.Serialize(new{Kind=interactiveInspection?"ActualProductionOverlayPublicInspection":markdownReview?"ActualProductionMarkdownPublicReview":"ActualProductionOverlayPublicProbe",Rate=rate,RetainedFrames=frames.Count,DiscardedFrames=discarded,Errors=errors,ModelCalls=0,Source=interactiveInspection?"BoundSyntheticSource_NoNetwork":markdownReview?"FixedMarkdownReviewV1":"PublicFixtureOnly",DesktopAcceptance="NotEvaluated",Mode=interactiveInspection?"Interactive_NativeStylesAdapted_NotFocusAcceptance":boundedCi?"BoundedCi":"Interactive",InspectionTheme=inspectionTheme.ToString(),InspectionMotion=inspectionMotion.ToString(),TextFactor=DesktopTextScale.Factor(window),StreamCompleted=completed,Checks=checks,ExitCode=boundedCi?ExitCode():errors.Count>0?3:0}));
-            if(Directory.Exists(root))Directory.Delete(root,true);
+            File.WriteAllText(output+".summary.json",System.Text.Json.JsonSerializer.Serialize(new{Kind=interactiveInspection?"ActualProductionOverlayPublicInspection":markdownReview?"ActualProductionMarkdownPublicReview":"ActualProductionOverlayPublicProbe",Rate=rate,RetainedFrames=frames.Count,DiscardedFrames=discarded,Errors=errors,ModelCalls=0,Source=interactiveInspection?"BoundSyntheticSource_NoNetwork":markdownReview?"FixedMarkdownReviewV1":"PublicFixtureOnly",DesktopAcceptance="NotEvaluated",Mode=interactiveInspection?"Interactive_NativeStylesAdapted_NotFocusAcceptance":boundedCi?"BoundedCi":"Interactive",InspectionTheme=inspectionTheme.ToString(),InspectionMotion=inspectionMotion.ToString(),TextFactor=DesktopTextScale.Factor(window),StreamCompleted=completed,Checks=checks,Outcome=errors.Count>0?"Fail":completed&&frames.Count>0?"Observed":"Incomplete",InspectionOutline=inspectionOutline.ToString(),ExitCode=boundedCi?ExitCode():errors.Count>0||frames.Count==0?3:result}));
         }
-        return boundedCi?ExitCode():interactiveInspection&&errors.Count>0?3:result;
+        return boundedCi?ExitCode():errors.Count>0||frames.Count==0?3:result;
+        void Cleanup(string stage,Action action)
+        {
+            try{action();}
+            catch(Exception error){errors.Add(stage+":"+error.GetType().Name);Console.Error.WriteLine(stage+" failed: "+error);}
+        }
         int ExitCode()=>timedOut?4:errors.Count>0||!completed||frames.Count<10||discarded!=0||checks.Values.Any(value=>!value)?3:0;
     }
     private sealed class DirectoryPolicy:ISecretDirectoryPolicy{public void EnsurePrivate(string directory)=>Directory.CreateDirectory(directory);}

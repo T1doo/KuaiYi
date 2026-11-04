@@ -18,7 +18,9 @@ internal sealed partial class SettingsWindow
         brand.Children.Add(new TextBlock{Text="快译设置",FontSize=16,FontWeight=FontWeights.SemiBold});
         var quietCorner=new StackPanel{Margin=new Thickness(4,12,4,0)};Grid.SetRow(quietCorner,2);sidebar.Children.Add(quietCorner);
         var privacy=new TextBlock{Text="默认 Off（未启用）\n启用后可自动发送选区\n保存设置本身不发送内容",FontSize=11,TextWrapping=TextWrapping.Wrap,LineHeight=18,Margin=new Thickness(0,8,0,0)};DesktopTheme.Bind(privacy,TextBlock.ForegroundProperty,DesktopTheme.Muted);quietCorner.Children.Add(privacy);
-        navigation=new SettingsNavigationListBox{ItemsSource=PageTitles,BorderThickness=new Thickness(0),Background=System.Windows.Media.Brushes.Transparent,Padding=new Thickness(0),ItemContainerStyle=(Style)Resources[DesktopTheme.NavigationItem],ItemTemplate=DesktopTheme.NavigationTemplate()};AutomationProperties.SetName(navigation,"设置分类");Grid.SetRow(navigation,1);sidebar.Children.Add(navigation);
+        navigation=new SettingsNavigationListBox{ItemsSource=PageTitles};
+        var simpleNavigation=new ScrollViewer{Content=SimpleNavigation(navigation),VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled};
+        Grid.SetRow(simpleNavigation,1);sidebar.Children.Add(simpleNavigation);
         var pageContent=new StackPanel();
         var header=new StackPanel();var headingRegion=new Border{Child=header,Padding=new Thickness(0,0,0,16),Margin=new Thickness(0,0,0,16),BorderThickness=new Thickness(0,0,0,1)};DesktopTheme.Bind(headingRegion,Border.BorderBrushProperty,DesktopTheme.Stroke);pageContent.Children.Add(headingRegion);
         pageIndex=new TextBlock{Visibility=Visibility.Collapsed,Text="偏好设置  /  01",FontSize=11,FontWeight=FontWeights.SemiBold,Margin=new Thickness(0,0,0,8)};DesktopTheme.Bind(pageIndex,TextBlock.ForegroundProperty,DesktopTheme.Accent);header.Children.Add(pageIndex);
@@ -65,5 +67,5 @@ internal sealed partial class SettingsWindow
         var trigger=new DataTrigger{Binding=new Binding(nameof(SettingsChromePanel.IsCompact)){Source=root},Value=true};trigger.Setters.Add(new Setter(property,compact));style.Triggers.Add(trigger);element.Style=style;
     }
     private void ShowSettingsPage(int index)
-    {if(index<0||index>=PageTitles.Length)return;pageIndex!.Text=$"偏好设置  /  {index+1:00}";pageHeading!.Text=PageTitles[index];pageDescription!.Text=PageDescriptions[index];}
+    {if(index<0||index>=PageTitles.Length)return;pageIndex!.Text=$"偏好设置  /  {index+1:00}";pageHeading!.Focusable=true;pageHeading.Text=index switch{0=>"备份与恢复",1=>"翻译与模型",3=>"外观",4=>"快捷操作",_=>PageTitles[index]};pageDescription!.Text=PageDescriptions[index];}
 }

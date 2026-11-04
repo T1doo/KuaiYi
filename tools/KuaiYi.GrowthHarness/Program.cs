@@ -19,13 +19,39 @@ internal static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        try{return Run(args);}
+        catch(Exception error)
+        {
+            Console.Error.WriteLine("KuaiYi harness stopped without retry: "+error);
+            return 3;
+        }
+    }
+    private static int Run(string[] args)
+    {
+        if(args.SequenceEqual(new[]{"--check-desktop"}))
+        {
+            bool available=NativeTray.IsTaskbarAvailable();
+            Console.WriteLine(available?"DesktopAvailable: taskbar visible; no windows created.":"DesktopUnavailable: no taskbar on calling desktop; no windows created.");
+            return available?0:5;
+        }
+        if(args.Length==2&&args[0]=="--ci-appearance-geometry")return AppearanceGeometryProbe.Run(args[1]);
+        bool desktopProbe=UiPolishContract.IsCommand(args)||args.Length>0&&args[0] is
+            "--desktop-cloud-review" or "--desktop-review" or "--ci-reader-scroll" or
+            "--desktop-overlay-review" or "--ci-settings-layout" or "--ci-overlay-stages" or
+            "--ci-local-image-shell" or "--ci-actual-overlay" or "--actual-overlay" or "--actual-markdown";
+        if(desktopProbe&&!NativeTray.IsTaskbarAvailable())
+        {
+            Console.Error.WriteLine("DesktopUnavailable: UI probes require an interactive desktop with a Windows taskbar. No window, tray icon, keyboard input or retry was started.");
+            return 5;
+        }
+        if(args.Length==2&&args[0]=="--desktop-cloud-review")return ActualOverlayProbe.Run(args[1],"30",interactiveInspection:true,inspectionTheme:ThemePreference.Light,inspectionOutline:OverlayOutline.Cloud,captureOpening:true);
         if(args.SequenceEqual(new[]{"--desktop-review"}))return DesktopFrontendReview.Run();
         if(args.Length==2&&args[0]=="--ci-reader-scroll")return ReaderScrollProbe.Run(args[1]);
-        if(args.Length==2&&args[0]=="--desktop-overlay-review")return ActualOverlayProbe.Run(args[1],"120",markdownReview:true,interactiveInspection:true);
+        if(args.Length==2&&args[0]=="--desktop-overlay-review")return ActualOverlayProbe.Run(args[1],"30",markdownReview:true,interactiveInspection:true);
         if(args.Length is 5 or 6&&args[0]=="--desktop-overlay-review")
         {
             if(args[2] is not("light" or "dark")||args[3] is not("full" or "reduce")||args[4] is not("1" or "2")||args.Length==6&&args[5]!="motion")return 2;
-            return ActualOverlayProbe.Run(args[1],args[4]=="2"?"5":"120",interactiveInspection:true,
+            return ActualOverlayProbe.Run(args[1],args[4]=="2"?"5":"30",interactiveInspection:true,
                 inspectionTheme:args[2]=="dark"?ThemePreference.Dark:ThemePreference.Light,
                 inspectionMotion:args[3]=="reduce"?MotionPreference.Reduce:MotionPreference.Full,inspectionTextScale:args[4]=="2"?2:1,captureOpening:args.Length==6);
         }
@@ -46,6 +72,7 @@ internal static class Program
         if(args.Length==2&&args[0]=="--ci-actual-overlay")return ActualOverlayProbe.Run(args[1],"2400",boundedCi:true);
         if(args.Length is 2 or 3&&args[0]=="--actual-overlay")return ActualOverlayProbe.Run(args[1],args.Length==3?args[2]:"240");
         if(args.Length is 2 or 3&&args[0]=="--actual-markdown")return ActualOverlayProbe.Run(args[1],args.Length==3?args[2]:"1000",markdownReview:true);
+        if(!NativeTray.IsTaskbarAvailable()){Console.Error.WriteLine("DesktopUnavailable: no growth window was created.");return 5;}
         string output = args.Length == 1 ? Path.GetFullPath(args[0]) : Path.GetFullPath("artifacts/growth-probe.csv");
         Directory.CreateDirectory(Path.GetDirectoryName(output)!);
         var application = new Application();

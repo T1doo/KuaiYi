@@ -9,6 +9,8 @@ internal sealed record OverlayMeasureObservation(long Qpc,MarkdownMeasureObserva
     int ReturnedBodyPixels,int PlanMaximumHeightPixels,int CalculatedClampedHeightPixels,double Dpi);
 internal sealed partial class ShellWindow
 {
+    partial void PrepareReadingText(Guid? version,ref string text,ref bool complete);
+    partial void ResetReadingReveal();
     internal Action<OverlayMeasureObservation>? PresentationMeasureObservedForTest{get;set;}
     private readonly RestrictedMarkdown markdown=new();
     private MarkdownFlowView bodyMarkdown=null!,measurementMarkdown=null!;
@@ -58,11 +60,11 @@ internal sealed partial class ShellWindow
             string? details=bound==null?null:$"来源 {SourceLabel(bound)} · {bound.Profile.Model}\n发送域名 {new EndpointOrigin(bound.Transport.ResolveEndpoint()).Value}";
             bodyMarkdown.SetSourceDetails(selection.VersionId,details);measurementMarkdown.SetSourceDetails(selection.VersionId,details);
         }
-        if(current?.Invoke()==false)return;markdown.Update(selection.VersionId,LocalImagePreview?"":overlayResults.Text,LocalImagePreview||selected?.Complete==true||selected?.Stopped==true);
+        if(current?.Invoke()==false)return;string visibleText=LocalImagePreview?"":overlayResults.Text;bool textComplete=LocalImagePreview||selected?.Complete==true||selected?.Stopped==true;PrepareReadingText(selection.VersionId,ref visibleText,ref textComplete);markdown.Update(selection.VersionId,visibleText,textComplete);
         double size=(lifecycle.Settings?.Data.Overlay.FontSizeDip??15)*PresentationTextScale;
         measurementMarkdown.Apply(markdown.Blocks,size,markdownViewport,selection.VersionId);
         if(current?.Invoke()==false)return;bodyMarkdown.SetViewport(markdownViewport);if(current?.Invoke()==false)return;
         if(renderBody)bodyMarkdown.Apply(markdown.Blocks,size,markdownViewport,selection.VersionId);
     }
-    private void ClearMarkdown(){ForgetCodeReaderIntent();markdown.Clear();bodyMarkdown.Clear();measurementMarkdown.Clear();}
+    private void ClearMarkdown(){ResetReadingReveal();ForgetCodeReaderIntent();markdown.Clear();bodyMarkdown.Clear();measurementMarkdown.Clear();}
 }

@@ -53,10 +53,10 @@ internal sealed class MarkdownTableRegion:IDisposable
         var state=pendingSelection is {} pending&&pendingGuard?.Invoke()==true?pending:(CaptureAnchor(View.Selection.Start),CaptureAnchor(View.Selection.End),View.HorizontalOffset,View.VerticalOffset);
         Restore(state,true,++revision,guard);
     }
-    public void RefreshAppearance(double fontSize,Brush foreground)
+    public void RefreshAppearance(double fontSize,Brush foreground,FontFamily? family=null)
     {
         View.FontSize=View.Document.FontSize=table.FontSize=fontSize;View.Foreground=foreground;
-        table.FontFamily=new FontFamily("Microsoft YaHei UI, Segoe UI");table.LineHeight=fontSize*1.55;SizeColumns();
+        table.FontFamily=family??new FontFamily("Microsoft YaHei UI, Segoe UI");table.LineHeight=fontSize*1.55;SizeColumns();
     }
     private void SizeColumns()
     {

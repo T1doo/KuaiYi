@@ -20,21 +20,28 @@ public sealed class NativeTray:IDisposable
     [DllImport("user32.dll",SetLastError=true)]private static extern uint TrackPopupMenuEx(nint menu,uint flags,int x,int y,nint window,nint parameters);
     [DllImport("user32.dll")][return:MarshalAs(UnmanagedType.Bool)]private static extern bool SetForegroundWindow(nint window);
     [DllImport("user32.dll",SetLastError=true)][return:MarshalAs(UnmanagedType.Bool)]private static extern bool DestroyMenu(nint menu);
+    [DllImport("user32.dll",CharSet=CharSet.Unicode)]private static extern nint FindWindowW(string className,string? title);
+    /// <summary>Read-only preflight on the calling desktop; never opens a window or adds an icon.</summary>
+    public static bool IsTaskbarAvailable()=>OperatingSystem.IsWindows()&&FindWindowW("Shell_TrayWnd",null)!=0;
+    private static InvalidOperationException NotificationFailure(string operation)=>new(
+        "Taskbar notification operation "+operation+" returned false. Taskbar available on this desktop: "+IsTaskbarAvailable()+
+        ". Shell_NotifyIcon does not document a GetLastError result; no error code is inferred.");
     private Data data;private bool added;private bool disposed;
     public uint TaskbarCreated{get;}=RegisterWindowMessageW("TaskbarCreated");
     public NativeTray(nint window)
     {
+        if(!IsTaskbarAvailable())throw new InvalidOperationException("No Windows taskbar is available on the calling desktop. Tray initialization refused; no icon was registered.");
         data=new(){Size=(uint)Marshal.SizeOf<Data>(),Window=window,Id=1,Flags=1|2|4|128,Callback=CallbackMessage,Icon=LoadIconW(0,new nint(32512)),Tip="快译 · 未启用",Info="",Title=""};
         if(data.Icon==0||TaskbarCreated==0)throw new Win32Exception(Marshal.GetLastPInvokeError());
         try{Restore();}catch{if(added)Shell_NotifyIconW(2,ref data);throw;}
     }
     public void Restore()
     {
-        ObjectDisposedException.ThrowIf(disposed,this);if(!Shell_NotifyIconW(0,ref data))throw new Win32Exception(Marshal.GetLastPInvokeError());added=true;
-        data.Version=4;if(!Shell_NotifyIconW(4,ref data))throw new Win32Exception(Marshal.GetLastPInvokeError());
+        ObjectDisposedException.ThrowIf(disposed,this);if(!Shell_NotifyIconW(0,ref data))throw NotificationFailure("NIM_ADD");added=true;
+        data.Version=4;if(!Shell_NotifyIconW(4,ref data))throw NotificationFailure("NIM_SETVERSION");
     }
     public void Update(bool enabled)
-    {ObjectDisposedException.ThrowIf(disposed,this);data.Tip=enabled?"快译 · 已启用":"快译 · 未启用";if(!Shell_NotifyIconW(1,ref data))throw new Win32Exception(Marshal.GetLastPInvokeError());}
+    {ObjectDisposedException.ThrowIf(disposed,this);data.Tip=enabled?"快译 · 已启用":"快译 · 未启用";if(!Shell_NotifyIconW(1,ref data))throw NotificationFailure("NIM_MODIFY");}
     public uint Menu(bool enabled,bool visible)
     {
         nint menu=CreatePopupMenu();if(menu==0)throw new Win32Exception(Marshal.GetLastPInvokeError());
@@ -52,5 +59,5 @@ public sealed class NativeTray:IDisposable
     {uint message=RegisterWindowMessageW(scope+".Show");if(message==0)throw new Win32Exception(Marshal.GetLastPInvokeError());return message;}
     public static void ShowExisting(string scope)
     {if(!PostMessageW(new nint(0xffff),ShowMessage(scope),0,0))throw new Win32Exception(Marshal.GetLastPInvokeError());}
-    public void Dispose(){if(disposed)return;disposed=true;if(added&&!Shell_NotifyIconW(2,ref data))throw new Win32Exception(Marshal.GetLastPInvokeError());added=false;}
+    public void Dispose(){if(disposed)return;disposed=true;if(added&&!Shell_NotifyIconW(2,ref data))throw NotificationFailure("NIM_DELETE");added=false;}
 }

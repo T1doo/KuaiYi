@@ -10,11 +10,11 @@ internal sealed partial class ShellWindow
     private double ToolbarExtraFor(LayoutPlan plan)
     {
         double width=plan.Dpi.Dips(plan.Target.Width),x=plan.Dpi.Dips(plan.Anchor.Left-plan.Target.Left);
-        return OverlayReadingToolbar.Responsive(Math.Max(x,width-x-48),width,true,lifecycle.Gate.HasRunningGeneration,touchToolbar,PresentationTextScale).ExtraHeightDip;
+        return OverlayReadingToolbar.Focused(Math.Max(x,width-x-48),width,true,lifecycle.Gate.HasRunningGeneration,touchToolbar,PresentationTextScale).ExtraHeightDip;
     }
     private void OpenPresentationToolbar()
     {
-        double extra=awaitingText?OverlayReadingToolbar.Responsive(172,220,true,true,touchToolbar,PresentationTextScale).ExtraHeightDip:0;
+        double extra=awaitingText?OverlayReadingToolbar.Focused(172,220,true,true,touchToolbar,PresentationTextScale).ExtraHeightDip:0;
         overlayFrames?.OpenToolbar(220,48+extra);
     }
     private void RefreshTextScalePresentation()
