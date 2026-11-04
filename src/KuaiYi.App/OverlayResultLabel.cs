@@ -41,7 +41,13 @@ internal sealed partial class ShellWindow
         foreach(var tool in tools)if(Equals(tool.Tag,"查看原文"))tool.IsEnabled=CanReadOriginalSource()&&selection.HasSource;
         // Compact footer retains the complete provenance and reported usage in its disclosure.
         if(resultLabel.Text.Length>0)resultLabel.ToolTip=resultLabel.Text+"\n"+resultLabel.ToolTip;
-        if(!LocalImagePreview&&selected!=null)resultLabel.Text=$"{state} · {(snapshot==null?"图片":SourceLabel(snapshot))} · 仅内存"+(snapshot?.Source.SourceKind==SelectionSourceKind.OcrOnly?" · 图形关系未分析":"");
+        if(!LocalImagePreview&&selected!=null)
+        {
+            string source=snapshot!=null?SourceLabel(snapshot):selection.Generation?.SourceKind switch
+            {KuaiYi.Imaging.ImageSourceKind.Screenshot=>"截图",KuaiYi.Imaging.ImageSourceKind.Browser=>"浏览器图片",KuaiYi.Imaging.ImageSourceKind.Bitmap=>"投放位图",KuaiYi.Imaging.ImageSourceKind.LocalFile=>"文件图片",_=>"图片"};
+            resultLabel.Text=$"{state} · {source} · 仅内存"+(snapshot?.Source.SourceKind==SelectionSourceKind.OcrOnly?" · 图形关系未分析":"")+
+                (selection.Generation?.Plan?.Notice is {Length:>0} notice?" · "+notice:"");
+        }
         versionsTool.Content=selected==null?"本地图片":$"版本 {selected.Number} ⌄";
         versionsTool.ToolTip=$"当前来源保留 {overlayResults.Versions.Count} 个内存版本；版本号为创建序号。切换不发送请求。";
         versionsTool.IsEnabled=overlayResults.Versions.Count>0||LocalImagePreview;
@@ -51,7 +57,8 @@ internal sealed partial class ShellWindow
     {
         var image=imageTranslation?.SnapshotForVersion(version.Identity.VersionId);
         string? model=translation?.SnapshotForVersion(version.Identity.VersionId)?.Profile.Model??image?.Profile.Model;
-        return $"版本 {version.Number} · {(version.Failure!=null?"失败":version.Complete?"已完成":version.Stopped?"已停止":"生成中")}\n{StyleLabel(image?.Plan?.Preset??imageTranslation?.PresetForVersion(version.Identity.VersionId)??translation?.SnapshotForVersion(version.Identity.VersionId)?.Preset)} · {model??"模型未知"}";
+        return $"版本 {version.Number} · {(version.Failure!=null?"失败":version.Complete?"已完成":version.Stopped?"已停止":"生成中")}\n{StyleLabel(image?.Plan?.Preset??imageTranslation?.PresetForVersion(version.Identity.VersionId)??translation?.SnapshotForVersion(version.Identity.VersionId)?.Preset)} · {model??"模型未知"}"+
+            (image?.Plan?.Notice is {Length:>0} notice?"\n"+notice:"")+(image==null?"":"\n"+ScreenshotUsageLabel(image));
     }
     private static string ScreenshotUsageLabel(ScreenshotGenerationSnapshot value)=>$"分类：输入 {UsageCount(value.ClassificationUsage?.Tokens.InputTokens)} / 输出 {UsageCount(value.ClassificationUsage?.Tokens.OutputTokens)} token\n生成：输入 {UsageCount(value.GenerationUsage?.Tokens.InputTokens)} / 输出 {UsageCount(value.GenerationUsage?.Tokens.OutputTokens)} token";
     private static string UsageLabel(TranslationUsage? value)=>$"输入 token：{UsageCount(value?.InputTokens)} · 输出 token：{UsageCount(value?.OutputTokens)}";

@@ -18,9 +18,9 @@ internal sealed partial class ShellWindow
     private void EnableAndTranslateOpenedImage()=>EnableAndSendOpenedImage(
         ()=>MessageBox.Show(this,"启用后翻译当前打开的图片；随后仍会显示本次图片的目标、模型和发送确认。","快译 · 启用并翻译图片",MessageBoxButton.OKCancel,MessageBoxImage.Information)==MessageBoxResult.OK,
         Toggle,()=>TranslateScreenshot()); // Original lifecycle/profile/origin enable; original vision offer confirmation.
-    private void AddOpenImageCommands(ContextMenu menu)
+    private void AddOpenImageCommands(ContextMenu menu,bool includeDropCommands=true)
     {
-        AddImageFileDropMenu(menu);var open=new MenuItem{Header="打开图片",IsEnabled=!FileImageBusy};open.Click+=(_,_)=>_=OpenImageFile();menu.Items.Add(open);
+        if(includeDropCommands)AddImageFileDropMenu(menu);var open=new MenuItem{Header="打开图片",IsEnabled=!FileImageBusy};open.Click+=(_,_)=>_=OpenImageFile();menu.Items.Add(open);
         if(SelectedSource.Image is OwnedFileImage&&lifecycle.Gate.Snapshot.Activation==Activation.Off)
         {var send=new MenuItem{Header="启用并翻译图片"};send.Click+=(_,_)=>EnableAndTranslateOpenedImage();menu.Items.Add(send);}
     }

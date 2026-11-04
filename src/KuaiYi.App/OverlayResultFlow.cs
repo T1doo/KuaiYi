@@ -17,13 +17,14 @@ internal sealed partial class ShellWindow
                 if(!alreadyApplied&&!overlayResults.Begin(identity))return;if(!imageGeneration)BeginTextSource();ClearOriginalSource();resultRevision++;ResetBodyReaderFollow();dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
             case OverlayResultEventKind.Delta:
                 if(!alreadyApplied&&!overlayResults.Append(identity,value.Text))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();
+                if(!follow&&value.Text?.Length>0&&overlayResults.SelectedVersionId==identity.VersionId)hasUnreadResultText=true;
                 if(overlayResults.TryAutoReveal(identity)&&(peek||overlayFrames?.IsExpanded!=true))pendingReveal=true;break;
             case OverlayResultEventKind.Complete:
-                if(!alreadyApplied&&!overlayResults.Complete(identity))return;if(!imageGeneration)ReleaseRetainedImage();dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
-            case OverlayResultEventKind.Stopped:if(!alreadyApplied)overlayResults.MarkStopped();OfferFailureReveal(identity);dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
+                if(!alreadyApplied&&!overlayResults.Complete(identity))return;MarkUnreadResultState(identity);if(!imageGeneration)ReleaseRetainedImage();dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
+            case OverlayResultEventKind.Stopped:if(!alreadyApplied)overlayResults.MarkStopped();MarkUnreadResultState(identity);OfferFailureReveal(identity);dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
             default:throw new ArgumentOutOfRangeException(nameof(value));
         }
-        ValidateOriginalSourceBinding();if(dirty&&!flush.IsEnabled)flush.Start();
+        ValidateOriginalSourceBinding();RefreshResultLabel();if(dirty&&!flush.IsEnabled)flush.Start();
     }
     private int MeasureBody(LayoutPlan plan,Func<bool>? current=null)
     {
@@ -41,7 +42,7 @@ internal sealed partial class ShellWindow
     {
         if(!dirty||exiting)return;dirty=false;
         double offset=body.VerticalOffset;RefreshMarkdown(renderBody:true);bool bottom=follow;
-        newContent.Visibility=!bottom&&overlayResults.HasText?Visibility.Visible:Visibility.Collapsed;
+        newContent.Visibility=!bottom&&(hasUnreadResultText||hasUnreadResultState)&&overlayResults.HasText?Visibility.Visible:Visibility.Collapsed;
         ScheduleBodyScrollRestore(bottom,offset);
         if(overlayFrames!=null&&!gesture.Active&&overlayFrames.Transition!=OverlayTransition.Moving)
         {
@@ -58,7 +59,8 @@ internal sealed partial class ShellWindow
         CancelFileAcquisition();if(!lifecycle.Gate.HasRunningGeneration)return;
         // Cancellation rejects every late receiver event, so the local command must commit
         // the terminal presentation through the existing coalesced flush, not await Stopped.
-        bool imageGeneration=SelectedSource.Generation!=null;if(imageGeneration)imageTranslation?.Stop();lifecycle.Gate.StopGeneration();overlayResults.MarkStopped();pendingReveal=false;
+        var stoppedIdentity=overlayResults.Identity;
+        bool imageGeneration=SelectedSource.Generation!=null;if(imageGeneration)imageTranslation?.Stop();lifecycle.Gate.StopGeneration();overlayResults.MarkStopped();if(stoppedIdentity is {} stopped)MarkUnreadResultState(stopped);pendingReveal=false;
         if(!imageGeneration){if(overlayResults.HasText)ReleaseRetainedImage();else RestoreImageAfterTextFailure(overlayResults.Identity);}
         awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();
         RefreshResultLabel();dirty=true;if(!flush.IsEnabled)flush.Start();

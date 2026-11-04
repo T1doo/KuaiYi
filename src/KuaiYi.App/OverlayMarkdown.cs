@@ -20,11 +20,15 @@ internal sealed partial class ShellWindow
         if(current?.Invoke()==false)return 0;SetMarkdownViewport(MarkdownViewport.FromPlan(plan,hasLabel,FailureNoticeHeight,ToolbarExtraFor(plan),PresentationFooterHeightDip),current);if(current?.Invoke()==false)return 0;RefreshMarkdown(renderBody:false,current);if(current?.Invoke()==false)return 0;
         var before=observe==null?null:MeasureState();var version=observe==null?null:SelectedSource.VersionId;
         int length=observe==null?0:overlayResults.Text.Length;var constraint=markdownViewport;
+        // FlowDocument changes may queue their layout invalidation. A same-width
+        // source replacement must not reuse the previous source's DesiredSize.
+        InvalidateMarkdownMeasurement();
         measurement.Measure(new System.Windows.Size(markdownViewport.WidthDip,markdownViewport.MaximumHeightDip));
         bool accepted=current?.Invoke()!=false;double height=accepted?measurement.DesiredSize.Height:0;
         if(observe!=null)observe(new(version,SelectedSource.VersionId,length,overlayResults.Text.Length,constraint,before!,MeasureState(),accepted));
         return height;
     }
+    partial void InvalidateMarkdownMeasurement();
     private MarkdownMeasureState MeasureState()=>new(measurement.IsMeasureValid,measurement.IsArrangeValid,
         measurement.DesiredSize.Width,measurement.DesiredSize.Height,measurement.ExtentHeight,measurement.ViewportHeight,
         measurement.Document.Blocks.Count,measurement.Document.ContentStart.GetOffsetToPosition(measurement.Document.ContentEnd));

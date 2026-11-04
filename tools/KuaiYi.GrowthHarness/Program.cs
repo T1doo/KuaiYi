@@ -18,6 +18,9 @@ internal static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if(args.SequenceEqual(new[]{"--desktop-review"}))return DesktopFrontendReview.Run();
+        if(args.Length==2&&args[0]=="--ci-reader-scroll")return ReaderScrollProbe.Run(args[1]);
+        if(args.Length==2&&args[0]=="--desktop-overlay-review")return ActualOverlayProbe.Run(args[1],"120",markdownReview:true,interactiveInspection:true);
         if(UiPolishContract.IsCommand(args))
         {
             UiPolishRequest request;

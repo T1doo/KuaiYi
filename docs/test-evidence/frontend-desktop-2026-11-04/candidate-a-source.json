@@ -1,0 +1,2041 @@
+{
+  "baseline": "cb0fcfe797ab9609f3206da1c14a8d644bd0c657",
+  "branch": "codex/desktop-refinement-20261104",
+  "state": "Dirty candidate A; not full frontend acceptance",
+  "sdk": "10.0.402",
+  "runtime": "10.0.13",
+  "windows": "10.0.22631",
+  "dpi": 1.5,
+  "docxSha256": "cfe55dbc74e34b02da650e24e943f375048bfa5e96606d6ca5619288f5645a14",
+  "appDllSha256": "40cc5dad3c131621b1a9fd784f31036f06798ebc1c4c3c21669be2b37946026d",
+  "source": [
+    {
+      "path": "Directory.Build.props",
+      "sha256": "575270e33d8a76fe47732551f95ef59c05d271659f910d9e55bc342099d7c784"
+    },
+    {
+      "path": "Directory.Packages.props",
+      "sha256": "fbecb7fbd260bdd6878d93be1ad64b505787fec2c72276eec44606006094d4e0"
+    },
+    {
+      "path": "global.json",
+      "sha256": "70e7217bac916d6ff183ea5ac20ae1155fd8fe0b64debcf940605d5cd44af037"
+    },
+    {
+      "path": "src/KuaiYi.App/AssemblyInfo.cs",
+      "sha256": "651e064d4079057ade0b110e0a77851c520610ebd8d71417df240b4963e9fb87"
+    },
+    {
+      "path": "src/KuaiYi.App/BitmapDropCommands.cs",
+      "sha256": "32e6c308651671ff9f83aaed0e89ecd85886f8b77f3f5d1dd13364c55bea76fb"
+    },
+    {
+      "path": "src/KuaiYi.App/BitmapDropFlow.cs",
+      "sha256": "c1d7c90f10f0e571072d123a8a595db4ac75be3597e8f2f345763641a82b2121"
+    },
+    {
+      "path": "src/KuaiYi.App/BrowserImageCommands.cs",
+      "sha256": "e168ddfcc6efbde4881acdb543796409ae1317e98ff6c59bd1ac5b8e64989a9f"
+    },
+    {
+      "path": "src/KuaiYi.App/BrowserImageFlow.cs",
+      "sha256": "79019749c265f0cb3bc9178cd26616ce99d32693f9356a24da38fca32380a822"
+    },
+    {
+      "path": "src/KuaiYi.App/ClipboardPermissionsWindow.cs",
+      "sha256": "932f4530fae8a5c802b6f6ef673196f23abbd593ad78d7063ef27461069507ac"
+    },
+    {
+      "path": "src/KuaiYi.App/DesktopControlFeedback.cs",
+      "sha256": "034ccdaa23e1644d857edc0d99c9f1d6a69f627ed2eaf988037121a75aa86c24"
+    },
+    {
+      "path": "src/KuaiYi.App/DesktopLocalConfirmation.cs",
+      "sha256": "09966e0f89948af9b372618ea15e6bb0963d2c2b86e6167bb55939857f943198"
+    },
+    {
+      "path": "src/KuaiYi.App/DesktopMarkdownLinks.cs",
+      "sha256": "64288b0d5dd9a3af4c9d779cd2ca356485d2922974e2bcd167f6635f9b33bd2d"
+    },
+    {
+      "path": "src/KuaiYi.App/DesktopPalette.cs",
+      "sha256": "74ecfb6dc21750eae5a2f054b14569482a687307c5360af7ecde805625b36265"
+    },
+    {
+      "path": "src/KuaiYi.App/DesktopScrollChrome.cs",
+      "sha256": "dc3faf1acdc652efe4c73924e6f261571d87bb019a38b392e04cf93fd1812011"
+    },
+    {
+      "path": "src/KuaiYi.App/DesktopTextScale.cs",
+      "sha256": "3809c10d978827da2997352fcb834732f23abd0c07a9c1b02bf9420f304b76e1"
+    },
+    {
+      "path": "src/KuaiYi.App/DesktopTheme.cs",
+      "sha256": "e0b4bb8132016c2032cc9d4086462179370f8ede43868df06c8f724bbd173d17"
+    },
+    {
+      "path": "src/KuaiYi.App/FileImageCommands.cs",
+      "sha256": "4adaad7ecfcfcfd2c0278dfa8bd4dbaa112349f47ae4e70de4465cfc38c2fc19"
+    },
+    {
+      "path": "src/KuaiYi.App/FileImageFlow.cs",
+      "sha256": "1c1f9b48206ed2fc53868874a8d6aa46eb520b3069019f1b67ddc832dedb44c8"
+    },
+    {
+      "path": "src/KuaiYi.App/GifLocalPreview.cs",
+      "sha256": "7a194aa64eb705a501a86c05a9ca1144662d5286db995d3946b80a08faecf4e6"
+    },
+    {
+      "path": "src/KuaiYi.App/HotkeyFlow.cs",
+      "sha256": "bfd0d71a4aa4920ca31a4c66f8105a3126ea0a3b8e41daa6b9657d08f1405c6b"
+    },
+    {
+      "path": "src/KuaiYi.App/HotkeyScreenshot.cs",
+      "sha256": "bda21ba183ea28848c876b7e5af821ed13ea6334fa53060ea69af48264432143"
+    },
+    {
+      "path": "src/KuaiYi.App/HotkeyScreenshotLifetime.cs",
+      "sha256": "0634c528104c9be2fce471d139d408569bcac9e711bfb1559257b20c9d7d1929"
+    },
+    {
+      "path": "src/KuaiYi.App/ImageFileDropCommands.cs",
+      "sha256": "4c41158ed5ae2595cff2418f75d2dccb193f05235d6d54d4a67ed89adfffdfdd"
+    },
+    {
+      "path": "src/KuaiYi.App/ImageFileDropFeedback.cs",
+      "sha256": "5aa4347c9951b510ba600699802eb25c7d577d84b7fd7d798ef6cc6ed0749510"
+    },
+    {
+      "path": "src/KuaiYi.App/ImageFileDropFlow.cs",
+      "sha256": "e6f56bbddb5ddcc561e69a835d19d44cd60e569e8f89fbece8321409f72e9b78"
+    },
+    {
+      "path": "src/KuaiYi.App/ImageRegenerationCommands.cs",
+      "sha256": "e647145e87f9ae3495cdfe35c7f4063a03347208c625200edd054691bcf853eb"
+    },
+    {
+      "path": "src/KuaiYi.App/ImageRegenerationFlow.cs",
+      "sha256": "71f2addce3c2aa3e70dd6203e06341190348ca931dc910521c3550c7bfcfc73c"
+    },
+    {
+      "path": "src/KuaiYi.App/ImageSessionStyleCommands.cs",
+      "sha256": "23ff46722e90e9c69a2d23a17df16cf274e6d6680a4389c1d9f7d0fea4a9dc21"
+    },
+    {
+      "path": "src/KuaiYi.App/InstallationControlLifetime.cs",
+      "sha256": "5b53539767f29692aa5b471f59762e928a0e358c28d2382542d72f2bfdeb2ae3"
+    },
+    {
+      "path": "src/KuaiYi.App/InstallationEntry.cs",
+      "sha256": "7573614d1934b834ff37b0340d6d0b8264b4f134b729f081c0a3a581ab78e7b7"
+    },
+    {
+      "path": "src/KuaiYi.App/InstallationImageContext.cs",
+      "sha256": "ec44b43118bb5bf7400e1095d8d63b16c1cbc808883287fcf6c7f89521e60309"
+    },
+    {
+      "path": "src/KuaiYi.App/InstallationImagePipeConnection.cs",
+      "sha256": "3e82f7a9c9219dd84da43b6ed992c8ecc9af512a2e09ea5106d6f1ff9d8e6e82"
+    },
+    {
+      "path": "src/KuaiYi.App/InstallationImagePipeWire.cs",
+      "sha256": "5a6c1b33913cf3d1ff8cb7af098da4c411e64a44e204bec6c55796c868ae17f4"
+    },
+    {
+      "path": "src/KuaiYi.App/InstallationSessionEntry.cs",
+      "sha256": "19c014f96b4cd3ca2b81144be034733933e2b94634f0762ec011c8c7f25ac7dd"
+    },
+    {
+      "path": "src/KuaiYi.App/InstalledImageCommands.cs",
+      "sha256": "58bb3adb12c57dece72e774391ab2b1ff88a6e693d94eb57b47e41a40eac530c"
+    },
+    {
+      "path": "src/KuaiYi.App/IsolatedSessionLayout.cs",
+      "sha256": "d7b3abd48a8c4d2c99f70eaeb49d635bcc4271aca0f53a30f355daf2e1c1160c"
+    },
+    {
+      "path": "src/KuaiYi.App/KuaiYi.App.csproj",
+      "sha256": "fa9c6389726ed9f2dde182e10cb652dc66ba9d9151d80b6b4bea7c57d6712b5a"
+    },
+    {
+      "path": "src/KuaiYi.App/LocalDiagnostics.cs",
+      "sha256": "f2be9221c3c061b0021395db5f8360833f74e4bec14987af4a3d78948187abf6"
+    },
+    {
+      "path": "src/KuaiYi.App/MarkdownCodeRegion.cs",
+      "sha256": "89270354d3371a8574e7cd8f33338a954d6b16f57580ae71a7cb645b3b143fcd"
+    },
+    {
+      "path": "src/KuaiYi.App/MarkdownFlowView.cs",
+      "sha256": "b734833c67731763a721a05230771e247e88aab4c26ed54dbdc0b29d758b88d0"
+    },
+    {
+      "path": "src/KuaiYi.App/MarkdownImageSourceRegion.cs",
+      "sha256": "2f9841dbd15da9b1363ea6dea8e8e55a0decddd21effe3e4181e98acece17b0b"
+    },
+    {
+      "path": "src/KuaiYi.App/MarkdownLinkActions.cs",
+      "sha256": "42cf79ee47968cf9c1f097189af3a4fa7c2e2650b4861883d2a0b8e29425843b"
+    },
+    {
+      "path": "src/KuaiYi.App/MarkdownLinkRegion.cs",
+      "sha256": "ba3c6af99e32c37ed8c7c38afe0ad1f268ab55dd21aa9ca985dd6789bd411721"
+    },
+    {
+      "path": "src/KuaiYi.App/MarkdownSourceCopy.cs",
+      "sha256": "a93aa8927be9bb63c582d72a54093c33e97d3eda154cab3881906e0d95414a90"
+    },
+    {
+      "path": "src/KuaiYi.App/MarkdownSourceRegion.cs",
+      "sha256": "ab09abce749588f304611218a2ca0cf1154263e4df543e1ea1abdcd19a47f8e8"
+    },
+    {
+      "path": "src/KuaiYi.App/MarkdownTableRegion.cs",
+      "sha256": "6dbf4f2fa639a418af1dae3fdc9148c375c2503b30fce421387ce8e9da184366"
+    },
+    {
+      "path": "src/KuaiYi.App/MarkdownViewport.cs",
+      "sha256": "479c5f4486ec6750172f0465ebc223f60c6457361bf38cfd0e481913ab05d526"
+    },
+    {
+      "path": "src/KuaiYi.App/MarkdownViewRetirement.cs",
+      "sha256": "20568f8ff8a5a3a13a34993b073bc2c05091a7af1bc85b27080e369cdfdf5e56"
+    },
+    {
+      "path": "src/KuaiYi.App/OcrOnlyFlow.cs",
+      "sha256": "c42437711adf077c5c5283e54dbefbfad6ab202ec20f9ac8354658711994c260"
+    },
+    {
+      "path": "src/KuaiYi.App/OfflineScreenshotCoordinator.cs",
+      "sha256": "85ce93b640bea19ad6f6d0b01a129ff194dd04dee3cfe9a9e883d969da81e290"
+    },
+    {
+      "path": "src/KuaiYi.App/OleDropWindow.cs",
+      "sha256": "c0ce30b40f20b1de67feb0ddd6b854ca0dd3be4554b9c7e537d8b9d26e78d545"
+    },
+    {
+      "path": "src/KuaiYi.App/OlePresentationFlow.cs",
+      "sha256": "c384122d249f9dae78b8444ee709bf4c15dea7d40e3bdf1a63eb0603cde7e578"
+    },
+    {
+      "path": "src/KuaiYi.App/OlePresentationWindow.cs",
+      "sha256": "b0ebbc52a8b7a6a251823082e152d15c9054b21cf4461b653174193c5aaea47c"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayClearContent.cs",
+      "sha256": "079ba8b978649aab542165528f329dac3714d4a85e9a01143f9f1b229968b7ba"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayCopyPresentation.cs",
+      "sha256": "4fe801169b90ccd1a0e2f7de52ffdec24e11448bab7df215f79f240c104f8680"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayFailureNotice.cs",
+      "sha256": "b3b536874b431f548aa928cca35eed2134a608203b7ca82f5ee8f3d421bb2f41"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayFrameClock.cs",
+      "sha256": "39331dead9f0429e1adb54f5944a647a4e952c64028c00e0d566e11e4c05fe69"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayImageSource.cs",
+      "sha256": "7cd312328067fe427e9c791abd0c3ac225c6046a477a13d69c0f406bb8236dc3"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayInputFlow.cs",
+      "sha256": "d2931e1ed78dd98806fad56f3155878357ec36daf93c47a421227cce829200eb"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayLinkFlow.cs",
+      "sha256": "d5a201196a15bb4315b5801122fc24fa6ca3c2bdffe14aa22440cf07ac7e4b51"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayMarkdown.cs",
+      "sha256": "a1273986854aeac86ae9dbdbb37b90abb321782eb079b04627949e7652d2c765"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayPresentation.cs",
+      "sha256": "c85881298c7bfafd7aef870e000078eaaff5e1dab9f511d00d20cb03b676a5bc"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayPrivacyFlow.cs",
+      "sha256": "7196a18c095a78cefb581a7f8c0fd0d83ada5184c6205fb05a4e555b90d7a283"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayResultFlow.cs",
+      "sha256": "295249db41bed492a6e2e8cbbbe05ee2ea3131094742cdd59c16825af2713b61"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayResultLabel.cs",
+      "sha256": "8c319b079b2b10a1c8ae84da4a76a0013f4349b6df09d6fa3f44a04f2492d812"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayScreenshotTranslation.cs",
+      "sha256": "080b1a75d977023a8d21bc3ac6300174f16867e3b9c3dd0ae3893ee0091ef64f"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayScrollFlow.cs",
+      "sha256": "340a748314e8eddaced74417e4f8b6234290c22693b6c168c25db775990941b6"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlaySource.cs",
+      "sha256": "02b6d56eb7fbc9de204a760f955596603be2d5b699328450940a997a8b3aa4c6"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayTextScale.cs",
+      "sha256": "31629353ed825764dd8e274b6377c0e5e2e791f7bfbb6d62cdaa7408bf3c0715"
+    },
+    {
+      "path": "src/KuaiYi.App/OverlayTranslationEvents.cs",
+      "sha256": "bbcdd8b9ac65a08d02de6924c6319f34f43e7540f5a8b794d0f3a3ad0a119e97"
+    },
+    {
+      "path": "src/KuaiYi.App/packages.lock.json",
+      "sha256": "5138b3fc132278cf0cd98584c842de2fd2780984ce8f224ffce68dd284349999"
+    },
+    {
+      "path": "src/KuaiYi.App/ProductionScreenshotCoordinator.cs",
+      "sha256": "9d6bceba543946c6345b16c58e69ae146ca957939002530f4fa899028526d228"
+    },
+    {
+      "path": "src/KuaiYi.App/Program.cs",
+      "sha256": "bb10da9fb8b4a91778da4d0568bfce152782dc81b41c5ed8050602097a8064b8"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotCaptureCommands.cs",
+      "sha256": "6eddaec51b6ed41d2d8553af4a5a72126117d4677a8e1beb3789c069102a3a74"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotFlow.cs",
+      "sha256": "0af2623b04ee2a93d6a97a2fab5834403b22a89d963271c107175f15c78f4337"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotHotkey.cs",
+      "sha256": "1245ce6b30aa0d7956a582f1c5dc70bf173703d049d5fa2c4298f737ac9ceeed"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotPreview.cs",
+      "sha256": "4dc41e08488fbbff4c032efca25362c2d3ab45f2a00ec8b04d35c06e12694430"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotPreviewCleanup.cs",
+      "sha256": "5e68c6d5036542eb89f7f49de336c8cddbcde6afdb63aef0943a217c6b3b8701"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotRecoveryMenu.cs",
+      "sha256": "f25b7f3e105fdfad2cb70fb6d26cd7d71c8277ea3ec3378f538c19faf189c40a"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotSelection.cs",
+      "sha256": "8427f543d714f85957ddcb6d98608cc4873f333c7de4e62603551dc14e693d01"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotSendCommands.cs",
+      "sha256": "10901ebdf095271aa006955599516fd96ff0ba4b6b959e6756aeaca1397c4e05"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotStyleCommands.cs",
+      "sha256": "f05a286a68ae93074fe8fc3c49800d7ddd52e71b925899f080fb644bf376a590"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotTranslationFlow.cs",
+      "sha256": "b7b33be77d2d21697976ef6a1add0573ec06cf5da3e17e4343a29e0f0971db01"
+    },
+    {
+      "path": "src/KuaiYi.App/SelectionFlow.cs",
+      "sha256": "a9108ac87ba69a37d526b11cb016190d617ffcf352c10dacaffea9f2ed681124"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsAdaptivePanels.cs",
+      "sha256": "63b460da5cb567d0f196726f4076add39667d7904478092c65c36877198b2b1b"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsApi.cs",
+      "sha256": "4f612536992e7436a0d7557e43207c8f9c21cf9977e0391cb1b88f07cf2978a5"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsApiTestCommands.cs",
+      "sha256": "7a302a7042dae9d1ba5554488f1daaaaef872ee61f0edaf6001b1d4e3267eafa"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsBackupCommands.cs",
+      "sha256": "edb42ded419d1b6c95d9715ae53cb9ff6f1b6bb924ba0a6899221894e1a7df75"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsBackupWindow.cs",
+      "sha256": "3499b4919ea81edd2e0b5b7e6d482fe143f162197a4d1234745e5f7329381285"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsChrome.cs",
+      "sha256": "91e5fdd8272058634ba37a0d52c9c691aa277e136735e4b30ce8a5a3a21ff4a6"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsDiagnostics.cs",
+      "sha256": "f8f562f74bf08ed9fe61f849d712674da44bc8513e640452c1d21491993322e7"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsDisplayPreferenceCommands.cs",
+      "sha256": "9926d146619896dd48ade8d5437361aa71f1e3c0a2ff5ad9538310d855ad2268"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsDisplayPreferences.cs",
+      "sha256": "04586dced3d0c57fa33586654296064219234414b256b653afd0039ddd6e970c"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsEnableGuide.cs",
+      "sha256": "38829a6027b54ab6d1696d129939c9e73513377bb99a9b244c6a5985f8d0d746"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsEnableNavigation.cs",
+      "sha256": "9a6ed19eac8a672ad261a97056ac9cf3758ccc22b7a102c5bcb1e33e1bf885c0"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsFlow.cs",
+      "sha256": "47e69c4834c273b76c4ca2fac865c80e1ae868261ba4fc21f943d627a829cec9"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsHotkeys.cs",
+      "sha256": "455f9cf5361c8964929076c3458f0c4fb0efc7dd57c4766afae4e386fb75f5b7"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsImportCommands.cs",
+      "sha256": "364b970e49a107f9bc48e4ab31e5c5295a691e6e78a1fa405987c3617c2c5f74"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsImportWindow.cs",
+      "sha256": "d85c2ce6ef842be2c4b01a9f87040929a754716a2b9f732ca5d5bc561b9200e0"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsIntegration.cs",
+      "sha256": "a2bc3904f6736e2112f11cc9d765db45ad5dd51d25166d34561f672c4c016ef4"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsLayoutPlan.cs",
+      "sha256": "efc8e81e9127f32aa24785997e4a2f1fa34b74a437c88055c185b358b66d8fb8"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsPlacement.cs",
+      "sha256": "530be250fa7767a4870ef54d51819003ca615749bbdbc032ef55e110343c9371"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsSearch.cs",
+      "sha256": "5be0e58da41d02c9a72ebeae5c4959fd89b8c47f2b3c96ea0793b106b85e49ae"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsSearchCatalog.cs",
+      "sha256": "944bd0a9db74a386742e42e78f4ceb7207a9311cb45f310e9063f7d610c2204b"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsSecretCommands.cs",
+      "sha256": "a9d0b9c43e858263e57e21d6a58089276d40d937ce2fcefaccc4b5544bb5f29c"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsSections.cs",
+      "sha256": "30426ccb54b54223e6952f62b84bf8cd12f98fc3855d19b1ff6edeacfe79e919"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsTranslation.cs",
+      "sha256": "1c32530bb081c6bbf04e7f87e53f293d499a1a905f9e6186b430215958a92f81"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsValidationPresentation.cs",
+      "sha256": "acd5bd725b7eb85ede471fcbd8b06a9298e4ac308b977065c4ddc98a54b3451e"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsWindow.cs",
+      "sha256": "e86ef5cfb4069b3261aef4873ced464172aeeeced1f2a951620c5a38bf80d438"
+    },
+    {
+      "path": "src/KuaiYi.App/ShellCloseFlow.cs",
+      "sha256": "c19961803e776ea86b3ad33444d1b053fc83f262d81752e86bf39c2618fa6a95"
+    },
+    {
+      "path": "src/KuaiYi.App/ShellCloseRequests.cs",
+      "sha256": "422ed4fb839c7b6bf6a9e227c81341b04f9acb614d9026ff57a1e67c574279f8"
+    },
+    {
+      "path": "src/KuaiYi.App/ShellWindow.cs",
+      "sha256": "ce5dd320f915c33201e4f30c7f92c4a340ccbf48d90bf62bfcf994e41319a06d"
+    },
+    {
+      "path": "src/KuaiYi.App/SmartImageSendCommands.cs",
+      "sha256": "392b2fa0d2170d76c7cd86929424b767ac82e3d9bc7d4868d7e8b62af45a41f1"
+    },
+    {
+      "path": "src/KuaiYi.App/TextDropFlow.cs",
+      "sha256": "c0235c5025e1fe2e49c4f6109e1d28caccf954b4982df902f38d67d495e33c95"
+    },
+    {
+      "path": "src/KuaiYi.App/TextDropLifetime.cs",
+      "sha256": "63dfd2a9ebf169a8160fc2ce3fafd339dd263ce7a03b36603bbd12df1cccd4df"
+    },
+    {
+      "path": "src/KuaiYi.App/TranslationFlow.cs",
+      "sha256": "0ec65f1f0ae3d77f10187eab59ff80e782b283c51f68017504c88b2a17d9eeda"
+    },
+    {
+      "path": "src/KuaiYi.App/WarmInstalledImageCommit.cs",
+      "sha256": "bd8b237f13f0970829bdfc97dd6619f6b3a52a3e24cd2025083706f67ce20b08"
+    },
+    {
+      "path": "src/KuaiYi.App/WarmInstalledImageEntry.cs",
+      "sha256": "61ce47ab2e328ed46b24bbc26cdb2dda6d8f65b0bb0eaa76d9c9f4e501419800"
+    },
+    {
+      "path": "src/KuaiYi.App/WindowsInstallationImagePeer.cs",
+      "sha256": "9738cfa6c4731160e8bddc7ff0dff1d40b3eb448ed7b2f892661817e69573b78"
+    },
+    {
+      "path": "src/KuaiYi.App/WindowsInstallationImagePipe.cs",
+      "sha256": "160fbbfec0671f60c1b67f19d6231eeba0e914757c2c7d0f12501d7ba40b718e"
+    },
+    {
+      "path": "src/KuaiYi.CaptureBroker/KuaiYi.CaptureBroker.csproj",
+      "sha256": "fbc2585f7007ae5f6fad4ccbcb6c2c8578cb8c1ccebacd6b2ff02b300cbd55a8"
+    },
+    {
+      "path": "src/KuaiYi.CaptureBroker/packages.lock.json",
+      "sha256": "31a48aee5804f1d26799c7b8a292a9215b5ff900c48c17734e92904a75073dee"
+    },
+    {
+      "path": "src/KuaiYi.CaptureBroker/Program.cs",
+      "sha256": "c09348ff83162d95dd531aeaa758c84620944c12b0eb6f8ea747852b1611e5df"
+    },
+    {
+      "path": "src/KuaiYi.CaptureBroker/SelectionCaptureOutput.cs",
+      "sha256": "4c7978739de21f2e3bdb56edc82a8f1be6170736039839cb9b4ba36a299b8b94"
+    },
+    {
+      "path": "src/KuaiYi.CaptureHost/KuaiYi.CaptureHost.csproj",
+      "sha256": "61db7c12d6581ff24910aebdadc4827c1a3544ce8296f2084893f92a731a2dfa"
+    },
+    {
+      "path": "src/KuaiYi.CaptureHost/packages.lock.json",
+      "sha256": "31a48aee5804f1d26799c7b8a292a9215b5ff900c48c17734e92904a75073dee"
+    },
+    {
+      "path": "src/KuaiYi.CaptureHost/Program.cs",
+      "sha256": "d8361631741d7b490c98eb184eca18795c09d6e35a8f9336cfa7227647cdf392"
+    },
+    {
+      "path": "src/KuaiYi.ClipboardHost/KuaiYi.ClipboardHost.csproj",
+      "sha256": "153b4e55feb832054cbf31d917f2fd5f6ad01ab8c3f70202fa196cd9e1ead28b"
+    },
+    {
+      "path": "src/KuaiYi.ClipboardHost/packages.lock.json",
+      "sha256": "31a48aee5804f1d26799c7b8a292a9215b5ff900c48c17734e92904a75073dee"
+    },
+    {
+      "path": "src/KuaiYi.ClipboardHost/Program.cs",
+      "sha256": "5d46057fe797b7c6531d4b9d29b52e904322dfe79783b5905e83e0db23cac397"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/BrowserTiming.cs",
+      "sha256": "3f1f211cdfbb8dccd26d05c825148f79331768b44e4353e98ec5e98fdb782b1a"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/ImageChunkWire.cs",
+      "sha256": "5971eb1398f197c3e66c6e32d36e5babafa0d91e1b18ef026a2e750ac3243b72"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/IpcFrame.cs",
+      "sha256": "5c91ab306ba086f964834995514c381baa68512e9acc3e1c9d4cf2fec54fb481"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/KuaiYi.Contracts.csproj",
+      "sha256": "3e1075a2ac86a7b6dcb0cd0855437916dca458ac5752e73db6f70f1a7b927a7a"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/NativeMessaging.cs",
+      "sha256": "8e009fb723c57965f1182603344903f889f72137dd1af957d67c25d662f9a507"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/OleProbeMessages.cs",
+      "sha256": "bca86bfebee3a7faae553565beb0d074e03f0f3dec6aaf53f830d67fd6d316ff"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/packages.lock.json",
+      "sha256": "2241481b7e74dcdcd600303146b730ecc12cbd8e49aa55755ef95ee499fe229a"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/SelectionBoundaryMarker.cs",
+      "sha256": "e021c1ca36bd152c09775f0ab9c663ffd337b37b0bb582b8b065881bf151ce8a"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/SelectionCaptureWire.cs",
+      "sha256": "fd6d9a0cedf7a5f894e44da43875d6eb61f67b9ae20fd94b70672188d17d57e7"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/SelectionPhaseTiming.cs",
+      "sha256": "243068ea4c6d77e94290652813b40a9c83c139ea31bcaf1f9d3f058ef8c414d5"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/SelectionProgressDiagnostic.cs",
+      "sha256": "c3abb76d45abceea9c126fbc491e406e7e40da113fc0f75a6e02652fc53556e1"
+    },
+    {
+      "path": "src/KuaiYi.Core/ApiConnectionTest.cs",
+      "sha256": "93e63402092ea90ebe4754fe9de0ba5e43ed31baebaf9fc0af28b6e8bc345948"
+    },
+    {
+      "path": "src/KuaiYi.Core/AssemblyInfo.cs",
+      "sha256": "166d63c916763c06cd414215c3e0142b6217165c40b492171ee58086df01e7f3"
+    },
+    {
+      "path": "src/KuaiYi.Core/ClipboardCompatibility.cs",
+      "sha256": "be640ee95f509b9750732d4bd5b0543a71879a39c9c365cbeaed4618aca0ae8c"
+    },
+    {
+      "path": "src/KuaiYi.Core/Diagnostics/DiagnosticLog.cs",
+      "sha256": "1bcb0a878fd0ac2b60ab40efa210eca14bc84617a557cd1d24f25d492d67314c"
+    },
+    {
+      "path": "src/KuaiYi.Core/Diagnostics/DiagnosticReportFiles.cs",
+      "sha256": "3477127377161800711032b2917debc9bd80ab2fe1a46d72b1184212871ed3aa"
+    },
+    {
+      "path": "src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs",
+      "sha256": "bcde5f8984ff9c6a114ccab6959d545a4dec6054392cab9ef5d16855cf89bda4"
+    },
+    {
+      "path": "src/KuaiYi.Core/DropBitmapCapture.cs",
+      "sha256": "84ee9e603b4dc8823bdfb3e1c9725e5217eddc8300a576cb3f27a89e5347785a"
+    },
+    {
+      "path": "src/KuaiYi.Core/DropCapture.cs",
+      "sha256": "23313572dbbea706d4d4e5b9cdc1666617c5237caf7674d56f0f52b90c4eac8d"
+    },
+    {
+      "path": "src/KuaiYi.Core/DropImageFileCapture.cs",
+      "sha256": "5aeb45c5e26ac0245b815b9949f6da84458b10ee793270a063a4be69b39a472b"
+    },
+    {
+      "path": "src/KuaiYi.Core/HotkeyInputAdmission.cs",
+      "sha256": "9d86129e7313469bfede57c9799c33901b06ceca35be769cf80f8897883721d9"
+    },
+    {
+      "path": "src/KuaiYi.Core/Hotkeys.cs",
+      "sha256": "1687d433348974740ccda23c61da7cc5301ebb3f940624cec4341191bca49ec1"
+    },
+    {
+      "path": "src/KuaiYi.Core/IdentityEventReceiver.cs",
+      "sha256": "d1a7fb34ed65a753734d6c5ad0a528f2a5214f38b5a4f50c87f35aeeb89f3b54"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationAdmission.cs",
+      "sha256": "5e9febcca6be8f07f582ce7c1410ec03bebd79ddf066139a0462a4edac77a3be"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationApplicationControl.cs",
+      "sha256": "cad5c168127236865e1effcfecc4adf35c3c89bf49f6204185096ee99d133f91"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationBootstrapCandidate.cs",
+      "sha256": "efe6262e764e0cbf69738c513f6323603d30fc2f7bbd08efbc4df7168bdd432a"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationBootstrapDeployment.cs",
+      "sha256": "8f8988675810eeccb3405ab981c4bb9bcbe5dbe16d29832a0e5db48802e9f908"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationBootstrapEntry.cs",
+      "sha256": "b731dd6939b6a970d8c95000cb5869feee115efcf503d0beded62d15619a9cc3"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationBootstrapPackage.cs",
+      "sha256": "790adde9270b2451d3f1071a7af2e763305bb06a3f6e6dc360dc72a1e32d6093"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationBrowserHost.cs",
+      "sha256": "bb01376f4f76aa0fd543f960001ebc15c504676333b1ee154fc9a04ce11dd50f"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationControlledLaunch.cs",
+      "sha256": "c80bdfa1860718ed0f779c775085d84f98bf619ee78a769a169309ab4459f875"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationControllerBridge.cs",
+      "sha256": "3e418f4d3486bcad89dc4f39db29038a0111d4402cbd60598f07dd2566394dfa"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationDeploymentCommit.cs",
+      "sha256": "36d67db83a042658932b21f9d5debc4db316b56c4007e160e32b29942492d59c"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationDeploymentCompensation.cs",
+      "sha256": "032567cc03802d669f9f45290ee6a80a48e7d16f9c8f3ae5c6dcc9a7f3c77ae6"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationDeploymentPrepared.cs",
+      "sha256": "af562392855418e118580b7f2c3d489efae33d6681635fc45d766569dfe7d21c"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationDeploymentPublication.cs",
+      "sha256": "4b2ba4f7baa2b9f0ea3dc93742f3ec2301fdd6a562c347f50727d0063c659f32"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationDeploymentScope.cs",
+      "sha256": "211834a65a60283347ef20e88069707d24674cd983400016fd5bd54c21568e88"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationDeploymentSession.cs",
+      "sha256": "96418ecf2234c56c489cc217edae763450f3080606c5d34516ef01528c006411"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationGenerationCandidate.cs",
+      "sha256": "520a89ab47e3b9610e488ec53c48e266d35efb3593b7e88fe546089313844396"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationHandoff.cs",
+      "sha256": "8125ddd0ba29297a6f864847ab55d1c5fa46a4aefdedba467064ca04b31c784c"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationImageOffer.cs",
+      "sha256": "686f3a256a3dd9bde9696ba5024800f7febbcda6a2f3c6dd0a78fd007b9138a0"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationInstallerCancellation.cs",
+      "sha256": "b8ac9cf264ac4b185c7a1cd8087a4af0fcb8f2210eda0344e9109eacf96b3420"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationInstallerEntry.cs",
+      "sha256": "1b0e027f5210606865cd987d7bab4db753427feeb3812aa758f6499ac87ab954"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationInstallerExitFence.cs",
+      "sha256": "543db869331cedf1716d72fe3507ea72ec7a44249de041ff3cfe4b22b7f58370"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationLiveImageSession.cs",
+      "sha256": "85f7775303303f5ac992d14d08b6f6230e443b1eec0d5178b72868ff29364a7e"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationMaintenanceEntry.cs",
+      "sha256": "d4c1538345e5204ffb36d6cfb80e55149645e11e6b85d33c947b243c2ccba6ff"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationMaintenanceFiles.cs",
+      "sha256": "b6f99a80e902002ef073bbb20cc45d274943fbf36934411cbc61143f903c141d"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationMaintenanceReceiptText.cs",
+      "sha256": "82b070867318812ef79c1f0e77d9f19ca9a733b500a9b7c80b2ddfbbd276c525"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationOperation.cs",
+      "sha256": "ae0deac9df3a9ec64a6177e0834baa89ccae212433c4de9d6465d8d711d59527"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationPackage.cs",
+      "sha256": "5b235e9a83dd2ad043109c1c917afeec241b930aaba83646f9330897502c25a9"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationPayload.cs",
+      "sha256": "1af77c6f27b9e07feed7c4ea34d391a51961c318cc2233be68ffa254fad2510e"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationPeerPolicy.cs",
+      "sha256": "b8dd688d2d3071b8ee8142f9373698874abd89cd3352e2ba9c573abf9cc763bc"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationPreparationIO.cs",
+      "sha256": "749d2728f68e6fed65724acd7467d0f3bc381926acfc7c545c7da1c3b55691c7"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationRegistrationWithdrawal.cs",
+      "sha256": "ee24dde9fbd06f19edbd35a9fbf6152a50c55b11574e1e37c153826663d8f237"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationRegistrationWithdrawal.Maintenance.cs",
+      "sha256": "a0d3c182813a80b5581a820e68703dea060dd8ec1195fca4b470103e2b9857d0"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationRegistrationWithdrawal.Preflight.cs",
+      "sha256": "da789d1c6efd55788752a1dfeddb2375ee9e08e339c1723cc6a57558cad3b5bc"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationRegistrationWithdrawal.Publication.cs",
+      "sha256": "1f33d77fd3457ecfc3f6e9dafd651f36a72025f7c7a0dece1ace05d717b58afa"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationRestoredSession.cs",
+      "sha256": "bcff60d9615f03804d3fc01be52f1b963e731163cd4957d88e11c1d66dc3a595"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationRootInitialization.cs",
+      "sha256": "3bf629f4e0357f430299af56b3ef3d05b10d43f4f05b0da50ad4130a7fa454bb"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationStableLauncher.cs",
+      "sha256": "26f9667331dce2be43d838329155bfbd68efe64e88686d408b401490864df35e"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationStableSelection.cs",
+      "sha256": "4549fa6f8c1d5925f17f67f42a1263bc66a7842224169c403552ac46a105e757"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationStartupRegistration.cs",
+      "sha256": "3aac0d1e7ce9afd7d8a49707e8dbc1b6e4f874ed631d31fb888e1136d8eeeb45"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationStartupRemoval.cs",
+      "sha256": "1e99735ce87b1045cbd8911a26a1c7c5af8499b7358bfc6abb934902ab8c62de"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationStartupRemovalControl.cs",
+      "sha256": "896742268487f6bb6aa36ada57e49a0f8637368c31aff7e481c102a36522c3bc"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationStore.cs",
+      "sha256": "0fe8d2116869f9c64a9641b9cabb0cd05ded0683ff27b14bd1728f2b09df80f3"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationStore.ObservedCurrent.cs",
+      "sha256": "135c76c7c96cc30e0f41ee93b9132ff5a8086e7698487e327a503f72042d8403"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs",
+      "sha256": "95617caefe48d596261428271a17628f714893ff257589d101b5c318ca7ee270"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs",
+      "sha256": "a4834fa0d750d424194dff1725f382ec8b82d2bda7537e42c104c0fda66daa63"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs",
+      "sha256": "b5026af566784001300efd7f608c744fbb9f2dd74a3f88396be94033fdbc744c"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs",
+      "sha256": "a2a728885b18fc0ce778d53c9b4477d7601531f6ca3b6b0ae54ee270717985d1"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs",
+      "sha256": "dce2742d2dd82b77a1936bf3046756fcaef620a8005047807bd1ab347f40d5e8"
+    },
+    {
+      "path": "src/KuaiYi.Core/Integration/IntegrationStatus.cs",
+      "sha256": "7005ca32e068891123d4205f6794d4a9fd92c6d89b711cc06c51f291b3b9340b"
+    },
+    {
+      "path": "src/KuaiYi.Core/Integration/IntegrationStatusSession.cs",
+      "sha256": "de19ce068137003c617687a4141f1d710364bd42646fdb0a3410b35fb28f28b8"
+    },
+    {
+      "path": "src/KuaiYi.Core/KuaiYi.Core.csproj",
+      "sha256": "2200b16a3f4756156880631fbd65e51f11fb03f00cee1d3fd536f7389694f76b"
+    },
+    {
+      "path": "src/KuaiYi.Core/MarkdownHttpTarget.cs",
+      "sha256": "0299e35ed5f67bd3b45e6de7e2d2ec4f56b1bd8ba42c0a673d8e4adce890481a"
+    },
+    {
+      "path": "src/KuaiYi.Core/OleBitmapDrop.cs",
+      "sha256": "00e4d4f742664d057f79a65b394fdc832942e2fe12d48a7952d4abd929754ac2"
+    },
+    {
+      "path": "src/KuaiYi.Core/OleCallWatch.cs",
+      "sha256": "c99f24378b08776c0eab8ecdcae47ea7afdf9e7d213988186dafe6275b2e99b8"
+    },
+    {
+      "path": "src/KuaiYi.Core/OleCleanupScope.cs",
+      "sha256": "47e0341ad553b852cab55c6b6ff26335ddb3532542e8ad90024db9975672a427"
+    },
+    {
+      "path": "src/KuaiYi.Core/OleDroppedText.cs",
+      "sha256": "97cd83ca04f822fed0b765bcdae84c0f1dc1720cbe66ca5d686b538c597aefc0"
+    },
+    {
+      "path": "src/KuaiYi.Core/OleImageFileDrop.cs",
+      "sha256": "a0b39b45ad5725891ce20c9e46ea9e438f74078a2892e356609025e189071212"
+    },
+    {
+      "path": "src/KuaiYi.Core/OlePresentationConsent.cs",
+      "sha256": "74987b2d7e55905e7bcf356d9bce30fc6d1ccd0c59b5633ef1fe8082f49dca29"
+    },
+    {
+      "path": "src/KuaiYi.Core/OleTransferPolicy.cs",
+      "sha256": "daa1107585b9a0309b9696314fcf315c402d3e7dee38a17711a28fbc1c6473c4"
+    },
+    {
+      "path": "src/KuaiYi.Core/OleWindowOwnership.cs",
+      "sha256": "a4d6e60aa0a06ddcc5d0be455090fa3a0b84f319befbde59f01203817f7f8ee0"
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayFrames.cs",
+      "sha256": "884ca48205d896e179cdfbc0254fe35bce43b340cd7891e39d02cc45cd15be73"
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayGeometry.cs",
+      "sha256": "90a8d43b1ce8e155a1b43d10e4a892449db09a308e5c4a44f3e41ef673539595"
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayMouseSequence.cs",
+      "sha256": "33f1e22c431e11467bf26e19d6baea952a5189e1c23cb646d24246c20cd02358"
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayMouseTracking.cs",
+      "sha256": "e0d708ed587a8410e7a941dd47b116fab9de5a4644700cf435569a859d3be4e0"
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayPointerGesture.cs",
+      "sha256": "a25e5c70312c8949848bdc85c8368003dbdd46b463445995aa3a88899cd485fe"
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayReadingToolbar.cs",
+      "sha256": "caeb0974f8cb2e241d0e87867d111c4fe2d16baa8f0492c9aa26f1b2b6c0808b"
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayResults.cs",
+      "sha256": "426723cebb7d39fa83b472479e68ac9356b40dcd41fc3438aa31876bc64b52ce"
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayToolbarLayout.cs",
+      "sha256": "aee722f82af519e9faab6f801fc015a38adf28d70d438f629ad8ad01db810ada"
+    },
+    {
+      "path": "src/KuaiYi.Core/OwnedHostTermination.cs",
+      "sha256": "e63ec2e9fe81bbc68eeebd8fed6574d8a9e4cf36f117a7c3119be311fb875d38"
+    },
+    {
+      "path": "src/KuaiYi.Core/OwnedProcessSession.cs",
+      "sha256": "7c035dc30329291ae0133e31f794b652805bdeeb3c6593493065b7eeb3def293"
+    },
+    {
+      "path": "src/KuaiYi.Core/OwnedProcessStarter.cs",
+      "sha256": "626dd7877e75d962e8367e2c84a17474799389d666d9b4d40a17568b7818ea37"
+    },
+    {
+      "path": "src/KuaiYi.Core/packages.lock.json",
+      "sha256": "2241481b7e74dcdcd600303146b730ecc12cbd8e49aa55755ef95ee499fe229a"
+    },
+    {
+      "path": "src/KuaiYi.Core/RestrictedMarkdown.cs",
+      "sha256": "6b59639cfb8b9729db5f16f1dab50a7de0e3fb4d2bf4f199689345dd7bddf91e"
+    },
+    {
+      "path": "src/KuaiYi.Core/RestrictedMarkdownInlines.cs",
+      "sha256": "7beb20acc5d47e7105564c51166267800ab639c2ea3d03551f4dc794395e3a37"
+    },
+    {
+      "path": "src/KuaiYi.Core/RestrictedMarkdownTables.cs",
+      "sha256": "72087e298c2525d40ab8c439c76330f652bcb091d976617e8a3ff999bb23bd4d"
+    },
+    {
+      "path": "src/KuaiYi.Core/RuntimeGate.BitmapDrop.cs",
+      "sha256": "4a20b36c18cd643ad011559632e780d9ee68f3d6318670d9f66fcdb84f6f341e"
+    },
+    {
+      "path": "src/KuaiYi.Core/RuntimeGate.cs",
+      "sha256": "57c34e375b903ed0d68bdf32218f43b207a0c5a466f5590fb9adbfd2302a508e"
+    },
+    {
+      "path": "src/KuaiYi.Core/RuntimeGate.Settings.cs",
+      "sha256": "ac249c4313a0f3855755c8b2306318e2cccb3d60a2d0c97668d9750b2e3cae3e"
+    },
+    {
+      "path": "src/KuaiYi.Core/SelectionCapture.cs",
+      "sha256": "dc5912dee284d4fc59be4199dff849f7bc4770243f958b8706b9769e1a89b957"
+    },
+    {
+      "path": "src/KuaiYi.Core/SelectionInputBridge.cs",
+      "sha256": "f18ef87c0aedae6ce0696080fe5e1ee19eea9c37b148fbf63d981a9e3ac4f91e"
+    },
+    {
+      "path": "src/KuaiYi.Core/SelectionRangeBounds.cs",
+      "sha256": "60c4e8c29e557c879757ca6907a37d1011d5e4bcb35e0b79c12ba7addefbeaa9"
+    },
+    {
+      "path": "src/KuaiYi.Core/SessionSingleInstance.cs",
+      "sha256": "251b167021d04d08337e788b403abe30b566c5307efc82f2806f0853dad96681"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/ApiProfilePolicy.cs",
+      "sha256": "6056fe3ae6c09aaea02e7e6440867badb95136cccfc661266809b94c239f0e84"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/AppSettings.cs",
+      "sha256": "99773a0b65e7eb3373fbdd9735387e404e7c8e0f1df70d1a49ae2e83f805777a"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/DisplayPreferencesDocument.cs",
+      "sha256": "c5ceb7c76616a88a8169515b51dc962caebc26f7fd3a996306a3d1e0333fd766"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/DisplayPreferencesFiles.cs",
+      "sha256": "49202bfc6096035966d84413bc8e0dd3e37531bf0546e437f44b32a3d455e7a5"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/DisplayPreferencesTransfer.cs",
+      "sha256": "6279ecbf064040287b7578bfb66b4e1fe4ab3f90f4d4dcb17f5a19509826498b"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/OverlayPositionMapper.cs",
+      "sha256": "ac319b17f97b6bc022829a5859c900bce244d3c5a7f2ba2355a6433eb7af5078"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/PromptTemplatePolicy.cs",
+      "sha256": "d1d79a0cd82ba209cccac82a14c22f7bcf4f6c49b1d0a337a5429725a3866948"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/RequestTimeouts.cs",
+      "sha256": "6ee2d5327df597e4a0644b86441f0e540d73532250a812db5e3117581867e221"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SecretFileStore.cs",
+      "sha256": "f40ea873eae3a7270a9689dad9d17175e4459ced0e6f3c3e25b3a5775563f013"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsBackupDocument.cs",
+      "sha256": "04ff5b0b8db4eb68e049d0f5c4ac784948dc79396363f1c3425efe244f02a7fb"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsBackupSession.cs",
+      "sha256": "4d5edb48f9a5a35dd4c92ad38827c7df42baf6101ebf3aa7bf57726417a22915"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsCoordinator.cs",
+      "sha256": "ef2f7ba139d733d0558e87a36cd55044364e55ec90ca15bf59f44fb921ebdc64"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsDraft.cs",
+      "sha256": "df980e80c7ef6703675be5433038b1c9ffe04fc6df1178b7e95feab8288be1d3"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsImportDocument.cs",
+      "sha256": "3dbd9c048880e76592405d3b66f9023491f27aa6db59628d139dec90c3790099"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsImportSession.cs",
+      "sha256": "62359dd2fa8f72255527fab9fc9e2238df242462d26247e34dd78bc3e8a4675f"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsJson.cs",
+      "sha256": "1f11a86c9f695b2338d728191909e81f5446e19ed0c42dc5ec5e4bef31d967a4"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsRecoveryDraft.cs",
+      "sha256": "8177c5dbfb9428bf5ca1da8f41705c11009c8e89de647613e89cf17bf8d8f721"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsRuntimeLink.cs",
+      "sha256": "05e495328151bb9e51c20b388eacea3690f725f542d2c597e5fbe8cb47044284"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsStartupJournal.cs",
+      "sha256": "4e53a9159af934db4254fa45cc707b2f403c122bd3a9d7dfe7a878566dcd2f8e"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsStartupRemoval.cs",
+      "sha256": "8a34f62575fcc622793d63446e79e360d362f67b1c03c8c99bd23bce9cb6bb4f"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsStore.cs",
+      "sha256": "6b7490a179fba6188b33cb40017d424f09da1948648c55f9387aaeb302ab2b29"
+    },
+    {
+      "path": "src/KuaiYi.Core/ShellLifecycle.cs",
+      "sha256": "db36b813dd6f4fffd9e039308912ced0193bd585e2bc7358bc04adaf1304e0e7"
+    },
+    {
+      "path": "src/KuaiYi.Core/TranslationFailures.cs",
+      "sha256": "d03c01d5079e079f9ab512c253fd4df50e0e0e2e34398eb8d733a96160966e33"
+    },
+    {
+      "path": "src/KuaiYi.Core/UnitInterval.cs",
+      "sha256": "ca7ec92302fe3d96f5b4071f4b534697300f51608f3e5ae7125baf424b2a1d6a"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/AssemblyInfo.cs",
+      "sha256": "7a42fbbc76bd6dc2c309f6ecde40eb6bc3f4a512867d0ae3bb03a40c8140c3d2"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/BaselineJpegScan.cs",
+      "sha256": "7a580416b43270b149aaf2e637f16ed05f5a067e14943f0a0ca02cc1a6783315"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/GifFirstFrameLzw.cs",
+      "sha256": "1a0172c9fa5dee589edbbce382c593c4d5ba4bd94716e78dea8d9d1b206e3627"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/ImageDecodeSession.cs",
+      "sha256": "74f192c84cf01b41768cbf5cef8200c6c2c025354f32581996e55edc3195f30c"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/ImageRasterDecoder.cs",
+      "sha256": "af74d688ba7ed8f5ad74931538aa3db006ec4f4e573c16afd9b3df5beced363b"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/ImageRasterPreparer.cs",
+      "sha256": "220726cb8b7ab724dbc9c7ea5d9694742bb674f36f83a2bbad0d7223b0367b26"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/ImageWorkerSession.cs",
+      "sha256": "897e31bfaa99218fa0ac5ee928fc96b56781478792a01afbca09531f14d7cb19"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+      "sha256": "fe0e35c751c42bbc060443e4d683454469023f6b5c2d3e67614aab023a895d98"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/packages.lock.json",
+      "sha256": "88658d7e37f3984cb751d1f6741271a45479c293bfb78c6c28532e536b9d5c9c"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/Program.cs",
+      "sha256": "a7a7d6bf516dbf73cfe1674dd9cd5c511a8af2bbc6dca406cba6773370045a64"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/ProgressiveJpegScan.cs",
+      "sha256": "40323a8e2b73fb5f46aac496c80a1954b72f9aa6835498c7304ab8fd61cd45d2"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/AreaWhiteRaster.cs",
+      "sha256": "d821aabc499b27a323afb72468f5b6371ef1ba1b0c5aa2e3048c0626f04945f0"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/AssemblyInfo.cs",
+      "sha256": "cadbeeeb281f5c44f73b4fb160680d9800907e71dbdc88c345796e9e5523715a"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/BitmapImageOperation.cs",
+      "sha256": "7e8cef4952f907787e31302c7aa5a28117c36c0ffb3f938c8dead415ae12b1ff"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/BmpDecodePolicy.cs",
+      "sha256": "2848acfcf423610b8b75d617414c2c11ba7a7e0d331e5e92c52eccefdb12a570"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/BrowserEncodedImagePolicy.cs",
+      "sha256": "0518a02db30925240671ede112e8a0a80b6aed2fbddb2741ef26819aadd0d205"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/BrowserImageOperation.cs",
+      "sha256": "bff682552e766b9a45b394f53ac0ed7e987c776ef810531ea10126ff4237fcd4"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/CaptureHostClient.cs",
+      "sha256": "6c51623f5e7d0bbe48819f3d653a519ae5a9e8dd8957cba73f6d67c63365a077"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/CaptureProtocol.cs",
+      "sha256": "c613b32ebea73b4149afa78bb920ff0bda41ecc111baca6b118cbc142b6a4941"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/EncodedImageOrientation.cs",
+      "sha256": "81568cb3f91895ce14f2b20e9525a79df18f9e319fa76066496e6b5766bcaf4d"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/FileImageIntent.cs",
+      "sha256": "26c6f7c4f8f16fb1442ebeb79c457d56ecaaec050fa7d5ca33a1b8adb980816b"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/FileImageOperation.cs",
+      "sha256": "7b426b387ea88ae3491ebe093ade733c79e1e01b9c2fdb4849cab43653aacd3d"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/GifDecodePolicy.cs",
+      "sha256": "142312085b32b6d53cdc90cb471c8e0bd64ca3936eff737d09bc906ccf2e46be"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageDecode.cs",
+      "sha256": "dd68308cf5adf60a640aca80d5d6055358f63920a8fc13f15dadbbf4c605a59f"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageDecodeClient.cs",
+      "sha256": "10e85ea700c9d985aa1fb535df5d47fac6d1289b4504cf83a88bdbd6e3b4b98b"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageFileClient.cs",
+      "sha256": "45962cc8699602e7281825f6021cfc4bd4af62488013bf6c69d56c79a988cb30"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageMessages.cs",
+      "sha256": "06e8df98242446dcd70cc881241d10b687ee33fc6d9d9947afd0f0f39c3a0e80"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImagePngClient.cs",
+      "sha256": "cad32ac7f036484001d2a59bf0ce5301f5f5c1cf7e4db133edb9bc90f88d75ba"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImagePolicy.cs",
+      "sha256": "e5b225456269bc7d6cae66209755a743775f20993d93255ccddd483be9054175"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageProcessStarter.cs",
+      "sha256": "02f044ec1ea6c0e8dfe0a952b37cb59d0a8dfc64eaf2989f6db7f372877fa4bc"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageRequestPng.cs",
+      "sha256": "570f073f2eafff5537d5e8a53c2c1f90dabd2366102cc01f6cd30f1f8af36caf"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageSettlement.cs",
+      "sha256": "841b7ab4ed8f2f8e4a01514248071ede582b789fb5d1aebbeb780a7c631c39bd"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageSourceOwner.cs",
+      "sha256": "817ce17828f100a6f46fde402d8429c4b5452bf40e72b7488f4e1382740c280b"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageUiWorkflow.cs",
+      "sha256": "9a9e1d77a5764d18bbe70733d7431258f43d3c97f85e08100833e3608a4d1865"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageWorkerClient.cs",
+      "sha256": "6ac435e17c62229adc38d318e4e84557a27a8a7513b06b024276286d8942f088"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/KuaiYi.Imaging.csproj",
+      "sha256": "9817bcf1fcb6251b15cd4df9c5bdae9f35de57f5c20be19e768afe37990de5b4"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/LocalImageFile.cs",
+      "sha256": "6af8b8e183d8c5d9a9d1f596025dcbc32a71c2b7b884a526c4e7ff1539f8e644"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/NativeOcr.cs",
+      "sha256": "bc502784666765268fa5d00ee7da635f45fc42fabdca5c8a8fe5c6da8896fc0e"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/OcrCapabilitiesPolicy.cs",
+      "sha256": "f2054d483fcc51f06adbfb7b46e36395c4efbec94ecbd81f6e3a3fc5b8734566"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/OcrImageApproval.cs",
+      "sha256": "561a2a3dd473353d14521985beb1337769a4e75713ef39e482cd3eb01af781c6"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/OcrOnlyCoordinator.cs",
+      "sha256": "8ade067670c9dba8091858c27213ee4734a75731534942ecb2cc3241ecd730bd"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/OcrOutputPolicy.cs",
+      "sha256": "bf50093bb1baca95d6000b607bd4d09b036c53a7c6ea47b92698b044393fdbe4"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/OwnedFileImage.cs",
+      "sha256": "3fd5eb251e0eb2a1b94721f077232a3380f52139940ca76973b6f26f92e932b6"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/OwnedSourceImage.cs",
+      "sha256": "f17efe47a50ae9eca7dd484ec5c401fb1e8ebd91f044dbeff467358c6ae025a4"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/PackageIdentity.cs",
+      "sha256": "14249a12dcca550e07ac6d08b1e9ddc32926c35851921b08882f92dd4c9737ee"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/packages.lock.json",
+      "sha256": "9bff4e952a51824922157e4e833412fa1464ebc97cf34c7b57677d547eefcc0b"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotAcquisition.cs",
+      "sha256": "105926f63e518af72dd6bd2705816fc25ec4c604bbbcabc1c063a12e4691ca94"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotDrag.cs",
+      "sha256": "2aa09feea319ddeede544427e60c49aeb97ab66c8127aa299a7ba5c201d6c21c"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotIntent.cs",
+      "sha256": "b85622a201a5ccf5c6b93f8ed3a33c4449dfab50ea9ec9a20124b9a36bdfedf0"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotNormalization.cs",
+      "sha256": "9b2a99734863303db339738f465b6284cbd22ad6c098a45a86118fd2787d28b5"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotPixels.cs",
+      "sha256": "af7ef3d7528f1a32388632044fa55a680f70571baf4d60594c0e4833c1b910a5"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/WebpDecodePolicy.cs",
+      "sha256": "7a01a3e8c1af140f4d1e7421fba0de3f7de58e98b78aaaa1a8147476cb10a9b7"
+    },
+    {
+      "path": "src/KuaiYi.Installer/KuaiYi.Installer.csproj",
+      "sha256": "d44a8cf112db0a7e1aa173db4f77f41e00818d6b389547316811a18f883c2ca7"
+    },
+    {
+      "path": "src/KuaiYi.Installer/packages.lock.json",
+      "sha256": "35e70d92da30e375c56c8e2afb4040c654dc7c06373268d17dca460828e1d360"
+    },
+    {
+      "path": "src/KuaiYi.Installer/Program.cs",
+      "sha256": "e6b186689dcf0aca4fa4b572b06eab8242e1df79d31671743883674be27b9763"
+    },
+    {
+      "path": "src/KuaiYi.Launcher/KuaiYi.Launcher.csproj",
+      "sha256": "7f4b0f50a3ee7e8ba481f147fb5eb88be7638d4bdc068fb8456ecadce9b67aba"
+    },
+    {
+      "path": "src/KuaiYi.Launcher/packages.lock.json",
+      "sha256": "ba6327f2f0a90a100eee150c8e362d3a0ab3db4ffce20b06bdd1166eb90a937c"
+    },
+    {
+      "path": "src/KuaiYi.Launcher/Program.cs",
+      "sha256": "296a4f0d3d3008fa07616f2740df120eb78fd34b4fb19f3b5643f2934ddd852f"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/AssemblyInfo.cs",
+      "sha256": "4d6ae102120f4031e167a936b7244ac273d3f1f586883ac2785a1285d7f264e7"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/BrowserHostLifetime.cs",
+      "sha256": "ec14727b370abc3475c37341c813f9c511e82fd66b855bb2583eb8cea227ddd0"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/BrowserImagePreparationPermit.cs",
+      "sha256": "71ca67ca8a1f8c67be7f5d2b3d78d3225a6251fc630d493bf1805d5d6553936e"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/BrowserImageReception.cs",
+      "sha256": "3afbdb33978c564681d4083007ca075b6a8a7d34bba0e87091cd0ee1543130f2"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/BrowserSession.cs",
+      "sha256": "22d6e6cd7fe47b65438e4a888bfae0ff3100fd631b2c097cc81be6f76f2be1d3"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/ClipboardCaptureClient.cs",
+      "sha256": "f98608fc947fb0a243bac176053944cafeb8ac3076be505096f19b55a1e45276"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/DesktopPipeChannel.cs",
+      "sha256": "9970f7a7c7ec1ef4c83a6872f6bb7771a0850f7c9c40c8a9bc3a4c5cee6fada0"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/DesktopReceiverSession.cs",
+      "sha256": "14d9d71595085e8c2d215c3334775afb6d14481f77390b1f0799a8dadcb39c55"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/HostRegistrationTransaction.cs",
+      "sha256": "418887169492fe7b32dcca3541eaea3148715d2e3df66e047f980944797f9ffd"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstallationDeploymentRegistryRead.cs",
+      "sha256": "c552d513c24654d733d03085ff5f7330537c08fb101887aa68e3b4ccfe6de9dd"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstallationDeploymentRegistrySnapshot.cs",
+      "sha256": "a14c4e8c4ba18929af3706e2e0263bfc5a242a699e54f3906bdaa3f73c2c93d9"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstallationStartupRegistrySnapshot.cs",
+      "sha256": "171bd9999965d31c053ed49df0f99426be3dcadf9084cb39ba5fb05ecb471225"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledBrowserReceiver.cs",
+      "sha256": "2e6916738ae05f8fa79264ac2bbc78890979baffb225221db02c9bd1fe3b1463"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledDesktopChannel.cs",
+      "sha256": "11dccd6d41a2e98ce3ad4164278601839cdf115f333194ce5c39d04ebbdd41d6"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledHostPolicy.cs",
+      "sha256": "6f0edd7ac3423b82444a8bc0273cf2ff94d93c4a1126f44a031374a7c92fa842"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledIntegrationStatusReader.cs",
+      "sha256": "4da455d5461c7212702fd9925dff72d58b1129315c28cbd3e52e76db9f06f1ea"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledRoleFiles.cs",
+      "sha256": "90f61003d13ffbc7005380852107850e7e7cf025902e23bbbdae636ee56b957c"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/IntegrationInstalledFiles.cs",
+      "sha256": "74883107b5af307a438e40fa02d572f5acd2271b7e750d3764d916fe9b51ed7d"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/IntegrationRegistry.cs",
+      "sha256": "7724f4bdcf30066cfd1d635cf028397419f368fb63feda24d0bb8a852140ef28"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/IntegrationRegistryValue.cs",
+      "sha256": "975daeb4ef1b84fb8ba8947ff7addf7c9d9c79778b194ce26f82f4de88e0341e"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/KuaiYi.NativeHost.csproj",
+      "sha256": "d3f7851a8090073a0291d7d17a282c2c7d65e11d6a3237c7709dd10a7ec0f0e5"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/LocalImageInbox.cs",
+      "sha256": "fd3746c83fa49bb276c2a8b7b1d4e6542056a336d30afa0ead9b0893509bffd7"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/packages.lock.json",
+      "sha256": "9729d578dc29c7f5282ef0b5287d3e01aea277f7946d9fc110c726942b344b5e"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/Program.cs",
+      "sha256": "236aa6abae9d370111aca1195428ad2d16c12f486896e72446a269576853cc72"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/SelectionBrokerClient.cs",
+      "sha256": "54376b67dadacf6472c7ec8fffcd0b9fff6a390ac580c895a37373064dd69461"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/WindowsHostRegistrationStore.cs",
+      "sha256": "00fead1c61351da6bfe827b348ff5bc3008044a09dafdf4e25552fbe242a2a8a"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/WindowsNativePeer.cs",
+      "sha256": "d3984a926cbc3a8a1e727428eb34f46800f89b0ce4f94d06975e5ab12e96218b"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/WindowsStartupRegistrationStore.cs",
+      "sha256": "1da036b27739506091eb59be5f09e4697103c1bef4daa4e4ebaa4563790db8d2"
+    },
+    {
+      "path": "src/KuaiYi.OleReceiver/KuaiYi.OleReceiver.csproj",
+      "sha256": "a7c4f5191744f3613568c1042ec558cb572b72ca8c2a4b21b32c198abd3b5071"
+    },
+    {
+      "path": "src/KuaiYi.OleReceiver/NativeDropTarget.cs",
+      "sha256": "36d83e657a327a81dd0f56420bba984a6c6ce16631497e01f10014974bc96831"
+    },
+    {
+      "path": "src/KuaiYi.OleReceiver/packages.lock.json",
+      "sha256": "31a48aee5804f1d26799c7b8a292a9215b5ff900c48c17734e92904a75073dee"
+    },
+    {
+      "path": "src/KuaiYi.OleReceiver/Program.cs",
+      "sha256": "c18f13c98c52719f856dee7fe7b5b1b0ac8437db0cee041daf8d2c3b54b2ec9f"
+    },
+    {
+      "path": "src/KuaiYi.OleReceiver/ReceiverHost.cs",
+      "sha256": "be69716eb7e7e06150dc269404b803935f2016927d7d465bf85e7361a1f8d4f0"
+    },
+    {
+      "path": "src/KuaiYi.OleTransfer/AssemblyInfo.cs",
+      "sha256": "1b50409ba4afcb5743d69ddaab226e319b6a94ecf4a14c1177af978c2e14667f"
+    },
+    {
+      "path": "src/KuaiYi.OleTransfer/KuaiYi.OleTransfer.csproj",
+      "sha256": "9338f480583ffa2de9cc300393c1ea7f23aaf63420af7931a1c3b04ff830a78d"
+    },
+    {
+      "path": "src/KuaiYi.OleTransfer/OleBitmapCopy.cs",
+      "sha256": "23b51c9ba1190ab2b9e89a5477e2fdf8e4d6274fcb5d63f08ae0d0b8a8d421b2"
+    },
+    {
+      "path": "src/KuaiYi.OleTransfer/OleExportContract.cs",
+      "sha256": "9e540ff3644cf898ed46c46dc269b9c02eb93fb7e43954a17dc8fd5181ca8b20"
+    },
+    {
+      "path": "src/KuaiYi.OleTransfer/OleReceiverClient.cs",
+      "sha256": "73b24c47c989f614ae8c67d90848d7eec960fd1426c265c99d2c36ac0ad6d277"
+    },
+    {
+      "path": "src/KuaiYi.OleTransfer/OleReceiverCommitAdmission.cs",
+      "sha256": "79808d2d0347ddcebc2f1aecd09a6b5d758c0797afb23fa01f966d74750cfc9f"
+    },
+    {
+      "path": "src/KuaiYi.OleTransfer/OleReceiverMessages.cs",
+      "sha256": "819c1feb5c548383b6d7e882a5c098ac861bf69d8166635f2cfbb7399db11225"
+    },
+    {
+      "path": "src/KuaiYi.OleTransfer/OleReceiverServer.cs",
+      "sha256": "367b9aa6c79055fcccbbd562322db7de10b8bacd6e80b441a913f114211b5414"
+    },
+    {
+      "path": "src/KuaiYi.OleTransfer/OleStartupDiagnostics.cs",
+      "sha256": "bd15591efe9d0fc05eab9e84b11fdb116c3f470af99a66e8e93a99f3f8fd09ee"
+    },
+    {
+      "path": "src/KuaiYi.OleTransfer/OleTargetDiagnostics.cs",
+      "sha256": "63adf65723135debd801c958bb5d0b44ad66e85e577c7a3e04e2a2095106c0a1"
+    },
+    {
+      "path": "src/KuaiYi.OleTransfer/packages.lock.json",
+      "sha256": "9bff4e952a51824922157e4e833412fa1464ebc97cf34c7b57677d547eefcc0b"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ApiConnectionTestWorkflow.cs",
+      "sha256": "1cbf5ac6a00ac06458bccdef7a71cfd5816a01a3e5c5fc8ba3e1923536786a6d"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ApiProfileMapper.cs",
+      "sha256": "15a8386790e6b4d97698824798c88ae6012abc22c8765ec08ffdd6c83450a07e"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ApiVisionTestContent.cs",
+      "sha256": "ac0a1a7c333819024b7f273713826a4f11943cba4b66159ca3e89860bf4f117e"
+    },
+    {
+      "path": "src/KuaiYi.Providers/AssemblyInfo.cs",
+      "sha256": "ff39ceee8421da06966f88affad314f84f587d6d5eb154c8ced603e31c39aedd"
+    },
+    {
+      "path": "src/KuaiYi.Providers/DevelopmentTranslationBoundary.cs",
+      "sha256": "4174f2db402a589d093bbae3c9e11aa5a5118390e92de1b0c35ba5b3caf25fe7"
+    },
+    {
+      "path": "src/KuaiYi.Providers/DevelopmentTranslationProfile.cs",
+      "sha256": "cdeb84802c6e0e6fca01e09f0aad5186809f1bc944c01137e12553bde4ca8731"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ImageClassification.cs",
+      "sha256": "e2ff858e995e1fca1938fe8c247c342cf08d7bfe233a2283b749dbdfb3ffd47a"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ImageTranslationPlan.cs",
+      "sha256": "1692817e51d58f67f4aeeee71e56b89b32fcadfbda57bc77577836b1394bbeda"
+    },
+    {
+      "path": "src/KuaiYi.Providers/JsonProtocolProgress.cs",
+      "sha256": "ca3c8c7ac36c971a985d8f77c849cf77cce5c7ef08fbba160a4dcf9495da6c49"
+    },
+    {
+      "path": "src/KuaiYi.Providers/KuaiYi.Providers.csproj",
+      "sha256": "aee34d45b67dc653cfee3a74d502adf05116cb02fb0c14995b8595c3a94710db"
+    },
+    {
+      "path": "src/KuaiYi.Providers/packages.lock.json",
+      "sha256": "6970f92a3774e0a0d32cac605c42df44361fc78668f83225487ba05ee5035268"
+    },
+    {
+      "path": "src/KuaiYi.Providers/PromptBuilder.cs",
+      "sha256": "35612d74099b75602d60bbfd8d18593e423fdbce5287820ddb55b4bb74ffdfcf"
+    },
+    {
+      "path": "src/KuaiYi.Providers/PromptTemplateEditor.cs",
+      "sha256": "c05c54c7e045204f037d48a3de99c58f18b90b72fe782228a0d667c07a679b77"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ProtocolAdapters.cs",
+      "sha256": "cab07258acc062fb73658a699fb6dd6f5c7913d9dc0f9650dc715c268daa141e"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ProviderClient.cs",
+      "sha256": "c72bab364836e98078775e55684552ac27f2fa43b0e0fe6e70948eaa1fed502a"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ProviderContracts.cs",
+      "sha256": "4210cfe0843c44f3a20e2c21cf057d76086cb8906e85bd382fa42a3b8fbdbd64"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ProviderEventAdmission.cs",
+      "sha256": "e7f25113a662ff100ab1c4b2e95e41c64ee6cf765e83306c0f53aa6c5f12ff82"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ProviderEventReceiver.cs",
+      "sha256": "a6a43006bb450195d61bc66b7e31476af4275ddeb9d46dcd69e6c2774606680c"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ProviderPhaseDeadline.cs",
+      "sha256": "266b70d010c308395c959febb05e9df07f33819341ac2da1a5fef8ab5dc57151"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ProviderRequestBudget.cs",
+      "sha256": "5f96c55d8414f94b0d12f08e5f6ebf56b658a6b738e359c43baf16f122a2a625"
+    },
+    {
+      "path": "src/KuaiYi.Providers/RetryAfterParser.cs",
+      "sha256": "467f7fa1201b175148e8c788ee430f4385e2bf9ca2e85ae82efed7ddb5eb7eb2"
+    },
+    {
+      "path": "src/KuaiYi.Providers/SseReader.cs",
+      "sha256": "b02dc7fb5386a993711bd5cf83f7d5a369ed78df6bf79f998e21960d8e38590b"
+    },
+    {
+      "path": "src/KuaiYi.Providers/TextTranslationCoordinator.cs",
+      "sha256": "ed8b855299b991ae9a04dbd1413feb6e6fbcf0dfbb0b1ef2f5fb1beb041a41ee"
+    },
+    {
+      "path": "src/KuaiYi.Windows/CaptureBoundary.cs",
+      "sha256": "874ecae2a44395d8caee197bcab12f8b077c3962622fa66159a85582e39e5262"
+    },
+    {
+      "path": "src/KuaiYi.Windows/ClipboardNative.cs",
+      "sha256": "a15e069dda59aaad57543eaabc25396724ff6e302a6089d1feb9b1002abdf3d5"
+    },
+    {
+      "path": "src/KuaiYi.Windows/HotkeyHost.cs",
+      "sha256": "8c06f1aeb47f01b52a96aee0e4ba010400124fd39569f09f4054bfcd2d19cd64"
+    },
+    {
+      "path": "src/KuaiYi.Windows/KuaiYi.Windows.csproj",
+      "sha256": "b009db35bc5c870928d3be2bc6b6c596233a0273dc63e8a18f520e10ebb0912b"
+    },
+    {
+      "path": "src/KuaiYi.Windows/MonitorTopology.cs",
+      "sha256": "baddb4075b49ed409d7ef6c00ef28a1746df0643592774696964943aeea068c4"
+    },
+    {
+      "path": "src/KuaiYi.Windows/NativeDesktop.cs",
+      "sha256": "51e4a6477586942954aae10db5674fc0b8a1935f26e199d30aac3c2332f3f04d"
+    },
+    {
+      "path": "src/KuaiYi.Windows/NativeTextScale.cs",
+      "sha256": "a4fecab011461f016aa8d0de4777450ccb4d673d2d506a94d0b631a86b2b26c8"
+    },
+    {
+      "path": "src/KuaiYi.Windows/NativeTray.cs",
+      "sha256": "231ff3513389e0ded7edaf3f40c7387ff56861586d3cf91dd2e2d9beede1482c"
+    },
+    {
+      "path": "src/KuaiYi.Windows/OleNative.cs",
+      "sha256": "5912e6ea5e8e8b9a7a164aa0489daeebe49c6004213f270cb238c92c589ef210"
+    },
+    {
+      "path": "src/KuaiYi.Windows/OleReceiverParent.cs",
+      "sha256": "bafc6193cca1e87606198e82d4c3c82bd116b6a1eb4d209946c185ce77bb5984"
+    },
+    {
+      "path": "src/KuaiYi.Windows/OleSharedActivation.cs",
+      "sha256": "a62acfb65e3d0988796e715d2fcb6db70c2724e20162837615b617d4e1dbcba5"
+    },
+    {
+      "path": "src/KuaiYi.Windows/OleTargetMarshal.cs",
+      "sha256": "43d9dee087e41931df471be371e2e4946bb5148bca4a83943f0284f872efab99"
+    },
+    {
+      "path": "src/KuaiYi.Windows/OleTargetRegistrar.cs",
+      "sha256": "6d895c8989c7287547a3b7bb131e87f2352a75a5c58b64bd5c8a19baf7a90dfe"
+    },
+    {
+      "path": "src/KuaiYi.Windows/OverlayRawMouse.cs",
+      "sha256": "e82bf1925c276f9b5aff0038209bcb30c095562f2caa099c338534d8557d7c4b"
+    },
+    {
+      "path": "src/KuaiYi.Windows/packages.lock.json",
+      "sha256": "af8b0d88a0226ebad2430641af339da355f9fb16368a307c73dae80e07a98bf3"
+    },
+    {
+      "path": "src/KuaiYi.Windows/ScreenshotDesktop.cs",
+      "sha256": "557e62c0509d907a2ec16a2cf7e8b90ea570cc49e9f66973459791f94912e2d5"
+    },
+    {
+      "path": "src/KuaiYi.Windows/SelectionDesktop.cs",
+      "sha256": "058dae66c640c942dae2d103ffe38c13ca382684d0fa6da23bb20c73a76aa5ed"
+    },
+    {
+      "path": "src/KuaiYi.Windows/SelectionMouseHook.cs",
+      "sha256": "59d46c7d80fc999a107fffedcde0323e43a2448d19413ea6801678b894e5c746"
+    },
+    {
+      "path": "src/KuaiYi.Windows/WindowsSecrets.cs",
+      "sha256": "8f77391f840c25a6187476bcaf1aba6c1947b0474d11f9d31c10df3fc19e5be3"
+    },
+    {
+      "path": "tools/ci/ConfigureRootLease.cs",
+      "sha256": "12032c1f1a75205e2c011f375553e72a681ec66ea66204a97942080dfdcc99f8"
+    },
+    {
+      "path": "tools/ci/JobMemberDiagnostic.cs",
+      "sha256": "3faf21989422695cff704009ab561b6b8439f26e2e55b47efb713ad091eb57e6"
+    },
+    {
+      "path": "tools/ci/LifecycleOperation.cs",
+      "sha256": "9362d04d551b9a10882891ddce10f3a376cfb50f1ea537f522e104b29f8cd420"
+    },
+    {
+      "path": "tools/ci/WarmImageWindowsFacts.cs",
+      "sha256": "7dd7f24ac802fb5daa021253119aafed8a464835dccf6d70e5b8086e6d80ac6a"
+    },
+    {
+      "path": "tools/ci/WindowsFacts.cs",
+      "sha256": "9cd98b8092dcf025f1a300cfd13cde23e3ccaead2c3b02ab4c8c8b805639f299"
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/BrowserHostLifetimeFixture.cs",
+      "sha256": "447f27505bc7c36c425b11f45929a168cea58d9ec275b1a4ebb1acd91b48d54d"
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/KuaiYi.BrowserHostFixture.csproj",
+      "sha256": "30ff3cca0917ec9172ec550d7a43830e99fcf88d5691107f3ed43e866d8880a6"
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/packages.lock.json",
+      "sha256": "a33ec5d3de9d541a49a92fb7ebdd35550bf5c4695ce5fd50c55bcbdca090b02e"
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/Program.cs",
+      "sha256": "4d035a31cb83bd9ac71ba1dac9a331859c72bd74c6fe10fbeb669678e069dc1b"
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/ReceiverConfirmationFixture.cs",
+      "sha256": "fe9ad45574072fa83cc55f6a303b1435f19ffae85bf8345264a3797513182c94"
+    },
+    {
+      "path": "tools/KuaiYi.CaptureControlFixture/KuaiYi.CaptureControlFixture.csproj",
+      "sha256": "b38d826fa6c06c3a64db527a2904740f6509b6561989b25971472b4e40416078"
+    },
+    {
+      "path": "tools/KuaiYi.CaptureControlFixture/packages.lock.json",
+      "sha256": "8e8e0310252c7ca891bf664c5250da875b11fa4c0a4c569b284190857eccb887"
+    },
+    {
+      "path": "tools/KuaiYi.CaptureControlFixture/Program.cs",
+      "sha256": "905ad6a3a9d5b064c88268c979f0bbfc9facb4a8c202d1112c4fee337b3bc27f"
+    },
+    {
+      "path": "tools/KuaiYi.CompatibilityProbe/InstalledSelectionProbe.cs",
+      "sha256": "19a35cfa1b9ff6cb5315d5e1c72288baa6447fc4ad79476c4d94e81c670dc4a6"
+    },
+    {
+      "path": "tools/KuaiYi.CompatibilityProbe/KuaiYi.CompatibilityProbe.csproj",
+      "sha256": "6e38721a9862f2e2a32805486cc15ced8d665ca4850335363e8e011e2cdb98a9"
+    },
+    {
+      "path": "tools/KuaiYi.CompatibilityProbe/OwnedApplicationJob.cs",
+      "sha256": "11aaae0bd2bd606d658607261a1b031edcc11bb64231becedccb2ac629e9e1da"
+    },
+    {
+      "path": "tools/KuaiYi.CompatibilityProbe/packages.lock.json",
+      "sha256": "582f60d6caa5b496637e3d945c7e5113d94eb6d36fbd9fa13a9b1e7bd6cdf463"
+    },
+    {
+      "path": "tools/KuaiYi.CompatibilityProbe/Program.cs",
+      "sha256": "007437e2bd280819951810dcf669a2f75e93f0ad2e36849d4cc21f6687ac8225"
+    },
+    {
+      "path": "tools/KuaiYi.CompatibilityProbe/PublicSelectionFixtures.cs",
+      "sha256": "b50891bc661676a6c396a9297dcc239e202cbb3f615f8428242cead447d8e57d"
+    },
+    {
+      "path": "tools/KuaiYi.CompatibilityProbe/SelectionGeometryContracts.cs",
+      "sha256": "800de557057fe02befd514090626f25ca96a2e5ac01dc7fb092195808e367603"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/ActualOverlayProbe.cs",
+      "sha256": "4bc3e61857d6f9f4826cd1d3a3b0aa9950c6bd3b32d47591d3ff56df9d97a380"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/DesktopFrontendReview.cs",
+      "sha256": "ad8caa7328f35d90e3f7fa033316658b69017b68f9caf79182e99311d0fb5065"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+      "sha256": "965d80aa4ba71d40cd9a6bd05af503a3ea917f3acbb7fb1c20c5b83bff5a748a"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/MarkdownReviewText.cs",
+      "sha256": "a18d27211900cdeee02cec6149e0386214109058eef3e384d97cb9fa7b4d11dd"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/OverlayProbeEvidence.cs",
+      "sha256": "bb15d895c399d7655dc00a47503001d7689e84073460a4ed7184ffd9d3220fad"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/OverlayProbeLifetime.cs",
+      "sha256": "b6f8b543bf33c7d4c038a5ef4fd853a5a53f8241853ff2d123b2cad510cfdc0c"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/OverlayStageProbe.cs",
+      "sha256": "cb204bcbe7cad614b786c378e1636002d688b942f099e74ee2d50b7dd48540d6"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/packages.lock.json",
+      "sha256": "863078f4c79e71fa6150040137128fae1f9916effd28f4de107995cab58c3fad"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/Program.cs",
+      "sha256": "a016c5f44a38aae143d4b6a4944667e4632d4f849c024fa3235e4939e36b5a2f"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/ServerInstanceProbe.cs",
+      "sha256": "b35e59fcc90e34836e214e948981e402b018d37fd9347319c0616b60726c104e"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/SettingsLayoutProbe.cs",
+      "sha256": "a4be4707cb84f59ad05ef1664587242a3324748dae94f7a6942ecf345b285b73"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/UiPolishContract.cs",
+      "sha256": "1e4514a0e55cc188551d3855aa24dad3f8e6363d080f615cc01c6cb9459ada16"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/UiPolishOpeningFrame.cs",
+      "sha256": "0c3f2b8074659df7dceb350475949ffc482aafeb5c1b2f29652ab86c70521537"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/UiPolishPopupProbe.cs",
+      "sha256": "5ccbc440d74ffe8170b7a6724fd18b093a51e5ce7810c1b59b0c03da91904fd2"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/UiPolishProbe.cs",
+      "sha256": "46e5272fdafed80ca31892d28716033fc99e1b0ba8aa5e66f646f6035445bb44"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/UiPolishTextFixture.cs",
+      "sha256": "98ffcf1e7bcde87d012176fa77629c60bd74c27f0e08f8fc35c63d188e27ee46"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/WarmWindowsPipeAccessProbe.cs",
+      "sha256": "8d9e932ed2c9838a10d962cc6357ffc264e80319a6c81a7c34263a6f0d9b8c21"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/WarmWindowsPipeProbe.cs",
+      "sha256": "fa8c4080ef044898c3cd0da5c802999860f527c2868da5a927386acc8f574337"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/WarmWindowsProbe.cs",
+      "sha256": "66c925e1b8780abe3d9b0c35e44cb52d99b50bdab6a296261561345596a2b8bd"
+    },
+    {
+      "path": "tools/KuaiYi.HotkeyOccupier/KuaiYi.HotkeyOccupier.csproj",
+      "sha256": "5d5567a0c6987ab5345449f7a2fa4a09fc77fb9dc535c41727027ac6a94ce0a3"
+    },
+    {
+      "path": "tools/KuaiYi.HotkeyOccupier/packages.lock.json",
+      "sha256": "c744d3413f9ecd8c62a18dfcacace1abcacc70959d8c6a5bcb0e885136a1a456"
+    },
+    {
+      "path": "tools/KuaiYi.HotkeyOccupier/Program.cs",
+      "sha256": "71979c71650738509486e196b3e00ecdf5211ca27823fb33d731fe499267f729"
+    },
+    {
+      "path": "tools/KuaiYi.ImageDecodeFixture/KuaiYi.ImageDecodeFixture.csproj",
+      "sha256": "28334312cf35f546d49407026ce5dccab35107c041d6149f2cff03b7ecf4932b"
+    },
+    {
+      "path": "tools/KuaiYi.ImageDecodeFixture/packages.lock.json",
+      "sha256": "1b59fd167559ca676eb160cf473a074ac7919edda72e42e0847030d63bcf9239"
+    },
+    {
+      "path": "tools/KuaiYi.ImageDecodeFixture/Program.cs",
+      "sha256": "ff043506c91da84c856d0c2a5fbc2df962b755764eb259de788a696a420ba630"
+    },
+    {
+      "path": "tools/KuaiYi.MockProvider/KuaiYi.MockProvider.csproj",
+      "sha256": "3918e94aa741fa37e84c4353c4af9c15ada1ff8b6e1697a777b40157c3e60eea"
+    },
+    {
+      "path": "tools/KuaiYi.MockProvider/MockProviderHost.cs",
+      "sha256": "cbb7f19040edce763c9f042587c3807d46aad53e278bcd6f3263bea7a955b07d"
+    },
+    {
+      "path": "tools/KuaiYi.MockProvider/packages.lock.json",
+      "sha256": "2241481b7e74dcdcd600303146b730ecc12cbd8e49aa55755ef95ee499fe229a"
+    },
+    {
+      "path": "tools/KuaiYi.MockProvider/Program.cs",
+      "sha256": "16637c5029fb849e61b60805719d959c8e78bdbd58660e23c748945cbfbfda16"
+    },
+    {
+      "path": "tools/KuaiYi.NativeMessagingProbe/KuaiYi.NativeMessagingProbe.csproj",
+      "sha256": "689d227123c071a6b2fda1e20a24954c3bed72e13ec96b1c2237adaf09dc4a11"
+    },
+    {
+      "path": "tools/KuaiYi.NativeMessagingProbe/packages.lock.json",
+      "sha256": "8250f3a22fb48a31949189eec7d6992e5775ccfeaec030a651eeab4d7d51e8a5"
+    },
+    {
+      "path": "tools/KuaiYi.NativeMessagingProbe/Program.cs",
+      "sha256": "e6f750b04ba6d35557a9e999c0a6fc98ba8050b8956edcd84f1e001ec1c4f6cd"
+    },
+    {
+      "path": "tools/KuaiYi.OleCi/HostedOleMarshalProbe.cs",
+      "sha256": "da6f885db652b6a5fcb24326557ddafa257840c43949fc9032e060b92c3815c1"
+    },
+    {
+      "path": "tools/KuaiYi.OleCi/HostedOleProbe.cs",
+      "sha256": "6e131c6903fdcd13071c223787607937360f862a4bbbdcda47da25a515c50750"
+    },
+    {
+      "path": "tools/KuaiYi.OleCi/OleCiDiagnostic.cs",
+      "sha256": "51cb6eb806497b81494d65b729fcc0331282f37c4fff7538422ce62efd3ed06c"
+    },
+    {
+      "path": "tools/KuaiYi.OleCi/OleCiScenarioCleanup.cs",
+      "sha256": "24818e2868ad068ac41a8492d6d3a7878983e7f462a2a628d1b66135ad82b29a"
+    },
+    {
+      "path": "tools/KuaiYi.OleCi/OleCiSourcePipe.cs",
+      "sha256": "c04e1ec2296cad59245bc9e7d056b9ebc8a86865d31377469818caae293c8f28"
+    },
+    {
+      "path": "tools/KuaiYi.OleCi/OleOwnershipProbe.cs",
+      "sha256": "59710c0727097f47b637e8eedffc0ee601ae2f0ce75d26a46c07aa69daf155dc"
+    },
+    {
+      "path": "tools/KuaiYi.OleControlFixture/KuaiYi.OleControlFixture.csproj",
+      "sha256": "d1a8e9f986816c15ff2bdac3a041d4cef9e6a177c8f5a207133b8fd941e754de"
+    },
+    {
+      "path": "tools/KuaiYi.OleControlFixture/packages.lock.json",
+      "sha256": "9bff4e952a51824922157e4e833412fa1464ebc97cf34c7b57677d547eefcc0b"
+    },
+    {
+      "path": "tools/KuaiYi.OleControlFixture/Program.cs",
+      "sha256": "b8ba126739687fe54bde5b60eae2c3ce65609eaaa904a41c3ac400233da6776d"
+    },
+    {
+      "path": "tools/KuaiYi.OleFaultSource/KuaiYi.OleFaultSource.csproj",
+      "sha256": "8180b039f75949259e2386998e2b5f97db1abf3634b99d53b931b0b745e93eba"
+    },
+    {
+      "path": "tools/KuaiYi.OleFaultSource/packages.lock.json",
+      "sha256": "31a48aee5804f1d26799c7b8a292a9215b5ff900c48c17734e92904a75073dee"
+    },
+    {
+      "path": "tools/KuaiYi.OleFaultSource/Program.cs",
+      "sha256": "9c121a115b94b393c9d01c46750f80f87f04091fbd64e1c92b4e2cca4fd75d9c"
+    },
+    {
+      "path": "tools/KuaiYi.OleProbe/DropWindow.cs",
+      "sha256": "a86c8d342aee3eb3034ec4f37825943aaebdd3c2fa17e68ed70ede0e0cfbab83"
+    },
+    {
+      "path": "tools/KuaiYi.OleProbe/KuaiYi.OleProbe.csproj",
+      "sha256": "a7827f23c534ecec777ce286ecfef9c6ca618bf9ee7611a8ca5f9228d00ffa4d"
+    },
+    {
+      "path": "tools/KuaiYi.OleProbe/packages.lock.json",
+      "sha256": "31a48aee5804f1d26799c7b8a292a9215b5ff900c48c17734e92904a75073dee"
+    },
+    {
+      "path": "tools/KuaiYi.OleProbe/Program.cs",
+      "sha256": "a6b7e12af819d2ca0006f8b62f7bf8a04fe479185d96abbda17e185e5e0e0ece"
+    },
+    {
+      "path": "tools/KuaiYi.OleReceiverFixture/KuaiYi.OleReceiverFixture.csproj",
+      "sha256": "ba126a24edc09f0ad9328706a75dd8d36d05ef681f60d3cc2b813e806d9759f8"
+    },
+    {
+      "path": "tools/KuaiYi.OleReceiverFixture/packages.lock.json",
+      "sha256": "49d627f5b7832e071c16762e743fefe6852fb71f2a61fb63e5236b659464a7e7"
+    },
+    {
+      "path": "tools/KuaiYi.OleReceiverFixture/Program.cs",
+      "sha256": "78cda12ecd2e57c12e723d351ec230e8ade843b9b333350cd6d119609bb29167"
+    },
+    {
+      "path": "tools/KuaiYi.ReuseLifecycle/KuaiYi.ReuseLifecycle.csproj",
+      "sha256": "bde128b58964e5f09e16007d61ff51cc914e44a1539da87b60af6e28a8c6e0aa"
+    },
+    {
+      "path": "tools/KuaiYi.ReuseLifecycle/LifecycleOffline.cs",
+      "sha256": "e7e55914008ee29d5991a18ba457e4e75b553a9cb4d2f28d2e2c9a2e21f710e6"
+    },
+    {
+      "path": "tools/KuaiYi.ReuseLifecycle/LifecycleParent.cs",
+      "sha256": "32ebf798b5f5c9791d814f4e0a3d393050132476b6d81417739e41fa4290771a"
+    },
+    {
+      "path": "tools/KuaiYi.ReuseLifecycle/LifecycleProtocol.cs",
+      "sha256": "b88cdcd2fcb01a4dfc4b1cd395f220af257e3c673b9937fd0a05d687ebfab4d0"
+    },
+    {
+      "path": "tools/KuaiYi.ReuseLifecycle/LifecycleSupervisor.cs",
+      "sha256": "3259af2267fafca6cd84cd1672ca45732db311bf162cc98bd9a169215a2d2645"
+    },
+    {
+      "path": "tools/KuaiYi.ReuseLifecycle/packages.lock.json",
+      "sha256": "2241481b7e74dcdcd600303146b730ecc12cbd8e49aa55755ef95ee499fe229a"
+    },
+    {
+      "path": "tools/KuaiYi.ReuseLifecycle/ProcessTracking.cs",
+      "sha256": "5c669b4b7af7da9a592eb1908272a0ed80a6b0b475c41a958bf36101b9d5f871"
+    },
+    {
+      "path": "tools/KuaiYi.ReuseLifecycle/Program.cs",
+      "sha256": "e322559032cb0c4656b7d41fd54b04b31e957f5b7d2854ff4fd7e8ca54ab737d"
+    },
+    {
+      "path": "tools/KuaiYi.ReuseLifecycle/WatchdogGate.cs",
+      "sha256": "03f1ec06ba6a12db097e0db6729dd848e73b6e7c57ff65c9276b6be701c4adcf"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReuseDiagnostic/AssemblyInfo.cs",
+      "sha256": "b07a0e07889edf7e608522b6c0230a480d26d23d24451a42c1ee24c67fb71b3f"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReuseDiagnostic/DiagnosticCaseRunner.cs",
+      "sha256": "9e6d8bc3148868a76f6e4be30c2c3d88a50092cc01c6f855347a180630113ca7"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReuseDiagnostic/DiagnosticRequest.cs",
+      "sha256": "13600c68ca5d88c815151df8fdff29c5ffc8f912612496ae9ec380a94887ef38"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReuseDiagnostic/ExclusiveKillJob.cs",
+      "sha256": "b9c493886f8081dfc4320524f58209dcaf659901f0a7caaba9da3d25dbaefc02"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReuseDiagnostic/KuaiYi.SelectionReuseDiagnostic.csproj",
+      "sha256": "2f46dd1be32db41dc95ead668d7efdabe3e9769b17dbc19887395fa2907baa29"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReuseDiagnostic/packages.lock.json",
+      "sha256": "6970f92a3774e0a0d32cac605c42df44361fc78668f83225487ba05ee5035268"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReuseDiagnostic/Program.cs",
+      "sha256": "cd1f027f4a62a5b9e8ff3d8c5e62c2c19f17af066780985ff67e591c3043a045"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReuseDiagnostic/ReuseDiagnosticHost.cs",
+      "sha256": "cefc5c4e2966a795061b326b697042217422f3495f55c97646c85e3cc4d080ef"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReuseDiagnostic/ReuseWireStream.cs",
+      "sha256": "37fe5e439f1f0357e179b51c32e7192126da38c8a2d5f35a97d154e52b0fe9be"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReusePrototype/KuaiYi.SelectionReusePrototype.csproj",
+      "sha256": "0ab33d5a7e1e34ff834620c3cca208a805ba79675b893a83c9cd34f5b1c208ca"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReusePrototype/OfflineRunner.cs",
+      "sha256": "51aa2bb9b7676b12ec168451eb37c236238d0e980fa49d0845971b9a0c4637b7"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReusePrototype/packages.lock.json",
+      "sha256": "5d4df45015fd5ffc88d5d689fc92cd1b1e5306952f6187d71d3c0f9f626fa68d"
+    },
+    {
+      "path": "tools/KuaiYi.SelectionReusePrototype/ReuseProtocolPrototype.cs",
+      "sha256": "3cd683e50733e6ca3ea2943c620e2c0587b18a042aa6c11d852fc147b4772171"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs",
+      "sha256": "4ff3b16dc2bc4c57fc0626d9a96f0601aea151560ec14434cb77315dc05e0ab8"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs",
+      "sha256": "f78787182ee25b1ef5dced35a201c708266e3246d2b9119162669a55036e7036"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/InstallationDeploymentCrashFixture.cs",
+      "sha256": "9fa46c4d6fa0bf26e17d238b7266fd596b3becf15bc64215b1ce18d5cfe488c0"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/InstallationHandoffFixture.cs",
+      "sha256": "f14410005ad20a35df760852711c27bc575eb90283af2cc0f859d52947d236c0"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/InstallationSessionLaunchFixture.cs",
+      "sha256": "4d351626ae0a669803329e30e49cf5767e002dd747ec630939e832d674b5615d"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/InstallationShellPort.cs",
+      "sha256": "e5a0cb52454582744a704f568251a4f7617852ef5cbf76f003c9de4a3f8b3c40"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/InstallationStartupSettingsFixture.cs",
+      "sha256": "522f7daab84df82684b6be8dba1f7de7938c4c2d86e137d5c5d904ca2e36c298"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs",
+      "sha256": "5f2ccedff12f5301fe9170033500922e18577aba091a85e6217cc461e3cd33bc"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/KuaiYi.SettingsStoreFixture.csproj",
+      "sha256": "00018cff3067f09251d696f9f75de458be1b9ee294070c54eb2de014078955b1"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/packages.lock.json",
+      "sha256": "6970f92a3774e0a0d32cac605c42df44361fc78668f83225487ba05ee5035268"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/Program.cs",
+      "sha256": "37c6c2b08fab37301f14e9a1c9aa23fbb3bde0b772911b54944c26fe4bde3941"
+    }
+  ]
+}

@@ -23,7 +23,7 @@ internal sealed partial class MarkdownSourceRegion:IDisposable
         IsReadOnly=true,IsUndoEnabled=false,IsReadOnlyCaretVisible=true,AllowDrop=false,AcceptsReturn=true,
         TextWrapping=TextWrapping.Wrap,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,VerticalScrollBarVisibility=ScrollBarVisibility.Visible,
         BorderThickness=new Thickness(0),Padding=new Thickness(0),Background=Brushes.Transparent,ClipToBounds=true,
-        FontFamily=new FontFamily("Segoe UI"),FontWeight=FontWeights.Normal,FontStyle=FontStyles.Normal
+        FontFamily=new FontFamily("Microsoft YaHei UI, Segoe UI"),FontWeight=FontWeights.Normal,FontStyle=FontStyles.Normal
     };
     public MarkdownSourceRegion(string source,Action? observeReader,Action? changed,Func<bool>? canRead,Func<Func<bool>>? captureReaderGuard=null,Func<Func<bool>>? captureCopyGuard=null)
     {

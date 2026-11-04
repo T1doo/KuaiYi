@@ -1,0 +1,30 @@
+{
+  "Kind": "ActualWpfReaderScrollRegression",
+  "Status": "Fail",
+  "Bars": [
+    {
+      "Orientation": "Vertical",
+      "TrackOrientation": "Vertical",
+      "ActualWidth": 17.333333333333332,
+      "ActualHeight": 46.5,
+      "IsEnabled": false
+    },
+    {
+      "Orientation": "Horizontal",
+      "TrackOrientation": "Vertical",
+      "ActualWidth": 17.333333333333332,
+      "ActualHeight": 17.333333333333332,
+      "IsEnabled": true
+    },
+    {
+      "Orientation": "Vertical",
+      "TrackOrientation": "Vertical",
+      "ActualWidth": 17.333333333333332,
+      "ActualHeight": 298,
+      "IsEnabled": false
+    }
+  ],
+  "Error": "System.InvalidOperationException: Reading chrome changed an embedded horizontal scrollbar into a vertical track.\r\n   at KuaiYi.GrowthHarness.ReaderScrollProbe.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in E:\\Github\\KuaiYi\\tools\\KuaiYi.GrowthHarness\\ReaderScrollProbe.cs:line 41",
+  "ClosedObserved": true,
+  "ModelCalls": 0
+}

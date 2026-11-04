@@ -20,7 +20,7 @@ internal sealed partial class ShellWindow
 {
     private readonly Canvas overlayCanvas=new(){ClipToBounds=true,HorizontalAlignment=HorizontalAlignment.Left,VerticalAlignment=VerticalAlignment.Top};
     private readonly Border cardBackground=new(){Background=Brushes.White,IsHitTestVisible=false};
-    private readonly RichTextBox body=new(){IsReadOnly=true,IsUndoEnabled=false,IsDocumentEnabled=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Visible,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,FontFamily=new("Segoe UI"),Background=Brushes.Transparent};
+    private readonly RichTextBox body=new(){IsReadOnly=true,IsUndoEnabled=false,IsDocumentEnabled=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Visible,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,FontFamily=DesktopTheme.ProseFont,Background=Brushes.Transparent};
     private readonly RichTextBox measurement=new(){IsReadOnly=true,IsUndoEnabled=false,IsDocumentEnabled=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Visible,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled};
     private readonly TextBlock resultLabel=new(){FontSize=12,FontWeight=FontWeights.SemiBold,TextTrimming=TextTrimming.CharacterEllipsis,Visibility=Visibility.Collapsed};
     private readonly Canvas controls=new(){Height=48};private readonly List<Button> tools=[];private readonly List<Action> toolActions=[];
@@ -30,6 +30,7 @@ internal sealed partial class ShellWindow
     private readonly ContextMenu overflowMenu=new();private Button? styleTool;
     private readonly Button versionsTool=new(){Content="版本",MinWidth=56,Height=28,FontSize=12,ToolTip="本次来源的内存版本；切换不发送请求"};
     private bool touchToolbar;
+    private static readonly DataTemplate CollapseUpGlyph=DesktopTheme.ToolGlyph("M3 14 L11 6 L19 14"),CollapseDownGlyph=DesktopTheme.ToolGlyph("M3 6 L11 14 L19 6"),MoreGlyph=DesktopTheme.ToolGlyph("M3 9 L3 11 M10 9 L10 11 M17 9 L17 11");
     private readonly Button failureNotice=new(){Height=44,FontSize=12,Focusable=true,Visibility=Visibility.Collapsed,Padding=new Thickness(2)};
     private readonly Button newContent=new(){Content="有新内容",Visibility=Visibility.Collapsed,MinHeight=28};
     private readonly Ellipse progressRing=new(){Width=42,Height=42,Stroke=Brushes.White,StrokeThickness=2,StrokeDashArray=new DoubleCollection{12,5},IsHitTestVisible=false,Visibility=Visibility.Collapsed,RenderTransformOrigin=new Point(.5,.5)};
@@ -54,6 +55,7 @@ internal sealed partial class ShellWindow
     private void SetupPresentation()
     {
         DesktopTextScale.Ignore(body);DesktopTextScale.Ignore(measurement);DesktopTextScale.Ignore(button);
+        DesktopScrollChrome.Install(body);DesktopScrollChrome.Install(measurement);
         DesktopTheme.Install(this,()=>lifecycle.Settings?.Data.Overlay.Theme??ThemePreference.FollowSystem,forms:false,changedAppearance:RefreshPresentationTheme,motionPreference:()=>lifecycle.Settings?.Data.Overlay.ReduceMotion??MotionPreference.FollowSystem);
         resultLabel.SetBinding(System.Windows.Automation.AutomationProperties.NameProperty,new System.Windows.Data.Binding(nameof(TextBlock.Text)){Source=resultLabel});
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
@@ -64,7 +66,7 @@ internal sealed partial class ShellWindow
         styleTool=Tool("风格",OpenStyleMenu);Tool("翻译截图",()=>TranslateScreenshot());Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("查看原文",ShowSelectionSource);Tool("清除当前内容",()=>_=ClearCurrentContent());Tool("设置",()=>_=OpenSettings());
         Button Tool(string label,Action action){var b=new Button{Content=label,Tag=label,IsEnabled=label is not ("回看" or "复制" or "重新生成"),MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.ToolTip=label;if(label is "重新生成" or "回看" or "复制")ToolTipService.SetShowOnDisabled(b,true);b.Style=(Style)Resources[DesktopTheme.ToolButton];if(label=="风格")b.ContentTemplate=DesktopTheme.ChoiceWithChevron();b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);return b;}
         versionsTool.Style=(Style)Resources[DesktopTheme.ToolButton];versionsTool.Click+=(_,_)=>OpenVersionMenu();
-        moreTools.Style=(Style)Resources[DesktopTheme.ToolButton];failureNotice.Style=(Style)Resources[DesktopTheme.ToolButton];failureNotice.HorizontalContentAlignment=HorizontalAlignment.Left;failureNotice.ContentTemplate=DesktopTheme.WrappingLabel();DesktopTheme.Bind(failureNotice,Control.ForegroundProperty,DesktopTheme.Error);newContent.Style=(Style)Resources[DesktopTheme.ToolButton];controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
+        moreTools.Style=(Style)Resources[DesktopTheme.ToolButton];moreTools.ContentTemplate=MoreGlyph;failureNotice.Style=(Style)Resources[DesktopTheme.ToolButton];failureNotice.HorizontalContentAlignment=HorizontalAlignment.Left;failureNotice.ContentTemplate=DesktopTheme.WrappingLabel();DesktopTheme.Bind(failureNotice,Control.ForegroundProperty,DesktopTheme.Error);newContent.Style=(Style)Resources[DesktopTheme.ToolButton];controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
         System.Windows.Automation.AutomationProperties.SetName(moreTools,"更多操作及版本");overflowMenu.Closed+=(_,_)=>PresentationMenuClosed();overflowMenu.Opened+=(_,_)=>DesktopTheme.ApplyMenu(overflowMenu,this);
         failureNotice.Click+=(_,_)=>ShowFailureRecovery();
         newContent.Click+=(_,_)=>{FollowBodyEnd();newContent.Visibility=Visibility.Collapsed;};
@@ -114,12 +116,29 @@ internal sealed partial class ShellWindow
     private void OpenOverflowMenu(UIElement target)
     {
         peekOut.Stop();overflowMenu.Items.Clear();
-        for(int i=0;i<tools.Count;i++){int index=i;var item=new MenuItem{Header=Equals(tools[i].Tag,"重新生成")?RegenerationMenuLabel():tools[i].Content,IsEnabled=Equals(tools[i].Tag,"复制")?CopyVersion()!=null:tools[i].IsEnabled};item.Click+=(_,_)=>toolActions[index]();overflowMenu.Items.Add(item);}
-        AddOpenImageCommands(overflowMenu);AddSessionStyleMenu(overflowMenu);AddScreenshotModes(overflowMenu);AddImageRegenerationCommands(overflowMenu);AddScreenshotRecovery(overflowMenu);
+        // Overflow complements the visible rail. It does not repeat every command,
+        // or mix persistent input-receiver switches into a reading menu.
+        AddHiddenTools("回看","复制","收起","查看原文");
+        AddHiddenTools(lifecycle.Gate.HasRunningGeneration?"停止":"重新生成");
+        if(overflowMenu.Items.Count>0)overflowMenu.Items.Add(new Separator());
+        AddOpenImageCommands(overflowMenu,includeDropCommands:false);
+        if(SelectedSource.Image!=null){AddScreenshotModes(overflowMenu);AddImageRegenerationCommands(overflowMenu);AddScreenshotRecovery(overflowMenu);}
+        overflowMenu.Items.Add(new Separator());AddSessionStyleMenu(overflowMenu);
         var versionsItem=new MenuItem{Header="本次来源版本（仅内存）"};AddVersionItems(versionsItem.Items);
         versionsItem.IsEnabled=versionsItem.Items.Count>0;overflowMenu.Items.Add(new Separator());overflowMenu.Items.Add(versionsItem);
         var currentSettings=new MenuItem{Header=RegenerationMenuLabel(true),IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&(SelectedSource.Text!=null||CanRegenerateImage)};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
+        overflowMenu.Items.Add(new Separator());AddHiddenTools("设置","清除当前内容");
         overflowMenu.PlacementTarget=target;overflowMenu.IsOpen=true;
+        void AddHiddenTools(params string[] commands)
+        {
+            foreach(string command in commands)
+            {
+                int index=tools.FindIndex(t=>Equals(t.Tag,command));var tool=tools[index];
+                if(tool.IsVisible)continue;
+                var item=new MenuItem{Header=tool.Content,IsEnabled=command=="复制"?CopyVersion()!=null:tool.IsEnabled};
+                item.Click+=(_,_)=>toolActions[index]();overflowMenu.Items.Add(item);
+            }
+        }
     }
     private void OpenStyleMenu()
     {peekOut.Stop();overflowMenu.Items.Clear();AddSessionStyleMenu(overflowMenu);overflowMenu.PlacementTarget=styleTool;overflowMenu.IsOpen=true;}
@@ -220,6 +239,7 @@ internal sealed partial class ShellWindow
         var toolbarLayout=OverlayReadingToolbar.Responsive(Math.Max(targetAnchorX,targetCardWidth-targetAnchorX-48),targetCardWidth,!peek||awaitingText,lifecycle.Gate.HasRunningGeneration,touchToolbar,PresentationTextScale);
         var toolbar=toolbarLayout.Slots;
         bool toolsDown=overlayFrames.ContentDirection is not (GrowthDirection.RightUp or GrowthDirection.LeftUp or GrowthDirection.BalancedUp);
+        tools.First(t=>Equals(t.Tag,"收起")).ContentTemplate=toolsDown?CollapseUpGlyph:CollapseDownGlyph;
         double edge=toolbarLayout.ExtraHeightDip;controls.Height=toolbarSurface.Height=48+edge;Canvas.SetTop(controls,toolsDown?by:by-edge);
         foreach(var tool in tools)tool.Visibility=Visibility.Collapsed;
         moreTools.Visibility=Visibility.Collapsed;
@@ -248,10 +268,21 @@ internal sealed partial class ShellWindow
         Canvas.SetLeft(versionsTool,dpi.Dips(targetLeft-rect.Left)+targetWidth-16-Math.Min(targetWidth/2,76*PresentationTextScale));Canvas.SetTop(versionsTool,dpi.Dips(bottom-rect.Top)-labelHeight);versionsTool.Width=Math.Min(targetWidth/2,76*PresentationTextScale);versionsTool.Height=labelHeight;versionsTool.Visibility=labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;versionsTool.Opacity=overlayFrames.ContentOpacity;resultLabel.Width=Math.Max(1,targetWidth-48-versionsTool.Width);resultLabel.Height=labelHeight;resultLabel.Opacity=overlayFrames.ContentOpacity;resultLabel.Visibility=labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(failureNotice,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(failureNotice,dpi.Dips(top-rect.Top));failureNotice.Height=Math.Max(28,noticeHeight-4);failureNotice.Width=Math.Max(1,targetWidth-32);failureNotice.Opacity=overlayFrames.ContentOpacity;failureNotice.Visibility=noticeHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight+noticeHeight)?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(body,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(body,dpi.Dips(top-rect.Top)+noticeHeight);body.Width=Math.Max(1,targetWidth-32);body.Height=Math.Max(0,dpi.Dips(bottom-top)-labelHeight-noticeHeight);body.Opacity=overlayFrames.ContentOpacity;body.Visibility=body.Height>0?Visibility.Visible:Visibility.Collapsed;
-        Canvas.SetLeft(newContent,Math.Max(0,width-90));Canvas.SetTop(newContent,Math.Max(0,dpi.Dips(bottom-rect.Top)-labelHeight-32));
+        newContent.Content=UnreadNoticeLabel;newContent.Width=Math.Min(Math.Max(0,width-32),Math.Ceiling(100*PresentationTextScale));
+        Canvas.SetLeft(newContent,Math.Max(0,width-16-newContent.Width));Canvas.SetTop(newContent,Math.Max(0,dpi.Dips(bottom-rect.Top)-labelHeight-32));
         }
     }
     private readonly DispatcherTimer copyReset=new(){Interval=TimeSpan.FromSeconds(1.5)};
+    partial void InvalidateMarkdownMeasurement()
+    {
+        measurement.ApplyTemplate();
+        Invalidate(measurement);
+        static void Invalidate(DependencyObject node)
+        {
+            for(int i=0;i<VisualTreeHelper.GetChildrenCount(node);i++)Invalidate(VisualTreeHelper.GetChild(node,i));
+            if(node is UIElement element)element.InvalidateMeasure();
+        }
+    }
     private void ScheduleCopyFeedbackReset(){copyReset.Stop();copyReset.Start();}
     private void DisposePresentation(){copyReset.Stop();StopFrames();flush.Stop();peekIn.Stop();peekOut.Stop();waiting.Stop();try{ClearMarkdown();}finally{ReleaseRetainedImage();overlayResults.Clear();}}
 }

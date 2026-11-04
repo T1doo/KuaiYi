@@ -136,11 +136,17 @@ internal static class SettingsLayoutProbe
             Require(draft.Basis.State==(recovery?SettingsLoadState.RecoverableDefaults:SettingsLoadState.Defaults),"Real settings load state differs");
             // A draft-only ordinary preference; never save, grant permission, enable or send.
             draft.Update(s=>s with{Overlay=s.Overlay with{Theme=ThemePreference.Light}});
+            if(!recovery)draft.Update(s=>s with{ActiveProfileId="layout",Profiles=[new(){Id="layout",Name="公开布局配置",Model="layout-fixture",BaseUrl="https://layout.public.invalid",Authentication=ApiAuthentication.None}]});
             constructionUnconfirmed=true;
             window=new SettingsWindow(coordinator,draft);
             constructionUnconfirmed=false;
             var originalClosed=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);closed=originalClosed;
             window.Closed+=(_,_)=>originalClosed.SetResult();
+            if(!recovery)
+            {
+                var profileChoice=(ComboBox)typeof(SettingsWindow).GetField("profiles",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!.GetValue(window)!;
+                Require(Equals(profileChoice.SelectedValue,"layout"),"Active profile must be selected when opening real settings.");
+            }
             window.Show();await Settle();
             // Wait past production Loaded placement before forcing a synthetic viewport.
             await app.Dispatcher.InvokeAsync(()=>{},DispatcherPriority.ApplicationIdle);Check();
@@ -182,8 +188,9 @@ internal static class SettingsLayoutProbe
             double navigationHeight=chrome.Children[0].RenderSize.Height;
             double navigationDesiredHeight=chrome.Children[0].DesiredSize.Height;
             if(compact)Require(Math.Abs(navigationHeight-Math.Min(navigationDesiredHeight,chrome.ActualHeight*.24))<=1,"Compact navigation differs from measured content/cap");
-            var footer=(ScrollViewer)chrome.Children[2];
-            if(recovery){footer.ScrollToEnd();await Settle();}
+            var footer=(FrameworkElement)chrome.Children[2];
+            var feedbackViewport=Descendants<ScrollViewer>(footer).Single();
+            if(recovery){feedbackViewport.ScrollToEnd();await Settle();}
             var source=(FrameworkElement)window.Content;
             var dpi=VisualTreeHelper.GetDpi(source);int pixelsX=checked((int)Math.Ceiling(source.ActualWidth*dpi.DpiScaleX)),pixelsY=checked((int)Math.Ceiling(source.ActualHeight*dpi.DpiScaleY));
             Require(pixelsX>0&&pixelsY>0&&(long)pixelsX*pixelsY<=4_000_000,"Raster dimensions out of bound");
@@ -195,7 +202,11 @@ internal static class SettingsLayoutProbe
             var buttons=Descendants<Button>(footer).Where(p=>AutomationProperties.GetName(p) is "保存设置更改" or "取消设置更改").ToArray();
             Require(buttons.Length==2&&buttons.All(p=>p.IsVisible&&p.ActualWidth>0&&p.ActualHeight>0),"Original footer controls missing");
             foreach(var button in buttons)reachable.Add(await Reach(button,AutomationProperties.GetName(button)));
-            if(recovery)reachable.Add(await Reach(Descendants<ComboBox>(footer).Single(),"RecoverySelector"));
+            if(recovery)
+            {
+                var recoverySelector=(ComboBox)typeof(SettingsWindow).GetField("recovery",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!.GetValue(window)!;
+                reachable.Add(await Reach(recoverySelector,"RecoverySelector"));
+            }
             ((ScrollViewer)chrome.Children[1]).ScrollToTop();await Settle();
             var bitmap=new RenderTargetBitmap(pixelsX,pixelsY,96*dpi.DpiScaleX,96*dpi.DpiScaleY,PixelFormats.Pbgra32);bitmap.Render(source);bitmap.Freeze();
             var encoder=new PngBitmapEncoder();encoder.Frames.Add(BitmapFrame.Create(bitmap));
@@ -207,7 +218,7 @@ internal static class SettingsLayoutProbe
             scenes.Add(new{Name=name,File=file,Bytes=bytes.Length,Sha256=Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant(),PixelsX=pixelsX,PixelsY=pixelsY,
                 DpiX=96*dpi.DpiScaleX,DpiY=96*dpi.DpiScaleY,RequestedWidth=width,RequestedHeight=height,WindowWidth=window.ActualWidth,WindowHeight=window.ActualHeight,
                 ClientWidth=source.ActualWidth,ClientHeight=source.ActualHeight,FontSize=window.FontSize,Compact=chrome.IsCompact,SyntheticForcedViewport=true,Recovery=recovery,
-                FooterViewport=footer.ViewportHeight,FooterExtent=footer.ExtentHeight,Rows=rows,Reachability=reachable,
+                FooterViewport=feedbackViewport.ViewportHeight,FooterExtent=feedbackViewport.ExtentHeight,Rows=rows,Reachability=reachable,
                 Navigation=new{SelectedVisibility=selectedVisibility,Height=navigationHeight,DesiredHeight=navigationDesiredHeight,AlignmentError=alignmentError},ElapsedMilliseconds=elapsed.Elapsed.TotalMilliseconds});
         }
         private async Task<object> Reach(FrameworkElement target,string name,bool bring=true)

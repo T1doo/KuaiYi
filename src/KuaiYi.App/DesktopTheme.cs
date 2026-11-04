@@ -14,6 +14,8 @@ namespace KuaiYi.App;
 // Window-local resources. No global implicit styles or changes to business control instances.
 internal static class DesktopTheme
 {
+    // Explicit Windows Chinese UI fallback avoids serif fallback on CJK-only text.
+    internal static readonly FontFamily ProseFont=new("Microsoft YaHei UI, Segoe UI");
     internal const string Canvas="KuaiYi.Canvas",Surface="KuaiYi.Surface",Rail="KuaiYi.Rail",Input="KuaiYi.Input",Text="KuaiYi.Text",Muted="KuaiYi.Muted",Stroke="KuaiYi.Stroke",InputBorder="KuaiYi.InputBorder",Accent="KuaiYi.Accent",AccentText="KuaiYi.AccentText",AccentSoft="KuaiYi.AccentSoft",SelectionText="KuaiYi.SelectionText",Error="KuaiYi.Error";
     internal const string PrimaryButton="KuaiYi.PrimaryButton",ToolButton="KuaiYi.ToolButton",AnchorButton="KuaiYi.AnchorButton",NavigationItem="KuaiYi.NavigationItem";
     private const string Applied="KuaiYi.AppliedPalette",Installed="KuaiYi.ThemeInstalled";
@@ -30,6 +32,7 @@ internal static class DesktopTheme
             TranslationPreset.Faithful=>"忠实翻译",TranslationPreset.Plain=>"通俗翻译",TranslationPreset.Professional=>"专业翻译",TranslationPreset.Explain=>"解释模式",
             ApiAddressMode.BasePrefix=>"基础地址",ApiAddressMode.ExactEndpoint=>"完整请求端点",
             ApiAuthentication.None=>"无需认证",ApiAuthentication.Bearer=>"Bearer Token",ApiAuthentication.ApiKey=>"API Key",ApiAuthentication.CustomHeader=>"自定义认证头",
+            ApiProfile profile=>profile.Name,
             _=>value?.ToString()??""
         };
         public object ConvertBack(object value,Type targetType,object parameter,CultureInfo culture)=>Binding.DoNothing;
@@ -54,12 +57,13 @@ internal static class DesktopTheme
     {
         Apply(window,preference());DesktopControlFeedback.Apply(window,motionPreference?.Invoke()??MotionPreference.FollowSystem);if(window.Resources.Contains(Installed))return;window.Resources[Installed]=true;
         window.UseLayoutRounding=true;window.SnapsToDevicePixels=true;
+        window.FontFamily=ProseFont;
         if(forms)
         {
-            window.FontFamily=new FontFamily("Segoe UI");window.FontSize=13;
+            window.FontFamily=ProseFont;window.FontSize=13;
             Bind(window,Control.BackgroundProperty,Canvas);Bind(window,Control.ForegroundProperty,Text);
             var wrappingText=new Style(typeof(AccessText));wrappingText.Setters.Add(new Setter(AccessText.TextWrappingProperty,TextWrapping.Wrap));window.Resources[typeof(AccessText)]=wrappingText;
-            window.Resources[typeof(Button)]=ButtonStyle(SettingsUiMetrics.ControlRadius,SettingsUiMetrics.ControlHeight);
+            var formButton=ButtonStyle(SettingsUiMetrics.ControlRadius,SettingsUiMetrics.ControlHeight);formButton.Setters.Add(new Setter(FrameworkElement.HorizontalAlignmentProperty,HorizontalAlignment.Left));window.Resources[typeof(Button)]=formButton;
             var primary=ButtonStyle(SettingsUiMetrics.ControlRadius,SettingsUiMetrics.ControlHeight);primary.Setters.Add(Value(Control.BackgroundProperty,Accent));primary.Setters.Add(Value(Control.ForegroundProperty,AccentText));primary.Setters.Add(Value(Control.BorderBrushProperty,Accent));primary.Setters.Add(new Setter(Control.FontWeightProperty,FontWeights.SemiBold));window.Resources[PrimaryButton]=primary;
             foreach(var type in new[]{typeof(TextBox),typeof(PasswordBox),typeof(ComboBox)})
             {
@@ -73,11 +77,12 @@ internal static class DesktopTheme
             }
             var check=new Style(typeof(CheckBox));check.Setters.Add(Value(Control.ForegroundProperty,Text));check.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(6,3,0,3)));check.Setters.Add(new Setter(FrameworkElement.MarginProperty,new Thickness(0,5,0,5)));check.Setters.Add(new Setter(FrameworkElement.MinHeightProperty,28d));window.Resources[typeof(CheckBox)]=check;
             var comboItem=new Style(typeof(ComboBoxItem));comboItem.Setters.Add(Value(Control.BackgroundProperty,Input));comboItem.Setters.Add(Value(Control.ForegroundProperty,Text));comboItem.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(10,7,10,7)));var highlight=new Trigger{Property=ComboBoxItem.IsHighlightedProperty,Value=true};highlight.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));highlight.Setters.Add(Value(Control.ForegroundProperty,SelectionText));comboItem.Triggers.Add(highlight);window.Resources[typeof(ComboBoxItem)]=comboItem;
+            comboItem.Setters.Add(new Setter(System.Windows.Automation.AutomationProperties.NameProperty,new Binding{Converter=new ChoiceLabel()}));
             window.Resources[NavigationItem]=NavigationStyle();
         }
         var tool=ButtonStyle(3,28);tool.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(3)));tool.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(0)));tool.Setters.Add(new Setter(Control.BackgroundProperty,Brushes.Transparent));
         var toolHover=new MultiTrigger();toolHover.Conditions.Add(new Condition(UIElement.IsMouseOverProperty,true));toolHover.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));toolHover.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));toolHover.Setters.Add(Value(Control.ForegroundProperty,SelectionText));tool.Triggers.Add(toolHover);
-        foreach(var icon in Icons.Where(pair=>pair.Key is "设置" or "翻译截图" or "清除当前内容"))
+        foreach(var icon in Icons.Where(pair=>pair.Key is "设置" or "翻译截图" or "清除当前内容" or "回看" or "停止" or "重新生成"))
         {var trigger=new Trigger{Property=FrameworkElement.TagProperty,Value=icon.Key};trigger.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(3,icon.Value)));tool.Triggers.Add(trigger);}
         window.Resources[ToolButton]=tool;var anchor=ButtonStyle(24,48);anchor.Setters.Add(Value(Control.ForegroundProperty,AccentText));window.Resources[AnchorButton]=anchor;
         DesktopTextScale.Install(window,changedAppearance);
@@ -155,6 +160,17 @@ internal static class DesktopTheme
     internal static DataTemplate WrappingLabel()
     {
         var text=new FrameworkElementFactory(typeof(TextBlock));text.SetBinding(TextBlock.TextProperty,new Binding());text.SetValue(TextBlock.TextWrappingProperty,TextWrapping.Wrap);text.SetBinding(TextBlock.LineHeightProperty,DesktopTextScale.Metric(18));return new DataTemplate{VisualTree=text};
+    }
+    // Content remains the stable, localized command/feedback text for menus and automation.
+    // Only the compact visual changes; the button still owns focus and command delivery.
+    internal static DataTemplate ToolGlyph(string path)
+    {
+        var glyph=new FrameworkElementFactory(typeof(Path));
+        glyph.SetValue(Path.DataProperty,Geometry.Parse(path));
+        glyph.SetBinding(Path.StrokeProperty,new Binding("Foreground"){RelativeSource=new RelativeSource(RelativeSourceMode.FindAncestor,typeof(Button),1)});
+        glyph.SetValue(Path.StrokeThicknessProperty,1.6);glyph.SetValue(Path.StrokeStartLineCapProperty,PenLineCap.Round);glyph.SetValue(Path.StrokeEndLineCapProperty,PenLineCap.Round);glyph.SetValue(Path.StrokeLineJoinProperty,PenLineJoin.Round);
+        glyph.SetValue(Path.StretchProperty,Stretch.Uniform);glyph.SetValue(FrameworkElement.WidthProperty,16d);glyph.SetValue(FrameworkElement.HeightProperty,16d);glyph.SetValue(UIElement.IsHitTestVisibleProperty,false);
+        return new DataTemplate{VisualTree=glyph};
     }
     private static Style ButtonStyle(double radius,double height)
     {

@@ -3,15 +3,17 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using System.Reflection;
 using KuaiYi.App;
 using KuaiYi.Core;
 using KuaiYi.Core.Settings;
+using KuaiYi.Providers;
 namespace KuaiYi.GrowthHarness;
 /// <summary>Test tool only: drives the exact shipped HWND/view with public text and a bound, synthetic, no-network request.</summary>
 internal static class ActualOverlayProbe
 {
     private const string PublicText="快译公开浮窗验证。没有读取其他应用，没有请求模型。\n\n同一个按钮是整张卡片的锚点；文字按最终宽度排版，窗口从按钮生长，跨DPI拖动后松手保存。\n\n";
-    public static int Run(string output,string rate,bool boundedCi=false,bool markdownReview=false)
+    public static int Run(string output,string rate,bool boundedCi=false,bool markdownReview=false,bool interactiveInspection=false)
     {
         bool burst=rate=="burst";double perSecond=0;
         if(!burst&&(!double.TryParse(rate,System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out perSecond)||!double.IsFinite(perSecond)||perSecond is <1 or >10000))return 2;
@@ -24,18 +26,27 @@ internal static class ActualOverlayProbe
             File.AppendAllText(output+".phases.log",line+Environment.NewLine);Console.Error.WriteLine("KuaiYi public overlay phase: "+line);
         }
         Phase("RunEntered");
+        if(interactiveInspection)System.Net.Http.HttpClient.DefaultProxy=new System.Net.WebProxy();
         string root=Path.Combine(Path.GetTempPath(),"kuaiyi-overlay-probe-"+Guid.NewGuid().ToString("N"));
         var coordinator=new SettingsCoordinator(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new NoKeys(),new DirectoryPolicy()));
+        SettingsSnapshot? inspectionSettings=null;UiPolishTextFixture? inspectionFixture=null;
         Phase("CoordinatorCreated");
         using(var draft=coordinator.OpenDraftAsync().GetAwaiter().GetResult())
-        {Phase("DraftOpened");draft.Update(s=>s with{ActiveProfileId="public",Profiles=[new(){Id="public",Model="public-fixture",BaseUrl="https://public.invalid",Authentication=ApiAuthentication.None}]});coordinator.SaveAsync(draft).GetAwaiter().GetResult();}
+        {Phase("DraftOpened");draft.Update(s=>interactiveInspection?UiPolishTextFixture.Configuration(ThemePreference.Light,MotionPreference.Full) with{Overlay=new(){FontSizeDip=15,PreferredWidthDip=420,RememberPosition=false}}:s with{ActiveProfileId="public",Profiles=[new(){Id="public",Model="public-fixture",BaseUrl="https://public.invalid",Authentication=ApiAuthentication.None}]});inspectionSettings=coordinator.SaveAsync(draft).GetAwaiter().GetResult();}
         Phase("PublicSettingsSaved");
         var app=new Application();var window=new ShellWindow("KuaiYi.PublicOverlayProbe."+Guid.NewGuid().ToString("N"),coordinator,enableSelectionPlatform:false){Title="快译 · 公开测试浮窗（非模型）"};
         Phase("ProductionWindowConstructed");
+        // Explicit inspection only: expose the same HWND to desktop tools that filter TOOLWINDOWs.
+        // Native nonactivation/AltTab acceptance belongs to the unchanged bounded probe, never this mode.
+        if(interactiveInspection)
+        {
+            window.Loaded+=(_,_)=>DesktopFrontendReview.InstallInspectionWindow(window);
+            window.Deactivated+=(_,_)=>DesktopFrontendReview.ExposeInspectionWindow(window);
+        }
         window.SourceInitialized+=(_,_)=>Phase("SourceInitialized");window.Closing+=(_,_)=>Phase("Closing");window.Closed+=(_,_)=>Phase("Closed");
         app.DispatcherUnhandledException+=(_,e)=>Phase("DispatcherUnhandled:"+e.Exception.GetType().Name);
         var timer=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(50)};RequestIdentity? current=null;int offset=0;bool busy=false;double budget=0;long feedTime=Stopwatch.GetTimestamp();
-        string stream=markdownReview?MarkdownReviewText.Text:string.Concat(Enumerable.Repeat(PublicText,24));var errors=new List<string>();
+        string stream=interactiveInspection?"公开合成示例 · 未调用模型\n\n一件轻巧的桌面工具，应当在需要时自然出现，让阅读保持连贯。\n\n翻译从固定按钮旁展开。正文按最终宽度排好，再随窗口边缘逐渐显露；看完后，轻轻收回同一个锚点。\n\n**清晰，也从容**\n\n常用操作放在薄控制栏里，来源留在正文之后。收起只改变显示，回看沿用内存内容。":markdownReview?MarkdownReviewText.Text:string.Concat(Enumerable.Repeat(PublicText,24));var errors=new List<string>();
         bool completed=false,timedOut=false;long completedAt=0;
         var deadline=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(100)};long startedAt=Stopwatch.GetTimestamp();
         var checks=new Dictionary<string,bool>{{"AnchorContained",true},{"WorkContained",true},{"NativeMatches",true},{"ActualAnchorContained",true},{"ActualWorkContained",true},{"ForegroundUnchanged",true},{"ActualButtonMatchesAnchor",true},{"AnchorStable",true},{"Grew",false}};
@@ -43,6 +54,18 @@ internal static class ActualOverlayProbe
         async Task Start()
         {
             Phase("StartupAwait");await window.PresentationStartup;Phase("StartupReady");var gate=window.PresentationGate;var origin=new EndpointOrigin(new Uri("https://public.invalid"));gate.ConsentTo(origin);
+            if(interactiveInspection)
+            {
+                if(!gate.TryEnable(origin,true))throw new InvalidOperationException("Public inspection gate refused.");
+                var flags=BindingFlags.Instance|BindingFlags.NonPublic;
+                var results=(OverlayResults)typeof(ShellWindow).GetField("overlayResults",flags)!.GetValue(window)!;
+                var callback=typeof(ShellWindow).GetMethod("TranslationChanged",flags)!.CreateDelegate<Action<TextTranslationUpdate>>(window);
+                var flow=typeof(ShellWindow).GetField("translation",flags)!;
+                if(flow.GetValue(window)!=null)throw new InvalidOperationException("Existing production coordinator must not be replaced.");
+                inspectionFixture=new(gate,results,inspectionSettings!,SynchronizationContext.Current!,callback);
+                flow.SetValue(window,inspectionFixture.Flow);current=await inspectionFixture.Start(CancellationToken.None);
+                offset=0;budget=0;feedTime=Stopwatch.GetTimestamp();timer.Start();return;
+            }
             if(!gate.TryEnable(origin,true)||!gate.TryGetProfileBinding("public",out var binding)||!gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),null,out var id,out _)){errors.Add("PublicRequestRejected");return;}
             current=id;offset=0;budget=0;
             if(!await window.ReceivePresentationAsync(id,new(OverlayResultEventKind.Begin))){errors.Add("BeginRejected");return;}
@@ -54,7 +77,7 @@ internal static class ActualOverlayProbe
             try
             {
                 long now=Stopwatch.GetTimestamp();budget+=burst?2000:perSecond*Stopwatch.GetElapsedTime(feedTime,now).TotalSeconds;feedTime=now;int count=Math.Min((int)Math.Min(budget,stream.Length-offset),stream.Length-offset);budget-=count;if(count>0){bool accepted=await window.ReceivePresentationAsync(id,new(OverlayResultEventKind.Delta,stream.Substring(offset,count)));if(!accepted){timer.Stop();errors.Add("DeltaRejected");return;}offset+=count;}
-                if(offset==stream.Length){timer.Stop();completed=await window.ReceivePresentationAsync(id,new(OverlayResultEventKind.Complete));if(!completed)errors.Add("CompleteRejected");completedAt=Stopwatch.GetTimestamp();Phase(completed?"StreamCompleted":"CompleteRejected");}
+                if(offset==stream.Length){timer.Stop();completed=await window.ReceivePresentationAsync(id,new(OverlayResultEventKind.Complete));if(!completed)errors.Add("CompleteRejected");if(inspectionFixture!=null){await window.ReceivePresentationAsync(id,new(OverlayResultEventKind.Usage));await inspectionFixture.CancelAndJoin(id);}completedAt=Stopwatch.GetTimestamp();Phase(completed?"StreamCompleted":"CompleteRejected");}
             }
             catch(Exception error){timer.Stop();errors.Add(error.GetType().Name);}
             finally{busy=false;}
@@ -92,8 +115,9 @@ internal static class ActualOverlayProbe
         finally
         {
             System.Windows.Media.CompositionTarget.Rendering-=observe;timer.Stop();deadline.Stop();
+            if(inspectionFixture!=null)inspectionFixture.DisposeAsync().AsTask().GetAwaiter().GetResult();
             File.WriteAllLines(output,new[]{"ms,stage,dpi,left,top,right,bottom,anchorContained,workContained,nativeMatches,actualAnchorContained,actualWorkContained,foregroundUnchanged,actualButtonMatchesAnchor,buttonLeft,buttonTop,buttonRight,buttonBottom,anchorLeft,anchorTop,anchorRight,anchorBottom"}.Concat(frames));
-            File.WriteAllText(output+".summary.json",System.Text.Json.JsonSerializer.Serialize(new{Kind=markdownReview?"ActualProductionMarkdownPublicReview":"ActualProductionOverlayPublicProbe",Rate=rate,RetainedFrames=frames.Count,DiscardedFrames=discarded,Errors=errors,ModelCalls=0,Source=markdownReview?"FixedMarkdownReviewV1":"PublicFixtureOnly",DesktopAcceptance="NotEvaluated",Mode=boundedCi?"BoundedCi":"Interactive",StreamCompleted=completed,Checks=checks,ExitCode=boundedCi?ExitCode():0}));
+            File.WriteAllText(output+".summary.json",System.Text.Json.JsonSerializer.Serialize(new{Kind=interactiveInspection?"ActualProductionOverlayPublicInspection":markdownReview?"ActualProductionMarkdownPublicReview":"ActualProductionOverlayPublicProbe",Rate=rate,RetainedFrames=frames.Count,DiscardedFrames=discarded,Errors=errors,ModelCalls=0,Source=interactiveInspection?"BoundSyntheticSource_NoNetwork":markdownReview?"FixedMarkdownReviewV1":"PublicFixtureOnly",DesktopAcceptance="NotEvaluated",Mode=interactiveInspection?"Interactive_NativeStylesAdapted_NotFocusAcceptance":boundedCi?"BoundedCi":"Interactive",StreamCompleted=completed,Checks=checks,ExitCode=boundedCi?ExitCode():0}));
             if(Directory.Exists(root))Directory.Delete(root,true);
         }
         return boundedCi?ExitCode():result;

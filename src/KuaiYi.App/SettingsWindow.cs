@@ -88,6 +88,8 @@ internal sealed partial class SettingsWindow:Window
     }
     private void RefreshProfiles()
     {
+        if(!draft.Data.Profiles.Any(profile=>profile.Id==selectedId))
+            selectedId=draft.Data.Profiles.FirstOrDefault(profile=>profile.Id==draft.Data.ActiveProfileId)?.Id??draft.Data.Profiles.FirstOrDefault()?.Id;
         loading=true;profiles.ItemsSource=draft.Data.Profiles;profiles.SelectedValue=selectedId;var choices=new[]{new ApiProfile{Id="",Name="未配置"}}.Concat(draft.Data.Profiles).ToArray();textProfile.ItemsSource=choices;visionProfile.ItemsSource=choices;textProfile.SelectedValue=draft.Data.ActiveProfileId??"";visionProfile.SelectedValue=draft.Data.VisionProfileId??"";loading=false;LoadProfile();
     }
     private void LoadProfile()

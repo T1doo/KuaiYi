@@ -74,6 +74,7 @@ namespace KuaiYi.App
         private bool IsVisible=true;
         private void ShowOverlay(){if(CanReadOriginalSource()&&!IsVisible){lifecycle.Gate.Disable();IsVisible=true;}}
         internal void ShowSourceForTest()=>ShowSelectionSource();
+        internal void SourceDisclosureChangedForTest()=>OriginalSourceChanged();
         internal void ClearSourceForTest()=>ClearOriginalSource();
         internal bool OriginalSourceCommandEnabled=>tools.Single(t=>Equals(t.Content,"查看原文")).IsEnabled;
     }

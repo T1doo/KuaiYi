@@ -14,6 +14,9 @@ internal sealed partial class MarkdownSourceRegion
     }
     partial void SetupNativeCopy()
     {
+        // The base source view initially owns Text. Detach it before composing
+        // the disclosure; WPF rejects a child with two logical parents.
+        View.Content=null;
         var content=new StackPanel();content.Children.Add(sourceMetadata);content.Children.Add(sourceOrigin);content.Children.Add(Text);View.Content=content;
         DesktopTextScale.Font(sourceMetadata,12);sourceMetadata.SetBinding(FrameworkElement.MaxHeightProperty,DesktopTextScale.Metric(48));
         DesktopTextScale.Font(sourceOrigin,12);sourceOrigin.SetBinding(FrameworkElement.MaxHeightProperty,DesktopTextScale.Metric(48));DesktopTheme.Bind(sourceOrigin,TextBlock.ForegroundProperty,DesktopTheme.Muted);

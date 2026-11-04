@@ -11,7 +11,7 @@ internal sealed partial class SettingsWindow
         var section=new StackPanel();
         section.Children.Add(new TextBlock{Text=title,FontSize=16,FontWeight=FontWeights.SemiBold,TextWrapping=TextWrapping.Wrap});
         if(description!=null){var caption=new TextBlock{Text=description,FontSize=12,TextWrapping=TextWrapping.Wrap,LineHeight=20,Margin=new Thickness(0,6,0,0)};DesktopTheme.Bind(caption,TextBlock.ForegroundProperty,DesktopTheme.Muted);section.Children.Add(caption);}
-        var band=new Border{Child=section,Padding=new Thickness(0,0,0,12),BorderThickness=new Thickness(0,0,0,1),Margin=new Thickness(0,panel.Children.Count==0?0:22,0,4)};
+        var band=new Border{Child=section,Padding=new Thickness(0,0,0,8),BorderThickness=new Thickness(0),Margin=new Thickness(0,panel.Children.Count==0?0:22,0,4)};
         DesktopTheme.Bind(band,Border.BorderBrushProperty,DesktopTheme.Stroke);panel.Children.Add(band);
     }
     private void PreferenceRow(Panel panel,string title,string description,FrameworkElement input)

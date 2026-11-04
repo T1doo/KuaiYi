@@ -56,7 +56,7 @@ internal sealed class MarkdownTableRegion:IDisposable
     public void RefreshAppearance(double fontSize,Brush foreground)
     {
         View.FontSize=View.Document.FontSize=table.FontSize=fontSize;View.Foreground=foreground;
-        table.FontFamily=new FontFamily("Segoe UI");table.LineHeight=fontSize*1.55;SizeColumns();
+        table.FontFamily=new FontFamily("Microsoft YaHei UI, Segoe UI");table.LineHeight=fontSize*1.55;SizeColumns();
     }
     private void SizeColumns()
     {

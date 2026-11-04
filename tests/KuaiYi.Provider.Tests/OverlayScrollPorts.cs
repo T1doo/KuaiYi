@@ -51,6 +51,7 @@ namespace KuaiYi.App
         internal void Deliver(int index=0)=>Dispatcher.Run(index);
         internal bool Following=>follow;
         internal bool NewContentVisible=>newContent.Visibility==System.Windows.Visibility.Visible;
+        internal string UnreadNoticeForTest=>UnreadNoticeLabel;
         internal void ObserveReaderInput()=>ObserveBodyReaderIntent();
         internal void ChangeGeometry(double extent,double viewport,double offset){body.ExtentHeight=extent;body.ViewportHeight=viewport;body.Offset=offset;}
     }

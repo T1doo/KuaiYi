@@ -1,0 +1,30 @@
+  KuaiYi.Contracts -> E:\Github\KuaiYi\src\KuaiYi.Contracts\bin\Release\net10.0\KuaiYi.Contracts.dll
+  KuaiYi.Core -> E:\Github\KuaiYi\src\KuaiYi.Core\bin\Release\net10.0\KuaiYi.Core.dll
+  KuaiYi.Imaging -> E:\Github\KuaiYi\src\KuaiYi.Imaging\bin\Release\net10.0\KuaiYi.Imaging.dll
+  KuaiYi.ImageWorker -> E:\Github\KuaiYi\src\KuaiYi.ImageWorker\bin\Release\net10.0\win-x64\KuaiYi.ImageWorker.dll
+  KuaiYi.Providers -> E:\Github\KuaiYi\src\KuaiYi.Providers\bin\Release\net10.0\KuaiYi.Providers.dll
+  KuaiYi.MockProvider -> E:\Github\KuaiYi\tools\KuaiYi.MockProvider\bin\Release\net10.0\KuaiYi.MockProvider.dll
+  KuaiYi.Provider.Tests -> E:\Github\KuaiYi\tests\KuaiYi.Provider.Tests\bin\Release\net10.0\KuaiYi.Provider.Tests.dll
+E:\Github\KuaiYi\tests\KuaiYi.Provider.Tests\bin\Release\net10.0\KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.93]     KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: True) [FAIL]
+[xUnit.net 00:00:00.94]     KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: False) [FAIL]
+  失败 KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: True) [1 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(Boolean table) in E:\Github\KuaiYi\tests\KuaiYi.Provider.Tests\OverlayStopFlowTests.cs:line 97
+--- End of stack trace from previous location ---
+  失败 KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: False) [< 1 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(Boolean table) in E:\Github\KuaiYi\tests\KuaiYi.Provider.Tests\OverlayStopFlowTests.cs:line 97
+--- End of stack trace from previous location ---
+结果文件: E:\Github\KuaiYi\artifacts\frontend-20261104-tests\frontend-candidate-b.trx
+
+失败!  - 失败:     2，通过:   566，已跳过:     0，总计:   568，持续时间: 1 s - KuaiYi.Provider.Tests.dll (net10.0)

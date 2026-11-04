@@ -33,7 +33,7 @@ internal sealed partial class MarkdownFlowView
     private Guid? appliedVersion;
     private MarkdownViewport viewport=new(388,560);
     private double appliedFontSize=double.NaN;
-    private static readonly FontFamily ProseFont=new("Segoe UI"),CodeFont=new("Consolas");
+    private static readonly FontFamily ProseFont=new("Microsoft YaHei UI, Segoe UI"),CodeFont=new("Consolas");
     public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null,Func<bool>? shouldFollow=null,Action? sourceChanged=null,Func<Guid,bool>? canReadSource=null,Action<Exception>? sourceFailed=null,Action<Guid,MarkdownHttpTarget,Func<bool>>? openLink=null,Func<Func<bool>>? captureSourceCopyGuard=null)
     {
         this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;this.captureSourceCopyGuard=captureSourceCopyGuard;this.shouldFollow=shouldFollow;this.sourceChanged=sourceChanged;this.canReadSource=canReadSource;this.sourceFailed=sourceFailed;this.openLink=openLink;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};

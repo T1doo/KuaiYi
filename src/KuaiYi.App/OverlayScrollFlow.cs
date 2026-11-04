@@ -6,10 +6,13 @@ internal sealed partial class ShellWindow
 {
     // UI destination only: a newer flush or reader intent invalidates deferred layout work.
     private long bodyScrollRevision,bodyReaderIntentRevision;
-    private bool codeReaderPaused;
+    private bool codeReaderPaused,hasUnreadResultText,hasUnreadResultState;
+    private string UnreadNoticeLabel=>hasUnreadResultText?"有新内容":"状态已更新";
+    private void MarkUnreadResultState(RequestIdentity identity)
+    {if(!follow&&overlayResults.HasText&&overlayResults.SelectedVersionId==identity.VersionId)hasUnreadResultState=true;}
     private void InvalidateBodyScrollRestore(){bodyScrollRevision++;bodyReaderIntentRevision++;}
     private void ForgetCodeReaderIntent(){InvalidateBodyScrollRestore();codeReaderPaused=false;}
-    private void ResetBodyReaderFollow(){ForgetCodeReaderIntent();follow=true;}
+    private void ResetBodyReaderFollow(){ForgetCodeReaderIntent();follow=true;hasUnreadResultText=hasUnreadResultState=false;newContent.Visibility=Visibility.Collapsed;}
     private void FollowBodyEnd(){ResetBodyReaderFollow();bodyMarkdown?.FollowTailEnd();body.ScrollToEnd();}
     private void ObserveCodeReaderIntent(){InvalidateBodyScrollRestore();codeReaderPaused=true;follow=false;}
     private Func<bool> CaptureBodyReaderGuard()
@@ -27,7 +30,7 @@ internal sealed partial class ShellWindow
             if(exiting||scroll!=bodyScrollRevision||revision!=resultRevision||lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))return;
             if(codeReaderPaused)return;
             follow=body.ExtentHeight-body.ViewportHeight-body.VerticalOffset<=24;
-            if(follow)newContent.Visibility=Visibility.Collapsed;
+            if(follow){hasUnreadResultText=hasUnreadResultState=false;newContent.Visibility=Visibility.Collapsed;}
         });
     }
     private void ScheduleBodyScrollRestore(bool bottom,double offset)
