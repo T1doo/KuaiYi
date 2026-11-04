@@ -22,10 +22,13 @@ internal sealed partial class ShellWindow
     private readonly Border cardBackground=new(){Background=Brushes.White,IsHitTestVisible=false};
     private readonly RichTextBox body=new(){IsReadOnly=true,IsUndoEnabled=false,IsDocumentEnabled=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Visible,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,FontFamily=DesktopTheme.ProseFont,Background=Brushes.Transparent};
     private readonly RichTextBox measurement=new(){IsReadOnly=true,IsUndoEnabled=false,IsDocumentEnabled=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Visible,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled};
-    private readonly TextBlock resultLabel=new(){FontSize=12,FontWeight=FontWeights.SemiBold,TextTrimming=TextTrimming.CharacterEllipsis,Visibility=Visibility.Collapsed};
+    private readonly TextBlock resultLabel=new(){FontSize=12,FontWeight=FontWeights.Normal,TextTrimming=TextTrimming.CharacterEllipsis,Visibility=Visibility.Collapsed};
     private readonly Canvas controls=new(){Height=48};private readonly List<Button> tools=[];private readonly List<Action> toolActions=[];
     private readonly Border toolbarSurface=new(){Height=48,IsHitTestVisible=false};
     private readonly Border toolbarDivider=new(){Height=1,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
+    private readonly Border toolbarSeam=new(){Height=3,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
+    private static readonly Brush DownSeam=CreateSeam(90),UpSeam=CreateSeam(270);
+    private static Brush CreateSeam(double angle){var brush=new LinearGradientBrush(Color.FromArgb(18,15,23,42),Colors.Transparent,angle);brush.Freeze();return brush;}
     private readonly Button moreTools=new(){Content="…",Width=28,Height=28,ToolTip="更多操作及版本"};
     private readonly ContextMenu overflowMenu=new();private Button? styleTool;
     private readonly Button versionsTool=new(){Content="版本",MinWidth=56,Height=28,FontSize=12,ToolTip="本次来源的内存版本；切换不发送请求"};
@@ -33,7 +36,7 @@ internal sealed partial class ShellWindow
     private static readonly DataTemplate CollapseUpGlyph=DesktopTheme.ToolGlyph("M3 14 L11 6 L19 14"),CollapseDownGlyph=DesktopTheme.ToolGlyph("M3 6 L11 14 L19 6"),MoreGlyph=DesktopTheme.ToolGlyph("M3 9 L3 11 M10 9 L10 11 M17 9 L17 11");
     private readonly Button failureNotice=new(){Height=44,FontSize=12,Focusable=true,Visibility=Visibility.Collapsed,Padding=new Thickness(2)};
     private readonly Button newContent=new(){Content="有新内容",Visibility=Visibility.Collapsed,MinHeight=28};
-    private readonly Ellipse progressRing=new(){Width=42,Height=42,Stroke=Brushes.White,StrokeThickness=2,StrokeDashArray=new DoubleCollection{12,5},IsHitTestVisible=false,Visibility=Visibility.Collapsed,RenderTransformOrigin=new Point(.5,.5)};
+    private readonly Ellipse progressRing=new(){Width=42,Height=42,Stroke=Brushes.White,StrokeThickness=2,StrokeDashArray=new DoubleCollection{18,48},StrokeDashCap=PenLineCap.Round,Opacity=.85,IsHitTestVisible=false,Visibility=Visibility.Collapsed,RenderTransformOrigin=new Point(.5,.5)};
     private readonly TextBlock connectionStatus=new(){Text="正在连接…",VerticalAlignment=VerticalAlignment.Center,Visibility=Visibility.Collapsed,IsHitTestVisible=false};
     private readonly DispatcherTimer flush=new(){Interval=TimeSpan.FromMilliseconds(50)},peekIn=new(){Interval=TimeSpan.FromMilliseconds(350)},peekOut=new(){Interval=TimeSpan.FromMilliseconds(250)},waiting=new(){Interval=TimeSpan.FromMilliseconds(400)};
     private OverlayResults overlayResults=null!;private IdentityEventReceiver<OverlayResultEvent> presentationReceiver=null!;
@@ -61,11 +64,17 @@ internal sealed partial class ShellWindow
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
         bodyMarkdown=new(body,ObserveCodeReaderIntent,CaptureBodyReaderGuard,()=>follow,OriginalSourceChanged,CanReadOriginalSourceVersion,ImageSourcePreviewFailed,OpenMarkdownLink,CaptureOriginalSourceCopyGuard);measurementMarkdown=new(measurement,canReadSource:CanReadOriginalSourceVersion,sourceFailed:ImageSourcePreviewFailed);
         Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(versionsTool);overlayCanvas.Children.Add(failureNotice);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
+        KeyboardNavigation.SetTabNavigation(overlayCanvas,KeyboardNavigationMode.Local);
+        KeyboardNavigation.SetTabNavigation(controls,KeyboardNavigationMode.Local);
+        KeyboardNavigation.SetTabNavigation(body,KeyboardNavigationMode.Local);body.IsReadOnlyCaretVisible=true;
+        KeyboardNavigation.SetTabIndex(button,0);KeyboardNavigation.SetTabIndex(controls,1);KeyboardNavigation.SetTabIndex(failureNotice,2);
+        KeyboardNavigation.SetTabIndex(body,3);KeyboardNavigation.SetTabIndex(versionsTool,4);KeyboardNavigation.SetTabIndex(newContent,5);
         body.Visibility=controls.Visibility=Visibility.Collapsed;button.Width=button.Height=48;button.Padding=new Thickness(0);button.Style=(Style)Resources[DesktopTheme.AnchorButton];cardBackground.CornerRadius=new CornerRadius(6);cardBackground.BorderThickness=new Thickness(1);RefreshPresentationTheme();
         DesktopTheme.Bind(toolbarSurface,Border.BackgroundProperty,DesktopTheme.Rail);DesktopTheme.Bind(toolbarDivider,Border.BackgroundProperty,DesktopTheme.Stroke);controls.Children.Add(toolbarSurface);controls.Children.Add(toolbarDivider);
+        toolbarDivider.Opacity=.7;controls.Children.Add(toolbarSeam);
         styleTool=Tool("风格",OpenStyleMenu);Tool("翻译截图",()=>TranslateScreenshot());Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("查看原文",ShowSelectionSource);Tool("清除当前内容",()=>_=ClearCurrentContent());Tool("设置",()=>_=OpenSettings());
         Button Tool(string label,Action action){var b=new Button{Content=label,Tag=label,IsEnabled=label is not ("回看" or "复制" or "重新生成"),MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.ToolTip=label;if(label is "重新生成" or "回看" or "复制")ToolTipService.SetShowOnDisabled(b,true);b.Style=(Style)Resources[DesktopTheme.ToolButton];if(label=="风格")b.ContentTemplate=DesktopTheme.ChoiceWithChevron();b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);return b;}
-        versionsTool.Style=(Style)Resources[DesktopTheme.ToolButton];versionsTool.Click+=(_,_)=>OpenVersionMenu();
+        versionsTool.Style=(Style)Resources[DesktopTheme.ToolButton];versionsTool.ContentTemplate=DesktopTheme.ChoiceWithChevron();versionsTool.Click+=(_,_)=>OpenVersionMenu();
         moreTools.Style=(Style)Resources[DesktopTheme.ToolButton];moreTools.ContentTemplate=MoreGlyph;failureNotice.Style=(Style)Resources[DesktopTheme.ToolButton];failureNotice.HorizontalContentAlignment=HorizontalAlignment.Left;failureNotice.ContentTemplate=DesktopTheme.WrappingLabel();DesktopTheme.Bind(failureNotice,Control.ForegroundProperty,DesktopTheme.Error);newContent.Style=(Style)Resources[DesktopTheme.ToolButton];controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
         System.Windows.Automation.AutomationProperties.SetName(moreTools,"更多操作及版本");overflowMenu.Closed+=(_,_)=>PresentationMenuClosed();overflowMenu.Opened+=(_,_)=>DesktopTheme.ApplyMenu(overflowMenu,this);
         failureNotice.Click+=(_,_)=>ShowFailureRecovery();
@@ -110,6 +119,7 @@ internal sealed partial class ShellWindow
         DesktopControlFeedback.Apply(this,lifecycle.Settings?.Data.Overlay.ReduceMotion??MotionPreference.FollowSystem);
         cardBackground.Background=DesktopTheme.Brush(this,DesktopTheme.Surface);cardBackground.BorderBrush=DesktopTheme.Brush(this,DesktopTheme.Stroke);body.Foreground=DesktopTheme.Brush(this,DesktopTheme.Text);measurement.Foreground=body.Document.Foreground=measurement.Document.Foreground=body.Foreground;connectionStatus.Foreground=resultLabel.Foreground=DesktopTheme.Brush(this,DesktopTheme.Muted);
         button.Foreground=SystemParameters.HighContrast?SystemColors.HighlightTextBrush:Brushes.White;bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;button.Background=on?OverlayTokens.On:OverlayTokens.Off;UpdateButtonGlyph(on);
+        progressRing.Stroke=button.Foreground;
         bodyMarkdown.RefreshCodeAppearance();measurementMarkdown.RefreshCodeAppearance();RefreshTextScalePresentation();if(overflowMenu.IsOpen)DesktopTheme.ApplyMenu(overflowMenu,this);if(button.ContextMenu?.IsOpen==true)DesktopTheme.ApplyMenu(button.ContextMenu,this);
     }
     private void PresentationMenuClosed(){if(peek&&!IsMouseOver&&!exiting)peekOut.Start();}
@@ -128,7 +138,7 @@ internal sealed partial class ShellWindow
         versionsItem.IsEnabled=versionsItem.Items.Count>0;overflowMenu.Items.Add(new Separator());overflowMenu.Items.Add(versionsItem);
         var currentSettings=new MenuItem{Header=RegenerationMenuLabel(true),IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&(SelectedSource.Text!=null||CanRegenerateImage)};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
         overflowMenu.Items.Add(new Separator());AddHiddenTools("设置","清除当前内容");
-        overflowMenu.PlacementTarget=target;overflowMenu.IsOpen=true;
+        overflowMenu.PlacementTarget=target;DesktopTheme.ApplyMenu(overflowMenu,this);overflowMenu.IsOpen=true;
         void AddHiddenTools(params string[] commands)
         {
             foreach(string command in commands)
@@ -141,7 +151,7 @@ internal sealed partial class ShellWindow
         }
     }
     private void OpenStyleMenu()
-    {peekOut.Stop();overflowMenu.Items.Clear();AddSessionStyleMenu(overflowMenu);overflowMenu.PlacementTarget=styleTool;overflowMenu.IsOpen=true;}
+    {peekOut.Stop();overflowMenu.Items.Clear();AddSessionStyleMenu(overflowMenu);overflowMenu.PlacementTarget=styleTool;DesktopTheme.ApplyMenu(overflowMenu,this);overflowMenu.IsOpen=true;}
     private void AddVersionItems(ItemCollection items)
     {
         if(LocalImagePreview){var local=new MenuItem{Header="本地图片 · 尚未发送",IsCheckable=true,IsChecked=true};local.Click+=(_,_)=>ReopenResult();items.Add(local);return;}
@@ -152,7 +162,7 @@ internal sealed partial class ShellWindow
         }
     }
     private void OpenVersionMenu()
-    {peekOut.Stop();overflowMenu.Items.Clear();AddVersionItems(overflowMenu.Items);overflowMenu.PlacementTarget=versionsTool;overflowMenu.IsOpen=true;}
+    {peekOut.Stop();overflowMenu.Items.Clear();AddVersionItems(overflowMenu.Items);overflowMenu.PlacementTarget=versionsTool;DesktopTheme.ApplyMenu(overflowMenu,this);overflowMenu.IsOpen=true;}
     private void WriteResultClipboard(string text)=>Clipboard.SetText(text);
     private void StopPresentation(){overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;CollapseResult();}
     private void BeginOverlayMove(){StopFrames();peekIn.Stop();peekOut.Stop();overlayFrames?.BeginMove();}
@@ -208,7 +218,7 @@ internal sealed partial class ShellWindow
         if(overlayFrames==null||hwnd==0)return;
         anchor=overlayFrames.Anchor;anchorMonitor=overlayFrames.Monitor;var rect=overlayFrames.Current;var dpi=anchorMonitor.Dpi;
         bool expanded=rect!=anchor;
-        double expansion=Math.Clamp((rect.Width-anchor.Width+rect.Height-anchor.Height)/(48*dpi.Factor),0,1);
+        double expansion=overlayFrames.CornerProgress;
         int radius=dpi.CeilingPixels(24-18*expansion);
         applyingOverlayFrame=true;
         try
@@ -230,34 +240,44 @@ internal sealed partial class ShellWindow
         // Match the already-quantized native clip before a resize can synchronously render.
         var corner=new CornerRadius(dpi.Dips(radius));if(cardBackground.CornerRadius!=corner)cardBackground.CornerRadius=corner;
         double width=dpi.Dips(rect.Width),height=dpi.Dips(rect.Height);overlayCanvas.Width=width;overlayCanvas.Height=height;cardBackground.Width=width;cardBackground.Height=height;
+        if(overlayCanvas.Clip is not RectangleGeometry clip||clip.Rect.Width!=width||clip.Rect.Height!=height||clip.RadiusX!=corner.TopLeft)
+            overlayCanvas.Clip=new RectangleGeometry(new Rect(0,0,width,height),corner.TopLeft,corner.TopLeft);
         double bx=dpi.Dips(anchor.Left-rect.Left),by=dpi.Dips(anchor.Top-rect.Top);Canvas.SetLeft(button,bx);Canvas.SetTop(button,by);
         Canvas.SetLeft(progressRing,bx+3);Canvas.SetTop(progressRing,by+3);
-        controls.Visibility=expanded&&!externalDropHover?Visibility.Visible:Visibility.Collapsed;controls.Width=toolbarSurface.Width=width;
-        double before=bx,after=width-bx-48;bool left=before>after;double available=Math.Max(before,after),start=left?0:bx+48;
+        controls.Visibility=expanded&&!externalDropHover?Visibility.Visible:Visibility.Collapsed;controls.Width=toolbarSurface.Width=toolbarSeam.Width=width;
         double targetCardWidth=overlayFrames.Plan is {} toolbarPlan?dpi.Dips(toolbarPlan.Target.Width):width;
         double targetAnchorX=overlayFrames.Plan is {} targetPlan?dpi.Dips(anchor.Left-targetPlan.Target.Left):bx;
+        double targetOrigin=overlayFrames.Plan is {} placement?dpi.Dips(placement.Target.Left-rect.Left):0;
+        bool left=targetAnchorX>targetCardWidth-targetAnchorX-48;
+        double available=Math.Max(targetAnchorX,targetCardWidth-targetAnchorX-48),start=targetOrigin+(left?0:targetAnchorX+48);
         var toolbarLayout=OverlayReadingToolbar.Responsive(Math.Max(targetAnchorX,targetCardWidth-targetAnchorX-48),targetCardWidth,!peek||awaitingText,lifecycle.Gate.HasRunningGeneration,touchToolbar,PresentationTextScale);
         var toolbar=toolbarLayout.Slots;
+        double rowUsed=toolbar.Where(slot=>slot.Row==0).Select(slot=>slot.OffsetDip+slot.WidthDip).DefaultIfEmpty(0).Max();
+        double actionGap=!peek&&!awaitingText&&toolbar.Any(slot=>slot.Row==0&&slot.Command=="风格")?Math.Max(0,available-rowUsed):0;
         bool toolsDown=overlayFrames.ContentDirection is not (GrowthDirection.RightUp or GrowthDirection.LeftUp or GrowthDirection.BalancedUp);
         tools.First(t=>Equals(t.Tag,"收起")).ContentTemplate=toolsDown?CollapseUpGlyph:CollapseDownGlyph;
         double edge=toolbarLayout.ExtraHeightDip;controls.Height=toolbarSurface.Height=48+edge;Canvas.SetTop(controls,toolsDown?by:by-edge);
+        toolbarSeam.Background=toolsDown?DownSeam:UpSeam;Canvas.SetTop(toolbarSeam,toolsDown?48+edge:-3);
         foreach(var tool in tools)tool.Visibility=Visibility.Collapsed;
         moreTools.Visibility=Visibility.Collapsed;
         foreach(var slot in toolbar)
         {
             var tool=slot.Command=="更多"?moreTools:tools.First(t=>Equals(t.Tag,slot.Command));
             tool.Visibility=Visibility.Visible;tool.Width=slot.WidthDip;tool.Height=touchToolbar?44:Math.Max(28,Math.Ceiling(18*PresentationTextScale+4));
+            KeyboardNavigation.SetTabIndex(tool,slot.Row*1000+(int)slot.OffsetDip);
             double rowTop=toolsDown?slot.Row*48:edge-slot.Row*48;
-            Canvas.SetLeft(tool,slot.Row==0?start+slot.OffsetDip:slot.OffsetDip);Canvas.SetTop(tool,rowTop+(48-tool.Height)/2);
+            // Like the prose, controls occupy their final layout and are revealed
+            // by the growing native clip, rather than sliding with the left edge.
+            Canvas.SetLeft(tool,slot.Row==0?start+slot.OffsetDip+(slot.Command=="风格"?0:actionGap):targetOrigin+slot.OffsetDip);Canvas.SetTop(tool,rowTop+(48-tool.Height)/2);
         }
         double used=toolbar.Where(slot=>slot.Row==0).Select(slot=>slot.OffsetDip+slot.WidthDip).DefaultIfEmpty(0).Max();
         connectionStatus.Visibility=!externalDropHover&&awaitingText&&peek&&expanded&&available-used>=32?Visibility.Visible:Visibility.Collapsed;
         connectionStatus.Width=Math.Max(0,available-used);connectionStatus.TextTrimming=TextTrimming.CharacterEllipsis;
-        Canvas.SetLeft(connectionStatus,start+used);Canvas.SetTop(connectionStatus,14);
+        Canvas.SetLeft(connectionStatus,start+used);Canvas.SetTop(connectionStatus,by+14);
         PublishDropBounds();
-        var plan=overlayFrames.Plan;var direction=overlayFrames.ContentDirection;toolbarDivider.Visibility=Visibility.Collapsed;if(direction==null||peek||!expanded){body.Visibility=resultLabel.Visibility=versionsTool.Visibility=failureNotice.Visibility=Visibility.Collapsed;newContent.Visibility=Visibility.Collapsed;return;}
+        var plan=overlayFrames.Plan;var direction=overlayFrames.ContentDirection;toolbarDivider.Visibility=toolbarSeam.Visibility=Visibility.Collapsed;if(direction==null||peek||!expanded){body.Visibility=resultLabel.Visibility=versionsTool.Visibility=failureNotice.Visibility=Visibility.Collapsed;newContent.Visibility=Visibility.Collapsed;return;}
         bool down=direction is GrowthDirection.RightDown or GrowthDirection.LeftDown or GrowthDirection.BalancedDown;
-        toolbarDivider.Width=width;Canvas.SetTop(toolbarDivider,down?47+edge:0);toolbarDivider.Visibility=Visibility.Visible;
+        toolbarDivider.Width=width;Canvas.SetTop(toolbarDivider,down?47+edge:0);toolbarDivider.Visibility=toolbarSeam.Visibility=Visibility.Visible;
         int pad=dpi.CeilingPixels(16),top=down?anchor.Bottom+dpi.CeilingPixels(edge)+pad:rect.Top+pad,bottom=down?rect.Bottom-pad:anchor.Top-dpi.CeilingPixels(edge)-pad;
         double targetWidth=overlayFrames.TextWidthDip;
         if(overlayFrames.Transition==OverlayTransition.Moving)targetWidth=Math.Min(targetWidth,width);

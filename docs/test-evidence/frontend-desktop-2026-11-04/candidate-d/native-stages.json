@@ -1,0 +1,5383 @@
+{
+  "Kind": "ActualProductionOverlayStages",
+  "SourceHead": null,
+  "Status": "Pass_LimitedStages",
+  "TimedOut": false,
+  "ElapsedMilliseconds": 5234.0857,
+  "QpcFrequency": 10000000,
+  "OriginalDriverCompleted": true,
+  "OriginalCloseTaskCompleted": true,
+  "ClosedObserved": true,
+  "CloseConfirmed": true,
+  "CleanupConfirmed": true,
+  "Errors": [],
+  "Environment": {
+    "VersionString": "Microsoft Windows NT 10.0.22631.0",
+    "UserInteractive": true,
+    "SessionId": 2,
+    "RenderTier": 2,
+    "SystemClientAreaAnimation": true,
+    "FixtureMotionPreference": "Full_OwnSettingsOnly",
+    "ActualMonitor": {
+      "Id": "\\\\.\\DISPLAY1",
+      "WorkArea": {
+        "Left": 0,
+        "Top": 0,
+        "Right": 2560,
+        "Bottom": 1528,
+        "Width": 2560,
+        "Height": 1528,
+        "Center": {
+          "X": 1280,
+          "Y": 764
+        }
+      },
+      "Dpi": {
+        "Factor": 1.5
+      }
+    },
+    "RefreshRateHz": null,
+    "RefreshRateStatus": "NotMeasured_No60HzPerformanceClaim"
+  },
+  "Phases": [
+    {
+      "Id": 1,
+      "Mode": "Timing",
+      "Name": "SeedOpen",
+      "StartedQpc": 848499516636,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1316,
+        "Bottom": 800,
+        "Width": 72,
+        "Height": 72,
+        "Center": {
+          "X": 1280,
+          "Y": 764
+        }
+      },
+      "Intermediate": 1,
+      "Terminal": 2,
+      "Goal": 1,
+      "DocumentMarker": "\u9996\u6BB5\u7ED3\u675F\u3002",
+      "PrerequisitePhaseId": null,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848500501142,
+      "CompletedQpc": 848502687741,
+      "IssuedQpc": 848501307088,
+      "IssuedAnimationEpoch": 2,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 33,
+      "LastEligibleQpc": 848502687741,
+      "GapsQpc": [
+        68128,
+        37161,
+        33466,
+        34258,
+        35169,
+        34226,
+        30347,
+        33506,
+        35291,
+        94879,
+        92141,
+        84449,
+        77272,
+        82931,
+        104052,
+        61619,
+        96041,
+        71901,
+        84545,
+        80380,
+        86641,
+        84673,
+        78916,
+        84113,
+        86168,
+        79885,
+        89312,
+        76717,
+        84939,
+        88610,
+        101127,
+        41864
+      ]
+    },
+    {
+      "Id": 2,
+      "Mode": "Timing",
+      "Name": "LongStreamGrow",
+      "StartedQpc": 848502693104,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1874,
+        "Bottom": 925,
+        "Width": 630,
+        "Height": 197,
+        "Center": {
+          "X": 1559,
+          "Y": 826
+        }
+      },
+      "Intermediate": 2,
+      "Terminal": 2,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": null,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848503427931,
+      "CompletedQpc": 848510460225,
+      "IssuedQpc": 848506292478,
+      "IssuedAnimationEpoch": 2,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 70,
+      "LastEligibleQpc": 848510460225,
+      "GapsQpc": [
+        36836,
+        69311,
+        86342,
+        78716,
+        89248,
+        2497902,
+        43231,
+        40826,
+        91545,
+        74100,
+        81814,
+        84393,
+        83829,
+        88060,
+        75680,
+        82569,
+        84108,
+        84066,
+        91822,
+        80087,
+        82113,
+        84427,
+        87189,
+        89854,
+        70921,
+        84918,
+        82665,
+        81630,
+        84860,
+        81293,
+        90431,
+        80264,
+        78105,
+        84179,
+        81299,
+        84957,
+        85159,
+        82413,
+        78459,
+        86356,
+        83115,
+        63262,
+        58083,
+        73335,
+        33656,
+        59102,
+        68010,
+        37395,
+        40504,
+        41747,
+        62066,
+        67835,
+        42156,
+        37513,
+        40860,
+        41081,
+        42022,
+        41271,
+        63894,
+        67406,
+        36443,
+        41824,
+        40239,
+        45747,
+        42685,
+        40674,
+        40467,
+        42289,
+        68472
+      ]
+    },
+    {
+      "Id": 3,
+      "Mode": "Timing",
+      "Name": "Close",
+      "StartedQpc": 848510466141,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1874,
+        "Bottom": 1510,
+        "Width": 630,
+        "Height": 782,
+        "Center": {
+          "X": 1559,
+          "Y": 1119
+        }
+      },
+      "Intermediate": 3,
+      "Terminal": 0,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": null,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848510577806,
+      "CompletedQpc": 848512401526,
+      "IssuedQpc": 848510472956,
+      "IssuedAnimationEpoch": 3,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 24,
+      "LastEligibleQpc": 848512401526,
+      "GapsQpc": [
+        56758,
+        84815,
+        81662,
+        84360,
+        105184,
+        65185,
+        82358,
+        80965,
+        87992,
+        80107,
+        89660,
+        80484,
+        88980,
+        83729,
+        82468,
+        87940,
+        82176,
+        83204,
+        77515,
+        84356,
+        84257,
+        91350,
+        54973
+      ]
+    },
+    {
+      "Id": 4,
+      "Mode": "Timing",
+      "Name": "Reopen",
+      "StartedQpc": 848512405654,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1316,
+        "Bottom": 800,
+        "Width": 72,
+        "Height": 72,
+        "Center": {
+          "X": 1280,
+          "Y": 764
+        }
+      },
+      "Intermediate": 1,
+      "Terminal": 2,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 3,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848512490881,
+      "CompletedQpc": 848514680446,
+      "IssuedQpc": 848512414679,
+      "IssuedAnimationEpoch": 4,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 29,
+      "LastEligibleQpc": 848514680446,
+      "GapsQpc": [
+        40721,
+        58361,
+        81086,
+        84158,
+        79052,
+        83440,
+        86638,
+        84721,
+        80087,
+        94723,
+        71641,
+        85315,
+        84316,
+        84305,
+        79155,
+        80592,
+        83982,
+        83908,
+        85564,
+        83551,
+        80743,
+        82477,
+        85270,
+        81318,
+        78379,
+        84176,
+        63498,
+        38388
+      ]
+    },
+    {
+      "Id": 5,
+      "Mode": "Timing",
+      "Name": "CloseUntilReverse",
+      "StartedQpc": 848514682266,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1874,
+        "Bottom": 1510,
+        "Width": 630,
+        "Height": 782,
+        "Center": {
+          "X": 1559,
+          "Y": 1119
+        }
+      },
+      "Intermediate": 3,
+      "Terminal": 0,
+      "Goal": 0,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 4,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848514779463,
+      "CompletedQpc": 848514779463,
+      "IssuedQpc": 848514682884,
+      "IssuedAnimationEpoch": 5,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 2,
+      "LastEligibleQpc": 848514779463,
+      "GapsQpc": [
+        55226
+      ]
+    },
+    {
+      "Id": 6,
+      "Mode": "Timing",
+      "Name": "ReverseToOpen",
+      "StartedQpc": 848514823510,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1869,
+        "Bottom": 1504,
+        "Width": 625,
+        "Height": 776,
+        "Center": {
+          "X": 1556,
+          "Y": 1116
+        }
+      },
+      "Intermediate": 1,
+      "Terminal": 2,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 5,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848514945384,
+      "CompletedQpc": 848517097333,
+      "IssuedQpc": 848514826499,
+      "IssuedAnimationEpoch": 6,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 50,
+      "LastEligibleQpc": 848517097333,
+      "GapsQpc": [
+        25524,
+        38967,
+        53244,
+        44675,
+        30038,
+        37226,
+        55506,
+        48218,
+        65459,
+        166182,
+        61781,
+        63181,
+        36439,
+        59217,
+        27112,
+        60404,
+        28790,
+        39959,
+        34952,
+        41404,
+        44569,
+        39578,
+        44753,
+        41260,
+        59763,
+        46634,
+        63599,
+        34923,
+        41283,
+        43267,
+        40423,
+        41761,
+        41478,
+        41709,
+        41202,
+        41756,
+        41108,
+        42507,
+        42141,
+        43057,
+        39690,
+        42928,
+        40377,
+        42963,
+        41560,
+        40318,
+        42017,
+        42745,
+        42037
+      ]
+    },
+    {
+      "Id": 7,
+      "Mode": "Timing",
+      "Name": "CloseToCompact",
+      "StartedQpc": 848517100068,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1874,
+        "Bottom": 1510,
+        "Width": 630,
+        "Height": 782,
+        "Center": {
+          "X": 1559,
+          "Y": 1119
+        }
+      },
+      "Intermediate": 3,
+      "Terminal": 0,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 6,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848517199958,
+      "CompletedQpc": 848518999003,
+      "IssuedQpc": 848517100868,
+      "IssuedAnimationEpoch": 7,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 24,
+      "LastEligibleQpc": 848518999003,
+      "GapsQpc": [
+        61006,
+        42626,
+        99116,
+        72828,
+        87346,
+        90084,
+        74018,
+        84713,
+        79848,
+        82117,
+        89251,
+        84267,
+        86616,
+        76822,
+        98604,
+        71329,
+        80702,
+        80397,
+        82765,
+        83166,
+        83987,
+        85274,
+        83169
+      ]
+    },
+    {
+      "Id": 8,
+      "Mode": "Timing",
+      "Name": "OpenUntilReverse",
+      "StartedQpc": 848519007310,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1316,
+        "Bottom": 800,
+        "Width": 72,
+        "Height": 72,
+        "Center": {
+          "X": 1280,
+          "Y": 764
+        }
+      },
+      "Intermediate": 1,
+      "Terminal": 2,
+      "Goal": 0,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 7,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848519082503,
+      "CompletedQpc": 848519082503,
+      "IssuedQpc": 848519010767,
+      "IssuedAnimationEpoch": 8,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 1,
+      "LastEligibleQpc": 848519082503,
+      "GapsQpc": []
+    },
+    {
+      "Id": 9,
+      "Mode": "Timing",
+      "Name": "ReverseToClose",
+      "StartedQpc": 848519168360,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1371,
+        "Bottom": 870,
+        "Width": 127,
+        "Height": 142,
+        "Center": {
+          "X": 1307,
+          "Y": 799
+        }
+      },
+      "Intermediate": 3,
+      "Terminal": 0,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 8,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848519400337,
+      "CompletedQpc": 848521019540,
+      "IssuedQpc": 848519169075,
+      "IssuedAnimationEpoch": 9,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 24,
+      "LastEligibleQpc": 848521019540,
+      "GapsQpc": [
+        58808,
+        37070,
+        135203,
+        60524,
+        81210,
+        78837,
+        82804,
+        84025,
+        83156,
+        86894,
+        84189,
+        80725,
+        82358,
+        87613,
+        87292,
+        76165,
+        81898,
+        82760,
+        84433,
+        88419,
+        92460,
+        76353,
+        57088
+      ]
+    },
+    {
+      "Id": 10,
+      "Mode": "Raster",
+      "Name": "SeedOpen",
+      "StartedQpc": 848521042880,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1316,
+        "Bottom": 800,
+        "Width": 72,
+        "Height": 72,
+        "Center": {
+          "X": 1280,
+          "Y": 764
+        }
+      },
+      "Intermediate": 1,
+      "Terminal": 2,
+      "Goal": 1,
+      "DocumentMarker": "\u9996\u6BB5\u7ED3\u675F\u3002",
+      "PrerequisitePhaseId": null,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848521642494,
+      "CompletedQpc": 848523849825,
+      "IssuedQpc": 848522462609,
+      "IssuedAnimationEpoch": 11,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 29,
+      "LastEligibleQpc": 848523849825,
+      "GapsQpc": [
+        27873,
+        91091,
+        57030,
+        84520,
+        82769,
+        82903,
+        83446,
+        83930,
+        81232,
+        83746,
+        89567,
+        81704,
+        77991,
+        84319,
+        84798,
+        82715,
+        82676,
+        85262,
+        85128,
+        80367,
+        84242,
+        126633,
+        78800,
+        83201,
+        82955,
+        87998,
+        62952,
+        35356
+      ]
+    },
+    {
+      "Id": 11,
+      "Mode": "Raster",
+      "Name": "LongStreamGrow",
+      "StartedQpc": 848523869000,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1874,
+        "Bottom": 925,
+        "Width": 630,
+        "Height": 197,
+        "Center": {
+          "X": 1559,
+          "Y": 826
+        }
+      },
+      "Intermediate": 2,
+      "Terminal": 2,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": null,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848524524015,
+      "CompletedQpc": 848531324117,
+      "IssuedQpc": 848527133718,
+      "IssuedAnimationEpoch": 11,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 72,
+      "LastEligibleQpc": 848531324117,
+      "GapsQpc": [
+        33146,
+        58369,
+        82315,
+        87456,
+        80744,
+        87214,
+        85282,
+        2085253,
+        43222,
+        74278,
+        81900,
+        86440,
+        149414,
+        61244,
+        86670,
+        87630,
+        80380,
+        86580,
+        83177,
+        77025,
+        119033,
+        46629,
+        90311,
+        86336,
+        75923,
+        84910,
+        82365,
+        82773,
+        82667,
+        88412,
+        81866,
+        88273,
+        79265,
+        80747,
+        76780,
+        88748,
+        78920,
+        82543,
+        86946,
+        92690,
+        68417,
+        83218,
+        62678,
+        60201,
+        69316,
+        31767,
+        40801,
+        67103,
+        61839,
+        36688,
+        41436,
+        63212,
+        67164,
+        37666,
+        40451,
+        43002,
+        42085,
+        41782,
+        42639,
+        64174,
+        64937,
+        37051,
+        41387,
+        38842,
+        42715,
+        40940,
+        41037,
+        41589,
+        41960,
+        42604,
+        60671
+      ]
+    },
+    {
+      "Id": 12,
+      "Mode": "Raster",
+      "Name": "Close",
+      "StartedQpc": 848531387761,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1874,
+        "Bottom": 1510,
+        "Width": 630,
+        "Height": 782,
+        "Center": {
+          "X": 1559,
+          "Y": 1119
+        }
+      },
+      "Intermediate": 3,
+      "Terminal": 0,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": null,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848531500848,
+      "CompletedQpc": 848533287728,
+      "IssuedQpc": 848531388686,
+      "IssuedAnimationEpoch": 12,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 25,
+      "LastEligibleQpc": 848533287728,
+      "GapsQpc": [
+        16647,
+        28921,
+        66340,
+        133766,
+        75350,
+        83562,
+        82008,
+        91555,
+        76977,
+        81465,
+        82099,
+        85983,
+        80463,
+        88985,
+        80209,
+        85757,
+        83801,
+        85802,
+        75997,
+        80932,
+        82248,
+        84359,
+        81785,
+        83777
+      ]
+    },
+    {
+      "Id": 13,
+      "Mode": "Raster",
+      "Name": "Reopen",
+      "StartedQpc": 848533299175,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1316,
+        "Bottom": 800,
+        "Width": 72,
+        "Height": 72,
+        "Center": {
+          "X": 1280,
+          "Y": 764
+        }
+      },
+      "Intermediate": 1,
+      "Terminal": 2,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 12,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848533370422,
+      "CompletedQpc": 848535556953,
+      "IssuedQpc": 848533302805,
+      "IssuedAnimationEpoch": 13,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 28,
+      "LastEligibleQpc": 848535556953,
+      "GapsQpc": [
+        86895,
+        75996,
+        50626,
+        85965,
+        82902,
+        83369,
+        83174,
+        80721,
+        86876,
+        80128,
+        83330,
+        84544,
+        87587,
+        108143,
+        48880,
+        87018,
+        82915,
+        83328,
+        84096,
+        82454,
+        83559,
+        82164,
+        82908,
+        84488,
+        86702,
+        88497,
+        49266
+      ]
+    },
+    {
+      "Id": 14,
+      "Mode": "Raster",
+      "Name": "CloseUntilReverse",
+      "StartedQpc": 848535617828,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1874,
+        "Bottom": 1510,
+        "Width": 630,
+        "Height": 782,
+        "Center": {
+          "X": 1559,
+          "Y": 1119
+        }
+      },
+      "Intermediate": 3,
+      "Terminal": 0,
+      "Goal": 0,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 13,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848535867531,
+      "CompletedQpc": 848535867531,
+      "IssuedQpc": 848535618477,
+      "IssuedAnimationEpoch": 14,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 3,
+      "LastEligibleQpc": 848535867531,
+      "GapsQpc": [
+        210930,
+        37949
+      ]
+    },
+    {
+      "Id": 15,
+      "Mode": "Raster",
+      "Name": "ReverseToOpen",
+      "StartedQpc": 848535957925,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1830,
+        "Bottom": 1454,
+        "Width": 586,
+        "Height": 726,
+        "Center": {
+          "X": 1537,
+          "Y": 1091
+        }
+      },
+      "Intermediate": 1,
+      "Terminal": 2,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 14,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848536076871,
+      "CompletedQpc": 848538222644,
+      "IssuedQpc": 848535962352,
+      "IssuedAnimationEpoch": 15,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 33,
+      "LastEligibleQpc": 848538222644,
+      "GapsQpc": [
+        53450,
+        56922,
+        137369,
+        84512,
+        77453,
+        83438,
+        81481,
+        82913,
+        88035,
+        82544,
+        88102,
+        74385,
+        84169,
+        85121,
+        83396,
+        80681,
+        82459,
+        92177,
+        88203,
+        74092,
+        56710,
+        57489,
+        92049,
+        58825,
+        38868,
+        40780,
+        44384,
+        40903,
+        40159,
+        40443,
+        41138,
+        43495
+      ]
+    },
+    {
+      "Id": 16,
+      "Mode": "Raster",
+      "Name": "CloseToCompact",
+      "StartedQpc": 848538293759,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1874,
+        "Bottom": 1510,
+        "Width": 630,
+        "Height": 782,
+        "Center": {
+          "X": 1559,
+          "Y": 1119
+        }
+      },
+      "Intermediate": 3,
+      "Terminal": 0,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 15,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848538578483,
+      "CompletedQpc": 848540225743,
+      "IssuedQpc": 848538294520,
+      "IssuedAnimationEpoch": 16,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 23,
+      "LastEligibleQpc": 848540225743,
+      "GapsQpc": [
+        200632,
+        83159,
+        96560,
+        76371,
+        81694,
+        84244,
+        85662,
+        82810,
+        86239,
+        81782,
+        84254,
+        78417,
+        97261,
+        67349,
+        85559,
+        106399,
+        58675,
+        84355,
+        79784,
+        86227,
+        83264,
+        60354
+      ]
+    },
+    {
+      "Id": 17,
+      "Mode": "Raster",
+      "Name": "OpenUntilReverse",
+      "StartedQpc": 848540240808,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1316,
+        "Bottom": 800,
+        "Width": 72,
+        "Height": 72,
+        "Center": {
+          "X": 1280,
+          "Y": 764
+        }
+      },
+      "Intermediate": 1,
+      "Terminal": 2,
+      "Goal": 0,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 16,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848540307805,
+      "CompletedQpc": 848540307805,
+      "IssuedQpc": 848540244195,
+      "IssuedAnimationEpoch": 17,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 1,
+      "LastEligibleQpc": 848540307805,
+      "GapsQpc": []
+    },
+    {
+      "Id": 18,
+      "Mode": "Raster",
+      "Name": "ReverseToClose",
+      "StartedQpc": 848540352937,
+      "Baseline": {
+        "Left": 1244,
+        "Top": 728,
+        "Right": 1371,
+        "Bottom": 870,
+        "Width": 127,
+        "Height": 142,
+        "Center": {
+          "X": 1307,
+          "Y": 799
+        }
+      },
+      "Intermediate": 3,
+      "Terminal": 0,
+      "Goal": 1,
+      "DocumentMarker": "\u6D41\u5F0F\u672B\u5C3E\u6807\u8BB0\u3002",
+      "PrerequisitePhaseId": 17,
+      "IssuanceComplete": true,
+      "SawIntermediate": true,
+      "FirstGeometryChangeQpc": 848540536384,
+      "CompletedQpc": 848542267556,
+      "IssuedQpc": 848540353626,
+      "IssuedAnimationEpoch": 18,
+      "FailedQpc": null,
+      "SkippedQpc": null,
+      "FailureReason": null,
+      "Finished": true,
+      "Outcome": "Passed",
+      "EligibleSamples": 26,
+      "LastEligibleQpc": 848542267556,
+      "GapsQpc": [
+        40501,
+        36900,
+        40184,
+        64800,
+        86545,
+        84102,
+        83197,
+        84035,
+        81553,
+        85676,
+        83426,
+        84808,
+        80690,
+        81870,
+        84548,
+        81633,
+        84240,
+        84295,
+        81878,
+        84743,
+        82539,
+        82949,
+        84580,
+        80402,
+        63463
+      ]
+    }
+  ],
+  "RawCallbacks": 1025,
+  "DuplicateCallbacks": 456,
+  "Measurements": [
+    {
+      "Sequence": 1,
+      "Phase": 1,
+      "Mode": "Timing",
+      "Measurement": {
+        "Qpc": 848500416947,
+        "Markdown": {
+          "VersionBefore": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "VersionAfter": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "TextLengthBefore": 22,
+          "TextLengthAfter": 22,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": false,
+            "IsArrangeValid": false,
+            "DesiredWidth": 0,
+            "DesiredHeight": 0,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 1,
+            "DocumentSymbols": 26
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 23.246666666666666,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 1,
+            "DocumentSymbols": 26
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 197,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 197,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 2,
+      "Phase": 1,
+      "Mode": "Timing",
+      "Measurement": {
+        "Qpc": 848502563619,
+        "Markdown": {
+          "VersionBefore": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "VersionAfter": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "TextLengthBefore": 22,
+          "TextLengthAfter": 22,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 23.246666666666666,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 1,
+            "DocumentSymbols": 26
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 23.246666666666666,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 1,
+            "DocumentSymbols": 26
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 197,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 197,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 3,
+      "Phase": 2,
+      "Mode": "Timing",
+      "Measurement": {
+        "Qpc": 848503337628,
+        "Markdown": {
+          "VersionBefore": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "VersionAfter": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "TextLengthBefore": 140,
+          "TextLengthAfter": 140,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 23.246666666666666,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 5,
+            "DocumentSymbols": 156
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 209.22,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 5,
+            "DocumentSymbols": 156
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 476,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 476,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 4,
+      "Phase": 2,
+      "Mode": "Timing",
+      "Measurement": {
+        "Qpc": 848506217118,
+        "Markdown": {
+          "VersionBefore": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "VersionAfter": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 209.22,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 5,
+      "Phase": 4,
+      "Mode": "Timing",
+      "Measurement": {
+        "Qpc": 848512414508,
+        "Markdown": {
+          "VersionBefore": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "VersionAfter": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 6,
+      "Phase": 4,
+      "Mode": "Timing",
+      "Measurement": {
+        "Qpc": 848514585750,
+        "Markdown": {
+          "VersionBefore": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "VersionAfter": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 7,
+      "Phase": 6,
+      "Mode": "Timing",
+      "Measurement": {
+        "Qpc": 848514825814,
+        "Markdown": {
+          "VersionBefore": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "VersionAfter": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 8,
+      "Phase": 6,
+      "Mode": "Timing",
+      "Measurement": {
+        "Qpc": 848515464380,
+        "Markdown": {
+          "VersionBefore": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "VersionAfter": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 9,
+      "Phase": 8,
+      "Mode": "Timing",
+      "Measurement": {
+        "Qpc": 848519010630,
+        "Markdown": {
+          "VersionBefore": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "VersionAfter": "86125f3f-7ee2-4ada-a353-640324b1af1a",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 10,
+      "Phase": 10,
+      "Mode": "Raster",
+      "Measurement": {
+        "Qpc": 848521605340,
+        "Markdown": {
+          "VersionBefore": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "VersionAfter": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "TextLengthBefore": 22,
+          "TextLengthAfter": 22,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 1,
+            "DocumentSymbols": 26
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 23.246666666666666,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 1,
+            "DocumentSymbols": 26
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 197,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 197,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 11,
+      "Phase": 10,
+      "Mode": "Raster",
+      "Measurement": {
+        "Qpc": 848523760510,
+        "Markdown": {
+          "VersionBefore": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "VersionAfter": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "TextLengthBefore": 22,
+          "TextLengthAfter": 22,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 23.246666666666666,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 1,
+            "DocumentSymbols": 26
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 23.246666666666666,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 1,
+            "DocumentSymbols": 26
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 197,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 197,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 12,
+      "Phase": 11,
+      "Mode": "Raster",
+      "Measurement": {
+        "Qpc": 848524476912,
+        "Markdown": {
+          "VersionBefore": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "VersionAfter": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "TextLengthBefore": 140,
+          "TextLengthAfter": 140,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 23.246666666666666,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 5,
+            "DocumentSymbols": 156
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 209.22,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 5,
+            "DocumentSymbols": 156
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 476,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 476,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 13,
+      "Phase": 11,
+      "Mode": "Raster",
+      "Measurement": {
+        "Qpc": 848527067394,
+        "Markdown": {
+          "VersionBefore": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "VersionAfter": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 209.22,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 14,
+      "Phase": 13,
+      "Mode": "Raster",
+      "Measurement": {
+        "Qpc": 848533302667,
+        "Markdown": {
+          "VersionBefore": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "VersionAfter": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 15,
+      "Phase": 13,
+      "Mode": "Raster",
+      "Measurement": {
+        "Qpc": 848535428430,
+        "Markdown": {
+          "VersionBefore": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "VersionAfter": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 16,
+      "Phase": 15,
+      "Mode": "Raster",
+      "Measurement": {
+        "Qpc": 848535962247,
+        "Markdown": {
+          "VersionBefore": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "VersionAfter": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 17,
+      "Phase": 15,
+      "Mode": "Raster",
+      "Measurement": {
+        "Qpc": 848537635781,
+        "Markdown": {
+          "VersionBefore": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "VersionAfter": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    },
+    {
+      "Sequence": 18,
+      "Phase": 17,
+      "Mode": "Raster",
+      "Measurement": {
+        "Qpc": 848540244095,
+        "Markdown": {
+          "VersionBefore": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "VersionAfter": "7b4195c9-cf6d-4036-a8b1-634d343ab2e0",
+          "TextLengthBefore": 385,
+          "TextLengthAfter": 385,
+          "Constraint": {
+            "WidthDip": 388,
+            "MaximumHeightDip": 413.33333333333337,
+            "CodeMaximumHeightDip": 240,
+            "TableMaximumHeightDip": 320
+          },
+          "Before": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "After": {
+            "IsMeasureValid": true,
+            "IsArrangeValid": false,
+            "DesiredWidth": 388,
+            "DesiredHeight": 413.33333333333337,
+            "ExtentHeight": 0,
+            "ViewportHeight": 0,
+            "DocumentBlocks": 15,
+            "DocumentSymbols": 431
+          },
+          "CurrentAccepted": true
+        },
+        "ChromeHeightDip": 108,
+        "ReturnedBodyPixels": 782,
+        "PlanMaximumHeightPixels": 782,
+        "CalculatedClampedHeightPixels": 782,
+        "Dpi": 1.5
+      }
+    }
+  ],
+  "MeasurementOverflow": false,
+  "ApplyingCallbacks": 422,
+  "RasterReservedBytes": 14502060,
+  "EvidenceFiles": [
+    {
+      "File": "overlay-01-phase10-intermediate.png",
+      "Bytes": 2648,
+      "Sha256": "1aa1e44acfe7173d45919dc2624cdf981123baf0fe742918a67362fb3c8c4c91",
+      "PixelWidth": 80,
+      "PixelHeight": 74,
+      "Before": {
+        "Sequence": 533,
+        "Frame": {
+          "Qpc": 848521642494,
+          "RenderingTicks": 24139098,
+          "Phase": 10,
+          "Mode": "Raster",
+          "Transition": 1,
+          "NeedsFrame": true,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1324,
+            "Bottom": 802,
+            "Width": 80,
+            "Height": 74,
+            "Center": {
+              "X": 1284,
+              "Y": 765
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1324,
+            "Bottom": 802,
+            "Width": 80,
+            "Height": 74,
+            "Center": {
+              "X": 1284,
+              "Y": 765
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 0,
+          "ScrollOffset": 0,
+          "ForegroundUnchanged": true,
+          "BodyVisible": false,
+          "BodyHeight": 0,
+          "BodyOpacity": 0.0130125,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 11,
+          "AnimationStartedAt": "00:00:02.3986553",
+          "AppliedTick": {
+            "Sequence": 304,
+            "AnimationEpoch": 11,
+            "AnimationStartedAt": "00:00:02.3986553",
+            "From": "00:00:02.3986553",
+            "Now": "00:00:02.3996963",
+            "Delta": "00:00:00.0010410",
+            "Before": 1,
+            "After": 1
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848521694486,
+        "RenderingTicks": 24139098,
+        "Phase": 10,
+        "Mode": "Raster",
+        "Transition": 1,
+        "NeedsFrame": true,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1324,
+          "Bottom": 802,
+          "Width": 80,
+          "Height": 74,
+          "Center": {
+            "X": 1284,
+            "Y": 765
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1324,
+          "Bottom": 802,
+          "Width": 80,
+          "Height": 74,
+          "Center": {
+            "X": 1284,
+            "Y": 765
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 0,
+        "ScrollOffset": 0,
+        "ForegroundUnchanged": true,
+        "BodyVisible": false,
+        "BodyHeight": 0,
+        "BodyOpacity": 0.0130125,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 11,
+        "AnimationStartedAt": "00:00:02.3986553",
+        "AppliedTick": {
+          "Sequence": 304,
+          "AnimationEpoch": 11,
+          "AnimationStartedAt": "00:00:02.3986553",
+          "From": "00:00:02.3986553",
+          "Now": "00:00:02.3996963",
+          "Delta": "00:00:00.0010410",
+          "Before": 1,
+          "After": 1
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "intermediate",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-02-phase10-terminal.png",
+      "Bytes": 12588,
+      "Sha256": "7aa868c0a179ec6c6ed7188bd9f293be8b7348e591acd10cf63d940b4943c187",
+      "PixelWidth": 630,
+      "PixelHeight": 197,
+      "Before": {
+        "Sequence": 587,
+        "Frame": {
+          "Qpc": 848523849825,
+          "RenderingTicks": 26385541,
+          "Phase": 10,
+          "Mode": "Raster",
+          "Transition": 2,
+          "NeedsFrame": false,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1874,
+            "Bottom": 925,
+            "Width": 630,
+            "Height": 197,
+            "Center": {
+              "X": 1559,
+              "Y": 826
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1874,
+            "Bottom": 925,
+            "Width": 630,
+            "Height": 197,
+            "Center": {
+              "X": 1559,
+              "Y": 826
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 388,
+          "ScrollOffset": 0,
+          "ForegroundUnchanged": true,
+          "BodyVisible": true,
+          "BodyHeight": 23.333333333333332,
+          "BodyOpacity": 1,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 11,
+          "AnimationStartedAt": "00:00:02.3986553",
+          "AppliedTick": {
+            "Sequence": 333,
+            "AnimationEpoch": 11,
+            "AnimationStartedAt": "00:00:02.3986553",
+            "From": "00:00:02.6153613",
+            "Now": "00:00:02.6197036",
+            "Delta": "00:00:00.0043423",
+            "Before": 1,
+            "After": 2
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848523867363,
+        "RenderingTicks": 26385541,
+        "Phase": 10,
+        "Mode": "Raster",
+        "Transition": 2,
+        "NeedsFrame": false,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1874,
+          "Bottom": 925,
+          "Width": 630,
+          "Height": 197,
+          "Center": {
+            "X": 1559,
+            "Y": 826
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1874,
+          "Bottom": 925,
+          "Width": 630,
+          "Height": 197,
+          "Center": {
+            "X": 1559,
+            "Y": 826
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 388,
+        "ScrollOffset": 0,
+        "ForegroundUnchanged": true,
+        "BodyVisible": true,
+        "BodyHeight": 23.333333333333332,
+        "BodyOpacity": 1,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 11,
+        "AnimationStartedAt": "00:00:02.3986553",
+        "AppliedTick": {
+          "Sequence": 333,
+          "AnimationEpoch": 11,
+          "AnimationStartedAt": "00:00:02.3986553",
+          "From": "00:00:02.6153613",
+          "Now": "00:00:02.6197036",
+          "Delta": "00:00:00.0043423",
+          "Before": 1,
+          "After": 2
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "terminal",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-03-phase11-intermediate.png",
+      "Bytes": 12726,
+      "Sha256": "8786dc9cfb6cfdb474fef8671d1d80c41fed18bdd5d66a13688089f7bf165ea2",
+      "PixelWidth": 630,
+      "PixelHeight": 203,
+      "Before": {
+        "Sequence": 597,
+        "Frame": {
+          "Qpc": 848524524015,
+          "RenderingTicks": 27010525,
+          "Phase": 11,
+          "Mode": "Raster",
+          "Transition": 2,
+          "NeedsFrame": true,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1874,
+            "Bottom": 931,
+            "Width": 630,
+            "Height": 203,
+            "Center": {
+              "X": 1559,
+              "Y": 829
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1874,
+            "Bottom": 931,
+            "Width": 630,
+            "Height": 203,
+            "Center": {
+              "X": 1559,
+              "Y": 829
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 388,
+          "ScrollOffset": 0,
+          "ForegroundUnchanged": true,
+          "BodyVisible": true,
+          "BodyHeight": 27.333333333333332,
+          "BodyOpacity": 1,
+          "DocumentCurrent": false,
+          "AnimationEpoch": 11,
+          "AnimationStartedAt": "00:00:02.3986553",
+          "AppliedTick": {
+            "Sequence": 334,
+            "AnimationEpoch": 11,
+            "AnimationStartedAt": "00:00:02.3986553",
+            "From": "00:00:02.6858126",
+            "Now": "00:00:02.6873536",
+            "Delta": "00:00:00.0015410",
+            "Before": 2,
+            "After": 2
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848524540353,
+        "RenderingTicks": 27010525,
+        "Phase": 11,
+        "Mode": "Raster",
+        "Transition": 2,
+        "NeedsFrame": true,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1874,
+          "Bottom": 931,
+          "Width": 630,
+          "Height": 203,
+          "Center": {
+            "X": 1559,
+            "Y": 829
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1874,
+          "Bottom": 931,
+          "Width": 630,
+          "Height": 203,
+          "Center": {
+            "X": 1559,
+            "Y": 829
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 388,
+        "ScrollOffset": 0,
+        "ForegroundUnchanged": true,
+        "BodyVisible": true,
+        "BodyHeight": 27.333333333333332,
+        "BodyOpacity": 1,
+        "DocumentCurrent": false,
+        "AnimationEpoch": 11,
+        "AnimationStartedAt": "00:00:02.3986553",
+        "AppliedTick": {
+          "Sequence": 334,
+          "AnimationEpoch": 11,
+          "AnimationStartedAt": "00:00:02.3986553",
+          "From": "00:00:02.6858126",
+          "Now": "00:00:02.6873536",
+          "Delta": "00:00:00.0015410",
+          "Before": 2,
+          "After": 2
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "intermediate",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-04-phase11-terminal.png",
+      "Bytes": 59538,
+      "Sha256": "e40139eaf7cd67b6e36ec840bf30fcb2b3be10b36e5a8cc322e141f660da1d05",
+      "PixelWidth": 630,
+      "PixelHeight": 782,
+      "Before": {
+        "Sequence": 762,
+        "Frame": {
+          "Qpc": 848531324117,
+          "RenderingTicks": 33843722,
+          "Phase": 11,
+          "Mode": "Raster",
+          "Transition": 2,
+          "NeedsFrame": false,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1874,
+            "Bottom": 1510,
+            "Width": 630,
+            "Height": 782,
+            "Center": {
+              "X": 1559,
+              "Y": 1119
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1874,
+            "Bottom": 1510,
+            "Width": 630,
+            "Height": 782,
+            "Center": {
+              "X": 1559,
+              "Y": 1119
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 388,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": true,
+          "BodyHeight": 413.3333333333333,
+          "BodyOpacity": 1,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 11,
+          "AnimationStartedAt": "00:00:02.3986553",
+          "AppliedTick": {
+            "Sequence": 430,
+            "AnimationEpoch": 11,
+            "AnimationStartedAt": "00:00:02.3986553",
+            "From": "00:00:03.3604163",
+            "Now": "00:00:03.3646738",
+            "Delta": "00:00:00.0042575",
+            "Before": 2,
+            "After": 2
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848531384017,
+        "RenderingTicks": 33843722,
+        "Phase": 11,
+        "Mode": "Raster",
+        "Transition": 2,
+        "NeedsFrame": false,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1874,
+          "Bottom": 1510,
+          "Width": 630,
+          "Height": 782,
+          "Center": {
+            "X": 1559,
+            "Y": 1119
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1874,
+          "Bottom": 1510,
+          "Width": 630,
+          "Height": 782,
+          "Center": {
+            "X": 1559,
+            "Y": 1119
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 388,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": true,
+        "BodyHeight": 413.3333333333333,
+        "BodyOpacity": 1,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 11,
+        "AnimationStartedAt": "00:00:02.3986553",
+        "AppliedTick": {
+          "Sequence": 430,
+          "AnimationEpoch": 11,
+          "AnimationStartedAt": "00:00:02.3986553",
+          "From": "00:00:03.3604163",
+          "Now": "00:00:03.3646738",
+          "Delta": "00:00:00.0042575",
+          "Before": 2,
+          "After": 2
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "terminal",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-05-phase12-intermediate.png",
+      "Bytes": 59598,
+      "Sha256": "1d96f31d3f3b99f91c030a682f4602794ce1fe8e8acee35beb0a8a32c190f8a9",
+      "PixelWidth": 629,
+      "PixelHeight": 781,
+      "Before": {
+        "Sequence": 767,
+        "Frame": {
+          "Qpc": 848531500848,
+          "RenderingTicks": 34012417,
+          "Phase": 12,
+          "Mode": "Raster",
+          "Transition": 3,
+          "NeedsFrame": true,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1873,
+            "Bottom": 1509,
+            "Width": 629,
+            "Height": 781,
+            "Center": {
+              "X": 1558,
+              "Y": 1118
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1873,
+            "Bottom": 1509,
+            "Width": 629,
+            "Height": 781,
+            "Center": {
+              "X": 1558,
+              "Y": 1118
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 388,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": true,
+          "BodyHeight": 412.6666666666667,
+          "BodyOpacity": 0.93983125,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 12,
+          "AnimationStartedAt": "00:00:03.3769781",
+          "AppliedTick": {
+            "Sequence": 433,
+            "AnimationEpoch": 12,
+            "AnimationStartedAt": "00:00:03.3769781",
+            "From": "00:00:03.3788923",
+            "Now": "00:00:03.3817916",
+            "Delta": "00:00:00.0028993",
+            "Before": 3,
+            "After": 3
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848531599172,
+        "RenderingTicks": 34012417,
+        "Phase": 12,
+        "Mode": "Raster",
+        "Transition": 3,
+        "NeedsFrame": true,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1873,
+          "Bottom": 1509,
+          "Width": 629,
+          "Height": 781,
+          "Center": {
+            "X": 1558,
+            "Y": 1118
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1873,
+          "Bottom": 1509,
+          "Width": 629,
+          "Height": 781,
+          "Center": {
+            "X": 1558,
+            "Y": 1118
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 388,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": true,
+        "BodyHeight": 412.6666666666667,
+        "BodyOpacity": 0.93983125,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 12,
+        "AnimationStartedAt": "00:00:03.3769781",
+        "AppliedTick": {
+          "Sequence": 433,
+          "AnimationEpoch": 12,
+          "AnimationStartedAt": "00:00:03.3769781",
+          "From": "00:00:03.3788923",
+          "Now": "00:00:03.3817916",
+          "Delta": "00:00:00.0028993",
+          "Before": 3,
+          "After": 3
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "intermediate",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-06-phase12-terminal.png",
+      "Bytes": 1761,
+      "Sha256": "470a1b7c2bd60bc947caea5019ece0c89ae0c3d8cbd25cd3ac3f47bdc27b697e",
+      "PixelWidth": 72,
+      "PixelHeight": 72,
+      "Before": {
+        "Sequence": 809,
+        "Frame": {
+          "Qpc": 848533287728,
+          "RenderingTicks": 35802042,
+          "Phase": 12,
+          "Mode": "Raster",
+          "Transition": 0,
+          "NeedsFrame": false,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 0,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": false,
+          "BodyHeight": 0,
+          "BodyOpacity": 0,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 12,
+          "AnimationStartedAt": "00:00:03.3769781",
+          "AppliedTick": {
+            "Sequence": 454,
+            "AnimationEpoch": 12,
+            "AnimationStartedAt": "00:00:03.3769781",
+            "From": "00:00:03.5505439",
+            "Now": "00:00:03.5587251",
+            "Delta": "00:00:00.0081812",
+            "Before": 3,
+            "After": 0
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848533296736,
+        "RenderingTicks": 35802042,
+        "Phase": 12,
+        "Mode": "Raster",
+        "Transition": 0,
+        "NeedsFrame": false,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 0,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": false,
+        "BodyHeight": 0,
+        "BodyOpacity": 0,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 12,
+        "AnimationStartedAt": "00:00:03.3769781",
+        "AppliedTick": {
+          "Sequence": 454,
+          "AnimationEpoch": 12,
+          "AnimationStartedAt": "00:00:03.3769781",
+          "From": "00:00:03.5505439",
+          "Now": "00:00:03.5587251",
+          "Delta": "00:00:00.0081812",
+          "Before": 3,
+          "After": 0
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "terminal",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-07-phase13-intermediate.png",
+      "Bytes": 2477,
+      "Sha256": "f036e0cf077c2420d946a6ad3d7dce173c9a45a1e4d9c2b0dca85c0b1e770a3f",
+      "PixelWidth": 74,
+      "PixelHeight": 74,
+      "Before": {
+        "Sequence": 812,
+        "Frame": {
+          "Qpc": 848533370422,
+          "RenderingTicks": 35885368,
+          "Phase": 13,
+          "Mode": "Raster",
+          "Transition": 1,
+          "NeedsFrame": true,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1318,
+            "Bottom": 802,
+            "Width": 74,
+            "Height": 74,
+            "Center": {
+              "X": 1281,
+              "Y": 765
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1318,
+            "Bottom": 802,
+            "Width": 74,
+            "Height": 74,
+            "Center": {
+              "X": 1281,
+              "Y": 765
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 0,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": false,
+          "BodyHeight": 0,
+          "BodyOpacity": 0.0030975,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 13,
+          "AnimationStartedAt": "00:00:03.5683878",
+          "AppliedTick": {
+            "Sequence": 455,
+            "AnimationEpoch": 13,
+            "AnimationStartedAt": "00:00:03.5683878",
+            "From": "00:00:03.5683878",
+            "Now": "00:00:03.5686356",
+            "Delta": "00:00:00.0002478",
+            "Before": 1,
+            "After": 1
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848533382926,
+        "RenderingTicks": 35885368,
+        "Phase": 13,
+        "Mode": "Raster",
+        "Transition": 1,
+        "NeedsFrame": true,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1318,
+          "Bottom": 802,
+          "Width": 74,
+          "Height": 74,
+          "Center": {
+            "X": 1281,
+            "Y": 765
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1318,
+          "Bottom": 802,
+          "Width": 74,
+          "Height": 74,
+          "Center": {
+            "X": 1281,
+            "Y": 765
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 0,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": false,
+        "BodyHeight": 0,
+        "BodyOpacity": 0.0030975,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 13,
+        "AnimationStartedAt": "00:00:03.5683878",
+        "AppliedTick": {
+          "Sequence": 455,
+          "AnimationEpoch": 13,
+          "AnimationStartedAt": "00:00:03.5683878",
+          "From": "00:00:03.5683878",
+          "Now": "00:00:03.5686356",
+          "Delta": "00:00:00.0002478",
+          "Before": 1,
+          "After": 1
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "intermediate",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-08-phase13-terminal.png",
+      "Bytes": 59538,
+      "Sha256": "e40139eaf7cd67b6e36ec840bf30fcb2b3be10b36e5a8cc322e141f660da1d05",
+      "PixelWidth": 630,
+      "PixelHeight": 782,
+      "Before": {
+        "Sequence": 866,
+        "Frame": {
+          "Qpc": 848535556953,
+          "RenderingTicks": 38094763,
+          "Phase": 13,
+          "Mode": "Raster",
+          "Transition": 2,
+          "NeedsFrame": false,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1874,
+            "Bottom": 1510,
+            "Width": 630,
+            "Height": 782,
+            "Center": {
+              "X": 1559,
+              "Y": 1119
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1874,
+            "Bottom": 1510,
+            "Width": 630,
+            "Height": 782,
+            "Center": {
+              "X": 1559,
+              "Y": 1119
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 388,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": true,
+          "BodyHeight": 413.3333333333333,
+          "BodyOpacity": 1,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 13,
+          "AnimationStartedAt": "00:00:03.5683878",
+          "AppliedTick": {
+            "Sequence": 484,
+            "AnimationEpoch": 13,
+            "AnimationStartedAt": "00:00:03.5683878",
+            "From": "00:00:03.7822503",
+            "Now": "00:00:03.7891147",
+            "Delta": "00:00:00.0068644",
+            "Before": 1,
+            "After": 2
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848535614825,
+        "RenderingTicks": 38094763,
+        "Phase": 13,
+        "Mode": "Raster",
+        "Transition": 2,
+        "NeedsFrame": false,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1874,
+          "Bottom": 1510,
+          "Width": 630,
+          "Height": 782,
+          "Center": {
+            "X": 1559,
+            "Y": 1119
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1874,
+          "Bottom": 1510,
+          "Width": 630,
+          "Height": 782,
+          "Center": {
+            "X": 1559,
+            "Y": 1119
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 388,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": true,
+        "BodyHeight": 413.3333333333333,
+        "BodyOpacity": 1,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 13,
+        "AnimationStartedAt": "00:00:03.5683878",
+        "AppliedTick": {
+          "Sequence": 484,
+          "AnimationEpoch": 13,
+          "AnimationStartedAt": "00:00:03.5683878",
+          "From": "00:00:03.7822503",
+          "Now": "00:00:03.7891147",
+          "Delta": "00:00:00.0068644",
+          "Before": 1,
+          "After": 2
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "terminal",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-09-phase14-intermediate.png",
+      "Bytes": 55606,
+      "Sha256": "86730e8ce044160a3e6e9678c1640ccf8f2f98aaeff9f10b61d3743ccd98451b",
+      "PixelWidth": 608,
+      "PixelHeight": 754,
+      "Before": {
+        "Sequence": 870,
+        "Frame": {
+          "Qpc": 848535867531,
+          "RenderingTicks": 38384724,
+          "Phase": 14,
+          "Mode": "Raster",
+          "Transition": 3,
+          "NeedsFrame": true,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1852,
+            "Bottom": 1482,
+            "Width": 608,
+            "Height": 754,
+            "Center": {
+              "X": 1548,
+              "Y": 1105
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1852,
+            "Bottom": 1482,
+            "Width": 608,
+            "Height": 754,
+            "Center": {
+              "X": 1548,
+              "Y": 1105
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 388,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": true,
+          "BodyHeight": 394.6666666666667,
+          "BodyOpacity": 0.73235625,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 14,
+          "AnimationStartedAt": "00:00:03.7999600",
+          "AppliedTick": {
+            "Sequence": 486,
+            "AnimationEpoch": 14,
+            "AnimationStartedAt": "00:00:03.7999600",
+            "From": "00:00:03.8001617",
+            "Now": "00:00:03.8213715",
+            "Delta": "00:00:00.0212098",
+            "Before": 3,
+            "After": 3
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848535925723,
+        "RenderingTicks": 38384724,
+        "Phase": 14,
+        "Mode": "Raster",
+        "Transition": 3,
+        "NeedsFrame": true,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1852,
+          "Bottom": 1482,
+          "Width": 608,
+          "Height": 754,
+          "Center": {
+            "X": 1548,
+            "Y": 1105
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1852,
+          "Bottom": 1482,
+          "Width": 608,
+          "Height": 754,
+          "Center": {
+            "X": 1548,
+            "Y": 1105
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 388,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": true,
+        "BodyHeight": 394.6666666666667,
+        "BodyOpacity": 0.73235625,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 14,
+        "AnimationStartedAt": "00:00:03.7999600",
+        "AppliedTick": {
+          "Sequence": 486,
+          "AnimationEpoch": 14,
+          "AnimationStartedAt": "00:00:03.7999600",
+          "From": "00:00:03.8001617",
+          "Now": "00:00:03.8213715",
+          "Delta": "00:00:00.0212098",
+          "Before": 3,
+          "After": 3
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "intermediate",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-10-phase15-intermediate.png",
+      "Bytes": 56701,
+      "Sha256": "b11d26d12b0f38ae43646f6f06c2cd00f3d3c33594123cdf8cbfb311b1941aaf",
+      "PixelWidth": 589,
+      "PixelHeight": 730,
+      "Before": {
+        "Sequence": 875,
+        "Frame": {
+          "Qpc": 848536076871,
+          "RenderingTicks": 38593071,
+          "Phase": 15,
+          "Mode": "Raster",
+          "Transition": 1,
+          "NeedsFrame": true,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1833,
+            "Bottom": 1458,
+            "Width": 589,
+            "Height": 730,
+            "Center": {
+              "X": 1538,
+              "Y": 1093
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1833,
+            "Bottom": 1458,
+            "Width": 589,
+            "Height": 730,
+            "Center": {
+              "X": 1538,
+              "Y": 1093
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 388,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": true,
+          "BodyHeight": 378.6666666666667,
+          "BodyOpacity": 0.6421211552499999,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 15,
+          "AnimationStartedAt": "00:00:03.8343462",
+          "AppliedTick": {
+            "Sequence": 489,
+            "AnimationEpoch": 15,
+            "AnimationStartedAt": "00:00:03.8343462",
+            "From": "00:00:03.8349973",
+            "Now": "00:00:03.8403350",
+            "Delta": "00:00:00.0053377",
+            "Before": 1,
+            "After": 1
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848536170231,
+        "RenderingTicks": 38593071,
+        "Phase": 15,
+        "Mode": "Raster",
+        "Transition": 1,
+        "NeedsFrame": true,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1833,
+          "Bottom": 1458,
+          "Width": 589,
+          "Height": 730,
+          "Center": {
+            "X": 1538,
+            "Y": 1093
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1833,
+          "Bottom": 1458,
+          "Width": 589,
+          "Height": 730,
+          "Center": {
+            "X": 1538,
+            "Y": 1093
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 388,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": true,
+        "BodyHeight": 378.6666666666667,
+        "BodyOpacity": 0.6421211552499999,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 15,
+        "AnimationStartedAt": "00:00:03.8343462",
+        "AppliedTick": {
+          "Sequence": 489,
+          "AnimationEpoch": 15,
+          "AnimationStartedAt": "00:00:03.8343462",
+          "From": "00:00:03.8349973",
+          "Now": "00:00:03.8403350",
+          "Delta": "00:00:00.0053377",
+          "Before": 1,
+          "After": 1
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "intermediate",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-11-phase15-terminal.png",
+      "Bytes": 59538,
+      "Sha256": "e40139eaf7cd67b6e36ec840bf30fcb2b3be10b36e5a8cc322e141f660da1d05",
+      "PixelWidth": 630,
+      "PixelHeight": 782,
+      "Before": {
+        "Sequence": 927,
+        "Frame": {
+          "Qpc": 848538222644,
+          "RenderingTicks": 40759108,
+          "Phase": 15,
+          "Mode": "Raster",
+          "Transition": 2,
+          "NeedsFrame": false,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1874,
+            "Bottom": 1510,
+            "Width": 630,
+            "Height": 782,
+            "Center": {
+              "X": 1559,
+              "Y": 1119
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1874,
+            "Bottom": 1510,
+            "Width": 630,
+            "Height": 782,
+            "Center": {
+              "X": 1559,
+              "Y": 1119
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 388,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": true,
+          "BodyHeight": 413.3333333333333,
+          "BodyOpacity": 1,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 15,
+          "AnimationStartedAt": "00:00:03.8343462",
+          "AppliedTick": {
+            "Sequence": 521,
+            "AnimationEpoch": 15,
+            "AnimationStartedAt": "00:00:03.8343462",
+            "From": "00:00:04.0521281",
+            "Now": "00:00:04.0562523",
+            "Delta": "00:00:00.0041242",
+            "Before": 1,
+            "After": 2
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848538288811,
+        "RenderingTicks": 40759108,
+        "Phase": 15,
+        "Mode": "Raster",
+        "Transition": 2,
+        "NeedsFrame": false,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1874,
+          "Bottom": 1510,
+          "Width": 630,
+          "Height": 782,
+          "Center": {
+            "X": 1559,
+            "Y": 1119
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1874,
+          "Bottom": 1510,
+          "Width": 630,
+          "Height": 782,
+          "Center": {
+            "X": 1559,
+            "Y": 1119
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 388,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": true,
+        "BodyHeight": 413.3333333333333,
+        "BodyOpacity": 1,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 15,
+        "AnimationStartedAt": "00:00:03.8343462",
+        "AppliedTick": {
+          "Sequence": 521,
+          "AnimationEpoch": 15,
+          "AnimationStartedAt": "00:00:03.8343462",
+          "From": "00:00:04.0521281",
+          "Now": "00:00:04.0562523",
+          "Delta": "00:00:00.0041242",
+          "Before": 1,
+          "After": 2
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "terminal",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-12-phase16-intermediate.png",
+      "Bytes": 56757,
+      "Sha256": "b2771885b0dd68afd38084fa64eb003f8110cc8218e2c2d54a8210e5b9fa338e",
+      "PixelWidth": 610,
+      "PixelHeight": 757,
+      "Before": {
+        "Sequence": 931,
+        "Frame": {
+          "Qpc": 848538578483,
+          "RenderingTicks": 41098446,
+          "Phase": 16,
+          "Mode": "Raster",
+          "Transition": 3,
+          "NeedsFrame": true,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1854,
+            "Bottom": 1485,
+            "Width": 610,
+            "Height": 757,
+            "Center": {
+              "X": 1549,
+              "Y": 1106
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1854,
+            "Bottom": 1485,
+            "Width": 610,
+            "Height": 757,
+            "Center": {
+              "X": 1549,
+              "Y": 1106
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 388,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": true,
+          "BodyHeight": 396.6666666666667,
+          "BodyOpacity": 0.74531875,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 16,
+          "AnimationStartedAt": "00:00:04.0675635",
+          "AppliedTick": {
+            "Sequence": 523,
+            "AnimationEpoch": 16,
+            "AnimationStartedAt": "00:00:04.0675635",
+            "From": "00:00:04.0677917",
+            "Now": "00:00:04.0879380",
+            "Delta": "00:00:00.0201463",
+            "Before": 3,
+            "After": 3
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848538638043,
+        "RenderingTicks": 41098446,
+        "Phase": 16,
+        "Mode": "Raster",
+        "Transition": 3,
+        "NeedsFrame": true,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1854,
+          "Bottom": 1485,
+          "Width": 610,
+          "Height": 757,
+          "Center": {
+            "X": 1549,
+            "Y": 1106
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1854,
+          "Bottom": 1485,
+          "Width": 610,
+          "Height": 757,
+          "Center": {
+            "X": 1549,
+            "Y": 1106
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 388,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": true,
+        "BodyHeight": 396.6666666666667,
+        "BodyOpacity": 0.74531875,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 16,
+        "AnimationStartedAt": "00:00:04.0675635",
+        "AppliedTick": {
+          "Sequence": 523,
+          "AnimationEpoch": 16,
+          "AnimationStartedAt": "00:00:04.0675635",
+          "From": "00:00:04.0677917",
+          "Now": "00:00:04.0879380",
+          "Delta": "00:00:00.0201463",
+          "Before": 3,
+          "After": 3
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "intermediate",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-13-phase16-terminal.png",
+      "Bytes": 1761,
+      "Sha256": "470a1b7c2bd60bc947caea5019ece0c89ae0c3d8cbd25cd3ac3f47bdc27b697e",
+      "PixelWidth": 72,
+      "PixelHeight": 72,
+      "Before": {
+        "Sequence": 970,
+        "Frame": {
+          "Qpc": 848540225743,
+          "RenderingTicks": 42759157,
+          "Phase": 16,
+          "Mode": "Raster",
+          "Transition": 0,
+          "NeedsFrame": false,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 0,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": false,
+          "BodyHeight": 0,
+          "BodyOpacity": 0,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 16,
+          "AnimationStartedAt": "00:00:04.0675635",
+          "AppliedTick": {
+            "Sequence": 543,
+            "AnimationEpoch": 16,
+            "AnimationStartedAt": "00:00:04.0675635",
+            "From": "00:00:04.2465288",
+            "Now": "00:00:04.2548616",
+            "Delta": "00:00:00.0083328",
+            "Before": 3,
+            "After": 0
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848540237618,
+        "RenderingTicks": 42759157,
+        "Phase": 16,
+        "Mode": "Raster",
+        "Transition": 0,
+        "NeedsFrame": false,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 0,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": false,
+        "BodyHeight": 0,
+        "BodyOpacity": 0,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 16,
+        "AnimationStartedAt": "00:00:04.0675635",
+        "AppliedTick": {
+          "Sequence": 543,
+          "AnimationEpoch": 16,
+          "AnimationStartedAt": "00:00:04.0675635",
+          "From": "00:00:04.2465288",
+          "Now": "00:00:04.2548616",
+          "Delta": "00:00:00.0083328",
+          "Before": 3,
+          "After": 0
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "terminal",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-14-phase17-intermediate.png",
+      "Bytes": 3620,
+      "Sha256": "bdad1bebacc986d5cce35d59c8ffa9eb272b7873f42da2f4f250e2ac83809bf6",
+      "PixelWidth": 94,
+      "PixelHeight": 100,
+      "Before": {
+        "Sequence": 975,
+        "Frame": {
+          "Qpc": 848540307805,
+          "RenderingTicks": 42800650,
+          "Phase": 17,
+          "Mode": "Raster",
+          "Transition": 1,
+          "NeedsFrame": true,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1338,
+            "Bottom": 828,
+            "Width": 94,
+            "Height": 100,
+            "Center": {
+              "X": 1291,
+              "Y": 778
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1338,
+            "Bottom": 828,
+            "Width": 94,
+            "Height": 100,
+            "Center": {
+              "X": 1291,
+              "Y": 778
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 0,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": false,
+          "BodyHeight": 0,
+          "BodyOpacity": 0.0369425,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 17,
+          "AnimationStartedAt": "00:00:04.2625306",
+          "AppliedTick": {
+            "Sequence": 545,
+            "AnimationEpoch": 17,
+            "AnimationStartedAt": "00:00:04.2625306",
+            "From": "00:00:04.2627717",
+            "Now": "00:00:04.2654860",
+            "Delta": "00:00:00.0027143",
+            "Before": 1,
+            "After": 1
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848540317297,
+        "RenderingTicks": 42800650,
+        "Phase": 17,
+        "Mode": "Raster",
+        "Transition": 1,
+        "NeedsFrame": true,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1338,
+          "Bottom": 828,
+          "Width": 94,
+          "Height": 100,
+          "Center": {
+            "X": 1291,
+            "Y": 778
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1338,
+          "Bottom": 828,
+          "Width": 94,
+          "Height": 100,
+          "Center": {
+            "X": 1291,
+            "Y": 778
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 0,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": false,
+        "BodyHeight": 0,
+        "BodyOpacity": 0.0369425,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 17,
+        "AnimationStartedAt": "00:00:04.2625306",
+        "AppliedTick": {
+          "Sequence": 545,
+          "AnimationEpoch": 17,
+          "AnimationStartedAt": "00:00:04.2625306",
+          "From": "00:00:04.2627717",
+          "Now": "00:00:04.2654860",
+          "Delta": "00:00:00.0027143",
+          "Before": 1,
+          "After": 1
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "intermediate",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-15-phase18-intermediate.png",
+      "Bytes": 4424,
+      "Sha256": "14e0ed805d32a0c5576780ff59bb2d7bbba9086fdac46dc5be73c69aedd09007",
+      "PixelWidth": 126,
+      "PixelHeight": 141,
+      "Before": {
+        "Sequence": 982,
+        "Frame": {
+          "Qpc": 848540536384,
+          "RenderingTicks": 43051375,
+          "Phase": 18,
+          "Mode": "Raster",
+          "Transition": 3,
+          "NeedsFrame": true,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1370,
+            "Bottom": 869,
+            "Width": 126,
+            "Height": 141,
+            "Center": {
+              "X": 1307,
+              "Y": 798
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1370,
+            "Bottom": 869,
+            "Width": 126,
+            "Height": 141,
+            "Center": {
+              "X": 1307,
+              "Y": 798
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 0,
+          "ScrollOffset": 214.41666666666669,
+          "ForegroundUnchanged": true,
+          "BodyVisible": false,
+          "BodyHeight": 0,
+          "BodyOpacity": 0.079846159025,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 18,
+          "AnimationStartedAt": "00:00:04.2734779",
+          "AppliedTick": {
+            "Sequence": 550,
+            "AnimationEpoch": 18,
+            "AnimationStartedAt": "00:00:04.2734779",
+            "From": "00:00:04.2817385",
+            "Now": "00:00:04.2854767",
+            "Delta": "00:00:00.0037382",
+            "Before": 3,
+            "After": 3
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848540546612,
+        "RenderingTicks": 43051375,
+        "Phase": 18,
+        "Mode": "Raster",
+        "Transition": 3,
+        "NeedsFrame": true,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1370,
+          "Bottom": 869,
+          "Width": 126,
+          "Height": 141,
+          "Center": {
+            "X": 1307,
+            "Y": 798
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1370,
+          "Bottom": 869,
+          "Width": 126,
+          "Height": 141,
+          "Center": {
+            "X": 1307,
+            "Y": 798
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 0,
+        "ScrollOffset": 214.41666666666669,
+        "ForegroundUnchanged": true,
+        "BodyVisible": false,
+        "BodyHeight": 0,
+        "BodyOpacity": 0.079846159025,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 18,
+        "AnimationStartedAt": "00:00:04.2734779",
+        "AppliedTick": {
+          "Sequence": 550,
+          "AnimationEpoch": 18,
+          "AnimationStartedAt": "00:00:04.2734779",
+          "From": "00:00:04.2817385",
+          "Now": "00:00:04.2854767",
+          "Delta": "00:00:00.0037382",
+          "Before": 3,
+          "After": 3
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "intermediate",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    },
+    {
+      "File": "overlay-16-phase18-terminal.png",
+      "Bytes": 1761,
+      "Sha256": "470a1b7c2bd60bc947caea5019ece0c89ae0c3d8cbd25cd3ac3f47bdc27b697e",
+      "PixelWidth": 72,
+      "PixelHeight": 72,
+      "Before": {
+        "Sequence": 1025,
+        "Frame": {
+          "Qpc": 848542267556,
+          "RenderingTicks": 44805851,
+          "Phase": 18,
+          "Mode": "Raster",
+          "Transition": 0,
+          "NeedsFrame": false,
+          "Applying": false,
+          "ObserverDepth": 1,
+          "Hwnd": 50071530,
+          "Card": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Anchor": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Work": {
+            "Left": 18,
+            "Top": 18,
+            "Right": 2542,
+            "Bottom": 1510,
+            "Width": 2524,
+            "Height": 1492,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Native": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Button": {
+            "Left": 1244,
+            "Top": 728,
+            "Right": 1316,
+            "Bottom": 800,
+            "Width": 72,
+            "Height": 72,
+            "Center": {
+              "X": 1280,
+              "Y": 764
+            }
+          },
+          "Direction": 0,
+          "Dpi": 1.5,
+          "BodyWidth": 0,
+          "ScrollOffset": 621.0833333333334,
+          "ForegroundUnchanged": true,
+          "BodyVisible": false,
+          "BodyHeight": 0,
+          "BodyOpacity": 0,
+          "DocumentCurrent": true,
+          "AnimationEpoch": 18,
+          "AnimationStartedAt": "00:00:04.2734779",
+          "AppliedTick": {
+            "Sequence": 571,
+            "AnimationEpoch": 18,
+            "AnimationStartedAt": "00:00:04.2734779",
+            "From": "00:00:04.4506888",
+            "Now": "00:00:04.4587730",
+            "Delta": "00:00:00.0080842",
+            "Before": 3,
+            "After": 0
+          },
+          "RequestCurrent": true,
+          "MeasurementCurrent": true
+        },
+        "DuplicateRenderingTime": false,
+        "QpcReversed": false,
+        "RenderingTimeReversed": false,
+        "StableGeometryValid": true,
+        "DuplicateStableRenderingTime": false,
+        "Eligible": true
+      },
+      "After": {
+        "Qpc": 848542278513,
+        "RenderingTicks": 44805851,
+        "Phase": 18,
+        "Mode": "Raster",
+        "Transition": 0,
+        "NeedsFrame": false,
+        "Applying": false,
+        "ObserverDepth": 1,
+        "Hwnd": 50071530,
+        "Card": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Anchor": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Work": {
+          "Left": 18,
+          "Top": 18,
+          "Right": 2542,
+          "Bottom": 1510,
+          "Width": 2524,
+          "Height": 1492,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Native": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Button": {
+          "Left": 1244,
+          "Top": 728,
+          "Right": 1316,
+          "Bottom": 800,
+          "Width": 72,
+          "Height": 72,
+          "Center": {
+            "X": 1280,
+            "Y": 764
+          }
+        },
+        "Direction": 0,
+        "Dpi": 1.5,
+        "BodyWidth": 0,
+        "ScrollOffset": 621.0833333333334,
+        "ForegroundUnchanged": true,
+        "BodyVisible": false,
+        "BodyHeight": 0,
+        "BodyOpacity": 0,
+        "DocumentCurrent": true,
+        "AnimationEpoch": 18,
+        "AnimationStartedAt": "00:00:04.2734779",
+        "AppliedTick": {
+          "Sequence": 571,
+          "AnimationEpoch": 18,
+          "AnimationStartedAt": "00:00:04.2734779",
+          "From": "00:00:04.4506888",
+          "Now": "00:00:04.4587730",
+          "Delta": "00:00:00.0080842",
+          "Before": 3,
+          "After": 0
+        },
+        "RequestCurrent": true,
+        "MeasurementCurrent": true
+      },
+      "Kind": "terminal",
+      "Stable": true,
+      "RejectionReason": null,
+      "Scope": "Actual WPF content raster; not DWM presented frame"
+    }
+  ],
+  "RejectedRasterFiles": [],
+  "Fixture": "Synthetic neutral text; original programmatic Button.Click, not physical input",
+  "ModelCalls": 0,
+  "ProductionPins": "Unavailable",
+  "PerformanceAcceptance": "NotEvaluated_RefreshUnknown_SeparateRasterPass",
+  "NotEvaluated": [
+    "B07 fifty cycles",
+    "DWM presentation",
+    "Physical keyboard/input latency",
+    "Mixed system DPI",
+    "All corners/monitor changes",
+    "Full product/installation"
+  ]
+}

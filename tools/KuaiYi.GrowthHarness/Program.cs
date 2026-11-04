@@ -9,6 +9,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 using KuaiYi.Core;
+using KuaiYi.Core.Settings;
 using KuaiYi.Windows;
 
 namespace KuaiYi.GrowthHarness;
@@ -21,6 +22,13 @@ internal static class Program
         if(args.SequenceEqual(new[]{"--desktop-review"}))return DesktopFrontendReview.Run();
         if(args.Length==2&&args[0]=="--ci-reader-scroll")return ReaderScrollProbe.Run(args[1]);
         if(args.Length==2&&args[0]=="--desktop-overlay-review")return ActualOverlayProbe.Run(args[1],"120",markdownReview:true,interactiveInspection:true);
+        if(args.Length is 5 or 6&&args[0]=="--desktop-overlay-review")
+        {
+            if(args[2] is not("light" or "dark")||args[3] is not("full" or "reduce")||args[4] is not("1" or "2")||args.Length==6&&args[5]!="motion")return 2;
+            return ActualOverlayProbe.Run(args[1],args[4]=="2"?"5":"120",interactiveInspection:true,
+                inspectionTheme:args[2]=="dark"?ThemePreference.Dark:ThemePreference.Light,
+                inspectionMotion:args[3]=="reduce"?MotionPreference.Reduce:MotionPreference.Full,inspectionTextScale:args[4]=="2"?2:1,captureOpening:args.Length==6);
+        }
         if(UiPolishContract.IsCommand(args))
         {
             UiPolishRequest request;

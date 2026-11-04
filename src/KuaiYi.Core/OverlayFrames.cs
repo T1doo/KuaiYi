@@ -32,6 +32,8 @@ public sealed class OverlayFrames
     public double TextWidthDip=>Plan is {} p?p.Dpi.Dips(p.Target.Width):movingTextWidth;
     public bool NeedsFrame=>Transition is OverlayTransition.Opening or OverlayTransition.Closing||Transition==OverlayTransition.Expanded&&Current!=target;
     public bool IsExpanded=>wantsExpanded;
+    public double CornerProgress{get;private set;}
+    private double fromCorner;
     public double ContentOpacity=>Transition switch{OverlayTransition.Compact=>0,OverlayTransition.Moving=>movingOpacity,OverlayTransition.Closing=>fromOpacity*Math.Clamp(1-elapsed/80,0,1),OverlayTransition.Opening=>fromOpacity+(1-fromOpacity)*Math.Clamp(elapsed/80,0,1),_=>1};
     public OverlayFrames(PixelRect anchor,MonitorGeometry monitor){Anchor=Current=anchor;Monitor=monitor;Validate();}
     public void Open(int measuredHeight,LayoutPreferences preferences)
@@ -41,7 +43,7 @@ public sealed class OverlayFrames
     {ArgumentNullException.ThrowIfNull(measure);if(current?.Invoke()==false)return;var plan=BodyPlan(preferences);int height=measure(plan);if(current?.Invoke()!=false)Open(height,plan);}
     private void Open(int measuredHeight,LayoutPlan plan)
     {
-        double opacity=ContentOpacity;wantsExpanded=true;measured=Math.Max(Anchor.Height,measuredHeight);Plan=plan;lastPlan=Plan;toolbarPlan=false;
+        double opacity=toolbarPlan?0:ContentOpacity;wantsExpanded=true;measured=Math.Max(Anchor.Height,measuredHeight);Plan=plan;lastPlan=Plan;toolbarPlan=false;
         target=HeightRect(Math.Clamp(measured,Anchor.Height,Plan.MaximumHeightPixels));Begin(OverlayTransition.Opening,opacity);
     }
     public void OpenToolbar(double widthDip=220,double heightDip=48)
@@ -62,7 +64,7 @@ public sealed class OverlayFrames
         if(Transition==OverlayTransition.Expanded)target=HeightRect(Math.Clamp(measured,Anchor.Height,Plan.MaximumHeightPixels));
     }
     public void Collapse(){double opacity=ContentOpacity;wantsExpanded=false;target=Anchor;Begin(OverlayTransition.Closing,opacity);}
-    public void Compact(){wantsExpanded=false;Plan=null;Current=target=Anchor;Transition=OverlayTransition.Compact;elapsed=0;Validate();}
+    public void Compact(){wantsExpanded=false;Plan=null;Current=target=Anchor;Transition=OverlayTransition.Compact;elapsed=0;CornerProgress=0;Validate();}
     public void BeginMove(){movingOpacity=ContentOpacity;movingDirection=Plan?.Direction;movingTextWidth=TextWidthDip;Transition=OverlayTransition.Moving;from=Current;}
     public void Move(PixelPoint desired,MonitorGeometry monitor)
     {
@@ -73,7 +75,7 @@ public sealed class OverlayFrames
     public void Reanchor(PixelRect anchor,MonitorGeometry monitor,LayoutPreferences preferences)
     {
         // All old animated edges are discarded before changing coordinate systems.
-        Anchor=Current=anchor;Monitor=monitor;Plan=null;Transition=OverlayTransition.Compact;Validate();
+        Anchor=Current=anchor;Monitor=monitor;Plan=null;Transition=OverlayTransition.Compact;CornerProgress=0;Validate();
         if(wantsExpanded){if(toolbarPlan)OpenToolbar(toolbarWidthDip,toolbarHeightDip);else Open(measured,preferences);}
     }
     public PixelRect Tick(TimeSpan delta,bool reduceMotion=false)
@@ -84,6 +86,7 @@ public sealed class OverlayFrames
         {
             double duration=Transition==OverlayTransition.Opening?220:180;elapsed+=delta.TotalMilliseconds;double t=reduceMotion?1:Math.Clamp(elapsed/duration,0,1);
             double eased=Transition==OverlayTransition.Opening?1-Math.Pow(1-t,3):t*t*(3-2*t);
+            CornerProgress=fromCorner+((wantsExpanded?1d:0d)-fromCorner)*eased;
             int Edge(int first,int last)=>checked(first+(int)Math.Round((last-(double)first)*eased));
             Current=new(Edge(from.Left,target.Left),Edge(from.Top,target.Top),Edge(from.Right,target.Right),Edge(from.Bottom,target.Bottom));
             if(t==1){Current=target;height=Current.Height;Transition=wantsExpanded?OverlayTransition.Expanded:OverlayTransition.Compact;if(wantsExpanded&&Plan!=null)target=HeightRect(Math.Clamp(measured,Anchor.Height,Plan.MaximumHeightPixels));}
@@ -95,7 +98,7 @@ public sealed class OverlayFrames
         }
         Validate();return Current;
     }
-    private void Begin(OverlayTransition next,double? opacity=null){fromOpacity=opacity??ContentOpacity;from=Current;elapsed=0;Transition=next;Validate();AnimationStarted?.Invoke();}
+    private void Begin(OverlayTransition next,double? opacity=null){fromOpacity=opacity??ContentOpacity;fromCorner=CornerProgress;from=Current;elapsed=0;Transition=next;Validate();AnimationStarted?.Invoke();}
     private PixelRect HeightRect(int h)
     {
         var plan=Plan??throw new InvalidOperationException("Missing plan.");bool down=plan.Direction is GrowthDirection.RightDown or GrowthDirection.LeftDown or GrowthDirection.BalancedDown;

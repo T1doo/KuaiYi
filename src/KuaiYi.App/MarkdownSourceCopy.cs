@@ -1,5 +1,9 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Globalization;
+using System.Windows.Media;
+using System.Windows.Shapes;
 namespace KuaiYi.App;
 
 internal sealed partial class MarkdownSourceRegion
@@ -23,6 +27,11 @@ internal sealed partial class MarkdownSourceRegion
         DesktopTheme.Bind(sourceMetadata,TextBlock.ForegroundProperty,DesktopTheme.Muted);
         var menu=new ContextMenu();var copy=new MenuItem{Header="复制完整原文"};
         var header=new DockPanel();var command=new Button{Content="复制原文",MinHeight=28,Padding=new Thickness(6,2,6,2),Margin=new Thickness(8,0,0,0)};command.SetResourceReference(FrameworkElement.StyleProperty,DesktopTheme.ToolButton);DesktopTextScale.Font(command,12);DockPanel.SetDock(command,Dock.Right);header.Children.Add(command);var label=new TextBlock{Text="查看原文",VerticalAlignment=VerticalAlignment.Center};DesktopTextScale.Font(label,12);header.Children.Add(label);View.Header=header;
+        label.SetBinding(TextBlock.TextProperty,new Binding(nameof(Expander.IsExpanded)){Source=View,Converter=new DisclosureLabel()});
+        System.Windows.Automation.AutomationProperties.SetName(command,"复制所示版本原文");
+        var chevron=new Path{Width=8,Height=4,Stretch=Stretch.Uniform,StrokeThickness=1.5,StrokeStartLineCap=PenLineCap.Round,StrokeEndLineCap=PenLineCap.Round,IsHitTestVisible=false,Margin=new Thickness(0,0,8,0)};
+        DesktopTheme.Bind(chevron,Shape.StrokeProperty,DesktopTheme.Muted);chevron.SetBinding(Path.DataProperty,new Binding(nameof(Expander.IsExpanded)){Source=View,Converter=new DisclosureArrow()});
+        DockPanel.SetDock(chevron,Dock.Left);header.Children.Insert(0,chevron);DesktopSourceChrome.Install(View);
         System.Windows.Automation.AutomationProperties.SetName(copy,"复制所示版本的完整原文");
         void Copy()
         {
@@ -31,6 +40,17 @@ internal sealed partial class MarkdownSourceRegion
             {View.ToolTip="原文复制未确认；可手动重试。";}
         }
         copy.Click+=(_,_)=>Copy();command.Click+=(_,_)=>Copy();
-        menu.Items.Add(copy);menu.Opened+=(_,_)=>{if(Window.GetWindow(View) is {} owner)DesktopTheme.ApplyMenu(menu,owner);};Text.ContextMenu=menu;
+        menu.Items.Add(copy);Text.ContextMenuOpening+=(_,_)=>{if(Window.GetWindow(View) is {} owner)DesktopTheme.ApplyMenu(menu,owner);};menu.Opened+=(_,_)=>{if(Window.GetWindow(View) is {} owner)DesktopTheme.ApplyMenu(menu,owner);};Text.ContextMenu=menu;
+    }
+    private sealed class DisclosureLabel:IValueConverter
+    {
+        public object Convert(object value,Type type,object parameter,CultureInfo culture)=>value is true?"原文已展开":"查看原文";
+        public object ConvertBack(object value,Type type,object parameter,CultureInfo culture)=>Binding.DoNothing;
+    }
+    private sealed class DisclosureArrow:IValueConverter
+    {
+        private static readonly Geometry Down=Geometry.Parse("M0 0 L4 4 L8 0"),Up=Geometry.Parse("M0 4 L4 0 L8 4");
+        public object Convert(object value,Type type,object parameter,CultureInfo culture)=>value is true?Up:Down;
+        public object ConvertBack(object value,Type type,object parameter,CultureInfo culture)=>Binding.DoNothing;
     }
 }

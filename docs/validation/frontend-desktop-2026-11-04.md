@@ -12,6 +12,8 @@ tags:
 
 本轮依据 `docs/design/快译前端设计修改方案.docx` 继续实现原生桌面小工具浮窗。当前交付为候选 B，**前端整体仍为 InProgress**。本轮重新编译了包含最新 Escape 修正的代码；没有沿用旧 SDK401 编译结果作为新版成绩。候选 A 证据保留为本轮早期切片。
 
+后续用户明确要求重做背景、细节和交互观感，最新视觉与键盘接续见[背景细节与交互动效重做](frontend-visual-details-2026-11-04.md)。本页 A／B 保留为历史切片，不代表最新视觉验收。
+
 ## 来源与环境
 
 - 开始时 `main`、`origin/main` 均为 `cb0fcfe797ab9609f3206da1c14a8d644bd0c657`，工作区没有未提交或未跟踪文件。获取远端后没有新增提交，`git merge --ff-only origin/main` 返回 Already up to date。

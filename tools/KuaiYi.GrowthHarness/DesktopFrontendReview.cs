@@ -4,6 +4,10 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using System.Windows.Input;
+using System.Windows.Automation;
+using System.Reflection;
+using System.Text.Json;
 using KuaiYi.App;
 using KuaiYi.Core.Settings;
 
@@ -26,11 +30,32 @@ internal static class DesktopFrontendReview
             throw new System.ComponentModel.Win32Exception(Marshal.GetLastPInvokeError());
         window.Title="快译 · 公开外观验收（工具窗枚举适配，非原生焦点验收）";
     }
-    internal static void InstallInspectionWindow(Window window)
+    internal static void InstallInspectionWindow(Window window,string output)
     {
         ExposeInspectionWindow(window);
         HwndSource.FromHwnd(new WindowInteropHelper(window).Handle).AddHook((nint hwnd,int message,nint w,nint l,ref bool handled)=>
         {if(message==0x007d&&w==-20)ExposeInspectionWindow(window);return 0;});
+        int records=0;
+        void Observe(string input,string? original)
+        {
+            if(records++>=200)return;
+            string modifiers=Keyboard.Modifiers.ToString();
+            window.Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle,()=>
+            {
+                var focused=Keyboard.FocusedElement as DependencyObject;
+                var reader=(RichTextBox)typeof(ShellWindow).GetField("body",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(window)!;
+                var record=new{Input=input,Modifiers=modifiers,Original=original,FocusType=focused?.GetType().Name,
+                    FocusName=focused==null?null:AutomationProperties.GetName(focused),FocusTag=(focused as FrameworkElement)?.Tag,
+                    window.IsActive,window.IsKeyboardFocusWithin,reader.IsKeyboardFocused,reader.Focusable,
+                    WindowFontDip=window.FontSize,ReaderFontDip=reader.FontSize,TextFactor=DesktopTextScale.Factor(window),
+                    ReaderFocusWithin=reader.IsKeyboardFocusWithin,ReaderTab=KeyboardNavigation.GetTabNavigation(reader).ToString(),
+                    reader.VerticalOffset,reader.ExtentHeight,reader.ViewportHeight};
+                File.AppendAllText(output+".keyboard.jsonl",JsonSerializer.Serialize(record)+Environment.NewLine);
+            });
+        }
+        window.AddHandler(Keyboard.PreviewKeyDownEvent,new KeyEventHandler((_,e)=>
+        {if(e.Key is Key.Tab or Key.Escape or Key.Return or Key.Space or Key.Home or Key.End or Key.Up or Key.Down or Key.Left or Key.Right or Key.PageUp or Key.PageDown)Observe(e.Key.ToString(),e.OriginalSource?.GetType().Name);}),true);
+        window.AddHandler(Mouse.PreviewMouseDownEvent,new MouseButtonEventHandler((_,e)=>Observe("Mouse:"+e.ChangedButton,e.OriginalSource?.GetType().Name)),true);
     }
     internal static int Run()
     {

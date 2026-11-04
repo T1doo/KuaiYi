@@ -23,6 +23,6 @@ internal static class DesktopControlFeedback
         double from=surface.Opacity,to=(double)change.NewValue;
         surface.BeginAnimation(UIElement.OpacityProperty,null);surface.SetCurrentValue(UIElement.OpacityProperty,to);
         if(!(bool)surface.GetValue(ReduceProperty)&&surface.IsVisible)
-            surface.BeginAnimation(UIElement.OpacityProperty,new DoubleAnimation(from,to,TimeSpan.FromMilliseconds(100)){FillBehavior=FillBehavior.Stop},HandoffBehavior.SnapshotAndReplace);
+            surface.BeginAnimation(UIElement.OpacityProperty,new DoubleAnimation(from,to,TimeSpan.FromMilliseconds(100)){FillBehavior=FillBehavior.Stop,EasingFunction=new CubicEase{EasingMode=EasingMode.EaseOut}},HandoffBehavior.SnapshotAndReplace);
     }
 }

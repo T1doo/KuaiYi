@@ -57,7 +57,9 @@ internal static class DesktopTheme
     {
         Apply(window,preference());DesktopControlFeedback.Apply(window,motionPreference?.Invoke()??MotionPreference.FollowSystem);if(window.Resources.Contains(Installed))return;window.Resources[Installed]=true;
         window.UseLayoutRounding=true;window.SnapsToDevicePixels=true;
-        window.FontFamily=ProseFont;
+        TextOptions.SetTextFormattingMode(window,TextFormattingMode.Display);
+        window.FontFamily=ProseFont;window.FontSize=13;
+        InstallToolTips(window);
         if(forms)
         {
             window.FontFamily=ProseFont;window.FontSize=13;
@@ -65,6 +67,7 @@ internal static class DesktopTheme
             var wrappingText=new Style(typeof(AccessText));wrappingText.Setters.Add(new Setter(AccessText.TextWrappingProperty,TextWrapping.Wrap));window.Resources[typeof(AccessText)]=wrappingText;
             var formButton=ButtonStyle(SettingsUiMetrics.ControlRadius,SettingsUiMetrics.ControlHeight);formButton.Setters.Add(new Setter(FrameworkElement.HorizontalAlignmentProperty,HorizontalAlignment.Left));window.Resources[typeof(Button)]=formButton;
             var primary=ButtonStyle(SettingsUiMetrics.ControlRadius,SettingsUiMetrics.ControlHeight);primary.Setters.Add(Value(Control.BackgroundProperty,Accent));primary.Setters.Add(Value(Control.ForegroundProperty,AccentText));primary.Setters.Add(Value(Control.BorderBrushProperty,Accent));primary.Setters.Add(new Setter(Control.FontWeightProperty,FontWeights.SemiBold));window.Resources[PrimaryButton]=primary;
+            primary.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(SettingsUiMetrics.ControlRadius,filled:true)));
             foreach(var type in new[]{typeof(TextBox),typeof(PasswordBox),typeof(ComboBox)})
             {
                 var field=new Style(type);field.Setters.Add(Value(Control.BackgroundProperty,Input));field.Setters.Add(Value(Control.ForegroundProperty,Text));field.Setters.Add(Value(Control.BorderBrushProperty,InputBorder));field.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(1)));field.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(10,7,10,7)));field.Setters.Add(new Setter(FrameworkElement.MinHeightProperty,SettingsUiMetrics.ControlHeight));
@@ -81,7 +84,7 @@ internal static class DesktopTheme
             window.Resources[NavigationItem]=NavigationStyle();
         }
         var tool=ButtonStyle(3,28);tool.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(3)));tool.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(0)));tool.Setters.Add(new Setter(Control.BackgroundProperty,Brushes.Transparent));
-        var toolHover=new MultiTrigger();toolHover.Conditions.Add(new Condition(UIElement.IsMouseOverProperty,true));toolHover.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));toolHover.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));toolHover.Setters.Add(Value(Control.ForegroundProperty,SelectionText));tool.Triggers.Add(toolHover);
+        var toolHover=new MultiTrigger();toolHover.Conditions.Add(new Condition(UIElement.IsMouseOverProperty,true));toolHover.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));toolHover.Setters.Add(Value(Control.BackgroundProperty,Surface));toolHover.Setters.Add(Value(Control.ForegroundProperty,Text));tool.Triggers.Add(toolHover);
         foreach(var icon in Icons.Where(pair=>pair.Key is "设置" or "翻译截图" or "清除当前内容" or "回看" or "停止" or "重新生成"))
         {var trigger=new Trigger{Property=FrameworkElement.TagProperty,Value=icon.Key};trigger.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(3,icon.Value)));tool.Triggers.Add(trigger);}
         window.Resources[ToolButton]=tool;var anchor=ButtonStyle(24,48);anchor.Setters.Add(Value(Control.ForegroundProperty,AccentText));window.Resources[AnchorButton]=anchor;
@@ -108,14 +111,29 @@ internal static class DesktopTheme
         }
         catch(Exception error)when(error is System.ComponentModel.Win32Exception or ArgumentException)
         {System.Diagnostics.Trace.TraceWarning("KuaiYi menu monitor unavailable: "+error.GetType().Name);work=new Rect(0,0,Math.Min(320,work.Width),Math.Min(480,work.Height));}
-        menu.MaxWidth=Math.Max(48,Math.Min(520,work.Width-24));menu.MaxHeight=Math.Max(48,Math.Min(640,work.Height-24));
-        var header=new FrameworkElementFactory(typeof(TextBlock));header.SetBinding(TextBlock.TextProperty,new Binding());header.SetValue(TextBlock.TextWrappingProperty,TextWrapping.Wrap);header.SetValue(FrameworkElement.MaxWidthProperty,Math.Max(1,menu.MaxWidth-88));
+        menu.MaxWidth=Math.Max(48,Math.Min(360,work.Width-24));menu.MinWidth=Math.Min(208,menu.MaxWidth);menu.MaxHeight=Math.Max(48,Math.Min(640,work.Height-24));
+        menu.Resources["KuaiYi.MenuMaxHeight"]=Math.Max(24,menu.MaxHeight-12);menu.Resources["KuaiYi.MenuLabelMaxWidth"]=Math.Max(1,menu.MaxWidth-88);
+        foreach(var key in new[]{Canvas,Surface,Rail,Input,Text,Muted,Stroke,InputBorder,Accent,AccentText,AccentSoft,SelectionText,Error})menu.Resources[key]=owner.FindResource(key);
+        if(menu.Resources.Contains("KuaiYi.MenuChromeInstalled"))return;
+        var header=new FrameworkElementFactory(typeof(TextBlock));header.SetBinding(TextBlock.TextProperty,new Binding());header.SetValue(TextBlock.TextWrappingProperty,TextWrapping.Wrap);header.SetResourceReference(FrameworkElement.MaxWidthProperty,"KuaiYi.MenuLabelMaxWidth");header.SetBinding(TextBlock.LineHeightProperty,DesktopTextScale.Metric(18));
         var headerTemplate=new DataTemplate{VisualTree=header};
         foreach(var key in new[]{Canvas,Surface,Rail,Input,Text,Muted,Stroke,InputBorder,Accent,AccentText,AccentSoft,SelectionText,Error})menu.Resources[key]=owner.FindResource(key);
         Bind(menu,Control.BackgroundProperty,Surface);Bind(menu,Control.ForegroundProperty,Text);Bind(menu,Control.BorderBrushProperty,Stroke);menu.BorderThickness=new Thickness(1);menu.Padding=new Thickness(2);
         var item=new Style(typeof(MenuItem));item.Setters.Add(new Setter(HeaderedItemsControl.HeaderTemplateProperty,headerTemplate));item.Setters.Add(Value(Control.ForegroundProperty,Text));item.Setters.Add(Value(Control.BackgroundProperty,Surface));item.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(8,5,8,5)));item.Setters.Add(new Setter(FrameworkElement.MinHeightProperty,28d));
         var highlight=new Trigger{Property=MenuItem.IsHighlightedProperty,Value=true};highlight.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));highlight.Setters.Add(Value(Control.ForegroundProperty,SelectionText));item.Triggers.Add(highlight);
-        var disabled=new Trigger{Property=UIElement.IsEnabledProperty,Value=false};disabled.Setters.Add(Value(Control.ForegroundProperty,Muted));item.Triggers.Add(disabled);menu.Resources[typeof(MenuItem)]=item;
+        var disabled=new Trigger{Property=UIElement.IsEnabledProperty,Value=false};disabled.Setters.Add(Value(Control.ForegroundProperty,Muted));item.Triggers.Add(disabled);
+        DesktopMenuChrome.Install(menu,item);menu.Resources[typeof(MenuItem)]=item;menu.Resources["KuaiYi.MenuChromeInstalled"]=true;
+    }
+    private static void InstallToolTips(Window window)
+    {
+        var style=new Style(typeof(ToolTip));style.Setters.Add(Value(Control.BackgroundProperty,Surface));style.Setters.Add(Value(Control.ForegroundProperty,Text));style.Setters.Add(Value(Control.BorderBrushProperty,Stroke));
+        style.Setters.Add(new Setter(FrameworkElement.MaxWidthProperty,300d));style.Setters.Add(new Setter(Control.FontFamilyProperty,ProseFont));
+        style.Setters.Add(new Setter(DesktopTextScale.FactorProperty,new Binding{RelativeSource=RelativeSource.Self,Path=new PropertyPath("PlacementTarget.(0)",DesktopTextScale.FactorProperty)}));
+        style.Setters.Add(new Setter(Control.FontSizeProperty,DesktopTextScale.Metric(12)));
+        var template=new ControlTemplate(typeof(ToolTip));var border=new FrameworkElementFactory(typeof(Border));border.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));border.SetValue(Border.BorderBrushProperty,new TemplateBindingExtension(Control.BorderBrushProperty));
+        border.SetValue(Border.BorderThicknessProperty,new Thickness(1));border.SetValue(Border.CornerRadiusProperty,new CornerRadius(4));border.SetValue(Border.PaddingProperty,new Thickness(9,6,9,6));
+        var content=new FrameworkElementFactory(typeof(ContentPresenter));content.SetValue(ContentPresenter.ContentSourceProperty,"Content");border.AppendChild(content);template.VisualTree=border;
+        style.Setters.Add(new Setter(Control.TemplateProperty,template));style.Resources[new DataTemplateKey(typeof(string))]=WrappingLabel();window.Resources[typeof(ToolTip)]=style;
     }
     private static Brush Color(string hex){var brush=new SolidColorBrush((Color)ColorConverter.ConvertFromString(hex));brush.Freeze();return brush;}
     private static Setter Value(DependencyProperty property,string key)=>new(property,new DynamicResourceExtension(key));
@@ -175,20 +193,24 @@ internal static class DesktopTheme
     private static Style ButtonStyle(double radius,double height)
     {
         var style=new Style(typeof(Button));style.Setters.Add(Value(Control.BackgroundProperty,Surface));style.Setters.Add(Value(Control.ForegroundProperty,Text));style.Setters.Add(Value(Control.BorderBrushProperty,Stroke));style.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(1)));style.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(14,7,14,7)));style.Setters.Add(new Setter(FrameworkElement.MinHeightProperty,height));style.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(radius)));
+        style.Setters.Add(new Setter(FrameworkElement.FocusVisualStyleProperty,null));
         style.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty,HorizontalAlignment.Center));
         var disabled=new Trigger{Property=UIElement.IsEnabledProperty,Value=false};disabled.Setters.Add(Value(Control.ForegroundProperty,Muted));disabled.Setters.Add(Value(Control.BackgroundProperty,Canvas));style.Triggers.Add(disabled);return style;
     }
-    private static ControlTemplate ButtonTemplate(double radius,string? icon=null)
+    internal static ControlTemplate SourceToggleTemplate()=>ButtonTemplate(3,targetType:typeof(ToggleButton));
+    private static ControlTemplate ButtonTemplate(double radius,string? icon=null,bool filled=false,Type? targetType=null)
     {
-        var template=new ControlTemplate(typeof(Button));var root=new FrameworkElementFactory(typeof(Grid));var border=new FrameworkElementFactory(typeof(Border),"surface");border.SetValue(Border.CornerRadiusProperty,new CornerRadius(radius));border.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));border.SetValue(Border.BorderBrushProperty,new TemplateBindingExtension(Control.BorderBrushProperty));border.SetValue(Border.BorderThicknessProperty,new TemplateBindingExtension(Control.BorderThicknessProperty));border.SetValue(Border.PaddingProperty,new TemplateBindingExtension(Control.PaddingProperty));
+        var template=new ControlTemplate(targetType??typeof(Button));var root=new FrameworkElementFactory(typeof(Grid));var border=new FrameworkElementFactory(typeof(Border),"surface");border.SetValue(Border.CornerRadiusProperty,new CornerRadius(radius));border.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));border.SetValue(Border.BorderBrushProperty,new TemplateBindingExtension(Control.BorderBrushProperty));border.SetValue(Border.BorderThicknessProperty,new TemplateBindingExtension(Control.BorderThicknessProperty));border.SetValue(Border.PaddingProperty,new TemplateBindingExtension(Control.PaddingProperty));
         FrameworkElementFactory content;
         if(icon==null){content=new(typeof(ContentPresenter));content.SetValue(ContentPresenter.ContentSourceProperty,"Content");content.SetValue(ContentPresenter.RecognizesAccessKeyProperty,true);}
         else{content=new(typeof(Path));content.SetValue(Path.DataProperty,Geometry.Parse(icon));content.SetValue(Path.StrokeProperty,new TemplateBindingExtension(Control.ForegroundProperty));content.SetValue(Path.StrokeThicknessProperty,1.6);content.SetValue(Path.StrokeStartLineCapProperty,PenLineCap.Round);content.SetValue(Path.StrokeEndLineCapProperty,PenLineCap.Round);content.SetValue(Path.StrokeLineJoinProperty,PenLineJoin.Round);content.SetValue(Path.StretchProperty,Stretch.Uniform);content.SetValue(FrameworkElement.WidthProperty,18d);content.SetValue(FrameworkElement.HeightProperty,18d);content.SetValue(UIElement.IsHitTestVisibleProperty,false);}
+        if(icon==Icons["停止"]){content.SetValue(Path.FillProperty,new TemplateBindingExtension(Control.ForegroundProperty));content.SetValue(Path.StrokeThicknessProperty,0d);content.SetValue(FrameworkElement.WidthProperty,12d);content.SetValue(FrameworkElement.HeightProperty,12d);}
         content.SetValue(FrameworkElement.HorizontalAlignmentProperty,new TemplateBindingExtension(Control.HorizontalContentAlignmentProperty));content.SetValue(FrameworkElement.VerticalAlignmentProperty,VerticalAlignment.Center);border.AppendChild(content);root.AppendChild(border);
         // A tint above the surface gives primary and secondary buttons the same
         // state vocabulary without replacing their foreground/background pair.
         var feedback=new FrameworkElementFactory(typeof(Border),"feedback");feedback.SetValue(DesktopControlFeedback.SurfaceProperty,true);feedback.SetValue(Border.CornerRadiusProperty,new CornerRadius(radius));feedback.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.ForegroundProperty));feedback.SetValue(UIElement.IsHitTestVisibleProperty,false);feedback.SetValue(UIElement.OpacityProperty,0d);root.AppendChild(feedback);
         var focusRing=new FrameworkElementFactory(typeof(Border),"focusRing");focusRing.SetValue(Border.CornerRadiusProperty,new CornerRadius(Math.Max(0,radius-3)));focusRing.SetValue(FrameworkElement.MarginProperty,new Thickness(3));focusRing.SetValue(Border.BorderThicknessProperty,new Thickness(2));focusRing.SetValue(Border.BorderBrushProperty,new TemplateBindingExtension(Control.ForegroundProperty));focusRing.SetValue(UIElement.IsHitTestVisibleProperty,false);focusRing.SetValue(UIElement.OpacityProperty,0d);root.AppendChild(focusRing);template.VisualTree=root;
+        if(radius<24&&!filled)focusRing.SetResourceReference(Border.BorderBrushProperty,Accent);
         var hover=new MultiTrigger();hover.Conditions.Add(new Condition(UIElement.IsMouseOverProperty,true));hover.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));hover.Setters.Add(new Setter(DesktopControlFeedback.TintProperty,SettingsUiMetrics.HoverTint,"feedback"));template.Triggers.Add(hover);
         var focus=new Trigger{Property=UIElement.IsKeyboardFocusedProperty,Value=true};focus.Setters.Add(new Setter(UIElement.OpacityProperty,1d,"focusRing"));template.Triggers.Add(focus);
         var pressed=new MultiTrigger();pressed.Conditions.Add(new Condition(System.Windows.Controls.Primitives.ButtonBase.IsPressedProperty,true));pressed.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));pressed.Setters.Add(new Setter(DesktopControlFeedback.TintProperty,SettingsUiMetrics.PressedTint,"feedback"));pressed.Setters.Add(new Setter(Border.BorderBrushProperty,new DynamicResourceExtension(Accent),"surface"));template.Triggers.Add(pressed);return template;

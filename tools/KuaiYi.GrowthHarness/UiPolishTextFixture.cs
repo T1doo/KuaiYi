@@ -37,7 +37,7 @@ internal sealed class UiPolishTextFixture:IAsyncDisposable
         ActiveProfileId="ui-polish",Profiles=[new(){Id="ui-polish",Name="公开合成视觉夹具",Model=Model,BaseUrl=Endpoint,Authentication=ApiAuthentication.None,Timeouts=new(){ConnectSeconds=60,HeadersSeconds=60}}],
         Overlay=new(){Theme=theme,ReduceMotion=motion,FontSizeDip=16,PreferredWidthDip=480,RememberPosition=false}
     };
-    internal UiPolishTextFixture(RuntimeGate gate,OverlayResults results,SettingsSnapshot settings,SynchronizationContext destination,Action<TextTranslationUpdate> changed)
+    internal UiPolishTextFixture(RuntimeGate gate,OverlayResults results,SettingsSnapshot settings,SynchronizationContext destination,Action<TextTranslationUpdate> changed,string? publicSource=null)
     {
         var profile=settings.Data.Profiles.Single();
         if(profile.Id!="ui-polish"||settings.Data.ActiveProfileId!=profile.Id||profile.BaseUrl!=Endpoint||profile.Model!=Model||
@@ -45,7 +45,8 @@ internal sealed class UiPolishTextFixture:IAsyncDisposable
             profile.Authentication!=ApiAuthentication.None||profile.SecretRef!=null||profile.Headers.Count!=0||profile.AllowLoopbackHttp||profile.AllowInsecureHttp)
             throw new InvalidOperationException("Only the fixed AuthNone synthetic profile is accepted.");
         this.gate=gate;
-        Source=new(new(17,92823,132000,@"C:\Synthetic\ui-polish.exe"),SourceText,SourceText,[new(1,2,20,22)],[7,8],settings.Version,SourceText.Length,false);
+        string text=publicSource??SourceText;
+        Source=new(new(17,92823,132000,@"C:\Synthetic\ui-polish.exe"),text,text,[new(1,2,20,22)],[7,8],settings.Version,text.Length,false);
         var signature=new[]{typeof(DevelopmentTranslationBoundary),typeof(TimeProvider),typeof(TimeProvider),typeof(Func<SocketsHttpConnectionContext,CancellationToken,ValueTask<Stream>>)};
         var constructor=typeof(ProviderClient).GetConstructor(BindingFlags.Instance|BindingFlags.NonPublic,null,signature,null)
             ??throw new MissingMethodException("Exact original provider test connector required.");
