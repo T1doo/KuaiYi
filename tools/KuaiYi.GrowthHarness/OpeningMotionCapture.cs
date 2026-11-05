@@ -17,7 +17,7 @@ internal sealed class OpeningMotionCapture
 {
     private readonly string directory;
     private readonly Stopwatch clock=Stopwatch.StartNew();
-    private readonly List<(RenderTargetBitmap Bitmap,double Ms,PixelRect Card,PixelRect Anchor,double Corner,double Opacity)> frames=[];
+    private readonly List<(RenderTargetBitmap Bitmap,double Ms,PixelRect Card,PixelRect Anchor,double Corner,double Opacity,bool ProseHorizontalContained)> frames=[];
     private double last=-1000;private long pixels;private bool capturing,done;
     private RichTextBox? body;
     private List<Button>? tools;
@@ -43,7 +43,8 @@ internal sealed class OpeningMotionCapture
         {
             var bitmap=new RenderTargetBitmap(card.Width,card.Height,96*geometry.Monitor.Dpi.Factor,96*geometry.Monitor.Dpi.Factor,PixelFormats.Pbgra32);
             bitmap.Render((Visual)window.Content);bitmap.Freeze();
-            frames.Add((bitmap,now,card,geometry.Anchor,geometry.CornerProgress,geometry.ContentOpacity));
+            bool contained=!body.IsVisible||body.Opacity<=0||Canvas.GetLeft(body)>=0&&Canvas.GetLeft(body)+body.ActualWidth<=geometry.Monitor.Dpi.Dips(card.Width)+.01;
+            frames.Add((bitmap,now,card,geometry.Anchor,geometry.CornerProgress,geometry.ContentOpacity,contained));
             pixels+=area;last=now;done=terminal;
         }
         finally{capturing=false;}
@@ -55,7 +56,7 @@ internal sealed class OpeningMotionCapture
         {
             var frame=frames[i];string name=$"frame-{i:000}.png";var encoder=new PngBitmapEncoder();encoder.Frames.Add(BitmapFrame.Create(frame.Bitmap));
             using(var file=new FileStream(Path.Combine(directory,name),FileMode.CreateNew,FileAccess.Write,FileShare.None))encoder.Save(file);
-            records.Add(new{File=name,Milliseconds=frame.Ms,Card=frame.Card,Anchor=frame.Anchor,CornerProgress=frame.Corner,ContentOpacity=frame.Opacity});
+            records.Add(new{File=name,Milliseconds=frame.Ms,Card=frame.Card,Anchor=frame.Anchor,CornerProgress=frame.Corner,ContentOpacity=frame.Opacity,ProseHorizontalContained=frame.ProseHorizontalContained});
         }
         using(var file=new FileStream(Path.Combine(directory,"frames.json"),FileMode.CreateNew,FileAccess.Write,FileShare.None))
             JsonSerializer.Serialize(file,new{Kind="ActualWpfContentFrameSamples_NotDwmVideo",TerminalCaptured=done,PixelBudget=16_000_000,Pixels=pixels,Frames=records},new JsonSerializerOptions{WriteIndented=true});

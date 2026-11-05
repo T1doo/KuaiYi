@@ -15,7 +15,7 @@ internal static class AppearanceGeometryProbe
         int count=0;
         foreach(var style in Enum.GetValues<OverlayOutline>())
         foreach(double width in new[]{48d,100,320,420,600})
-        foreach(double height in new[]{48d,120,360,640})
+        foreach(double height in new[]{48d,95,96,97,120,360,640})
         foreach(double scale in new[]{1d,1.25,1.5,2})
         foreach(bool right in new[]{false,true})
         foreach(bool bottom in new[]{false,true})

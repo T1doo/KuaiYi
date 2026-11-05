@@ -247,6 +247,14 @@ internal sealed partial class ShellWindow
             // Resize may render before ApplyBounds returns: the visual tree must already describe this rectangle.
             if(forceNative||outlineChanged||appliedRect!=rect||appliedRadius!=radius||appliedVisible!=IsVisible){NativeDesktop.ApplyBounds(hwnd,rect,radius,show:IsVisible,outline:outlinePixels);appliedRect=rect;appliedRadius=radius;appliedVisible=IsVisible;}
             CommitLayout();
+            if(body.Template.FindName("PART_ContentHost",body) is ScrollViewer readerScroll&&
+                readerScroll.Template.FindName("PART_VerticalScrollBar",readerScroll) is ScrollBar readerBar)
+            {
+                // Keep the reserved width; only suppress transient overflow while the shell catches up.
+                bool capacity=overlayFrames.Plan is {} readerPlan&&rect.Height>=readerPlan.MaximumHeightPixels-1;
+                bool overflow=!overlayFrames.NeedsFrame&&capacity&&body.ExtentHeight>body.ViewportHeight+1;
+                readerBar.Opacity=overflow?1:0;readerBar.IsHitTestVisible=overflow;
+            }
         }
         finally{applyingOverlayFrame=false;}
 
@@ -297,7 +305,12 @@ internal sealed partial class ShellWindow
             double rowTop=toolsDown?slot.Row*48:edge-slot.Row*48;
             // Like the prose, controls occupy their final layout and are revealed
             // by the growing native clip, rather than sliding with the left edge.
-            Canvas.SetLeft(tool,slot.Row==0?start+slot.OffsetDip+(slot.Command=="风格"?0:actionGap):targetOrigin+slot.OffsetDip);Canvas.SetTop(tool,rowTop+(48-tool.Height)/2);
+            double toolLeft=slot.Row==0?start+slot.OffsetDip+(slot.Command=="风格"?0:actionGap):targetOrigin+slot.OffsetDip;
+            double toolTop=rowTop+(48-tool.Height)/2;
+            Canvas.SetLeft(tool,toolLeft);Canvas.SetTop(tool,toolTop);
+            double windowTop=Canvas.GetTop(controls)+toolTop;
+            if(toolLeft<0||toolLeft+tool.Width>width||windowTop<0||windowTop+tool.Height>height)
+                tool.Visibility=Visibility.Hidden;
         }
         double used=toolbar.Where(slot=>slot.Row==0).Select(slot=>slot.OffsetDip+slot.WidthDip).DefaultIfEmpty(0).Max();
         connectionStatus.Visibility=!externalDropHover&&awaitingText&&peek&&expanded&&available-used>=32?Visibility.Visible:Visibility.Collapsed;
@@ -306,7 +319,7 @@ internal sealed partial class ShellWindow
         PublishDropBounds();
         var plan=overlayFrames.Plan;var direction=overlayFrames.ContentDirection;toolbarDivider.Visibility=toolbarSeam.Visibility=Visibility.Collapsed;if(direction==null||peek||!expanded){body.Visibility=resultLabel.Visibility=versionsTool.Visibility=failureNotice.Visibility=Visibility.Collapsed;newContent.Visibility=Visibility.Collapsed;return;}
         bool down=direction is GrowthDirection.RightDown or GrowthDirection.LeftDown or GrowthDirection.BalancedDown;
-        toolbarDivider.Width=width;Canvas.SetTop(toolbarDivider,down?47+edge:0);toolbarDivider.Visibility=toolbarSeam.Visibility=Visibility.Visible;
+        toolbarDivider.Width=Math.Max(0,width-48);Canvas.SetLeft(toolbarDivider,24);Canvas.SetTop(toolbarDivider,down?47+edge:0);toolbarDivider.Opacity=.25;toolbarDivider.Visibility=Visibility.Visible;
         int pad=dpi.CeilingPixels(16),top=down?anchor.Bottom+dpi.CeilingPixels(edge)+pad:rect.Top+pad,bottom=down?rect.Bottom-pad:anchor.Top-dpi.CeilingPixels(edge)-pad;
         double targetWidth=overlayFrames.TextWidthDip;
         if(overlayFrames.Transition==OverlayTransition.Moving)targetWidth=Math.Min(targetWidth,width);
@@ -317,6 +330,14 @@ internal sealed partial class ShellWindow
         Canvas.SetLeft(versionsTool,dpi.Dips(targetLeft-rect.Left)+targetWidth-16-Math.Min(targetWidth/2,76*PresentationTextScale));Canvas.SetTop(versionsTool,dpi.Dips(bottom-rect.Top)-labelHeight);versionsTool.Width=Math.Min(targetWidth/2,76*PresentationTextScale);versionsTool.Height=labelHeight;versionsTool.Visibility=overlayResults.Versions.Count>1&&labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;versionsTool.Opacity=overlayFrames.ContentOpacity;resultLabel.Width=Math.Max(1,targetWidth-32-(versionsTool.Visibility==Visibility.Visible?versionsTool.Width+16:0));resultLabel.Height=labelHeight;resultLabel.Opacity=overlayFrames.ContentOpacity;resultLabel.Visibility=labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(failureNotice,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(failureNotice,dpi.Dips(top-rect.Top));failureNotice.Height=Math.Max(28,noticeHeight-4);failureNotice.Width=Math.Max(1,targetWidth-32);failureNotice.Opacity=overlayFrames.ContentOpacity;failureNotice.Visibility=noticeHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight+noticeHeight)?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(body,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(body,dpi.Dips(top-rect.Top)+noticeHeight);body.Width=Math.Max(1,targetWidth-32);body.Height=Math.Max(0,dpi.Dips(bottom-top)-labelHeight-noticeHeight);body.Opacity=overlayFrames.ContentOpacity;body.Visibility=body.Height>0?Visibility.Visible:Visibility.Collapsed;
+        // Reveal prose only once its complete fixed-width line fits. The shell still
+        // follows the original timing; the final padding provides a soft reveal zone.
+        double leftClearance=Canvas.GetLeft(body),rightClearance=width-leftClearance-body.Width;
+        double readable=Math.Clamp(Math.Min(leftClearance,rightClearance)/16,0,1);
+        if(body.Height<body.FontSize*1.55)readable=0;
+        body.Opacity*=readable;body.IsHitTestVisible=readable>0;
+        resultLabel.Opacity*=readable;versionsTool.Opacity*=readable;failureNotice.Opacity*=readable;
+        versionsTool.IsHitTestVisible=failureNotice.IsHitTestVisible=readable>0;
         newContent.Content=UnreadNoticeLabel;newContent.Width=Math.Min(Math.Max(0,width-32),Math.Ceiling(100*PresentationTextScale));
         Canvas.SetLeft(newContent,Math.Max(0,width-16-newContent.Width));Canvas.SetTop(newContent,Math.Max(0,dpi.Dips(bottom-rect.Top)-labelHeight-32));
         }

@@ -3,10 +3,10 @@ using Xunit;
 namespace KuaiYi.Core.Tests;
 public sealed class FocusedReadingToolbarTests
 {
-    [Fact]public void NormalReadingKeepsOnlyStyleCopyAndOverflow()
+    [Fact]public void NormalReadingKeepsOnlyStyleCopyCollapseAndOverflow()
     {
         var layout=OverlayReadingToolbar.Focused(372,420,true,false,false,1);
-        Assert.Equal(new[]{"风格","复制","更多"},layout.Slots.Select(s=>s.Command));Assert.Equal(0,layout.ExtraHeightDip);
+        Assert.Equal(new[]{"风格","复制","收起","更多"},layout.Slots.Select(s=>s.Command));Assert.Equal(0,layout.ExtraHeightDip);
     }
     [Fact]public void GeneratingKeepsStopImmediatelyAvailable()
     {Assert.Contains(OverlayReadingToolbar.Focused(372,420,true,true,false,1).Slots,s=>s.Command=="停止");}
@@ -14,7 +14,7 @@ public sealed class FocusedReadingToolbarTests
     public void OverflowRemainsReachableWithoutClipping(double side,double width,double scale)
     {
         var layout=OverlayReadingToolbar.Focused(side,width,true,false,true,scale);
-        Assert.Contains(layout.Slots,s=>s.Command=="更多");
+        Assert.Contains(layout.Slots,s=>s.Command=="更多");Assert.Contains(layout.Slots,s=>s.Command=="收起");
         foreach(var slot in layout.Slots){Assert.True(slot.OffsetDip>=0);Assert.True(slot.OffsetDip+slot.WidthDip<=(slot.Row==0?side:width));}
     }
 }

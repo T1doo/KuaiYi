@@ -12,14 +12,26 @@ public static class OverlayReadingToolbar
         var slots=new List<ReadingToolSlot>();double hit=touch?44:32,gap=8,offset=8;
         double primary=Math.Max(hit,36*textScale+20),style=Math.Max(hit,24*textScale+28);
         string action=reading?(generating?"停止":"复制"):"回看";
-        if(primary+hit+gap*3<=sideWidthDip)
+        double required=primary+hit*(reading?2:1)+gap*(reading?4:3);
+        if(required<=sideWidthDip)
         {
-            if(reading&&style+primary+hit+gap*4<=sideWidthDip){slots.Add(new("风格",offset,style));offset+=style+gap;}
-            slots.Add(new(action,offset,primary));offset+=primary+gap;slots.Add(new("更多",offset,hit));return new(slots,0);
+            if(reading&&required+style+gap<=sideWidthDip){slots.Add(new("风格",offset,style));offset+=style+gap;}
+            slots.Add(new(action,offset,primary));offset+=primary+gap;
+            if(reading){slots.Add(new("收起",offset,hit));offset+=hit+gap;}
+            slots.Add(new("更多",offset,hit));return new(slots,0);
         }
-        if(hit+16<=sideWidthDip){slots.Add(new("更多",8,hit));return new(slots,0);}
-        // Balanced growth can leave neither side wide enough. Keep overflow reachable below.
-        slots.Add(new("更多",8,Math.Min(hit,cardWidthDip-16),1));return new(slots,48);
+        // Preserve immediate stop/collapse even when the anchor leaves little side space.
+        int row=1;double usable=cardWidthDip-16;
+        void Add(string command,double requested)
+        {
+            double width=Math.Min(requested,usable);
+            if(offset>8&&offset+width>cardWidthDip-8){row++;offset=8;}
+            slots.Add(new(command,offset,width,row));offset+=width+gap;
+        }
+        if(generating)Add("停止",primary);
+        if(reading)Add("收起",hit);
+        Add("更多",hit);
+        return new(slots,row*48);
     }
     public static ReadingToolbarLayout Responsive(double sideWidthDip,double cardWidthDip,bool reading,bool generating,bool touch,double textScale)
     {

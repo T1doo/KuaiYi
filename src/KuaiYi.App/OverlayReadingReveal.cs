@@ -9,7 +9,7 @@ internal sealed partial class ShellWindow
     internal bool PresentationTextRevealPending{get;private set;}
     partial void PrepareReadingText(Guid? version,ref string text,ref bool complete)
     {
-        bool immediate=ReduceMotion||!IsVisible||!follow||peek||
+        bool immediate=complete||ReduceMotion||!IsVisible||!follow||peek||
             overlayResults.Identity?.VersionId!=version||
             overlayResults.Versions.FirstOrDefault(v=>v.Identity.VersionId==version)?.Stopped==true;
         int count=readingReveal.Advance(version,text,readingClock.Elapsed.TotalSeconds,immediate);

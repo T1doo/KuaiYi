@@ -29,5 +29,32 @@ internal static class DesktopSourceChrome
         template.VisualTree=stack;
         var expanded=new Trigger{Property=Expander.IsExpandedProperty,Value=true};expanded.Setters.Add(new Setter(UIElement.VisibilityProperty,Visibility.Visible,"sourceContent"));template.Triggers.Add(expanded);
         source.Template=template;
+        // Keep document layout space, but never expose a clipped interactive header.
+        // The same check also applies while the user scrolls the original text.
+        void Update(object? sender,EventArgs e)
+        {
+            if(source.Template.FindName("HeaderSite",source) is not ToggleButton toggle)return;
+            var reader=Ancestor<RichTextBox>(source);var window=Window.GetWindow(source);
+            if(reader==null||window==null)return;
+            ShowWhole(toggle,reader,window);
+            if(source.Tag is Button copyButton)ShowWhole(copyButton,reader,window);
+        }
+        source.Loaded+=(_,_)=>{source.LayoutUpdated-=Update;source.LayoutUpdated+=Update;};
+        source.Unloaded+=(_,_)=>source.LayoutUpdated-=Update;
+    }
+    private static T? Ancestor<T>(DependencyObject element)where T:DependencyObject
+    {
+        for(DependencyObject? node=element;node!=null;node=System.Windows.Media.VisualTreeHelper.GetParent(node))
+            if(node is T result)return result;
+        return null;
+    }
+    private static void ShowWhole(Control control,FrameworkElement viewport,Window window)
+    {
+        if(!control.IsVisible)return;
+        var bounds=new Rect(0,0,control.ActualWidth,control.ActualHeight);
+        bool shown=control.ActualWidth>0&&control.ActualHeight>0&&
+            new Rect(0,0,viewport.ActualWidth,viewport.ActualHeight).Contains(control.TransformToAncestor(viewport).TransformBounds(bounds))&&
+            new Rect(0,0,window.ActualWidth,window.ActualHeight).Contains(control.TransformToAncestor(window).TransformBounds(bounds));
+        control.Opacity=shown?1:0;control.IsHitTestVisible=shown;control.IsTabStop=shown;
     }
 }

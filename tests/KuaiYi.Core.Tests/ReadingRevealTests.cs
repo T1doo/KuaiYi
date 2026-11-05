@@ -4,6 +4,21 @@ using Xunit;
 namespace KuaiYi.Core.Tests;
 public sealed class ReadingRevealTests
 {
+    [Theory][InlineData(2000)][InlineData(100000)]
+    public void LargeBurstHasNoExponentialDisplayTail(int length)
+    {
+        var reveal=new ReadingReveal();var id=Guid.NewGuid();string text=new('中',length);
+        Assert.Equal(1,reveal.Advance(id,text,0,false));
+        Assert.Equal(length,reveal.Advance(id,text,.198,false));
+    }
+    [Fact]public void ContinuedArrivalDoesNotResetOldestPendingDeadline()
+    {
+        var reveal=new ReadingReveal();var id=Guid.NewGuid();reveal.Advance(id,new string('中',2000),0,false);
+        int intermediate=reveal.Advance(id,new string('中',4000),.05,false);Assert.True(intermediate<4000);
+        Assert.Equal(6000,reveal.Advance(id,new string('中',6000),.198,false));
+    }
+    [Fact]public void DispatcherStallCatchesUpAtFirstCallback()
+    {var reveal=new ReadingReveal();var id=Guid.NewGuid();reveal.Advance(id,"long received text",0,false);Assert.Equal(18,reveal.Advance(id,"long received text",.5,false));}
     [Fact]public void BurstsProgressWithoutSplittingUnicodeTextElements()
     {
         var reveal=new ReadingReveal();var id=Guid.NewGuid();string text="你👩‍💻好e\u0301世界，再见。";

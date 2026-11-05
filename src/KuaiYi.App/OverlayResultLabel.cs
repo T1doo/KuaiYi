@@ -7,7 +7,8 @@ internal sealed partial class ShellWindow
     private void RefreshResultLabel()
     {
         var selection=SelectedSource;var snapshot=selection.Text;var selected=overlayResults.Versions.FirstOrDefault(v=>v.Identity.VersionId==overlayResults.SelectedVersionId);
-        string state=selected?.Failure!=null?"未完成":selected?.Stopped==true?"已停止":selected?.Complete==true?"已完成":"生成中";
+        bool settling=selected?.Complete==true&&overlayResults.SelectedVersionId==overlayResults.Identity?.VersionId&&lifecycle.Gate.HasRunningGeneration;
+        string state=selected?.Failure!=null?"未完成":selected?.Stopped==true?"已停止":settling?"正在收尾":selected?.Complete==true?"已完成":"生成中";
         resultLabel.Text=snapshot==null?"":$"{(snapshot.Transport.IsDevelopmentFixture?"本地测试输出 · ":snapshot.Transport.BaseUrl.Scheme=="http"?"非加密 HTTP · ":"")}{state} · {SourceLabel(snapshot)} · {StyleLabel(snapshot)} · 版本 {snapshot.VersionNumber} · {snapshot.Profile.Model}";
         resultLabel.ToolTip=snapshot==null?null:$"此版本快照 · {snapshot.FullTemplateVersion} · {new EndpointOrigin(snapshot.Transport.ResolveEndpoint()).Value}";
         if(snapshot?.Source.SourceKind==SelectionSourceKind.OcrOnly)resultLabel.ToolTip+="\n当前模型不支持图像理解，图形关系未分析";

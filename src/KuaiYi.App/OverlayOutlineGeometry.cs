@@ -11,26 +11,40 @@ internal static class OverlayOutlineGeometry
     {
         var bounds=new Rect(0,0,width,height);
         if(style==OverlayOutline.Glass||progress<=0)return new RectangleGeometry(bounds,radius,radius);
-        double inset=Math.Min(14*progress,Math.Min(width,height)/8);
         Geometry shape;
         if(style==OverlayOutline.Cloud)
         {
-            // Visible cloud shoulders; the central reading rectangle remains intact.
-            shape=new RectangleGeometry(new Rect(inset,inset,width-2*inset,height-2*inset),radius,radius);
-            double span=Math.Max(1,(width-2*radius)/3);
-            for(int i=0;i<3;i++)
+            // Fixed C1-continuous cubic topology: unequal shoulders, quiet sides,
+            // one broad lower arc. No height-dependent addition of lobes.
+            double r=Math.Min(radius+8*progress,Math.Min(width,height)*.24);
+            double d=progress,tx=Math.Min(width*.10,44),ty=Math.Min(height*.12,30);
+            (Point P,Vector T)[] nodes=
+            [
+                (new(r,6*d),new(r*.55,0)),
+                (new(width*.35,2*d),new(tx,0)),
+                (new(width*.62,7*d),new(tx,0)),
+                (new(width-r,3*d),new(r*.55,0)),
+                (new(width-3*d,r),new(0,r*.55)),
+                (new(width-7*d,height*.52),new(0,ty)),
+                (new(width-4*d,height-r),new(0,r*.55)),
+                (new(width-r,height-4*d),new(-r*.55,0)),
+                (new(width*.45,height-7*d),new(-tx,0)),
+                (new(r,height-4*d),new(-r*.55,0)),
+                (new(3*d,height-r),new(0,-r*.55)),
+                (new(7*d,height*.45),new(0,-ty)),
+                (new(3*d,r),new(0,-r*.55))
+            ];
+            var cloud=new StreamGeometry();
+            using(var context=cloud.Open())
             {
-                double x=radius+span*(i+.5),rx=span*.53;
-                shape=Geometry.Combine(shape,new EllipseGeometry(new Point(x,inset*2),rx,inset*2),GeometryCombineMode.Union,null);
-                shape=Geometry.Combine(shape,new EllipseGeometry(new Point(x,height-inset*2),rx,inset*2),GeometryCombineMode.Union,null);
-            }
-            if(height>96)
-                for(int i=0;i<3;i++)
+                context.BeginFigure(nodes[0].P,true,true);
+                for(int i=0;i<nodes.Length;i++)
                 {
-                    double y=radius+(height-2*radius)*(i+.5)/3,ry=(height-2*radius)*.19;
-                    shape=Geometry.Combine(shape,new EllipseGeometry(new Point(inset*2,y),inset*2,ry),GeometryCombineMode.Union,null);
-                    shape=Geometry.Combine(shape,new EllipseGeometry(new Point(width-inset*2,y),inset*2,ry),GeometryCombineMode.Union,null);
+                    var first=nodes[i];var next=nodes[(i+1)%nodes.Length];
+                    context.BezierTo(first.P+first.T,next.P-next.T,next.P,true,true);
                 }
+            }
+            shape=cloud;
         }
         else
         {

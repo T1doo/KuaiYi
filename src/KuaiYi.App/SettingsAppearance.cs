@@ -11,7 +11,6 @@ internal sealed partial class SettingsWindow
     private readonly ComboBox backgroundMotion=Choice<OverlayBackgroundMotion>();
     private readonly ComboBox typeface=Choice<OverlayTypeface>();
     private readonly ComboBox outline=Choice<OverlayOutline>();
-    private bool loadingAppearance;
     private readonly TextBox customColor=new(){MaxLength=7};
     private readonly AuroraGlassSurface appearancePreview=new(){Height=112,IsHitTestVisible=false};
     private readonly Grid appearancePreviewHost=new(){Height=112,Margin=new Thickness(0,8,0,16),IsHitTestVisible=false};
@@ -23,24 +22,13 @@ internal sealed partial class SettingsWindow
         appearancePreviewHost.Children.Add(appearancePreview);appearancePreviewHost.Children.Add(appearancePreviewText);
         page.Children.Add(appearancePreviewHost);
         appearancePreviewHost.SizeChanged+=(_,_)=>RefreshAppearancePreview();
-        PreferenceRow(page,"皮肤","一键搭配颜色、轮廓与背景动效",colorStyle);
+        PreferenceRow(page,"皮肤","只更换配色，保留字号、字体、宽度与动效偏好",colorStyle);
+        PreferenceRow(page,"轮廓","圆角方框、柔和云朵、流体或气泡",outline);
         var details=DetailSection(page,"外观细调");
         PreferenceRow(details,"背景动效","静态玻璃或缓慢流动的光晕",backgroundMotion);
-        PreferenceRow(details,"浮窗轮廓","玻璃、云朵、流体或泡泡",outline);
         PreferenceRow(details,"自选主色","选择自定义配色时使用，例如 #8B5CF6",customColor);
         PreferenceRow(details,"字体","现代中英搭配，或系统字体",typeface);
-        colorStyle.SelectionChanged+=(_,_)=>
-        {
-            if(!loadingAppearance&&colorStyle.SelectedItem is OverlayColorStyle selected&&selected!=OverlayColorStyle.Custom)
-            {
-                theme.SelectedItem=selected==OverlayColorStyle.Graphite?ThemePreference.Dark:ThemePreference.Light;
-                outline.SelectedItem=selected is OverlayColorStyle.Aurora or OverlayColorStyle.Sakura?OverlayOutline.Cloud:selected==OverlayColorStyle.Graphite?OverlayOutline.Glass:OverlayOutline.Fluid;
-                backgroundMotion.SelectedItem=selected==OverlayColorStyle.Graphite?OverlayBackgroundMotion.Still:OverlayBackgroundMotion.Flow;
-                typeface.SelectedItem=OverlayTypeface.Modern;
-                font.Text="16";width.Text="460";
-            }
-            RefreshAppearancePreview();
-        };
+        colorStyle.SelectionChanged+=(_,_)=>RefreshAppearancePreview();
         backgroundMotion.SelectionChanged+=(_,_)=>RefreshAppearancePreview();
         outline.SelectionChanged+=(_,_)=>RefreshAppearancePreview();
         typeface.SelectionChanged+=(_,_)=>RefreshAppearancePreview();
@@ -58,10 +46,10 @@ internal sealed partial class SettingsWindow
 
     private void LoadAppearance()
     {
-        var value=draft.Data.Overlay;loadingAppearance=true;
-        try{colorStyle.SelectedItem=value.ColorStyle;backgroundMotion.SelectedItem=value.BackgroundMotion;
-        typeface.SelectedItem=value.Typeface;outline.SelectedItem=value.Outline;customColor.Text=value.CustomColor;}
-        finally{loadingAppearance=false;}
+        var value=draft.Data.Overlay;
+        colorStyle.SelectedItem=value.ColorStyle;backgroundMotion.SelectedItem=value.BackgroundMotion;
+        typeface.SelectedItem=value.Typeface;outline.SelectedItem=value.Outline;customColor.Text=value.CustomColor;
+
         RefreshAppearancePreview();
     }
 

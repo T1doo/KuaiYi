@@ -35,7 +35,7 @@ internal static class DesktopTheme
             ApiProfile profile=>profile.Name,
             OverlayColorStyle.Aurora=>"晴空蓝",OverlayColorStyle.Prism=>"暮光紫",OverlayColorStyle.Ocean=>"薄荷海岸",OverlayColorStyle.Sakura=>"樱花云",OverlayColorStyle.Sunset=>"蜜桃日落",OverlayColorStyle.Graphite=>"夜色石墨",OverlayColorStyle.Custom=>"自定义",
             OverlayBackgroundMotion.Still=>"静态",OverlayBackgroundMotion.Flow=>"缓慢流动",
-            OverlayOutline.Glass=>"圆角玻璃",OverlayOutline.Cloud=>"云朵",OverlayOutline.Fluid=>"流体轮廓",OverlayOutline.Bubble=>"圆润气泡",
+            OverlayOutline.Glass=>"圆角方框",OverlayOutline.Cloud=>"柔和云朵",OverlayOutline.Fluid=>"流体轮廓",OverlayOutline.Bubble=>"圆润气泡",
             OverlayTypeface.Modern=>"等线中文 + Segoe 英文",OverlayTypeface.System=>"Windows 系统字体",
             _=>value?.ToString()??""
         };
